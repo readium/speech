@@ -340,7 +340,16 @@ await extractUtterances(gnd, {
 
 #### `segmenter`
 
-The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own abbreviation-suppression pass on top (`suppressions` above, merged with the exported `builtInSuppressions`). Risks worth knowing before relying on it:
+The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own corrections on top:
+
+- **Abbreviations.** A sentence ending in one of `suppressions`, merged with the exported `builtInSuppressions`, joins the next. It must end at a token boundary, after whitespace or an opening bracket or quote: `"See (Mr. Smith) here."` stays whole, and a suppression `"rd."` never matches inside `"Word."`.
+- **Short markers.** A sentence with fewer than 2 letters, such as a `"1."` list marker, joins the next.
+- **Literal ellipsis.** `"..."` is a continuation, like `"…"`: `"Wait... Then it came."` stays whole.
+- **Glued opening quotes.** An opening `“`, or an unmatched `"`, glued to the end of a sentence moves to the next one: `"He said.“Next one.”"` → `"He said."`, `"“Next one.”"`.
+- **Em dash attributions.** After `.`/`!`/`?` and an optional closing quote or bracket, ` — ` before a capital letter splits the attribution off: `"A quote. — Author"` → `"A quote. —"`, `"Author"`. An em dash without that punctuation before it is left alone.
+- **Closing guillemets.** A `»` split off after the terminator moves back to the previous sentence while a `«` is still open: `"« Il n’y a rien ! Vraiment rien ! » Elle se tut."` → `"« Il n’y a rien !"`, `"Vraiment rien ! »"`, `"Elle se tut."`. The same goes for `«` in German-style `»…«` quotes, and for `›`/`‹`.
+
+Risks worth knowing before relying on it:
 
 - **ICU data availability.** `Intl.Segmenter`'s sentence-break behavior depends on the JS engine's bundled ICU/CLDR data. Runtimes that ship reduced ICU (some mobile WebViews, some server builds configured with `small-icu`) can produce different — sometimes worse — boundaries than a desktop browser, with no error raised.
 - **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
