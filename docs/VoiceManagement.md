@@ -164,7 +164,7 @@ Retrieves a sample text string suitable for testing text-to-speech functionality
 
 ## Standalone Helpers
 
-Exported functions that work on any `ReadiumSpeechVoice[]`, without a `WebSpeechVoiceManager` instance.
+Exported functions that work without a `WebSpeechVoiceManager` instance.
 
 ### Filtering
 
@@ -222,6 +222,20 @@ async pickDefaultVoice(languages: string[] | undefined, voices: ReadiumSpeechVoi
 `pickLanguageVoice` picks the voice for `language`: among the voices of its base language, whatever the region, without novelty or very low quality ones, preferring those whose boundary support is `needsBoundary` (default `true`), ranked by `pickBestVoiceByRegion`: `language`'s region, then the language's default region from the JSON, then the others. `null` without a voice of the language.
 
 `pickDefaultVoice` picks one voice for several languages: the `pickLanguageVoice` of the first of `languages` with one, else the first of `sortVoicesByRegions(languages, voices)`. Without `languages`, the user's preferred languages (`navigator.languages`) are used. `voiceManager.getDefaultVoice()` differs: it ranks all `voices` by `languages`, without preferring boundary events.
+
+### Languages
+
+```typescript
+extractLangRegionFromBCP47(lang: string): [string, string | undefined]
+valueForLanguage<T>(valuesByLanguage: Record<string, T>, lang: string): T | undefined
+getLanguageDisplayName(code: string, localization?: string): string
+chineseVariantMap: { [key: string]: string }
+```
+
+- `extractLangRegionFromBCP47`: `"en-us"` → `["en", "US"]`, `"fr"` → `["fr", undefined]`; `_` is read as `-`. Same as `WebSpeechVoiceManager.extractLangRegionFromBCP47()`.
+- `valueForLanguage`: the value for the exact tag, else for its primary subtag, keys matched case-insensitively — how the `languageOverrides` [preference](Preferences.md) is matched. `valueForLanguage({ en: "a", "en-GB": "b" }, "en-US")` → `"a"`.
+- `getLanguageDisplayName`: the [`Intl.DisplayNames`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames) name of `code`, in `localization` or the runtime's locale: `getLanguageDisplayName("fr", "de")` → `"Französisch"`. Falls back to `code` uppercased.
+- `chineseVariantMap`: Chinese tags to the language codes of the voice data ([cmn.json](../json/cmn.json), [yue.json](../json/yue.json), [wuu.json](../json/wuu.json)): `zh`/`zh-CN` → `cmn`/`cmn-CN`, `zh-TW` → `cmn-TW`, `zh-HK` → `yue-HK`.
 
 ## Interfaces & Types
 
