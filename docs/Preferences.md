@@ -138,3 +138,23 @@ interruptions?: Partial<Record<GndRole, "never" | "inline" | "after">>; // defau
 ```
 
 `interruptions` applies under every `verbosity`, `"custom"` or not.
+
+## Constants
+
+The values the editor's handles check against, exported for building UIs without a navigator:
+
+```typescript
+verbosityPresets;   // ["none", "few", "some", "most", "custom"]
+languageModes;      // ["none", "block-level", "always"]
+segmentationModes;  // ["structure", "sentence"]
+autoPauseScopes;    // ["none", "utterance", "block"]
+extractionFormats;  // ["plain", "ssml"]
+interruptionValues; // ["never", "inline", "after"]
+
+pauseDurationRangeConfig; // { range: [0, 5000], step: 100 }
+rateRangeConfig;          // { range: [0.1, 10], step: 0.1 }
+pitchRangeConfig;         // { range: [0, 2], step: 0.1 }
+volumeRangeConfig;        // { range: [0, 1], step: 0.05 }
+```
+
+`extractionPreferenceKeys` lists the extraction group: `format`, `interruptions`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`, `reconstruct`.
