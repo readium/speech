@@ -316,7 +316,7 @@ await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence"
 // [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
 ```
 
-Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a [block-level role](../src/utterances/roles.ts) (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
+Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a role in the exported `blockLevelRoles` (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
 
 ```typescript
 // <p>This sentence continues</p><p>across two paragraphs.</p>
