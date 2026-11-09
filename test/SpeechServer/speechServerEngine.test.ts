@@ -1,5 +1,6 @@
 import test from "ava";
-import { SpeechServerEngine, chunkPlainText } from "../../build/index.js";
+import { SpeechServerEngine } from "../../build/index.js";
+import { chunkPlainText } from "../../src/SpeechServer/chunkText.js";
 import { createMockFetch, makeServerVoice, wavBase64, flush, defaultServiceInfo } from "./testUtils.js";
 
 function wait(ms: number): Promise<void> {

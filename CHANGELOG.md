@@ -8,6 +8,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
 
+### Removed
+
+- **Breaking:** SpeechServer internals are no longer exported: `chunkPlainText`, `chunkSsmlText`, `TextChunk`, `selectFormat`, `selectBitrate`, `mimeTypeForFormat`, `CanPlayType`, `CanPlayTypeResult`, `NetworkInfo`, `mapServerVoice`, `toSpeechServerError`, `SpeechServerProblemDetails`, `SpeechServerVoice`, `SpeechServerServiceInfo`, `SpeechServerSynthesizeRequest`, `SpeechServerSynthesizeBoundaryResponse` and `SpeechServerTimingMark`.
+
 ### Fixed
 
 - `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
