@@ -20,7 +20,7 @@ const SAFARI_CANCEL_SETTLE_DELAY = 250;
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
-  private speechSynthesisUtterance: any;
+  private speechSynthesisUtterance: typeof SpeechSynthesisUtterance;
   private currentVoice: ReadiumSpeechVoice | null = null;
   // The voice of the utterance being spoken, reported in its "start" event.
   private speakingVoice: ReadiumSpeechVoice | null = null;
