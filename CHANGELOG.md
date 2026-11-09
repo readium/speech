@@ -15,6 +15,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- `WebSpeechEngine`'s `"error"` events carry `recoverable`, like every `ErrorEventDetail`: `true` for a `"network"` error, `false` otherwise.
 - `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
 
 ## [0.19.0] - 2026-11-04

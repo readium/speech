@@ -454,7 +454,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
           type: "error",
           detail: {
             error: event.error,  // Preserve original error type
-            message: `Speech synthesis error: ${event.error}`
+            message: `Speech synthesis error: ${event.error}`,
+            recoverable: event.error === "network"
           }
         });
       }

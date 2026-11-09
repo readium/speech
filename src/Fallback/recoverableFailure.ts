@@ -8,6 +8,7 @@ import { ReadiumSpeechPlaybackEvent } from "../navigator.js";
 export interface ErrorEventDetail {
   message: string;
   recoverable: boolean;
+  error?: string; // WebSpeech only: the SpeechSynthesisErrorEvent's error code
   status?: number;
   type?: string;
   title?: string;
