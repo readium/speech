@@ -262,7 +262,11 @@ await extractUtterances(gnd, { format: "plain", language: "always", languageOver
 How each role in [`interruptionRoles`](#role-sets) (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) is read where it interrupts the text: `"never"`, `"inline"` at that exact point, or `"after"` (the default) — after the sentence holding it with `segmentation: { mode: "sentence" }`, after its whole block otherwise. Independent of `skip` and of verbosity presets.
 
 - `noteref`: its footnote. `"never"` drops it.
-- `pagebreak`: its label. `"never"` drops it.
+- `pagebreak`: its label. `"never"` drops it. A label that's only a page number is read through the catalog's `pagebreak.number` (`"Page {{ number }}"`), contextualized or not. A page number is one of:
+  - a run of digits of any script (`5`, `٥`, `५`), or of letter-number characters (`Ⅻ`);
+  - a Roman numeral, any case (`iv`, `XII`);
+  - CJK numerals (`五`, `十二`) or Ethiopic numerals (`፭`);
+  - letter numerals with their numeral mark: Hebrew geresh or gershayim (`ה׳`, `י״ב`), Greek keraia (`εʹ`), Armenian overline (`Ե̅`), Cyrillic titlo (`е҃`). Without the mark, they can't be told apart from words.
 - `biblioref`/`glossref`: the bibliography entry or definition they embed; their own text is always read in place. With `"after"`, a definition is read as "term: definition" (catalog's `glossref.term`). With them in `contextualize`, "Bibliographic reference." or "Glossary definition." is read before the entry or definition.
 - `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only.
 
