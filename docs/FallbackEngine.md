@@ -41,6 +41,25 @@ On a mid-playback swap, the new engine resumes at the same utterance — immedia
 
 With `onFailure: "fallback"` (the default), it only ever falls back once per session — a further failure on the fallback engine itself surfaces as a plain `"error"` event, since there's nothing left to fall back to.
 
+## Custom primary engines
+
+Any `ReadiumSpeechEngineProvider` can be the primary. Before playback, any error its `getVoices()`/`createEngine()` throws falls back. Mid-playback, only an `"error"` event whose `detail` is an `ErrorEventDetail` with `recoverable: true` does:
+
+```ts
+interface ErrorEventDetail {
+  message: string;
+  recoverable: boolean; // true only when the server/API was never reached (network failure, timeout)
+  status?: number;      // RFC 9457 Problem Details, set by SpeechServerEngine only
+  type?: string;
+  title?: string;
+  instance?: string;
+}
+
+isRecoverableFailure(event: ReadiumSpeechPlaybackEvent): boolean // detail?.recoverable === true
+```
+
+An event without `recoverable` is not recoverable, so it's forwarded as a plain `"error"`.
+
 ## Recovering back to the primary
 
 Set `onFailure: "fallbackAndRecover"` to also poll the primary while on the fallback, and swap back once it's reachable again:
