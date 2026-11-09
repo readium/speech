@@ -9,6 +9,7 @@ export {
   autoPauseScopes,
   extractionFormats,
   extractionPreferenceKeys,
+  interruptionValues,
   languageModes,
   pauseDurationRangeConfig,
   pitchRangeConfig,

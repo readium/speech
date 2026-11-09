@@ -4,6 +4,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ## [Unreleased]
 
+### Added
+
+- `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
+
 ### Fixed
 
 - `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
