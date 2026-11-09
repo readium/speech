@@ -14,6 +14,52 @@ await navigator.submitPreferences(editor.preferences);
 
 `submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `interruptions`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`, `reconstruct`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
+## Editor
+
+`navigator.preferencesEditor` stages edits on a copy of the submitted preferences; nothing changes until `editor.preferences` is passed to `submitPreferences()`, which also replaces the editor. Each field is a handle:
+
+```typescript
+interface IPreference<T> {
+  value: T | null | undefined;          // the staged preference; assigning stages it
+  effectiveValue: T | null | undefined; // the resolved setting as of the last submission
+  isEffective: boolean;                 // whether `value` is set and applies
+  clear(): void;                        // stages `null`
+}
+
+interface IEnumPreference<T> extends IPreference<T> {
+  supportedValues: readonly T[];
+}
+
+interface IRangePreference<T> extends IPreference<T> {
+  supportedRange: readonly [T, T];
+  step: number;
+  increment(): void; // by `step`, clamped to `supportedRange`
+  decrement(): void;
+  format(value: T): string;
+}
+```
+
+| Handle | Fields |
+| --- | --- |
+| `EnumPreference` | `format`, `verbosity`, `language`, `segmentation`, `autoPause` |
+| `RangePreference` | `pauseDuration`, `rate`, `pitch`, `volume` |
+| `BooleanPreference` | `reconstruct` |
+| `StringArrayPreference` | `skip`, `contextualize` |
+| `Preference` | `interruptions`, `languageOverrides`, `voice` |
+
+Assigning an unsupported enum value, an out-of-range number, or a wrong type throws; `Preference` handles don't check. `increment()`/`decrement()` do nothing while `value` is unset. `reconstruct.isEffective` is `false` unless `segmentation` is `"sentence"`. `editor.clear()` stages `null` for every field.
+
+`submitPreferences()` merges into the current preferences: an `undefined` field keeps the current preference, a `null` one clears it so the default applies.
+
+```typescript
+const editor = navigator.preferencesEditor;
+editor.rate.supportedRange;        // [0.1, 10]
+editor.rate.value ??= editor.rate.effectiveValue;
+editor.rate.increment();
+editor.autoPause.clear();
+await navigator.submitPreferences(editor.preferences);
+```
+
 ## Defaults
 
 Every default (`"few"` verbosity, 300ms `pauseDuration`, rate/pitch/volume of `1.0`, ...) is itself configurable — pass a `defaults` object to `ReadiumSpeechNavigator`'s constructor, alongside optional initial `preferences`:
