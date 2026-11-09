@@ -49,13 +49,14 @@ Any `ReadiumSpeechEngineProvider` can be the primary. Before playback, any error
 interface ErrorEventDetail {
   message: string;
   recoverable: boolean; // true only when the server/API was never reached (network failure, timeout)
+  error?: string;       // the SpeechSynthesisErrorEvent's error code, set by WebSpeechEngine only
   status?: number;      // RFC 9457 Problem Details, set by SpeechServerEngine only
   type?: string;
   title?: string;
   instance?: string;
 }
 
-isRecoverableFailure(event: ReadiumSpeechPlaybackEvent): boolean // detail?.recoverable === true
+isRecoverableFailure(event: ReadiumSpeechPlaybackEvent<"error">): boolean // detail?.recoverable === true
 ```
 
 An event without `recoverable` is not recoverable, so it's forwarded as a plain `"error"`.

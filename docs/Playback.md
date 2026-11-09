@@ -33,9 +33,9 @@ interface ReadiumSpeechNavigatorContract {
   getState(): ReadiumSpeechPlaybackState;
   
   // Events
-  on(
-    event: ReadiumSpeechPlaybackEvent["type"] | "contentchange",
-    listener: (event: ReadiumSpeechPlaybackEvent) => void
+  on<T extends keyof ReadiumSpeechNavigatorEventDetails>(
+    event: T,
+    listener: (event: ReadiumSpeechNavigatorEvent<T>) => void
   ): () => void;
   
   // Lifecycle
@@ -122,25 +122,50 @@ Each gets a voice picked as soon as the engine is initialized, in the language t
 
 ### `ReadiumSpeechPlaybackEvent`
 
+Each event's `detail` is typed by its `type`, and `on()` hands a listener the event of the type it listens to:
+
 ```typescript
-type ReadiumSpeechPlaybackEvent = {
-  type: 
-    | "start"           // Playback started
-    | "pause"           // Playback paused
-    | "resume"          // Playback resumed
-    | "end"             // Playback ended naturally
-    | "stop"            // Playback stopped manually
-    | "skip"            // Skipped to another utterance
-    | "error"           // An error occurred
-    | "boundary"        // Reached a word/sentence/structure boundary
-    | "mark"            // Reached a named mark in SSML
-    | "idle"            // No content loaded
-    | "loading"         // Loading content
-    | "ready"           // Ready to play
-    | "voiceschanged"   // Available voices changed
-    | "languagefallback"; // No voice matched an utterance's content language
-  detail?: any;  // Event-specific data
-};
+interface ReadiumSpeechPlaybackEventDetails {
+  start: { voice: ReadiumSpeechVoice | null };  // Playback started
+  pause: undefined;                             // Playback paused
+  resume: undefined;                            // Playback resumed
+  end: undefined;                               // Playback ended naturally
+  stop: undefined;                              // Playback stopped manually
+  skip: { position: number };                   // Skipped to another utterance
+  error: ErrorEventDetail;                      // An error occurred
+  boundary: ReadiumSpeechBoundaryDetail;        // Reached a word/sentence/structure boundary
+  mark: { name: string };                       // Reached a named mark in SSML
+  idle: undefined;                              // No content loaded
+  loading: undefined;                           // Loading content
+  ready: undefined;                             // Ready to play
+  voiceschanged: undefined;                     // Available voices changed
+  languagefallback: { language: string; reason: "no-matching-voice" }; // No voice matched an utterance's content language
+  enginefallback: { reason: ErrorEventDetail; voice: ReadiumSpeechVoice | null }; // Swapped to a fallback engine
+  enginerecovered: { voice: ReadiumSpeechVoice | null }; // Swapped back to the primary engine
+}
+
+// The navigator's events: the engine's, plus contentchange.
+interface ReadiumSpeechNavigatorEventDetails extends ReadiumSpeechPlaybackEventDetails {
+  contentchange: { content: ReadiumSpeechUtterance[] };
+}
+
+interface ReadiumSpeechBoundaryDetail {
+  name: string;
+  charIndex: number;
+  charLength: number;
+  elapsedTime?: number;
+  locate?: LocatorOptions | LocatorOptions[];
+  word?: string;
+}
+```
+
+`ErrorEventDetail` is described in [FallbackEngine](FallbackEngine.md#custom-primary-engines).
+
+`ReadiumSpeechPlaybackEvent<T>` (engines) and `ReadiumSpeechNavigatorEvent<T>` (navigator) are `{ type: T; detail }` for one type, or the union of all of them without `T`:
+
+```typescript
+navigator.on("start", (event) => event.detail.voice?.name);
+navigator.on("error", (event) => event.detail.recoverable);
 ```
 
 ### `"boundary"` events
