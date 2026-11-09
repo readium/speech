@@ -148,6 +148,7 @@ Documentation provides guides for:
 - [Voice Management](docs/VoiceManagement.md)
 - [Playback API](docs/Playback.md)
 - [Preferences](docs/Preferences.md) — verbosity and prosody settings via `SpeechPreferences`/`SpeechSettings`
+- [Verbosity](docs/Verbosity.md) — roles each verbosity preset skips and contextualizes
 - [Highlighting](docs/Highlighting.md)
 - [Guided Navigation](docs/GuidedNavigation.md) — getting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content with `@readium/guided-navigation`
 - [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects

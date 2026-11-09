@@ -1,0 +1,107 @@
+# Verbosity
+
+Per-role behavior of each `verbosity` preset (see [Preferences](Preferences.md#verbosity)), from [src/preferences/verbosityTables.ts](../src/preferences/verbosityTables.ts). Under `"custom"`, `skip`/`contextualize` from `SpeechPreferences` replace both tables.
+
+Roles in [`interruptionRoles`](UtteranceExtraction.md#interruptions) (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) are never skipped by a preset; where they're read is set by `interruptions`, under every preset.
+
+## Skipped roles
+
+A skipped role is dropped with its whole subtree — content and announcement both. Roles not listed are never skipped by a preset.
+
+| Role | `none` | `few` | `some` | `most` |
+| --- | --- | --- | --- | --- |
+| `aside` | ✓ | ✓ | ✓ |  |
+| `audio` | ✓ |  |  |  |
+| `bibliography` | ✓ | ✓ | ✓ |  |
+| `cell` | ✓ | ✓ |  |  |
+| `columnheader` | ✓ | ✓ |  |  |
+| `details` | ✓ | ✓ |  |  |
+| `endnotes` | ✓ | ✓ | ✓ |  |
+| `figure` | ✓ |  |  |  |
+| `glossary` | ✓ | ✓ | ✓ |  |
+| `image` | ✓ |  |  |  |
+| `landmarks` | ✓ | ✓ | ✓ | ✓ |
+| `loa` | ✓ | ✓ | ✓ | ✓ |
+| `loi` | ✓ | ✓ | ✓ | ✓ |
+| `lot` | ✓ | ✓ | ✓ | ✓ |
+| `lov` | ✓ | ✓ | ✓ | ✓ |
+| `pullquote` | ✓ | ✓ | ✓ |  |
+| `row` | ✓ | ✓ |  |  |
+| `rowheader` | ✓ | ✓ |  |  |
+| `table` | ✓ |  |  |  |
+| `toc` | ✓ | ✓ | ✓ | ✓ |
+| `video` | ✓ |  |  |  |
+
+## Contextualized roles
+
+A contextualized role gets an announcement from the [contextualization catalog](UtteranceExtraction.md#contextualization-catalog); its content plays either way. `none` contextualizes nothing. Shape is the catalog's (see [`inline` vs `block`](UtteranceExtraction.md#inline-vs-block)); for `table`, the cell gives the shape spoken at that level.
+
+| Role | Shape | `few` | `some` | `most` |
+| --- | --- | --- | --- | --- |
+| `abstract` | block |  |  | ✓ |
+| `acknowledgments` | block |  |  | ✓ |
+| `afterword` | block |  |  | ✓ |
+| `appendix` | block |  |  | ✓ |
+| `aside` | block |  |  | ✓ |
+| `audio` | inline | ✓ | ✓ | ✓ |
+| `backlink` | — |  |  | ✓ |
+| `bibliography` | block |  |  | ✓ |
+| `biblioref` | inline |  |  | ✓ |
+| `blockquote` | inline |  | ✓ | ✓ |
+| `chapter` | block |  | ✓ | ✓ |
+| `colophon` | inline |  |  | ✓ |
+| `complementary` | block |  |  | ✓ |
+| `conclusion` | block |  |  | ✓ |
+| `cover` | inline |  | ✓ | ✓ |
+| `credit` | inline |  |  | ✓ |
+| `credits` | block |  |  | ✓ |
+| `dedication` | inline |  |  | ✓ |
+| `definition` | inline |  |  | ✓ |
+| `details` | block |  | ✓ | ✓ |
+| `endnotes` | block |  |  | ✓ |
+| `epigraph` | inline |  |  | ✓ |
+| `epilogue` | block |  |  | ✓ |
+| `errata` | block |  |  | ✓ |
+| `example` | block |  |  | ✓ |
+| `figure` | inline | ✓ | ✓ | ✓ |
+| `footnote` | block |  |  | ✓ |
+| `foreword` | block |  |  | ✓ |
+| `glossary` | block |  |  | ✓ |
+| `glossref` | inline |  |  | ✓ |
+| `heading1` | inline |  |  | ✓ |
+| `heading2` | inline |  |  | ✓ |
+| `heading3` | inline |  |  | ✓ |
+| `heading4` | inline |  |  | ✓ |
+| `heading5` | inline |  |  | ✓ |
+| `heading6` | inline |  |  | ✓ |
+| `image` | inline | ✓ | ✓ | ✓ |
+| `index` | block |  |  | ✓ |
+| `introduction` | block |  |  | ✓ |
+| `list` | block |  |  | ✓ |
+| `listItem` | inline |  |  | ✓ |
+| `math` | inline | ✓ | ✓ | ✓ |
+| `noteref` | — |  |  | ✓ |
+| `notice` | inline |  | ✓ | ✓ |
+| `pagebreak` | inline |  |  | ✓ |
+| `pagelist` | block |  |  | ✓ |
+| `part` | inline |  | ✓ | ✓ |
+| `preface` | block |  |  | ✓ |
+| `preformatted` | — |  | ✓ | ✓ |
+| `prologue` | block |  |  | ✓ |
+| `pullquote` | inline |  |  | ✓ |
+| `qna` | block |  | ✓ | ✓ |
+| `row` | inline |  | ✓ | ✓ |
+| `rowheader` | inline |  | ✓ | ✓ |
+| `separator` | inline |  |  | ✓ |
+| `subtitle` | inline |  | ✓ | ✓ |
+| `summary` | inline |  |  | ✓ |
+| `table` | block/inline | inline | block | block |
+| `term` | inline |  |  | ✓ |
+| `tip` | inline |  | ✓ | ✓ |
+| `video` | inline | ✓ | ✓ | ✓ |
+
+`—`: no catalog entry, so the role stays silent unless one is supplied via [`contextualization.contextualizations`](UtteranceExtraction.md#contextualizationcontextualizations).
+
+`cell` has a catalog entry but no preset contextualizes it; only `"custom"` can.
+
+Override a level's `table` shape, or set shapes under `"custom"`, with [`contextualizationOverrides.shapes`](Playback.md#contextualizationoverrides).
