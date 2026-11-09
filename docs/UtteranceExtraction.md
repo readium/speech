@@ -443,6 +443,16 @@ await extractUtterances(gnd, {
 
 Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
 
+## Descriptions
+
+A node's `description` (alt text, an ARIA name, a caption) is spoken as its own utterance, in the language it's declared in, like content: the content's when undeclared, `languageOverrides` applied.
+
+- **After the content**, before a block role's `end` announcement, for every role but `table`.
+- **Before the rows** for `table`, since its description is its caption.
+- **Folded into the announcement** instead, through `{{ description }}`, when the node is contextualized as `audio`, `video`, `image`, `figure`, `math`, `table` or `cover`: "Table: Team roster. 3 lines. 2 columns." It's then not spoken separately.
+
+`math` never speaks its own text, since math markup can't be voiced reliably: only its description, or "Math formula with no label." when contextualized without one. A `figure` without a description is never announced, even when contextualized; its content still plays.
+
 ## Contextualization catalog
 
 Each entry is keyed by `GndRole` and resolved through [i18next](https://www.i18next.com/), so wording is a translatable JSON resource, not code:
