@@ -42,6 +42,8 @@
     "test:utterances": "NODE_NO_WARNINGS=1 ava test/utterances/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
     "generate-utterances": "npm run build && node scripts/generate-utterances.js",
+    "generate-verbosity-tables": "npm run build && node scripts/generate-verbosity-tables.js",
+    "generate-role-sets": "npm run build && node scripts/generate-role-sets.js",
     "clean": "rimraf ./build ./build-demo",
     "build": "vite build",
     "build:demo": "vite build --mode demo",
