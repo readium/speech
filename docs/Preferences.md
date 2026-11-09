@@ -47,7 +47,7 @@ interface IRangePreference<T> extends IPreference<T> {
 | `StringArrayPreference` | `skip`, `contextualize` |
 | `Preference` | `interruptions`, `languageOverrides`, `voice` |
 
-Assigning an unsupported enum value, an out-of-range number, or a wrong type throws; `Preference` handles don't check. `increment()`/`decrement()` do nothing while `value` is unset. `reconstruct.isEffective` is `false` unless `segmentation` is `"sentence"`. `editor.clear()` stages `null` for every field.
+Assigning an unsupported enum value, an out-of-range number, or a wrong type throws; `Preference` handles don't check. `increment()`/`decrement()` do nothing while `value` is unset. `reconstruct.isEffective` is `false` unless `segmentation` is `"sentence"`, `skip`/`contextualize.isEffective` unless `verbosity` is `"custom"`. `editor.clear()` stages `null` for every field.
 
 `submitPreferences()` merges into the current preferences: an `undefined` field keeps the current preference, a `null` one clears it so the default applies.
 
