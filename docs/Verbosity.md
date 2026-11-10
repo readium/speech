@@ -106,6 +106,6 @@ A contextualized role gets an announcement from the [contextualization catalog](
 
 `—`: no catalog entry, so the role stays silent unless one is supplied via [`contextualization.contextualizations`](UtteranceExtraction.md#contextualizationcontextualizations).
 
-`cell` has a catalog entry but no preset contextualizes it; only `"custom"` can.
+`cell` and `rowheader` are exceptions: when not skipped, they always use their header/value wording, whatever the preset or `contextualize`.
 
 Override a level's `table` shape, or set shapes under `"custom"`, with [`contextualizationOverrides.shapes`](Playback.md#contextualizationoverrides).
