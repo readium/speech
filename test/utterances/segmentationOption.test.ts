@@ -753,7 +753,7 @@ test("segmentation: sentence keeps an abbreviation's alias in the sentence holdi
     {
       html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
       after: ["She joined the W.H.O. (World Health Organization)", "Then she left."],
-      inline: ["She joined the World Health Organization", "Then she left."],
+      inline: ["She joined the World Health Organization.", "Then she left."],
     },
   ];
   for (const { html, ...expected } of cases) {
@@ -776,12 +776,13 @@ test("segmentation: sentence keeps an abbreviation's alias in the sentence holdi
   }
 });
 
-test("segmentation: sentence leaves no empty or space-led sentence after a sentence end inside an inline alias", async (t) => {
+test("segmentation: sentence keeps the text after an inline alias in its sentence when the abbreviation holds a sentence end", async (t) => {
   const cases = [
-    { html: '<p>She was born in the <abbr title="United States">U. S.</abbr></p>', expected: ["She was born in the United States"] },
+    { html: '<p>She was born in the <abbr title="United States">U. S.</abbr></p>', expected: ["She was born in the United States."] },
+    { html: '<p>She was born in the <abbr title="United States">U. S</abbr>.</p>', expected: ["She was born in the United States."] },
     {
-      html: '<p>She was born in the <abbr title="United States">U. S.</abbr> Then she left.</p>',
-      expected: ["She was born in the United States", "Then she left."],
+      html: '<p>She was born in the <abbr title="United States">U. S.</abbr>, then left.</p>',
+      expected: ["She was born in the United States, then left."],
     },
   ];
   for (const { html, expected } of cases) {
@@ -798,6 +799,58 @@ test("segmentation: sentence leaves no empty or space-led sentence after a sente
           `${format} textrefs=${textrefs}: ${html}`,
         );
       }
+    }
+  }
+});
+
+test("segmentation: sentence keeps the final period of an inline alias's abbreviation when it ends the sentence", async (t) => {
+  const cases = [
+    { html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["She joined the World Health Organization."] },
+    {
+      html: '<p>She bought apples, pears, <abbr title="et cetera">etc.</abbr> Then she left.</p>',
+      expected: ["She bought apples, pears, et cetera.", "Then she left."],
+    },
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">WHO</abbr>. Then she left.</p>',
+      expected: ["She joined the World Health Organization.", "Then she left."],
+    },
+    {
+      html: '<p>She joined <abbr title="Doctors Without Borders!">MSF.</abbr> Then she left.</p>',
+      expected: ["She joined Doctors Without Borders!", "Then she left."],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+          format,
+          segmentation: { mode: "sentence" },
+          interruptions: { abbreviation: "inline" },
+        });
+        t.deepEqual(
+          utterances.map((u) => u[format]),
+          expected,
+          `${format} textrefs=${textrefs}: ${html}`,
+        );
+      }
+    }
+  }
+});
+
+test("segmentation: sentence keeps an inline alias alone in its block whole", async (t) => {
+  const html = '<p><abbr title="Martin Luther King Jr. Day">MLK Day</abbr></p>';
+  for (const textrefs of [false, true]) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+        format,
+        segmentation: { mode: "sentence" },
+        interruptions: { abbreviation: "inline" },
+      });
+      t.deepEqual(
+        utterances.map((u) => u[format]),
+        ["Martin Luther King Jr. Day"],
+        `${format} textrefs=${textrefs}`,
+      );
     }
   }
 });

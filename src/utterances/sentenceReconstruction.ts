@@ -158,7 +158,7 @@ async function pushSplitSingle(
   newOut: ReadiumSpeechUtterance[],
   newSources: SourceTrace,
 ): Promise<void> {
-  const fragments = ctx.synthetic.has(utterance) ? undefined : await sentenceFragmentsOf(utterance, ctx);
+  const fragments = ctx.synthetic.has(utterance) || isAlias(utterance, ctx) ? undefined : await sentenceFragmentsOf(utterance, ctx);
   if (!fragments) {
     newOut.push(utterance);
     newSources.push(source);
@@ -220,7 +220,7 @@ async function segmentPieces(
     parts.push(text);
   });
   const { joined: text, ranges: textRanges } = joinPieceTexts(parts);
-  // A position at or inside an alias's abbreviation is moved past the aliases following it, and a start/end past the whitespace after them.
+  // A content end at or inside an alias's abbreviation is moved past the aliases following it.
   const toJoined = (pos: number, isContentEnd: boolean): number => {
     let i = pieceIndexAt(textRanges, pos);
     if (isContentEnd && i > 0 && pos === textRanges[i].start) i--;
@@ -231,9 +231,12 @@ async function segmentPieces(
     if (local > length && !isContentEnd) return i + 1 < included.length ? ranges[included[i + 1]].start : joined.length;
     let last = k;
     while (last + 1 < pieces.length && !included.includes(last + 1)) last++;
-    let mapped = ranges[last].end;
-    if (!isContentEnd) while (mapped < joined.length && /\s/.test(joined[mapped])) mapped++;
-    return mapped;
+    return ranges[last].end;
+  };
+  const isInsideAlias = (pos: number): boolean => {
+    const i = pieceIndexAt(textRanges, pos);
+    const local = pos - textRanges[i].start;
+    return isAlias(pieces[included[i]], ctx) && local > 0 && local < textRanges[i].end - textRanges[i].start;
   };
   const boundaries: SentenceBoundary[] = [];
   for (const boundary of await ctx.segmenter(language, text, suppressions)) {
@@ -241,9 +244,12 @@ async function segmentPieces(
     const contentEnd = Math.max(start, toJoined(boundary.contentEnd, true));
     const end = Math.max(contentEnd, toJoined(boundary.end, false));
     const previous = boundaries[boundaries.length - 1];
-    // A sentence holding only the rest of an alias is dropped: the alias belongs to the sentence before.
-    if (contentEnd === start && previous) previous.end = Math.max(previous.end, end);
-    else boundaries.push({ text: joined.slice(start, contentEnd), start, end, contentEnd });
+    // An alias is never cut, so a sentence starting inside one continues the sentence holding the alias.
+    if (previous && isInsideAlias(boundary.start)) {
+      previous.contentEnd = Math.max(previous.contentEnd, contentEnd);
+      previous.end = Math.max(previous.end, end);
+      previous.text = joined.slice(previous.start, previous.contentEnd);
+    } else boundaries.push({ text: joined.slice(start, contentEnd), start, end, contentEnd });
   }
   return boundaries;
 }
@@ -385,6 +391,27 @@ function languageParts(
   });
 }
 
+// An inline alias ending a sentence keeps its abbreviation's final period, which also ended the sentence.
+function punctuateSentenceEndingAliases(
+  pieces: ReadiumSpeechUtterance[],
+  joined: string,
+  ranges: { start: number; end: number }[],
+  boundaries: SentenceBoundary[],
+  ctx: WalkContext,
+): boolean {
+  let punctuated = false;
+  pieces.forEach((piece, k) => {
+    if (!isAlias(piece, ctx) || !ctx.placeholderPieces.get(piece)!.abbreviation?.endsWith(".")) return;
+    const { start, end } = ranges[k];
+    if (!boundaries.some((boundary) => boundary.start < end && boundary.contentEnd >= end && !joined.slice(end, boundary.contentEnd).trim())) return;
+    if (/[.!?…]$/.test(joined.slice(start, end))) return;
+    if (piece.plain !== undefined) piece.plain += ".";
+    if (piece.ssml !== undefined) piece.ssml += ".";
+    punctuated = true;
+  });
+  return punctuated;
+}
+
 // Resegments one merge group as its own self-contained text (so its final
 // sentence has no trailing-separator artifact), mapping sentences back onto the piece(s) they span.
 async function pushJoinedGroup(
@@ -397,9 +424,14 @@ async function pushJoinedGroup(
 ): Promise<void> {
   const language = segmentationLanguage(pieces, ctx);
   const suppressions = callerSuppressions(language, ctx);
-  const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-  const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
-  const segmented = await segmentPieces(pieces, plainParts, joinedPlain, ranges, language, suppressions, ctx);
+  const segment = async () => {
+    const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
+    const { joined, ranges } = joinPieceTexts(plainParts);
+    return { plainParts, joined, ranges, segmented: await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx) };
+  };
+  let segmentation = await segment();
+  if (punctuateSentenceEndingAliases(pieces, segmentation.joined, segmentation.ranges, segmentation.segmented, ctx)) segmentation = await segment();
+  const { plainParts, joined: joinedPlain, ranges, segmented } = segmentation;
   const boundaries = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
 
   const effectiveBoundaries =
