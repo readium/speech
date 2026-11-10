@@ -268,7 +268,7 @@ How each role in [`interruptionRoles`](#role-sets) (`abbreviation`, `biblioref`,
   - CJK numerals (`五`, `十二`) or Ethiopic numerals (`፭`);
   - letter numerals with their numeral mark: Hebrew geresh or gershayim (`ה׳`, `י״ב`), Greek keraia (`εʹ`), Armenian overline (`Ե̅`), Cyrillic titlo (`е҃`). Without the mark, they can't be told apart from words.
 - `biblioref`/`glossref`: the bibliography entry or definition they embed; their own text is always read in place. With `"after"`, a definition is read as "term: definition" (catalog's `glossref.term`). With them in `contextualize`, "Bibliographic reference." or "Glossary definition." is read before the entry or definition.
-- `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only.
+- `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only. With `"inline"`, text in the same word goes with the expansion: `<abbr>API</abbr>s` reads "application programming interfaces", `non-<abbr>EU</abbr>` "non-European Union"; and the expansion keeps a period or other terminator of the abbreviation that ends the sentence. A table `cell` or `rowheader` reads its abbreviations as written, whatever this setting.
 
 ```typescript
 // <p>The <abbr title="World Health Organization">WHO</abbr> said.</p>
@@ -347,6 +347,7 @@ await extractUtterances(gnd, {
 The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own corrections on top:
 
 - **Abbreviations.** A sentence ending in one of `suppressions`, merged with the exported `builtInSuppressions`, joins the next. It must end at a token boundary, after whitespace or an opening bracket or quote: `"See (Mr. Smith) here."` stays whole, and a suppression `"rd."` never matches inside `"Word."`.
+- **Abbreviation expansions.** Sentences are found on an abbreviation as written, not on its `"inline"` expansion, which is never split: `She joined the <abbr>W.H.O.</abbr> Then she left.` → `"She joined the World Health Organization."`, `"Then she left."`, where `"never"` breaks too.
 - **Short markers.** A sentence with fewer than 2 letters, such as a `"1."` list marker, joins the next.
 - **Literal ellipsis.** `"..."` is a continuation, like `"…"`: `"Wait... Then it came."` stays whole.
 - **Glued opening quotes.** An opening `“`, or an unmatched `"`, glued to the end of a sentence moves to the next one: `"He said.“Next one.”"` → `"He said."`, `"“Next one.”"`.
