@@ -776,6 +776,32 @@ test("segmentation: sentence keeps an abbreviation's alias in the sentence holdi
   }
 });
 
+test("segmentation: sentence leaves no empty or space-led sentence after a sentence end inside an inline alias", async (t) => {
+  const cases = [
+    { html: '<p>She was born in the <abbr title="United States">U. S.</abbr></p>', expected: ["She was born in the United States"] },
+    {
+      html: '<p>She was born in the <abbr title="United States">U. S.</abbr> Then she left.</p>',
+      expected: ["She was born in the United States", "Then she left."],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+          format,
+          segmentation: { mode: "sentence" },
+          interruptions: { abbreviation: "inline" },
+        });
+        t.deepEqual(
+          utterances.map((u) => u[format]),
+          expected,
+          `${format} textrefs=${textrefs}: ${html}`,
+        );
+      }
+    }
+  }
+});
+
 test("segmentation: sentence breaks in the same places whatever an abbreviation's mode", async (t) => {
   const inputs = [
     '<p>First. <abbr title="World Health Organization">WHO</abbr> said.</p>',

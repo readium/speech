@@ -220,7 +220,7 @@ async function segmentPieces(
     parts.push(text);
   });
   const { joined: text, ranges: textRanges } = joinPieceTexts(parts);
-  // A content end at or inside an alias's abbreviation is moved past the aliases following it.
+  // A position at or inside an alias's abbreviation is moved past the aliases following it, and a start/end past the whitespace after them.
   const toJoined = (pos: number, isContentEnd: boolean): number => {
     let i = pieceIndexAt(textRanges, pos);
     if (isContentEnd && i > 0 && pos === textRanges[i].start) i--;
@@ -231,14 +231,21 @@ async function segmentPieces(
     if (local > length && !isContentEnd) return i + 1 < included.length ? ranges[included[i + 1]].start : joined.length;
     let last = k;
     while (last + 1 < pieces.length && !included.includes(last + 1)) last++;
-    return ranges[last].end;
+    let mapped = ranges[last].end;
+    if (!isContentEnd) while (mapped < joined.length && /\s/.test(joined[mapped])) mapped++;
+    return mapped;
   };
-  return (await ctx.segmenter(language, text, suppressions)).map((boundary) => {
+  const boundaries: SentenceBoundary[] = [];
+  for (const boundary of await ctx.segmenter(language, text, suppressions)) {
     const start = toJoined(boundary.start, false);
     const contentEnd = Math.max(start, toJoined(boundary.contentEnd, true));
     const end = Math.max(contentEnd, toJoined(boundary.end, false));
-    return { text: joined.slice(start, contentEnd), start, end, contentEnd };
-  });
+    const previous = boundaries[boundaries.length - 1];
+    // A sentence holding only the rest of an alias is dropped: the alias belongs to the sentence before.
+    if (contentEnd === start && previous) previous.end = Math.max(previous.end, end);
+    else boundaries.push({ text: joined.slice(start, contentEnd), start, end, contentEnd });
+  }
+  return boundaries;
 }
 
 // For each gap between consecutive pieces, whether a sentence boundary
