@@ -2,7 +2,8 @@ import { ssmlTextEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
-import { languageFor } from "./language.js";
+import { languageFor, languageRuns } from "./language.js";
+import { mergeUtterances } from "./mergeUtterances.js";
 import { descriptionLanguageOf } from "./nodeFields.js";
 
 // Contextualization/label text is always plain (no markup) — formats it
@@ -53,5 +54,22 @@ export function pushPiecesOrMerged(
   } else {
     out.push(...pieces);
     sources.push(...pieceSources);
+  }
+}
+
+// Merges `pieces` into one utterance per language run.
+export function pushMergedRuns(
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  node: GuidedNavigationObject,
+  pieces: ReadiumSpeechUtterance[],
+  pieceSources: SourceTrace,
+): void {
+  for (const [start, end] of languageRuns(pieces, ctx)) {
+    const run = pieces.slice(start, end);
+    const runSources = pieceSources.slice(start, end);
+    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
+    pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
   }
 }

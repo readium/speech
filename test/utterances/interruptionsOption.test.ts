@@ -3,6 +3,7 @@ import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
+import { segmentSentences, type SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
 import type { Contextualizations, Interruption } from "../../src/utterances/types.js";
 
 const html =
@@ -290,6 +291,38 @@ test("an abbreviation in a script written without spaces doesn't take the text a
       t.deepEqual(utterances.map((u) => u[format]), expected[abbreviation], `${format} ${abbreviation}`);
     }
   }
+});
+
+test("an inline abbreviation's expansion keeps its final terminator where it ends a sentence, without sentence segmentation", async (t) => {
+  const cases = [
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
+      expected: ["She joined the World Health Organization. Then she left."],
+    },
+    { html: '<p lang="ja">彼女は<abbr title="世界保健機関">WHO。</abbr>その後去った。</p>', expected: ["彼女は世界保健機関。その後去った。"] },
+    { html: '<p>The <abbr title="United States">U.S.</abbr> Army left.</p>', expected: ["The United States Army left."] },
+    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization"] },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), { format, interruptions: { abbreviation: "inline" } });
+        t.deepEqual(utterances.map((u) => u[format]), expected, `${format} textrefs=${textrefs}: ${html}`);
+      }
+    }
+  }
+});
+
+test("without sentence segmentation, a custom segmenter tells whether an inline abbreviation's terminator ends a sentence", async (t) => {
+  const segmented: string[] = [];
+  const segmenter: SentenceSegmenter = async (language, text, suppressions) => {
+    segmented.push(text);
+    return segmentSentences(language, text, suppressions);
+  };
+  const html = '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>';
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", interruptions: { abbreviation: "inline" }, segmentation: { mode: "structure", segmenter } });
+  t.deepEqual(segmented, ["She joined the W.H.O. Then she left."]);
+  t.deepEqual(utterances.map((u) => u.plain), ["She joined the World Health Organization. Then she left."]);
 });
 
 test("a table cell reads its links' and glossrefs' words once, in its value, then what they embed", async (t) => {

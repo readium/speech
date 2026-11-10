@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageFor, languageRuns, overrideLangTags, stripLangTags } from "./language.js";
+import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
   hasLangTag,
@@ -25,7 +25,8 @@ import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
-import { formatDescription, formatEntryText, push, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
 import {
   isBlockNode,
   contentlessRoleSet,
@@ -154,12 +155,7 @@ function pushTextReferenceTargets(
   }
   announced.forEach((node) => announcedTargets.delete(node));
   if (eligible && pieces.length > 0) ctx.blockStarts.add(pieces[0]);
-  for (const [start, end] of languageRuns(pieces, ctx)) {
-    const run = pieces.slice(start, end);
-    const runSources = pieceSources.slice(start, end);
-    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
-    pushPiecesOrMerged(out, sources, ctx, ref, run, runSources, merged);
-  }
+  pushMergedRuns(out, sources, ctx, ref, pieces, pieceSources);
 }
 
 // A deferred interruption: a node, or a text reference's targets.
@@ -301,7 +297,9 @@ function emitWithPlaceholders(
     placeAlias(segment, before);
     markTouching(segment, before);
   }
-  if (isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) {
+  // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
+  const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));
+  if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {
     pieces.forEach((piece) => {
       const own = inserted.has(piece)
         ? { placement: "inline" as const }
@@ -315,14 +313,9 @@ function emitWithPlaceholders(
       ctx.placeholderPieces.set(piece, { ...own, node });
     });
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
-    return [];
+    return isSentence ? [] : deferred;
   }
-  for (const [start, end] of languageRuns(pieces, ctx)) {
-    const run = pieces.slice(start, end);
-    const runSources = pieceSources.slice(start, end);
-    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
-    pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
-  }
+  pushMergedRuns(out, sources, ctx, node, pieces, pieceSources);
   return deferred;
 }
 

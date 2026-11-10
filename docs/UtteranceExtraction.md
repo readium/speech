@@ -360,7 +360,7 @@ Risks worth knowing before relying on it:
 - **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
 - **No built-in abbreviation handling.** `Intl.Segmenter` has no concept of "d." or "Mr." not ending a sentence; every such case is caught only by `suppressions`/`builtInSuppressions`, a fixed list rather than real disambiguation — an abbreviation missing from both lists still gets split on.
 
-Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode:
+Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode, and in any mode for telling whether an `"inline"` abbreviation's final terminator ends a sentence:
 
 ```typescript
 interface SentenceBoundary {

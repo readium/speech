@@ -1,21 +1,14 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { entriesForLanguage } from "../utils/language.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { isAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, touchingFlags } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
-import { segmentSentences, suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
+import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
-
-// The caller's suppressions for `language`, in English when the built-in segmenter falls back to it; a caller's segmenter gets its input language's.
-function callerSuppressions(language: string, ctx: WalkContext): string[] | undefined {
-  const lookup = ctx.segmenter === segmentSentences ? suppressionLanguage(language) : language;
-  return entriesForLanguage(ctx.segmentationSuppressions, lookup);
-}
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
 // if there's only one), falling back to English when it has no language.

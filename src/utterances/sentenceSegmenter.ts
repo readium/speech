@@ -1,6 +1,7 @@
 import { entriesForLanguage, extractLangRegionFromBCP47 } from "../utils/language.js";
 import { builtInSuppressions } from "./builtInSuppressions.js";
 import { refineSentenceBoundaries } from "./sentenceBoundaryMerge.js";
+import type { WalkContext } from "./walkContext.js";
 
 export interface SentenceBoundary {
   text: string;
@@ -44,6 +45,12 @@ function segmenterFor(language: string): { segmenter: Intl.Segmenter; language: 
 // The language suppressions for `language` are looked up in, built-in or the caller's.
 export function suppressionLanguage(language: string): string {
   return segmenterFor(language).language;
+}
+
+// The caller's suppressions for `language`, in English when the built-in segmenter falls back to it; a caller's segmenter gets its input language's.
+export function callerSuppressions(language: string, ctx: WalkContext): string[] | undefined {
+  const lookup = ctx.segmenter === segmentSentences ? suppressionLanguage(language) : language;
+  return entriesForLanguage(ctx.segmentationSuppressions, lookup);
 }
 
 export async function segmentSentences(
