@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "One."
+        },
+        {
+          "plain": "Two."
+        },
+        {
+          "plain": "Sidebar"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "One."
+        },
+        {
+          "ssml": "Two."
+        },
+        {
+          "ssml": "Sidebar"
+        }
+      ]
+    }
+  ]
+}
