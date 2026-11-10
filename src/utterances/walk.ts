@@ -322,6 +322,7 @@ function emitWithPlaceholders(
 }
 
 // With `hoisted`, deferred interruptions in the node's own text are handed to the caller instead of walked.
+// With `ownTextInValue`, its own text was already spoken in an ancestor's folded value: only what it embeds is.
 function walkNode(
   node: GuidedNavigationObject,
   out: ReadiumSpeechUtterance[],
@@ -329,6 +330,7 @@ function walkNode(
   ctx: WalkContext,
   suppress: boolean,
   hoisted?: Deferred[],
+  ownTextInValue = false,
 ): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
@@ -432,7 +434,7 @@ function walkNode(
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = spokenText(node)?.ssml;
-    const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
+    const foldsValue = ownTextInValue || roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
     if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
       if (hoisted) {
@@ -456,6 +458,17 @@ function walkNode(
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         if (roles.some((role) => textReferenceRoleSet.has(role))) {
           pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, isDeferred(node, ctx));
+        } else if (foldsValue && rawSsml && hasPlaceholder(rawSsml)) {
+          // A value's plain text holds the words of the links and text references its placeholders embed.
+          const embedded = new Set(splitOnPlaceholders(rawSsml).flatMap((segment) => segment.placeholderId ?? []));
+          node.children.forEach((child, index) => {
+            const childRoles = nodeRoles(child);
+            const inValue =
+              child.id !== undefined &&
+              embedded.has(child.id) &&
+              (childRoles.length === 0 || childRoles.some((role) => textReferenceRoleSet.has(role)));
+            walkNode(child, out, sources, ctx, index === 0 ? childSuppress : false, undefined, inValue);
+          });
         } else {
           walk(node.children, out, sources, ctx, childSuppress);
         }

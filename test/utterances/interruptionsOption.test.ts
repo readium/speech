@@ -280,3 +280,22 @@ test("an abbreviation reads as its page text, or with its content replaced by it
     }
   }
 });
+
+test("a table cell reads its links' and glossrefs' words once, in its value, then what they embed", async (t) => {
+  const html =
+    '<table><tr><th>Keeper</th><th>Year</th></tr>' +
+    '<tr><td>Henry <a href="c.html">Winstanley<span role="doc-pagebreak" id="p3">3</span></a> himself</td>' +
+    '<td>1698 <a href="#ad" role="doc-glossref">AD</a></td></tr></table>' +
+    '<dl role="doc-glossary"><dt id="ad"><dfn>AD</dfn></dt><dd>Anno Domini.</dd></dl>';
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain" });
+  t.deepEqual(utterances.map((u) => u.plain), [
+    "Keeper",
+    "Year",
+    "Keeper: Henry Winstanley himself",
+    "Page 3",
+    "Year: 1698 AD",
+    "AD: Anno Domini.",
+    "AD",
+    "Anno Domini.",
+  ]);
+});
