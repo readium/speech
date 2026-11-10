@@ -4,6 +4,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
+import { nodeRoles } from "./nodeFields.js";
 import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
 import type {
@@ -79,6 +80,8 @@ export interface WalkContext {
   >;
   // Pieces whose text touches the previous piece's in the source, at an abbreviation's edge: joined without a space.
   touchingPieces: WeakSet<ReadiumSpeechUtterance>;
+  // `term`s that start a block, like `<dt>`: a `definition` follows them among their siblings, unlike an inline `<dfn>`.
+  blockTerms: WeakSet<GuidedNavigationObject>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -86,6 +89,10 @@ export interface WalkContext {
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
 export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
+
+export function isBlockNode(node: GuidedNavigationObject, ctx: WalkContext): boolean {
+  return ctx.blockTerms.has(node) || nodeRoles(node).some((role) => blockLevelRoleSet.has(role));
+}
 export const interruptionRoleSet: ReadonlySet<GndRole> = new Set(interruptionRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
@@ -144,6 +151,17 @@ function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavig
   return out;
 }
 
+function findBlockTerms(nodes: GuidedNavigationObject[], out = new WeakSet<GuidedNavigationObject>()): WeakSet<GuidedNavigationObject> {
+  nodes.forEach((node, i) => {
+    if (nodeRoles(node).includes("term")) {
+      const next = nodes.slice(i + 1).find((sibling) => !nodeRoles(sibling).includes("term"));
+      if (next && nodeRoles(next).includes("definition")) out.add(node);
+    }
+    if (node.children) findBlockTerms(node.children, out);
+  });
+  return out;
+}
+
 export async function makeWalkContext(nodes: GuidedNavigationObject[], options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
   const contextualizations = mergeContextualizations(
@@ -181,5 +199,6 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),
     touchingPieces: new WeakSet(),
+    blockTerms: findBlockTerms(nodes),
   };
 }

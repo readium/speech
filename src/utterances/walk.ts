@@ -27,7 +27,7 @@ import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
-  blockLevelRoleSet,
+  isBlockNode,
   contentlessRoleSet,
   descriptionFoldingRoleSet,
   interruptionRoleSet,
@@ -133,7 +133,7 @@ function pushTextReferenceTargets(
     walk(walked, out, sources, ctx, suppress);
     return;
   }
-  const eligible = nodeRoles(walked[0]).some((r) => blockLevelRoleSet.has(r)) && !suppress;
+  const eligible = isBlockNode(walked[0], ctx) && !suppress;
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
   if (contextualization !== undefined) {
@@ -353,7 +353,7 @@ function walkNode(
   // speak something of its own (e.g. a contextualization)
   // claims the boundary itself and suppresses every nested block reached
   // through it, so entering deeply nested markup never stacks pauses.
-  const isBlockRole = roles.some((role) => blockLevelRoleSet.has(role));
+  const isBlockRole = isBlockNode(node, ctx);
   const eligible = isBlockRole && !suppress;
   const beforeLength = out.length;
 
@@ -405,7 +405,7 @@ function walkNode(
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
         const childEligible =
-          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && ctx.interruptions.noteref !== "inline";
+          isBlockNode(child, ctx) && !suppress && ctx.interruptions.noteref !== "inline";
         const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
         const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
         const pieces: ReadiumSpeechUtterance[] = [];

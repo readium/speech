@@ -9,7 +9,7 @@ import { isAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from ".
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, touchingFlags } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { segmentSentences, suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
-import { blockLevelRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
+import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // The caller's suppressions for `language`, in English when the built-in segmenter falls back to it; a caller's segmenter gets its input language's.
 function callerSuppressions(language: string, ctx: WalkContext): string[] | undefined {
@@ -75,7 +75,7 @@ function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject
 // The nearest block-level node holding a source's leading/trailing edge, itself included.
 function blockOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext) {
   const node = edgeNode(source, edge);
-  return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => nodeRoles(n).some((role) => blockLevelRoleSet.has(role)));
+  return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => isBlockNode(n, ctx));
 }
 
 function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {

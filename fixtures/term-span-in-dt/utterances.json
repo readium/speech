@@ -20,12 +20,6 @@
         {
           "format": "plain",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -34,22 +28,8 @@
           "format": "plain",
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -70,13 +50,6 @@
     },
     {
       "options": [
-        {
-          "format": "plain",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "plain",
           "language": "none",
@@ -105,6 +78,15 @@
           "contextualize": [
             "glossary"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
           "language": "always"
         },
         {
@@ -112,7 +94,27 @@
           "contextualize": [
             "glossary"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -140,15 +142,6 @@
             "glossary"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -160,28 +153,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -219,6 +192,16 @@
             "glossary"
           ],
           "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -238,16 +221,6 @@
     },
     {
       "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "plain",
           "contextualize": [
@@ -285,6 +258,15 @@
           "contextualize": [
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
           "language": "always"
         },
         {
@@ -292,7 +274,27 @@
           "contextualize": [
             "term"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -316,15 +318,6 @@
             "term"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -336,28 +329,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -391,6 +364,16 @@
             "term"
           ],
           "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -407,16 +390,6 @@
     },
     {
       "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "plain",
           "contextualize": [
@@ -453,6 +426,16 @@
             "glossary",
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
           "language": "always"
         },
         {
@@ -461,7 +444,29 @@
             "glossary",
             "term"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -494,16 +499,6 @@
             "term"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -516,30 +511,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -583,6 +556,17 @@
             "term"
           ],
           "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -605,17 +589,6 @@
     },
     {
       "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "plain",
           "contextualize": [
@@ -2503,12 +2476,6 @@
         {
           "format": "ssml",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -2517,22 +2484,8 @@
           "format": "ssml",
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -2553,13 +2506,6 @@
     },
     {
       "options": [
-        {
-          "format": "ssml",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "ssml",
           "language": "none",
@@ -2588,6 +2534,15 @@
           "contextualize": [
             "glossary"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
           "language": "always"
         },
         {
@@ -2595,7 +2550,27 @@
           "contextualize": [
             "glossary"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -2623,15 +2598,6 @@
             "glossary"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -2643,28 +2609,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -2702,6 +2648,16 @@
             "glossary"
           ],
           "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -2721,16 +2677,6 @@
     },
     {
       "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "ssml",
           "contextualize": [
@@ -2768,6 +2714,15 @@
           "contextualize": [
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
           "language": "always"
         },
         {
@@ -2775,7 +2730,27 @@
           "contextualize": [
             "term"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -2799,15 +2774,6 @@
             "term"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -2819,28 +2785,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -2874,6 +2820,16 @@
             "term"
           ],
           "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -2890,16 +2846,6 @@
     },
     {
       "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "ssml",
           "contextualize": [
@@ -2936,6 +2882,16 @@
             "glossary",
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
           "language": "always"
         },
         {
@@ -2944,7 +2900,29 @@
             "glossary",
             "term"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -2977,16 +2955,6 @@
             "term"
           ],
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -2999,30 +2967,8 @@
           ],
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
           }
         },
         {
@@ -3066,6 +3012,17 @@
             "term"
           ],
           "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -3088,17 +3045,6 @@
     },
     {
       "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
         {
           "format": "ssml",
           "contextualize": [

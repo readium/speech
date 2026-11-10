@@ -165,6 +165,22 @@ test("segmentation: sentence leaves single-sentence ssml untouched", async (t) =
   );
 });
 
+test("segmentation: a description list's term starts a block, an inline <dfn> doesn't", async (t) => {
+  const cases = [
+    {
+      html: "<dl><dt>Fresnel lens</dt><dd>A compact lens for focusing light.</dd><dt>Lens</dt><dd>A piece of glass.</dd></dl>",
+      utterances: ["Fresnel lens", "A compact lens for focusing light.", "Lens", "A piece of glass."],
+      blockStarts: [true, false, true, false],
+    },
+    { html: "<p>A <dfn>WHO</dfn> said.</p>", utterances: ["A WHO said."], blockStarts: [true] },
+  ];
+  for (const { html, ...expected } of cases) {
+    const { utterances, blockStarts } = await extractUtterancesWithSources(parseMarkup(html), { format: "plain", segmentation: { mode: "sentence" } });
+    t.deepEqual(utterances.map((u) => u.plain), expected.utterances, html);
+    t.deepEqual(blockStarts, expected.blockStarts, html);
+  }
+});
+
 test("segmentation: sentence keeps blockStarts on only the first sentence of a split paragraph", async (t) => {
   const gnd = parseMarkup("<p>First. Second.</p><p>Third.</p>");
   const { utterances, blockStarts } = await extractUtterancesWithSources(gnd, {
