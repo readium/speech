@@ -803,7 +803,7 @@ test("segmentation: sentence keeps the text after an inline alias in its sentenc
   }
 });
 
-test("segmentation: sentence keeps the final period of an inline alias's abbreviation when it ends the sentence", async (t) => {
+test("segmentation: sentence keeps the final sentence terminator of an inline alias's abbreviation when it ends the sentence", async (t) => {
   const cases = [
     { html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["She joined the World Health Organization."] },
     {
@@ -817,6 +817,10 @@ test("segmentation: sentence keeps the final period of an inline alias's abbrevi
     {
       html: '<p>She joined <abbr title="Doctors Without Borders!">MSF.</abbr> Then she left.</p>',
       expected: ["She joined Doctors Without Borders!", "Then she left."],
+    },
+    {
+      html: '<p lang="hi">वह <abbr title="विश्व स्वास्थ्य संगठन">डब्ल्यूएचओ।</abbr> फिर चली गई।</p>',
+      expected: ["वह विश्व स्वास्थ्य संगठन।", "फिर चली गई।"],
     },
   ];
   for (const { html, expected } of cases) {

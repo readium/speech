@@ -61,7 +61,9 @@ export async function segmentAroundAliases(
   return boundaries;
 }
 
-// An inline alias ending a sentence keeps its abbreviation's final period, which also ended the sentence.
+const sentenceTerminal = /\p{Sentence_Terminal}$/u;
+
+// An inline alias ending a sentence keeps its abbreviation's final sentence terminator (e.g. "W.H.O."), which also ended the sentence.
 export function punctuateSentenceEndingAliases(
   pieces: ReadiumSpeechUtterance[],
   joined: string,
@@ -71,12 +73,14 @@ export function punctuateSentenceEndingAliases(
 ): boolean {
   let punctuated = false;
   pieces.forEach((piece, k) => {
-    if (!isAlias(piece, ctx) || !ctx.placeholderPieces.get(piece)!.abbreviation?.endsWith(".")) return;
+    if (!isAlias(piece, ctx)) return;
+    const terminal = ctx.placeholderPieces.get(piece)!.abbreviation?.match(sentenceTerminal)?.[0];
+    if (!terminal) return;
     const { start, end } = ranges[k];
     if (!boundaries.some((boundary) => boundary.start < end && boundary.contentEnd >= end && !joined.slice(end, boundary.contentEnd).trim())) return;
-    if (/[.!?…]$/.test(joined.slice(start, end))) return;
-    if (piece.plain !== undefined) piece.plain += ".";
-    if (piece.ssml !== undefined) piece.ssml += ".";
+    if (sentenceTerminal.test(joined.slice(start, end))) return;
+    if (piece.plain !== undefined) piece.plain += terminal;
+    if (piece.ssml !== undefined) piece.ssml += terminal;
     punctuated = true;
   });
   return punctuated;
