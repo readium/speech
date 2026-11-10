@@ -1,7 +1,7 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { joinsWithoutSpace, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
+import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
   plain?: string;
@@ -592,8 +592,8 @@ const ABBREVIATION_RE =
 
 const PLACEHOLDER_OR_ABBREVIATION_RE = new RegExp(`${RAW_PLACEHOLDER_RE.source}|${ABBREVIATION_RE.source}`, "g");
 
-const ATTACHED_END_RE = /[\p{L}\p{N}\p{Pd}]+$/u;
-const ATTACHED_START_RE = /^[\p{L}\p{N}\p{Pd}]+/u;
+const ATTACHED_END_RE = /[\p{L}\p{M}\p{N}\p{Pd}]+$/u;
+const ATTACHED_START_RE = /^[\p{L}\p{M}\p{N}\p{Pd}]+/u;
 
 // Word boundaries at an abbreviation's edge come from the scripts meeting there, not the locale.
 let wordSegmenter: Intl.Segmenter | undefined;
@@ -602,6 +602,7 @@ const wordsOf = (text: string) => (wordSegmenter ??= new Intl.Segmenter("und", {
 // How much of `candidate`, the text right after `word`, is in the same word: all of it past a hyphen.
 function attachedAfter(word: string, candidate: string): string {
   if (!word || !candidate || /^\p{Pd}/u.test(candidate)) return candidate;
+  if (meetsUnspaced(word, candidate)) return "";
   const { index, segment } = wordsOf(word + candidate).containing(word.length - 1)!;
   return candidate.slice(0, Math.max(0, index + segment.length - word.length));
 }
@@ -609,6 +610,7 @@ function attachedAfter(word: string, candidate: string): string {
 // How much of `candidate`, the text right before `word`, is in the same word: all of it before a hyphen.
 function attachedBefore(candidate: string, word: string): string {
   if (!word || !candidate || /\p{Pd}$/u.test(candidate)) return candidate;
+  if (meetsUnspaced(candidate, word)) return "";
   const { index } = wordsOf(candidate + word).containing(candidate.length)!;
   return candidate.slice(Math.min(candidate.length, index));
 }

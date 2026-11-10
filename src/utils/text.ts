@@ -22,6 +22,11 @@ export function joinsWithoutSpace(before: string, after: string): boolean {
   return TRAILING_UNSPACED_RE.test(before) && LEADING_UNSPACED_RE.test(after);
 }
 
+// Whether `before` and `after` meet at a character of a script written without spaces, where touching text says nothing of word boundaries.
+export function meetsUnspaced(before: string, after: string): boolean {
+  return TRAILING_UNSPACED_RE.test(before) || LEADING_UNSPACED_RE.test(after);
+}
+
 // Whether `s` is exactly one punctuation character (any Unicode category,
 // not just the binding/opening classes) — e.g. for deduplicating a
 // repeated citation mark, as opposed to a genuine one-letter/digit piece.

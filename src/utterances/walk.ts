@@ -221,8 +221,10 @@ function emitWithPlaceholders(
     const abbreviation = abbreviationInline ? stripSsmlTags(segment.abbreviationText!) : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
+  // Text touching an abbreviation doesn't touch the parenthesized expansion read after it.
   const markTouching = (segment: SsmlSegment, before: number) => {
-    if (segment.touchesPrevious && before > 0 && pieces.length > before) ctx.touchingPieces.add(pieces[before]);
+    const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]);
+    if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) ctx.touchingPieces.add(pieces[before]);
   };
   for (let segment of splitOnPlaceholders(rawSsml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;

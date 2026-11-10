@@ -293,6 +293,26 @@ test("an abbreviation in a script written without spaces doesn't take the text a
   }
 });
 
+test("text attached to an abbreviation is never cut at a combining mark, and never attaches in a script written without spaces", async (t) => {
+  const cases = [
+    {
+      html: '<p lang="hi">कई <abbr title="एप्लिकेशन प्रोग्रामिंग इंटरफ़ेस">API</abbr>ओं का उपयोग।</p>',
+      expected: ["कई APIओं (एप्लिकेशन प्रोग्रामिंग इंटरफ़ेस) का उपयोग।"],
+    },
+    { html: '<p>Le <abbr title="Organisation mondiale">OMS</abbr>e\u0301 dit.</p>', expected: ["Le OMSe\u0301 (Organisation mondiale) dit."] },
+    {
+      html: '<p lang="th">บริษัท<abbr title="Asian Broadcasting Company">ABC</abbr>จำกัด ประกาศแล้ว</p>',
+      expected: ["บริษัทABC (Asian Broadcasting Company) จำกัด ประกาศแล้ว"],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format, interruptions: { abbreviation: "after" } });
+      t.deepEqual(utterances.map((u) => u[format]), expected, `${format}: ${html}`);
+    }
+  }
+});
+
 test("an inline abbreviation's expansion keeps its final terminator where it ends a sentence, without sentence segmentation", async (t) => {
   const cases = [
     {
