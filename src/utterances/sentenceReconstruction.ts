@@ -199,6 +199,48 @@ function pieceIndexAt(ranges: { start: number; end: number }[], pos: number): nu
   return idx;
 }
 
+// Segments the pieces' `joined` text as if each alias were its abbreviation (left out after it,
+// replaced inline), mapping boundaries back so an alias stays in its abbreviation's sentence.
+async function segmentPieces(
+  pieces: ReadiumSpeechUtterance[],
+  plainParts: string[],
+  joined: string,
+  ranges: { start: number; end: number }[],
+  language: string,
+  suppressions: string[] | undefined,
+  ctx: WalkContext,
+): Promise<SentenceBoundary[]> {
+  if (!pieces.some((piece) => isAlias(piece, ctx))) return ctx.segmenter(language, joined, suppressions);
+  const included: number[] = [];
+  const parts: string[] = [];
+  plainParts.forEach((part, k) => {
+    const text = isAlias(pieces[k], ctx) ? ctx.placeholderPieces.get(pieces[k])!.abbreviation : part;
+    if (!text) return;
+    included.push(k);
+    parts.push(text);
+  });
+  const { joined: text, ranges: textRanges } = joinPieceTexts(parts);
+  // A content end at or inside an alias's abbreviation is moved past the aliases following it.
+  const toJoined = (pos: number, isContentEnd: boolean): number => {
+    let i = pieceIndexAt(textRanges, pos);
+    if (isContentEnd && i > 0 && pos === textRanges[i].start) i--;
+    const k = included[i];
+    const local = pos - textRanges[i].start;
+    const length = textRanges[i].end - textRanges[i].start;
+    if (local === 0 || (local < length && !isAlias(pieces[k], ctx))) return ranges[k].start + local;
+    if (local > length && !isContentEnd) return i + 1 < included.length ? ranges[included[i + 1]].start : joined.length;
+    let last = k;
+    while (last + 1 < pieces.length && !included.includes(last + 1)) last++;
+    return ranges[last].end;
+  };
+  return (await ctx.segmenter(language, text, suppressions)).map((boundary) => {
+    const start = toJoined(boundary.start, false);
+    const contentEnd = Math.max(start, toJoined(boundary.contentEnd, true));
+    const end = Math.max(contentEnd, toJoined(boundary.end, false));
+    return { text: joined.slice(start, contentEnd), start, end, contentEnd };
+  });
+}
+
 // For each gap between consecutive pieces, whether a sentence boundary
 // genuinely reaches into the next piece's own text, vs. merely absorbing the
 // separator — which would otherwise make an unrelated final sentence look joined.
@@ -210,7 +252,7 @@ async function detectGenuineJoins(
 ): Promise<boolean[]> {
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined, ranges } = joinPieceTexts(plainParts);
-  const boundaries = await ctx.segmenter(language, joined, suppressions);
+  const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
   for (const boundary of boundaries) {
     const startIdx = pieceIndexAt(ranges, boundary.start);
@@ -235,8 +277,7 @@ function joinInsertions(pieces: ReadiumSpeechUtterance[], joinedWithNext: boolea
   return joined;
 }
 
-// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped,
-// and those inside an abbreviation alias.
+// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped.
 function keepInsertionsWhole(
   text: string,
   boundaries: SentenceBoundary[],
@@ -245,13 +286,12 @@ function keepInsertionsWhole(
   ctx: WalkContext,
 ): SentenceBoundary[] {
   const insertedAt = (pos: number) => isInserted(pieces[pieceIndexAt(ranges, pos)], ctx);
-  const sameAliasAt = (a: number, b: number) => pieceIndexAt(ranges, a) === pieceIndexAt(ranges, b) && isAlias(pieces[pieceIndexAt(ranges, a)], ctx);
   const kept: SentenceBoundary[] = [];
   let first: SentenceBoundary | undefined;
   boundaries.forEach((boundary, k) => {
     first ??= boundary;
     const next = boundaries[k + 1];
-    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start) || sameAliasAt(boundary.contentEnd - 1, next.start))) return;
+    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start))) return;
     kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
     first = undefined;
   });
@@ -352,7 +392,8 @@ async function pushJoinedGroup(
   const suppressions = callerSuppressions(language, ctx);
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
-  const boundaries = keepInsertionsWhole(joinedPlain, await ctx.segmenter(language, joinedPlain, suppressions), pieces, ranges, ctx);
+  const segmented = await segmentPieces(pieces, plainParts, joinedPlain, ranges, language, suppressions, ctx);
+  const boundaries = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
 
   const effectiveBoundaries =
     boundaries.length > 0

@@ -212,7 +212,7 @@ function emitWithPlaceholders(
   const deferred: Deferred[] = [];
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
-  const aliases = new Set<ReadiumSpeechUtterance>();
+  const aliases = new Map<ReadiumSpeechUtterance, string | undefined>();
   const nested = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
@@ -222,7 +222,8 @@ function emitWithPlaceholders(
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
     locateOnAbbreviation(aliasPieces, segment.abbreviationText!, node, ctx);
-    aliasPieces.forEach((piece) => aliases.add(piece));
+    const abbreviation = abbreviationInline ? stripSsmlTags(segment.abbreviationText!) : undefined;
+    aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
   for (let segment of splitOnPlaceholders(rawSsml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
@@ -297,16 +298,16 @@ function emitWithPlaceholders(
   }
   if (isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) {
     pieces.forEach((piece) => {
-      const placement = inserted.has(piece)
-        ? "inline"
+      const own = inserted.has(piece)
+        ? { placement: "inline" as const }
         : placedAfter.has(piece)
-          ? "after"
+          ? { placement: "after" as const }
           : aliases.has(piece)
-            ? "alias"
+            ? { placement: "alias" as const, abbreviation: aliases.get(piece) }
             : nested.has(piece)
-              ? ctx.placeholderPieces.get(piece)!.placement
+              ? ctx.placeholderPieces.get(piece)
               : undefined;
-      ctx.placeholderPieces.set(piece, { node, placement });
+      ctx.placeholderPieces.set(piece, { ...own, node });
     });
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
     return [];

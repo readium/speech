@@ -743,12 +743,47 @@ test("segmentation: sentence speaks the same sentences with and without textrefs
   }
 });
 
+test("segmentation: sentence keeps an abbreviation's alias in the sentence holding the abbreviation", async (t) => {
+  const cases = [
+    {
+      html: '<p>The <abbr title="World Health Organization">W.H.O.</abbr> said.</p>',
+      after: ["The W.H.O. (World Health Organization) said."],
+      inline: ["The World Health Organization said."],
+    },
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
+      after: ["She joined the W.H.O. (World Health Organization)", "Then she left."],
+      inline: ["She joined the World Health Organization", "Then she left."],
+    },
+  ];
+  for (const { html, ...expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        for (const abbreviation of ["after", "inline"] as const) {
+          const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+            format,
+            segmentation: { mode: "sentence" },
+            interruptions: { abbreviation },
+          });
+          t.deepEqual(
+            utterances.map((u) => u[format]),
+            expected[abbreviation],
+            `${format} ${abbreviation} textrefs=${textrefs}: ${html}`,
+          );
+        }
+      }
+    }
+  }
+});
+
 test("segmentation: sentence breaks in the same places whatever an abbreviation's mode", async (t) => {
   const inputs = [
     '<p>First. <abbr title="World Health Organization">WHO</abbr> said.</p>',
     '<p>First <abbr title="World Health Organization">WHO</abbr>. Then said.</p>',
     '<p>First. The <abbr title="World Health Organization">WHO</abbr> said. Third.</p>',
     '<p>First. <abbr title="U.S. Army">USA</abbr> said. Third.</p>',
+    '<p>The <abbr title="World Health Organization">W.H.O.</abbr> said.</p>',
+    '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
   ];
   for (const html of inputs) {
     for (const textrefs of [false, true]) {

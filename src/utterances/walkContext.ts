@@ -72,7 +72,11 @@ export interface WalkContext {
   aliasLocates: WeakSet<LocatorOptions>;
   // A sentence's pieces around its footnotes, pagebreaks or abbreviation aliases, left unmerged for sentence segmentation to place:
   // `inline` ones inside the sentence holding them, `after` ones right after it, `alias` ones where they fall, never cut.
-  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias" }>;
+  // `abbreviation` is the plain text an inline alias replaces, segmented in its place.
+  placeholderPieces: Map<
+    ReadiumSpeechUtterance,
+    { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias"; abbreviation?: string }
+  >;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
