@@ -37,6 +37,14 @@ export function joinPieceTexts(parts: string[], plainParts: string[] = parts): {
   return { joined, ranges };
 }
 
+// Which piece index a position in a joined string falls in — a position
+// exactly on a piece boundary (the separator) attributes to the earlier piece.
+export function pieceIndexAt(ranges: { start: number; end: number }[], pos: number): number {
+  let idx = 0;
+  while (idx < ranges.length - 1 && ranges[idx + 1].start <= pos) idx++;
+  return idx;
+}
+
 // A substituted node's own box when computed (precise), else its nearest
 // ancestor's — never a quote search, since the substituted text isn't on the page.
 export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkContext): LocatorOptions | undefined {
