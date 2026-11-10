@@ -213,6 +213,7 @@ function emitWithPlaceholders(
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
   const aliases = new Set<ReadiumSpeechUtterance>();
+  const nested = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
@@ -231,9 +232,13 @@ function emitWithPlaceholders(
       if (!child) continue;
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
-        walkNode(child, pieces, pieceSources, ctx, suppress);
         if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
+          walkNode(child, pieces, pieceSources, ctx, suppress);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+        } else {
+          // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
+          walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
+          pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
         }
       } else {
         const childRoles = nodeRoles(child);
@@ -290,9 +295,17 @@ function emitWithPlaceholders(
     pieceSources.push(node);
     placeAlias(segment, before);
   }
-  if (isSentence && deferred.length + inserted.size + aliases.size > 0) {
+  if (isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) {
     pieces.forEach((piece) => {
-      const placement = inserted.has(piece) ? "inline" : placedAfter.has(piece) ? "after" : aliases.has(piece) ? "alias" : undefined;
+      const placement = inserted.has(piece)
+        ? "inline"
+        : placedAfter.has(piece)
+          ? "after"
+          : aliases.has(piece)
+            ? "alias"
+            : nested.has(piece)
+              ? ctx.placeholderPieces.get(piece)!.placement
+              : undefined;
       ctx.placeholderPieces.set(piece, { node, placement });
     });
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
@@ -307,7 +320,15 @@ function emitWithPlaceholders(
   return deferred;
 }
 
-function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+// With `hoisted`, deferred interruptions in the node's own text are handed to the caller instead of walked.
+function walkNode(
+  node: GuidedNavigationObject,
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  suppress: boolean,
+  hoisted?: Deferred[],
+): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
   // A text reference read "never" keeps its own text, without its embedded target.
@@ -413,7 +434,9 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
     const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
     if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
-      if (deferred.length > 0) {
+      if (hoisted) {
+        hoisted.push(...deferred);
+      } else if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         walkDeferred(deferred, out, sources, ctx, childSuppress);
       }

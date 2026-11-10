@@ -12,6 +12,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Changed
 
 - **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
+- `@readium/guided-navigation` is `^1.2.4`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.1`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
 
 ### Removed
 

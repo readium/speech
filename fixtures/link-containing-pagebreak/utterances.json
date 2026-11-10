@@ -8,141 +8,11 @@
       ],
       "utterances": [
         {
-          "plain": "The logbooks are described in the chapter on daily life at the lighthouse Page 12.",
+          "plain": "The logbooks are described in the chapter on daily life at the lighthouse.",
           "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "segmentation": {
-            "mode": "sentence"
-          }
         },
         {
-          "format": "plain",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "plain",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse.",
+          "plain": "Page 12",
           "language": "en"
         }
       ]
@@ -350,12 +220,90 @@
       "options": [
         {
           "format": "plain",
-          "language": "none"
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "The logbooks are described in the chapter on daily life at the lighthouse Page 12."
+          "plain": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse.",
+          "language": "en"
         }
       ]
     },
@@ -363,6 +311,10 @@
       "options": [
         {
           "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
           "language": "none",
           "segmentation": {
             "mode": "sentence"
@@ -371,34 +323,6 @@
         {
           "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -407,7 +331,10 @@
       ],
       "utterances": [
         {
-          "plain": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse."
+          "plain": "The logbooks are described in the chapter on daily life at the lighthouse."
+        },
+        {
+          "plain": "Page 12"
         }
       ]
     },
@@ -489,9 +416,65 @@
       "options": [
         {
           "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
           "contextualize": [
             "pagebreak"
           ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "plain",
@@ -505,12 +488,58 @@
           "contextualize": [
             "pagebreak"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "The logbooks are described in the chapter on daily life at the lighthouse Pagebreak. Page 12.",
+          "plain": "The logbooks are described in the chapter on daily life at the lighthouse.",
+          "language": "en"
+        },
+        {
+          "plain": "Pagebreak. Page 12.",
           "language": "en"
         }
       ]
@@ -522,25 +551,6 @@
           "contextualize": [
             "pagebreak"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
           "interruptions": {
             "pagebreak": "inline"
           }
@@ -565,27 +575,6 @@
           "interruptions": {
             "pagebreak": "inline"
           },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "always",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -623,27 +612,6 @@
           "interruptions": {
             "pagebreak": "inline"
           },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "block-level",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -702,16 +670,7 @@
             "pagebreak"
           ],
           "language": "none"
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "The logbooks are described in the chapter on daily life at the lighthouse Pagebreak. Page 12."
-        }
-      ]
-    },
-    {
-      "options": [
+        },
         {
           "format": "plain",
           "contextualize": [
@@ -732,7 +691,19 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The logbooks are described in the chapter on daily life at the lighthouse."
         },
+        {
+          "plain": "Pagebreak. Page 12."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -785,141 +756,11 @@
       ],
       "utterances": [
         {
-          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse Page 12.",
+          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse.",
           "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "segmentation": {
-            "mode": "sentence"
-          }
         },
         {
-          "format": "ssml",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse.",
+          "ssml": "Page 12",
           "language": "en"
         }
       ]
@@ -1127,12 +968,90 @@
       "options": [
         {
           "format": "ssml",
-          "language": "none"
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse Page 12."
+          "ssml": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse.",
+          "language": "en"
         }
       ]
     },
@@ -1140,6 +1059,10 @@
       "options": [
         {
           "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
           "language": "none",
           "segmentation": {
             "mode": "sentence"
@@ -1148,34 +1071,6 @@
         {
           "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "interruptions": {
-            "pagebreak": "inline"
-          },
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -1184,7 +1079,10 @@
       ],
       "utterances": [
         {
-          "ssml": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse."
+          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse."
+        },
+        {
+          "ssml": "Page 12"
         }
       ]
     },
@@ -1266,9 +1164,65 @@
       "options": [
         {
           "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The logbooks are described in the chapter on daily life at the Page 12 lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
           "contextualize": [
             "pagebreak"
           ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "ssml",
@@ -1282,12 +1236,58 @@
           "contextualize": [
             "pagebreak"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
           "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse Pagebreak. Page 12.",
+          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse.",
+          "language": "en"
+        },
+        {
+          "ssml": "Pagebreak. Page 12.",
           "language": "en"
         }
       ]
@@ -1299,25 +1299,6 @@
           "contextualize": [
             "pagebreak"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
           "interruptions": {
             "pagebreak": "inline"
           }
@@ -1342,27 +1323,6 @@
           "interruptions": {
             "pagebreak": "inline"
           },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "always",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -1400,27 +1360,6 @@
           "interruptions": {
             "pagebreak": "inline"
           },
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "pagebreak"
-          ],
-          "language": "block-level",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -1479,16 +1418,7 @@
             "pagebreak"
           ],
           "language": "none"
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse Pagebreak. Page 12."
-        }
-      ]
-    },
-    {
-      "options": [
+        },
         {
           "format": "ssml",
           "contextualize": [
@@ -1509,7 +1439,19 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The logbooks are described in the chapter on daily life at the lighthouse."
         },
+        {
+          "ssml": "Pagebreak. Page 12."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
