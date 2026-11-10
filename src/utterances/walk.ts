@@ -225,9 +225,12 @@ function emitWithPlaceholders(
     const abbreviation = abbreviationInline ? stripSsmlTags(segment.abbreviationText!) : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
+  const markTouching = (segment: SsmlSegment, before: number) => {
+    if (segment.touchesPrevious && before > 0 && pieces.length > before) ctx.touchingPieces.add(pieces[before]);
+  };
   for (let segment of splitOnPlaceholders(rawSsml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
-    if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml };
+    if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
@@ -283,6 +286,7 @@ function emitWithPlaceholders(
         pieceSources.push(node);
       }
       placeAlias(segment, before);
+      markTouching(segment, before);
       continue;
     }
     const utterance: ReadiumSpeechUtterance = {};
@@ -295,6 +299,7 @@ function emitWithPlaceholders(
     pieces.push(utterance);
     pieceSources.push(node);
     placeAlias(segment, before);
+    markTouching(segment, before);
   }
   if (isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) {
     pieces.forEach((piece) => {

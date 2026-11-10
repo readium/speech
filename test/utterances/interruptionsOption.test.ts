@@ -281,6 +281,17 @@ test("an abbreviation reads as its page text, or with its content replaced by it
   }
 });
 
+test("an abbreviation in a script written without spaces doesn't take the text around it into its alias", async (t) => {
+  const html = '<p lang="ja">彼女は<abbr title="世界保健機関">WHO。</abbr>その後去った。</p>';
+  const expected = { inline: ["彼女は世界保健機関。", "その後去った。"], never: ["彼女はWHO。", "その後去った。"] };
+  for (const abbreviation of ["inline", "never"] as const) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format, segmentation: { mode: "sentence" }, interruptions: { abbreviation } });
+      t.deepEqual(utterances.map((u) => u[format]), expected[abbreviation], `${format} ${abbreviation}`);
+    }
+  }
+});
+
 test("a table cell reads its links' and glossrefs' words once, in its value, then what they embed", async (t) => {
   const html =
     '<table><tr><th>Keeper</th><th>Year</th></tr>' +

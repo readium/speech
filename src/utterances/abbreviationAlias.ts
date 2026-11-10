@@ -26,7 +26,8 @@ export async function segmentAroundAliases(
     included.push(k);
     parts.push(text);
   });
-  const { joined: text, ranges: textRanges } = joinPieceTexts(parts);
+  const touching = included.map((k) => ctx.touchingPieces.has(pieces[k]));
+  const { joined: text, ranges: textRanges } = joinPieceTexts(parts, parts, touching);
   // A content end at or inside an alias's abbreviation is moved past the aliases following it.
   const toJoined = (pos: number, isContentEnd: boolean): number => {
     let i = pieceIndexAt(textRanges, pos);

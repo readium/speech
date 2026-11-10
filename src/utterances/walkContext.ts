@@ -77,6 +77,8 @@ export interface WalkContext {
     ReadiumSpeechUtterance,
     { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias"; abbreviation?: string }
   >;
+  // Pieces whose text touches the previous piece's in the source, at an abbreviation's edge: joined without a space.
+  touchingPieces: WeakSet<ReadiumSpeechUtterance>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -178,5 +180,6 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     edgeSubstitutedLocate: new WeakMap(),
     aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),
+    touchingPieces: new WeakSet(),
   };
 }

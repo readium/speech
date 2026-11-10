@@ -6,7 +6,7 @@ import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, s
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { isAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
-import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
+import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, touchingFlags } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { segmentSentences, suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { blockLevelRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
@@ -211,7 +211,7 @@ async function detectGenuineJoins(
   suppressions: string[] | undefined,
 ): Promise<boolean[]> {
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-  const { joined, ranges } = joinPieceTexts(plainParts);
+  const { joined, ranges } = joinPieceTexts(plainParts, plainParts, touchingFlags(pieces, ctx));
   const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
   for (const boundary of boundaries) {
@@ -352,7 +352,7 @@ async function pushJoinedGroup(
   const suppressions = callerSuppressions(language, ctx);
   const segment = async () => {
     const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-    const { joined, ranges } = joinPieceTexts(plainParts);
+    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, touchingFlags(pieces, ctx));
     return { plainParts, joined, ranges, segmented: await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx) };
   };
   let segmentation = await segment();
@@ -371,7 +371,11 @@ async function pushJoinedGroup(
   if (ctx.format === "ssml") {
     const partLanguages = new Map<number, string | undefined>();
     for (const part of parts) for (let k = part.startIdx; k <= part.endIdx; k++) partLanguages.set(k, part.language);
-    joinedSsml = joinPieceTexts(pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)), plainParts).joined;
+    joinedSsml = joinPieceTexts(
+      pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)),
+      plainParts,
+      touchingFlags(pieces, ctx),
+    ).joined;
     const partBoundaries = parts.map((part) => part.boundary);
     ssmlFragments =
       parts.length > 1 ? await splitSsmlAtSentences(joinedSsml, language, async () => partBoundaries, suppressions) : undefined;

@@ -21,7 +21,9 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - `WebSpeechEngine`'s `"error"` events carry `recoverable`, like every `ErrorEventDetail`: `true` for a `"network"` error, `false` otherwise.
-- With `segmentation: { mode: "sentence" }`, an abbreviation ending in a period, e.g. "W.H.O.", no longer ends a sentence before its alias: "The W.H.O. (World Health Organization) said." is one sentence. When its period does end the sentence, the alias stays in it instead of opening the next one, and with `interruptions: { abbreviation: "inline" }` the sentence still ends there.
+- With `segmentation: { mode: "sentence" }`, an abbreviation ending in a period, e.g. "W.H.O.", no longer ends a sentence before its alias: "The W.H.O. (World Health Organization) said." is one sentence. When its period does end the sentence, the alias stays in it instead of opening the next one, and with `interruptions: { abbreviation: "inline" }` the sentence still ends there, the alias keeping the abbreviation's final period or other sentence terminator: "She joined the World Health Organization."
+- With `interruptions: { abbreviation: "inline" }` or `"after"`, an abbreviation in text written without spaces between words, e.g. Japanese or Chinese, no longer takes the text around it into its alias: only what's in the same word attaches to it, like the "s" of "APIs", or what a hyphen joins to it, like "non-" in "non-EU".
+- No space is added where an element boundary falls between two characters of a script written without spaces, e.g. `彼女は<em>東京</em>へ` reads "彼女は東京へ", nor between an abbreviation and text touching it in the source.
 - `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
 
 ## [0.19.0] - 2026-11-04

@@ -1,7 +1,7 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
+import { joinsWithoutSpace, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
   plain?: string;
@@ -104,7 +104,7 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
       // unspaced `<br>` between them) — same rule stripPlaceholders() uses:
       // no space before punctuation that binds to what came before, none at
       // either end of the string, one otherwise.
-      if (!lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after)) {
+      if (!lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after) && !joinsWithoutSpace(plain, after.replace(/^(?:<[^>]*>)+/, ""))) {
         plain += " ";
         map.push(i);
         lastWasSpace = true;
@@ -321,7 +321,7 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   atoms.forEach((atom, atomIndex) => {
     if (atom.kind === "selfClosing") return;
     const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
-    if (!lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText)) {
+    if (!lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText) && !joinsWithoutSpace(plain, sourceText)) {
       const glueStart = plain.length;
       plain += " ";
       atomSegmentIndices[atomIndex].push(segments.length);
@@ -577,6 +577,8 @@ export interface SsmlSegment {
   // On an alias segment: the abbreviation's ssml, and the alias in parentheses, to follow it.
   abbreviationText?: string;
   parenthesizedSsml?: string;
+  // Whether this text touches the text segment before it with no whitespace between, at an abbreviation's edge.
+  touchesPrevious?: boolean;
 }
 
 // Matches a raw, unstripped `<readium:TAG id="...">` placeholder — the same
@@ -592,6 +594,24 @@ const PLACEHOLDER_OR_ABBREVIATION_RE = new RegExp(`${RAW_PLACEHOLDER_RE.source}|
 
 const ATTACHED_END_RE = /[\p{L}\p{N}\p{Pd}]+$/u;
 const ATTACHED_START_RE = /^[\p{L}\p{N}\p{Pd}]+/u;
+
+// Word boundaries at an abbreviation's edge come from the scripts meeting there, not the locale.
+let wordSegmenter: Intl.Segmenter | undefined;
+const wordsOf = (text: string) => (wordSegmenter ??= new Intl.Segmenter("und", { granularity: "word" })).segment(text);
+
+// How much of `candidate`, the text right after `word`, is in the same word: all of it past a hyphen.
+function attachedAfter(word: string, candidate: string): string {
+  if (!word || !candidate || /^\p{Pd}/u.test(candidate)) return candidate;
+  const { index, segment } = wordsOf(word + candidate).containing(word.length - 1)!;
+  return candidate.slice(0, Math.max(0, index + segment.length - word.length));
+}
+
+// How much of `candidate`, the text right before `word`, is in the same word: all of it before a hyphen.
+function attachedBefore(candidate: string, word: string): string {
+  if (!word || !candidate || /\p{Pd}$/u.test(candidate)) return candidate;
+  const { index } = wordsOf(candidate + word).containing(candidate.length)!;
+  return candidate.slice(Math.min(candidate.length, index));
+}
 
 function unescapeSsmlAttr(value: string): string {
   return unescapeSsmlEntities(value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
@@ -610,34 +630,43 @@ export function hasPlaceholder(ssml: string): boolean {
 export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const segments: SsmlSegment[] = [];
   let lastIndex = 0;
+  let afterAbbreviation = false;
+  const pushText = (raw: string) => {
+    const text = raw.trim();
+    if (text) segments.push(afterAbbreviation && !/^\s/.test(raw) ? { ssml: text, touchesPrevious: true } : { ssml: text });
+  };
   for (const match of ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)) {
     const isAbbreviation = match[1] === undefined;
     const end = match.index! + match[0].length;
     // Text attached to an abbreviation (e.g. a plural "s") stays attached to it and to its alias, as SSML's <sub> reads.
-    const prefix = isAbbreviation ? (ssml.slice(lastIndex, match.index).match(ATTACHED_END_RE)?.[0] ?? "") : "";
-    const suffix = isAbbreviation ? (ssml.slice(end).match(ATTACHED_START_RE)?.[0] ?? "") : "";
-    const before = ssml.slice(lastIndex, match.index! - prefix.length).trim();
-    if (before) segments.push({ ssml: before });
+    const word = isAbbreviation ? unescapeSsmlEntities(stripSsmlTags(match[4] ?? match[6])) : "";
+    const prefix = isAbbreviation ? attachedBefore(ssml.slice(lastIndex, match.index).match(ATTACHED_END_RE)?.[0] ?? "", word) : "";
+    const suffix = isAbbreviation ? attachedAfter(word, ssml.slice(end).match(ATTACHED_START_RE)?.[0] ?? "") : "";
+    const rawBefore = ssml.slice(lastIndex, match.index! - prefix.length);
+    pushText(rawBefore);
     if (!isAbbreviation) {
       segments.push({ placeholderId: match[1] });
+      afterAbbreviation = false;
     } else {
+      const touchesPrevious = rawBefore.trim() !== "" && !/\s$/.test(rawBefore);
       const langOpen = match[2];
       const alias = match[3] ?? match[5];
       const text = match[4] ?? match[6];
       const wrap = (inner: string) => (langOpen ? `${langOpen}${inner}</lang>` : inner);
       const attach = (inner: string) => wrap(`${prefix}${inner}${suffix}`);
-      segments.push({ ssml: attach(text), abbreviation: "text" });
+      segments.push({ ssml: attach(text), abbreviation: "text", ...(touchesPrevious && { touchesPrevious }) });
       const aliasSsml = ssmlTextEscape(unescapeSsmlAttr(alias));
       segments.push({
         ssml: attach(aliasSsml),
         abbreviation: "alias",
         abbreviationText: attach(text),
         parenthesizedSsml: wrap(`(${aliasSsml})`),
+        ...(touchesPrevious && { touchesPrevious }),
       });
+      afterAbbreviation = true;
     }
     lastIndex = end + suffix.length;
   }
-  const after = ssml.slice(lastIndex).trim();
-  if (after) segments.push({ ssml: after });
+  pushText(ssml.slice(lastIndex));
   return segments;
 }

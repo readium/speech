@@ -6,14 +6,18 @@ import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
-import { endsWithOpeningPunct, isSinglePunctuationChar } from "../utils/text.js";
+import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
-// on `plainParts` (their plain text, for SSML `parts`). `ranges[i]` is where `parts[i]` landed in `joined`.
-export function joinPieceTexts(parts: string[], plainParts: string[] = parts): { joined: string; ranges: { start: number; end: number }[] } {
+// on `plainParts` (their plain text, for SSML `parts`), except before a `touching[i]` part. `ranges[i]` is where `parts[i]` landed in `joined`.
+export function joinPieceTexts(
+  parts: string[],
+  plainParts: string[] = parts,
+  touching: boolean[] = [],
+): { joined: string; ranges: { start: number; end: number }[] } {
   let joined = "";
   let plain = "";
   const ranges: { start: number; end: number }[] = [];
@@ -25,7 +29,7 @@ export function joinPieceTexts(parts: string[], plainParts: string[] = parts): {
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
-    if (plain && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
+    if (plain && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !/\s$/.test(plain) && !/^\s/.test(plainPart) && !touching[i] && !joinsWithoutSpace(plain, plainPart)) {
       joined += " ";
       plain += " ";
     }
@@ -35,6 +39,10 @@ export function joinPieceTexts(parts: string[], plainParts: string[] = parts): {
     ranges.push({ start, end: joined.length });
   });
   return { joined, ranges };
+}
+
+export function touchingFlags(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): boolean[] {
+  return pieces.map((piece) => ctx.touchingPieces.has(piece));
 }
 
 // Which piece index a position in a joined string falls in — a position
@@ -145,7 +153,8 @@ export function mergeUtterances(
   if (parts.length === 0) return undefined;
   const language = runLanguage(usedPieces, ctx);
   if (language === null) return undefined;
-  const { joined } = joinPieceTexts(ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts);
+  const texts = ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts;
+  const { joined } = joinPieceTexts(texts, texts, touchingFlags(usedPieces, ctx));
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);

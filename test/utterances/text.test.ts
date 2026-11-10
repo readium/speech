@@ -8,6 +8,10 @@ import {
 } from "../../src/utterances/text.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
 
+test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
+  t.is(stripSsmlTagsWithMap("彼女は<emphasis>東京</emphasis>へ行った。").plain, "彼女は東京へ行った。");
+});
+
 test("stripSsmlTagsWithMap strips tags and maps each plain char back to its SSML source position", (t) => {
   const ssml = "<p>Hello <emphasis>world</emphasis>.</p>";
   const { plain, map } = stripSsmlTagsWithMap(ssml);
