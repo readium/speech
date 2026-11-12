@@ -285,6 +285,11 @@ function emitWithPlaceholders(
           // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
           walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
           pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
+          // Its text keeps the source's spacing, which joining wouldn't add in text written without spaces.
+          if (pieces.length > before) {
+            if (/\s$/.test(segment.textBefore!)) ctx.spacedPieces.add(pieces[before]);
+            pending = { spaceAcross: /^\s/.test(segment.textAfter!) };
+          }
         }
       } else {
         const childRoles = nodeRoles(child);

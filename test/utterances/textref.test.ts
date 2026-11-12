@@ -50,6 +50,14 @@ test("a link merging into text of a script written without spaces is never space
   t.is(utterance.ssml, "東京<emphasis>大学</emphasis>リンクです。");
 });
 
+test("a link keeps the source's spaces around it in text of a script written without spaces", async (t) => {
+  const gnd = parseMarkup('<p lang="ja">東京 <a href="x.html">リンク</a> へ行った。</p>');
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format });
+    t.is(utterance.plain ?? utterance.ssml, "東京 リンク へ行った。", format);
+  }
+});
+
 // The hoist-collision case (@readium/guided-navigation's object.ts never
 // merges the link's href into the block's own textref) plus the ancestor
 // fallback above, combined: the block's cssSelector survives on the <p> node
