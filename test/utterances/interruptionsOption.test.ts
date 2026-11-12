@@ -407,6 +407,14 @@ test("an inline abbreviation's expansion keeps its final terminator where it end
   }
 });
 
+test("an inline abbreviation's expansion keeps its final terminator at the end of roleless GND, without sentence segmentation", async (t) => {
+  const gnd = [GuidedNavigationObject.deserialize({ text: { ssml: 'She joined the <sub alias="World Health Organization">W.H.O.</sub>' } })!];
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, interruptions: { abbreviation: "inline" } });
+    t.deepEqual(utterances.map((u) => u[format]), ["She joined the World Health Organization."], format);
+  }
+});
+
 test("without sentence segmentation, a custom segmenter tells whether an inline abbreviation's terminator ends a sentence", async (t) => {
   const segmented: string[] = [];
   const segmenter: SentenceSegmenter = async (language, text, suppressions) => {

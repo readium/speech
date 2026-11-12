@@ -132,7 +132,8 @@ export async function mergeAliasPieces(
     const shared = sharedLanguage(pieces, ctx);
     const language = (shared === null ? pieces[0].language : shared) ?? "en";
     // The text following the node in its block tells whether a sentence ending the node's own text goes on past it.
-    const segmented = blockOf(sources[j + 1], ctx) === blockOf(node, ctx) ? [...pieces, out[j + 1]] : pieces;
+    const block = blockOf(node, ctx);
+    const segmented = j + 1 < out.length && block && blockOf(sources[j + 1], ctx) === block ? [...pieces, out[j + 1]] : pieces;
     const plainParts = segmented.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
     const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(segmented, ctx));
     const boundaries = await segmentAroundAliases(segmented, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
