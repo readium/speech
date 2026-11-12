@@ -167,7 +167,7 @@ The playback logic is more complex and may not be suitable for this approach yet
 
 ### Building the Library
 
-To build the library:
+Development requires Node.js 24 or later. To build the library:
 ```bash
 npm run build
 ```
@@ -209,6 +209,19 @@ npm run test:utterances # Guided Navigation -> utterance extraction
 ```
 
 `test:utterances` is driven by [`fixtures/`](fixtures/README.md): the expected utterances, one option combination at a time, for every fixture of [`@readium/guided-navigation`](https://github.com/readium/ts-toolkit/tree/develop/guided-navigation)'s language-agnostic conformance suite. Each fixture is a plain-file test case any platform implementation can consume, not just this TypeScript one — see [fixtures/README.md](fixtures/README.md) for the format, how to add a fixture, and how a fixture "passes".
+
+### Generated files
+
+Rerun the matching script after changing its source, and commit the output:
+
+| Script | Source | Writes |
+| --- | --- | --- |
+| `npm run generate-metadata` | `json/*.json` | `src/generated/language-metadata.ts` |
+| `npm run generate-role-sets` | `skippableRoles`, `interruptionRoles`, `blockLevelRoles` | role lists in `docs/UtteranceExtraction.md` |
+| `npm run generate-verbosity-tables` | `src/preferences/verbosityTables.ts`, `locales/en.json` | tables in `docs/Verbosity.md` |
+| `npm run generate-utterances` | extraction code, GND fixtures | `fixtures/*/utterances.json` |
+
+The last three build the library first. In docs, they only replace what's between `<!-- generated:name -->` and `<!-- /generated:name -->`: edit around those markers, not inside them.
 
 ## Acknowledgments
 
