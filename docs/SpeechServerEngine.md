@@ -51,7 +51,7 @@ interface SpeechServerEngineOptions {
 
 - `prefetchWindow`: buffer depth, not concurrency — requests are chained one at a time, never more than one `/synthesize` in flight.
 - `readyBufferChars`: bounded by `prefetchWindow` too — the initial buffer is just the front of that same lookahead.
-- `overLengthText`: an utterance longer than the server's advertised `maxTextLength` (from `/service`) is split into multiple `/synthesize` requests and played back-to-back as one logical utterance by default (`"split"`). Set `"error"` to instead fail fast with a `SpeechServerError` (413, `payload_too_large`) — e.g. if you'd rather pre-chunk text yourself upstream. Splitting is sentence/word-boundary-aware for plain text, and tag-atomic for SSML (never cuts inside a `<tag>...</tag>` span).
+- `overLengthText`: an utterance longer than the server's advertised `maxTextLength` (from `/service`) is split into multiple `/synthesize` requests and played back-to-back as one logical utterance by default (`"split"`). Set `"error"` to instead fail fast with a `SpeechServerError` (413, `payload_too_large`) — e.g. if you'd rather pre-chunk text yourself upstream. Text is split at sentence ends (`.`, `!`, `?`, closing punctuation, and their CJK and Arabic forms), a sentence still too long at spaces, and a word still too long between characters. SSML is split the same way between tags, never inside a `<tag>...</tag>` span: a span longer than `maxTextLength` is sent alone. In plain text, `<` and `>` are sent as zero-width spaces, since some engines take them for markup.
 - `format`: see below.
 - `timeoutMs`: see [Stall detection](#stall-detection).
 
