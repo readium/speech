@@ -373,15 +373,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     utterance.onstart = () => {
       started = true;
       if (generation !== this.speakGeneration) return;
+      // A new utterance started: nothing left to restart. Before the events, whose listeners may pause again
+      this.restartOnResume = false;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
       this.setState("playing");
       this.emitEvent({ type: "start", detail: { voice: selectedVoice } });
-
-      // A new utterance started: nothing left to restart
-      if (this.restartOnResume) {
-        this.restartOnResume = false;
-      }
 
       const shouldUseResumeInfinity = this.shouldUseResumeInfinity();
       if (shouldUseResumeInfinity) {

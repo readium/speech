@@ -618,3 +618,23 @@ test.serial("without native pause, resume speaks the paused utterance again", as
   t.not(synth.spoken[synth.spoken.length - 1], utterance);
   t.deepEqual(events, ["pause", "resume"]);
 });
+
+test.serial("without native pause, pausing from a start listener still speaks the utterance again on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).lacksNativePause = true;
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.on("start", () => engine.pause());
+  engine.speak();
+  await flush();
+  const utterance = synth.spoken[synth.spoken.length - 1];
+  utterance.onstart?.();
+  synth.calls.length = 0;
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"));
+  t.is(synth.spoken[synth.spoken.length - 1].text, utterance.text);
+  t.not(synth.spoken[synth.spoken.length - 1], utterance);
+});
