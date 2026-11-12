@@ -45,6 +45,16 @@ test("resolveBoundaryLocate finds an SSML word formatted within itself in a reco
   t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
 });
 
+test("resolveBoundaryLocate finds an SSML word after a line break in a reconstructed sentence", async (t) => {
+  const gnd = parseMarkup("<p>This sentence continues</p><p>across<br>two lines.</p>", undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } });
+  t.is(utterance.offsets![1].locate.text?.highlight, "across two lines.");
+
+  const resolved = resolveBoundaryLocate(utterance, "This sentence continues across ".length, "two".length);
+  t.is(resolved?.word, "two");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
+});
+
 test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
   const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });

@@ -89,6 +89,31 @@ export function stripSsmlTags(ssml: string): string {
   return stripSsmlTagsWithMap(ssml).plain;
 }
 
+// Whether a removed `<break/>` between `before` and `after` reads as a space: not before binding punctuation, at either end, or within unspaced text.
+export function breakSpaced(before: string, after: string): boolean {
+  return before.length > 0 && after.length > 0 && !/\s$/.test(before) && !/^\s/.test(after) && !startsWithBindingPunct(after) && !joinsWithoutSpace(before, after);
+}
+
+const NEXT_TEXT_RE = /(?:<[^>]*>)*([^<]*)/y;
+
+// The text right after `pos` in `ssml`, past any tags there.
+function textAfter(ssml: string, pos: number): string {
+  NEXT_TEXT_RE.lastIndex = pos;
+  return unescapeSsmlEntities(NEXT_TEXT_RE.exec(ssml)![1]);
+}
+
+// Strips tags and unescapes entities, a `<break/>` read as a space, without collapsing or trimming other whitespace.
+export function stripSsmlTagsKeepSpacing(ssml: string): string {
+  let plain = "";
+  let last = 0;
+  for (const tag of ssml.matchAll(/<[^>]+>/g)) {
+    plain += unescapeSsmlEntities(ssml.slice(last, tag.index));
+    last = tag.index + tag[0].length;
+    if (tag[0].endsWith("/>") && breakSpaced(plain, textAfter(ssml, last))) plain += " ";
+  }
+  return plain + unescapeSsmlEntities(ssml.slice(last));
+}
+
 // Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
 export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
   let plain = "";
@@ -99,12 +124,9 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
     const ch = ssml[i];
     if (ch === "<") {
       const close = ssml.indexOf(">", i);
-      const after = close === -1 ? "" : ssml.slice(close + 1);
       i = close === -1 ? ssml.length : close + 1;
       // A removed `<break/>` must not glue two words together, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
-      // Same rule as stripPlaceholders(): no space before binding punctuation or at either end of the string.
-      const separates = ssml[close - 1] === "/";
-      if (separates && !lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after) && !joinsWithoutSpace(plain, after.replace(/^(?:<[^>]*>)+/, ""))) {
+      if (close !== -1 && ssml[close - 1] === "/" && !lastWasSpace && breakSpaced(plain, textAfter(ssml, i))) {
         plain += " ";
         map.push(i);
         lastWasSpace = true;
@@ -327,7 +349,7 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
     const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
     const separated = afterSelfClosing;
     if (sourceText.length > 0) afterSelfClosing = false;
-    if (separated && !lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText) && !joinsWithoutSpace(plain, sourceText)) {
+    if (separated && !lastWasSpace && breakSpaced(plain, sourceText)) {
       const glueStart = plain.length;
       plain += " ";
       atomSegmentIndices[atomIndex].push(segments.length);
@@ -453,12 +475,7 @@ export function hasLangTag(ssml: string): boolean {
 
 // Same as `stripSsmlTags`, minus the final trim.
 function stripSsmlTagsKeepEdges(ssml: string): string {
-  return ssml
-    .replace(/<[^>]+>/g, "")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/ {2,}/g, " ");
+  return stripSsmlTagsKeepSpacing(ssml).replace(/ {2,}/g, " ");
 }
 
 // An atom of a run's text: a word, a punctuation run (open/close), or whitespace.

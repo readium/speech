@@ -1,6 +1,7 @@
 import test from "ava";
 import {
   ssmlIndexToPlainIndex,
+  stripSsmlTagsKeepSpacing,
   stripSsmlTagsWithMap,
   substitutedIndexToSourceIndex,
   substituteSsmlText,
@@ -144,4 +145,12 @@ test("substituteSsmlText adds no space around inline formatting within a word", 
   const result = substituteSsmlText("foo<emphasis>bar</emphasis>baz", table);
   t.is(result.plain, "foobarbaz");
   t.is(result.ssml, "foo<emphasis>bar</emphasis>baz");
+});
+
+test("stripSsmlTagsKeepSpacing reads a break as a space, not inline formatting or binding punctuation", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("across<break/>two <emphasis>bold</emphasis>ly<break/>, then"), "across two boldly, then");
+});
+
+test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
+  t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
 });

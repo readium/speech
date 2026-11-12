@@ -4,7 +4,7 @@ import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navig
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
-import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
+import { hasLangTag, splitOnLangTags, stripSsmlTags, stripSsmlTagsKeepSpacing, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
@@ -219,6 +219,5 @@ export function applyFormat(
 // Strips SSML down to plain text the same way `splitSsmlAtSentences()` does
 // internally — unlike `stripSsmlTags()`, must NOT collapse/trim whitespace, or offsets drift.
 export function plainOf(text: string, format: ExtractionFormat): string {
-  if (format !== "ssml") return text;
-  return text.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+  return format === "ssml" ? stripSsmlTagsKeepSpacing(text) : text;
 }

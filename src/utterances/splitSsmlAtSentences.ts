@@ -1,6 +1,6 @@
 import { ssmlTextEscape } from "@readium/helpers";
 import type { SentenceSegmenter } from "./sentenceSegmenter.js";
-import { tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
+import { breakSpaced, tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
 
 const tokenize = tokenizeSsmlTextAtoms;
 
@@ -17,11 +17,15 @@ export async function splitSsmlAtSentences(
   const atoms = tokenize(ssml);
   let plain = "";
   const plainStarts: number[] = [];
-  for (const atom of atoms) {
+  const textOf = (atom: Atom) => (atom.kind === "text" ? atom.text! : atom.kind === "paired" ? atom.innerText! : "");
+  atoms.forEach((atom, i) => {
     plainStarts.push(plain.length);
-    if (atom.kind === "text") plain += atom.text;
-    else if (atom.kind === "paired") plain += atom.innerText;
-  }
+    if (atom.kind === "selfClosing") {
+      let j = i + 1;
+      while (j < atoms.length && !textOf(atoms[j])) j++;
+      if (breakSpaced(plain, j < atoms.length ? textOf(atoms[j]) : "")) plain += " ";
+    } else plain += textOf(atom);
+  });
   if (!plain) return undefined;
   const boundaries = await segmenter(language, plain, customSuppressions);
   if (boundaries.length <= 1) return undefined;

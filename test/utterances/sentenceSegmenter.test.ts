@@ -162,3 +162,8 @@ test("splitSsmlAtSentences preserves entity escaping across a split", async (t) 
   const result = await splitSsmlAtSentences("A &amp; B are fine. C &lt; D holds too.", "en", segmentSentences);
   t.deepEqual(result, ["A &amp; B are fine.", "C &lt; D holds too."]);
 });
+
+test("splitSsmlAtSentences reads a break between two sentences as a space", async (t) => {
+  const result = await splitSsmlAtSentences("First line.<break/>Second line.", "en", segmentSentences);
+  t.deepEqual(result, ["First line.<break/>", "Second line."]);
+});
