@@ -5,6 +5,7 @@ export interface WebSpeechPlatformPatches {
   isFirefox: boolean;
   isSafari: boolean;
   isKaiOS: boolean;
+  isLinux: boolean;
 }
 
 /**
@@ -17,6 +18,7 @@ export const detectPlatformFeatures = (): WebSpeechPlatformPatches => {
 
   const isAndroid = () => /android/i.test(userAgent);
   const isKaiOS = () => /kaios/i.test(userAgent);
+  const isLinux = () => /linux/i.test(userAgent) && !isAndroid();
   const isFirefox = () => {
     // InstallTrigger will soon be deprecated but still works
     if (typeof (window as any).InstallTrigger !== "undefined") {
@@ -31,6 +33,7 @@ export const detectPlatformFeatures = (): WebSpeechPlatformPatches => {
     isAndroid: isAndroid(),
     isFirefox: isFirefox() || isKaiOS(),
     isSafari: isSafari(),
-    isKaiOS: isKaiOS()
+    isKaiOS: isKaiOS(),
+    isLinux: isLinux()
   };
 };

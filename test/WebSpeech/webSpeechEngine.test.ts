@@ -482,7 +482,7 @@ test.serial("outside Safari, speaking right after stop() speaks right away", asy
 const usesResumeInfinity = (lacksNativePauseEvents: boolean): boolean => {
   setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
-  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false };
+  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false, isLinux: false };
   (engine as any).lacksNativePauseEvents = lacksNativePauseEvents;
   return (engine as any).shouldUseResumeInfinity();
 };
