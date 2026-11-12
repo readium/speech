@@ -21,6 +21,19 @@ export async function segmentAroundAliases(
   suppressions: string[] | undefined,
   ctx: WalkContext,
 ): Promise<SentenceBoundary[]> {
+  return mapAliasBoundaries(await segmentAliasText(pieces, plainParts, language, suppressions, ctx), pieces, joined, ranges, ctx);
+}
+
+export type AliasSegmentation = { boundaries: SentenceBoundary[]; textRanges: { start: number; end: number }[]; included: number[] };
+
+// Alias texts don't take part, so the result stays valid for the pieces once their aliases are punctuated.
+export async function segmentAliasText(
+  pieces: ReadiumSpeechUtterance[],
+  plainParts: string[],
+  language: string,
+  suppressions: string[] | undefined,
+  ctx: WalkContext,
+): Promise<AliasSegmentation> {
   const included: number[] = [];
   const parts: string[] = [];
   plainParts.forEach((part, k) => {
@@ -30,6 +43,16 @@ export async function segmentAroundAliases(
     parts.push(text);
   });
   const { joined: text, ranges: textRanges } = joinPieceTexts(parts, parts, pieceSpacing(included.map((k) => pieces[k]), ctx));
+  return { boundaries: await ctx.segmenter(language, text, suppressions), textRanges, included };
+}
+
+export function mapAliasBoundaries(
+  { boundaries: textBoundaries, textRanges, included }: AliasSegmentation,
+  pieces: ReadiumSpeechUtterance[],
+  joined: string,
+  ranges: { start: number; end: number }[],
+  ctx: WalkContext,
+): SentenceBoundary[] {
   // A content end at or inside an alias's abbreviation is moved past the aliases following it.
   const toJoined = (pos: number, isContentEnd: boolean): number => {
     let i = pieceIndexAt(textRanges, pos);
@@ -49,7 +72,7 @@ export async function segmentAroundAliases(
     return isAlias(pieces[included[i]], ctx) && local > 0 && local < textRanges[i].end - textRanges[i].start;
   };
   const boundaries: SentenceBoundary[] = [];
-  for (const boundary of await ctx.segmenter(language, text, suppressions)) {
+  for (const boundary of textBoundaries) {
     const start = toJoined(boundary.start, false);
     const contentEnd = Math.max(start, toJoined(boundary.contentEnd, true));
     const end = Math.max(contentEnd, toJoined(boundary.end, false));

@@ -4,7 +4,14 @@ import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
-import { isAlias, punctuateLoneAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
+import {
+  isAlias,
+  mapAliasBoundaries,
+  punctuateLoneAlias,
+  punctuateSentenceEndingAliases,
+  segmentAliasText,
+  segmentAroundAliases,
+} from "./abbreviationAlias.js";
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
@@ -335,14 +342,21 @@ async function pushJoinedGroup(
 ): Promise<void> {
   const language = segmentationLanguage(pieces, ctx);
   const suppressions = callerSuppressions(language, ctx);
-  const segment = async () => {
+  const join = () => {
     const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
-    return { plainParts, joined, ranges, segmented: await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx) };
+    return { plainParts, ...joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx)) };
   };
-  let segmentation = await segment();
-  if (punctuateSentenceEndingAliases(pieces, segmentation.joined, segmentation.ranges, segmentation.segmented, ctx)) segmentation = await segment();
-  const { plainParts, joined: joinedPlain, ranges, segmented } = segmentation;
+  let { plainParts, joined: joinedPlain, ranges } = join();
+  let segmented: SentenceBoundary[];
+  if (!pieces.some((piece) => isAlias(piece, ctx))) segmented = await ctx.segmenter(language, joinedPlain, suppressions);
+  else {
+    const aliasSegmentation = await segmentAliasText(pieces, plainParts, language, suppressions, ctx);
+    segmented = mapAliasBoundaries(aliasSegmentation, pieces, joinedPlain, ranges, ctx);
+    if (punctuateSentenceEndingAliases(pieces, joinedPlain, ranges, segmented, ctx)) {
+      ({ plainParts, joined: joinedPlain, ranges } = join());
+      segmented = mapAliasBoundaries(aliasSegmentation, pieces, joinedPlain, ranges, ctx);
+    }
+  }
   const boundaries = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
 
   const effectiveBoundaries =
