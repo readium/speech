@@ -58,6 +58,20 @@ test("an empty rowheader'd cell still gets offsets for its header wording, not j
   t.truthy(emptyCell?.offsets);
 });
 
+test("a header-contextualized cell's offset is a position in the cell's own text", async (t) => {
+  const gnd = parseMarkup("<table><tr><th>Name</th></tr><tr><td>Ada</td></tr></table>", undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain" });
+  const cell = utterances.find((u) => u.plain === "Name: Ada");
+  t.deepEqual(cell?.offsets?.map(({ start, end }) => ({ start, end })), [{ start: 0, end: 3 }]);
+});
+
+test("a contextualized figure caption's offset is a position in the caption's own text", async (t) => {
+  const gnd = parseMarkup("<figure><img src='a.png' alt=''><figcaption>A cat</figcaption></figure>", undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["figure"] });
+  const caption = utterances.find((u) => u.plain?.includes("A cat"));
+  t.deepEqual(caption?.offsets?.map(({ start, end }) => ({ start, end })), [{ start: 0, end: 5 }]);
+});
+
 test("an SSML utterance's text quotes and offsets are its plain text, without markup", async (t) => {
   const cases = [
     { html: '<p lang="ja">東京<em>大学</em><a href="x.html">リンク</a>です。</p>', highlights: ["東京大学", "リンク", "です。"] },

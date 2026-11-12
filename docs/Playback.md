@@ -210,7 +210,7 @@ interface ReadiumSpeechUtterance {
   language?: string;    // Language of this content (BCP 47)
   voice?: string;       // Voice to speak it with: a voice's `voiceURI`, or its `identifier` for a server voice
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate()
-  offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
+  offsets?: UtteranceOffset[]; // Ranges of each source node's own text, each with that node's locate
 }
 
 interface UtteranceOffset {
@@ -222,4 +222,4 @@ interface UtteranceOffset {
 
 Represents a single piece of content to be spoken, as plain text and/or SSML.
 
-`offsets` covers the stretches of `plain`/`ssml` that came verbatim from the document, each with the `locate` of the DOM node it came from — a word-level substring/text-quote search is safe within those ranges. A synthesized label/announcement (a contextualization catalog entry, or an alt/caption-derived description — e.g. a table's "Table. 3 lines. 2 columns." or a pagebreak's label) has no `offsets` at all: `locate` is still safe for element-scoped highlighting, but there's no real text to search for. A single utterance can carry more than one entry when its text was reconstructed across multiple source elements (e.g. one sentence split across two `<div>`s).
+`offsets` covers the text that came verbatim from the document, one entry per source node, each with that node's `locate`. `start`/`end` are positions in that node's own text, not in `plain`/`ssml`: with `segmentation: { mode: "sentence" }`, "Bye now." from `<p>Hello world. Bye now.</p>` has `start: 13, end: 21`, and a cell read with its header, "Name: Ada", has `start: 0, end: 3`. A synthesized label/announcement (a contextualization catalog entry, or an alt/caption-derived description — e.g. a table's "Table. 3 lines. 2 columns." or a pagebreak's label) has no `offsets` at all: `locate` is still safe for element-scoped highlighting, but there's no real text to search for. A single utterance can carry more than one entry when its text was reconstructed across multiple source elements (e.g. one sentence split across two `<div>`s).
