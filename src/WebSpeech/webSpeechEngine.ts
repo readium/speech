@@ -429,10 +429,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     utterance.onerror = (event) => {
       if (generation !== this.speakGeneration) return;
-      // The cancel() in pause() interrupts the utterance: not an error
-      if (event.error === "interrupted" && this.restartOnResume) {
-        return;
-      }
 
       // Common cleanup
       this.isSpeakingInternal = false;
@@ -553,6 +549,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
       if (this.lacksNativePause) {
         this.restartOnResume = true;
+        // Stale first, so the cancelled utterance's onend/onerror can't undo the pause
+        this.speakGeneration++;
         this.speechSynthesis.cancel();
         // cancel() never fires the native onpause handler below — this is the only "pause" signal there.
         this.emitEvent({ type: "pause" });
