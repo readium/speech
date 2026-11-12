@@ -14533,7 +14533,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Das Wort „ <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang> “ hier, » <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang> « dort.",
+          "ssml": "Das Wort „<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>“ hier, »<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>« dort.",
           "language": "de"
         },
         {

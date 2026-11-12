@@ -34,6 +34,17 @@ test("resolveBoundaryLocate finds a word in the second of two offset pieces (sen
   t.is(resolved?.locate.text?.after, ".");
 });
 
+test("resolveBoundaryLocate finds an SSML word formatted within itself in a reconstructed sentence", async (t) => {
+  const gnd = parseMarkup("<p>This sentence continues</p><p>across <em>two</em>fold paragraphs.</p>", undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } });
+  t.is(utterance.ssml, "This sentence continues across <emphasis>two</emphasis>fold paragraphs.");
+
+  const charIndex = "This sentence continues across ".length;
+  const resolved = resolveBoundaryLocate(utterance, charIndex, "twofold".length);
+  t.is(resolved?.word, "twofold");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
+});
+
 test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
   const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });

@@ -10164,7 +10164,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“ <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”后",
+          "ssml": "前“<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”后",
           "language": "zh"
         },
         {
@@ -10541,7 +10541,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“ <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”",
+          "ssml": "前“<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”",
           "language": "zh"
         },
         {

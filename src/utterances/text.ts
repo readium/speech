@@ -101,11 +101,10 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
       const close = ssml.indexOf(">", i);
       const after = close === -1 ? "" : ssml.slice(close + 1);
       i = close === -1 ? ssml.length : close + 1;
-      // A removed tag must not silently glue two words together (e.g. an
-      // unspaced `<br>` between them) — same rule stripPlaceholders() uses:
-      // no space before punctuation that binds to what came before, none at
-      // either end of the string, one otherwise.
-      if (!lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after) && !joinsWithoutSpace(plain, after.replace(/^(?:<[^>]*>)+/, ""))) {
+      // A removed `<break/>` must not glue two words together, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
+      // Same rule as stripPlaceholders(): no space before binding punctuation or at either end of the string.
+      const separates = ssml[close - 1] === "/";
+      if (separates && !lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after) && !joinsWithoutSpace(plain, after.replace(/^(?:<[^>]*>)+/, ""))) {
         plain += " ";
         map.push(i);
         lastWasSpace = true;
@@ -316,13 +315,19 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   // space as stripSsmlTagsWithMap) and record which atom (or glue) owns each span of it.
   let plain = "";
   let lastWasSpace = false;
+  let afterSelfClosing = false;
   const segments: PlainSegment[] = [];
   const atomSegmentIndices: number[][] = atoms.map(() => []);
 
   atoms.forEach((atom, atomIndex) => {
-    if (atom.kind === "selfClosing") return;
+    if (atom.kind === "selfClosing") {
+      afterSelfClosing = true;
+      return;
+    }
     const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
-    if (!lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText) && !joinsWithoutSpace(plain, sourceText)) {
+    const separated = afterSelfClosing;
+    if (sourceText.length > 0) afterSelfClosing = false;
+    if (separated && !lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText) && !joinsWithoutSpace(plain, sourceText)) {
       const glueStart = plain.length;
       plain += " ";
       atomSegmentIndices[atomIndex].push(segments.length);

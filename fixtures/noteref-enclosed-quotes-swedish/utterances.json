@@ -14411,7 +14411,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Ordet ” <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>” här.",
+          "ssml": "Ordet ”<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>” här.",
           "language": "sv"
         },
         {

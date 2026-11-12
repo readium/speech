@@ -132,10 +132,16 @@ test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag,
   t.is(result.plain, "1) and (c) too");
 });
 
-test("substituteSsmlText echoes a tag-boundary glue space into the returned ssml, not just plain", (t) => {
+test("substituteSsmlText echoes a break's glue space into the returned ssml, not just plain", (t) => {
   const table: SubstitutionTable = { nomatch: "X" };
-  const ssml = "foo<emphasis>bar</emphasis>baz";
-  const result = substituteSsmlText(ssml, table);
-  t.is(result.plain, "foo bar baz");
-  t.is(result.ssml, "foo <emphasis>bar</emphasis> baz");
+  const result = substituteSsmlText("foo<break/>bar", table);
+  t.is(result.plain, "foo bar");
+  t.is(result.ssml, "foo<break/> bar");
+});
+
+test("substituteSsmlText adds no space around inline formatting within a word", (t) => {
+  const table: SubstitutionTable = { nomatch: "X" };
+  const result = substituteSsmlText("foo<emphasis>bar</emphasis>baz", table);
+  t.is(result.plain, "foobarbaz");
+  t.is(result.ssml, "foo<emphasis>bar</emphasis>baz");
 });
