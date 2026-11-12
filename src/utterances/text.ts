@@ -94,6 +94,14 @@ export function breakSpaced(before: string, after: string): boolean {
   return before.length > 0 && after.length > 0 && !/\s$/.test(before) && !/^\s/.test(after) && !startsWithBindingPunct(after) && !joinsWithoutSpace(before, after);
 }
 
+// SSML elements that delimit a sentence, paragraph, token, speaker or sound; other paired elements can fall within a word.
+const WORD_SEPARATING_ELEMENTS = new Set(["speak", "p", "s", "voice", "audio", "desc", "token", "w"]);
+
+// Whether `markup`, starting with a tag, leaves a word boundary where it's removed: a self-closing tag like `<break/>`, or a structural element.
+export function separatesWords(markup: string): boolean {
+  return /^<[^>]*\/>/.test(markup) || WORD_SEPARATING_ELEMENTS.has(/^<\/?([^\s/>]+)/.exec(markup)?.[1] ?? "");
+}
+
 const NEXT_TEXT_RE = /(?:<[^>]*>)*([^<]*)/y;
 
 // The text right after `pos` in `ssml`, past any tags there.
@@ -102,14 +110,14 @@ function textAfter(ssml: string, pos: number): string {
   return unescapeSsmlEntities(NEXT_TEXT_RE.exec(ssml)![1]);
 }
 
-// Strips tags and unescapes entities, a `<break/>` read as a space, without collapsing or trimming other whitespace.
+// Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
 export function stripSsmlTagsKeepSpacing(ssml: string): string {
   let plain = "";
   let last = 0;
   for (const tag of ssml.matchAll(/<[^>]+>/g)) {
     plain += unescapeSsmlEntities(ssml.slice(last, tag.index));
     last = tag.index + tag[0].length;
-    if (tag[0].endsWith("/>") && breakSpaced(plain, textAfter(ssml, last))) plain += " ";
+    if (separatesWords(tag[0]) && breakSpaced(plain, textAfter(ssml, last))) plain += " ";
   }
   return plain + unescapeSsmlEntities(ssml.slice(last));
 }
@@ -124,9 +132,10 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
     const ch = ssml[i];
     if (ch === "<") {
       const close = ssml.indexOf(">", i);
+      const tag = ssml.slice(i, close + 1);
       i = close === -1 ? ssml.length : close + 1;
-      // A removed `<break/>` must not glue two words together, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
-      if (close !== -1 && ssml[close - 1] === "/" && !lastWasSpace && breakSpaced(plain, textAfter(ssml, i))) {
+      // A removed `<break/>` or `<s>` must not glue two words together, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
+      if (close !== -1 && separatesWords(tag) && !lastWasSpace && breakSpaced(plain, textAfter(ssml, i))) {
         plain += " ";
         map.push(i);
         lastWasSpace = true;
@@ -337,18 +346,20 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   // space as stripSsmlTagsWithMap) and record which atom (or glue) owns each span of it.
   let plain = "";
   let lastWasSpace = false;
-  let afterSelfClosing = false;
+  let afterSeparator = false;
   const segments: PlainSegment[] = [];
   const atomSegmentIndices: number[][] = atoms.map(() => []);
 
   atoms.forEach((atom, atomIndex) => {
     if (atom.kind === "selfClosing") {
-      afterSelfClosing = true;
+      afterSeparator = true;
       return;
     }
     const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
-    const separated = afterSelfClosing;
-    if (sourceText.length > 0) afterSelfClosing = false;
+    const separating = atom.kind === "paired" && separatesWords(atom.raw);
+    const separated = afterSeparator || separating;
+    if (sourceText.length > 0) afterSeparator = false;
+    if (separating) afterSeparator = true;
     if (separated && !lastWasSpace && breakSpaced(plain, sourceText)) {
       const glueStart = plain.length;
       plain += " ";

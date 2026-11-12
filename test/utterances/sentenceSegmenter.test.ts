@@ -153,6 +153,11 @@ test("splitSsmlAtSentences keeps a paired tag whole when it doesn't span a bound
   t.deepEqual(result, ['<emphasis level="strong">Careful!</emphasis>', "Now continue."]);
 });
 
+test("splitSsmlAtSentences splits between adjacent sentence elements without leaving an empty one", async (t) => {
+  const result = await splitSsmlAtSentences("<s>Hello there.</s><s>Bye now.</s>", "en", segmentSentences);
+  t.deepEqual(result, ["<s>Hello there.</s>", "<s>Bye now.</s>"]);
+});
+
 test("splitSsmlAtSentences attaches a self-closing tag to the sentence following it", async (t) => {
   const result = await splitSsmlAtSentences("Line one. <break/>Line two.", "en", segmentSentences);
   t.deepEqual(result, ["Line one.", "<break/>Line two."]);

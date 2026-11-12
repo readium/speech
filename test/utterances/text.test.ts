@@ -151,6 +151,22 @@ test("stripSsmlTagsKeepSpacing reads a break as a space, not inline formatting o
   t.is(stripSsmlTagsKeepSpacing("across<break/>two <emphasis>bold</emphasis>ly<break/>, then"), "across two boldly, then");
 });
 
+test("stripSsmlTagsWithMap separates words at a sentence or paragraph element, not inline formatting", (t) => {
+  t.is(stripSsmlTagsWithMap("<s>Hello.</s><s>World.</s>").plain, "Hello. World.");
+  t.is(stripSsmlTagsWithMap("one<p>two</p>three").plain, "one two three");
+  t.is(stripSsmlTagsWithMap("<speak>two<emphasis>fold</emphasis></speak>").plain, "twofold");
+});
+
+test("stripSsmlTagsKeepSpacing separates words at a sentence element", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("<s>Hello.</s><s>World.</s>"), "Hello. World.");
+});
+
+test("substituteSsmlText separates words at a paragraph element, outside its tags", (t) => {
+  const result = substituteSsmlText("one<p>two</p>three", { nomatch: "X" });
+  t.is(result.plain, "one two three");
+  t.is(result.ssml, "one <p>two</p> three");
+});
+
 test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
   t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
 });

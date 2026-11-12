@@ -1,6 +1,6 @@
 import { ssmlTextEscape } from "@readium/helpers";
 import type { SentenceSegmenter } from "./sentenceSegmenter.js";
-import { breakSpaced, tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
+import { breakSpaced, separatesWords, tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
 
 const tokenize = tokenizeSsmlTextAtoms;
 
@@ -18,13 +18,17 @@ export async function splitSsmlAtSentences(
   let plain = "";
   const plainStarts: number[] = [];
   const textOf = (atom: Atom) => (atom.kind === "text" ? atom.text! : atom.kind === "paired" ? atom.innerText! : "");
+  const nextText = (i: number) => {
+    let j = i + 1;
+    while (j < atoms.length && !textOf(atoms[j])) j++;
+    return j < atoms.length ? textOf(atoms[j]) : "";
+  };
   atoms.forEach((atom, i) => {
+    const separating = atom.kind !== "text" && separatesWords(atom.raw);
+    if (atom.kind === "paired" && separating && breakSpaced(plain, textOf(atom))) plain += " ";
     plainStarts.push(plain.length);
-    if (atom.kind === "selfClosing") {
-      let j = i + 1;
-      while (j < atoms.length && !textOf(atoms[j])) j++;
-      if (breakSpaced(plain, j < atoms.length ? textOf(atoms[j]) : "")) plain += " ";
-    } else plain += textOf(atom);
+    if (atom.kind !== "selfClosing") plain += textOf(atom);
+    if (separating && breakSpaced(plain, nextText(i))) plain += " ";
   });
   if (!plain) return undefined;
   const boundaries = await segmenter(language, plain, customSuppressions);
@@ -46,8 +50,7 @@ export async function splitSsmlAtSentences(
       // it sits right before a tag closes rather than at the buffer's end.
       let slice = unescapedText.slice(pos - atomStart, sliceEnd - atomStart);
       if (isBoundaryEnd) slice = slice.replace(/[ \t\r\n]+$/, "");
-      const escaped = ssmlTextEscape(slice);
-      buffer += wrap ? wrap(escaped) : escaped;
+      if (slice) buffer += wrap ? wrap(ssmlTextEscape(slice)) : ssmlTextEscape(slice);
       pos = sliceEnd;
       if (isBoundaryEnd) {
         results.push(buffer);
