@@ -18,7 +18,7 @@ Creates and initializes a new WebSpeechVoiceManager instance. This static factor
 
 - `languages`: Optional array of preferred language codes to filter voices during initialization
 - `maxTimeout`: Maximum time in milliseconds to wait for voices to load (default: 10000ms)
-- `interval`: Interval in milliseconds between voice loading checks (default: 100ms)
+- `interval`: Interval in milliseconds between voice loading checks (default: 10ms)
 
 Returns a Promise that resolves with a `WebSpeechSpeechManager` instance. This instance is a singleton to ensure the same voice manager is used whether initialized directly or through the PlaybackEngine.
 
@@ -38,8 +38,8 @@ Fetches all available voices that match the specified filter criteria.
 interface VoiceFilterOptions {
   languages?: string | string[];  // Filter by language code(s) (e.g., "en", "fr-FR")
   source?: TSource;  // Filter by voice source ("json" | "browser")
-  gender?: TGender;  // "male" | "female" | "other"
-  quality?: TQuality | TQuality[];  // "high" | "medium" | "low" | "veryLow"
+  gender?: TGender;  // "male" | "female" | "neutral"
+  quality?: TQuality | TQuality[];  // "veryHigh" | "high" | "normal" | "low" | "veryLow" | null
   offlineOnly?: boolean;  // Only return voices available offline
   provider?: string;  // Filter by voice provider
   excludeNovelty?: boolean;  // Exclude novelty voices, true by default
@@ -49,6 +49,23 @@ interface VoiceFilterOptions {
 ```
 
 By default, this method returns all voices, excluding novelty voices and very low quality voices, as well as removing what can be considered duplicate voices (lower quality, online/offline, etc).
+
+#### Quality
+
+A voice's `quality` is the first of:
+
+1. a `compact`/`super-compact` (`"low"`), `enhanced` (`"normal"`) or `premium` (`"high"`) segment of its `voiceURI`, between `.`, `_` or `-`: `com.apple.speech.synthesis.voice.enhanced.samantha` is `"normal"`;
+2. the same, in its JSON entry's `nativeID`;
+3. for a JSON entry with a `localizedName`, Apple's word for enhanced or premium in its `voiceURI` ([apple.json](../json/localizedNames/apple.json)), in the system's language: the first whose words for both appear in the browser's voice names, else the user's first preferred language;
+4. its JSON entry's `quality`, picked by how many voices of that language and name (see [Duplicates](#duplicates)) the browser has: the 2nd for 2, capped at the last;
+5. `null`.
+
+#### Duplicates
+
+With `removeDuplicates`, voices of the same language and name (the JSON `name`, else the browser's), ignoring case, parentheses and punctuation other than hyphens, are kept once:
+
+- when one's JSON entry has `altNames` naming the other, or both share one: the one the browser names as the JSON `name`, else the one whose name comes first in `altNames`;
+- otherwise, the one of highest `quality`, the later one in the browser's list on a tie.
 
 ### Get Languages and Regions
 
@@ -153,6 +170,24 @@ async voiceManager.sortVoicesByRegions(preferredLanguages?: string[], voices?: R
 ```
 
 If no voices are provided, it sorts the instance's internal voice list.
+
+### Get the Browser's Voice
+
+```typescript
+voiceManager.convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined
+```
+
+The browser's `SpeechSynthesisVoice` for `voice`, matched by `voiceURI`, then by the browser's name (`originalName`), then by name ignoring case, parentheses and punctuation. `undefined` when the browser doesn't have it.
+
+```typescript
+const utterance = new SpeechSynthesisUtterance(text);
+const nativeVoice = voiceManager.convertToSpeechSynthesisVoice(voice);
+if (nativeVoice) {
+  utterance.voice = nativeVoice;
+  utterance.lang = nativeVoice.lang;
+}
+speechSynthesis.speak(utterance);
+```
 
 ### Get Test Utterance
 
@@ -264,7 +299,7 @@ interface ReadiumSpeechVoice {
   children?: boolean;     // If this is a children's voice
   
   // Quality and capabilities
-  quality?: TQuality[];    // Available quality levels for this voice ("veryLow" | "low" | "normal" | "high" | "veryHigh")
+  quality?: TQuality;      // This voice's quality, see Quality above
   controls?: TServerVoiceControls; // Which playback controls this voice actually honors
   
   // Performance settings
