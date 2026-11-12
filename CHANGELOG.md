@@ -32,6 +32,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - No space is added where an element boundary falls between two characters of a script written without spaces, e.g. `彼女は<em>東京</em>へ` reads "彼女は東京へ", nor between an abbreviation and text touching it in the source.
 - A description list's term, like `<dt>`, starts a block: with `segmentation: { mode: "sentence" }` it no longer runs into its definition ("Fresnel lens A compact lens…"), and `autoPause: "block"` pauses before each entry. An inline `<dfn>`, which GND gives the same `term` role, doesn't.
 - `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
+- Of two duplicate voices whose names the JSON lists in `name` and `altNames`, `WebSpeechVoiceManager` keeps the higher quality one: of "Lana" and "Lana (poboljšani)", the enhanced one.
 
 ## [0.19.0] - 2026-11-04
 

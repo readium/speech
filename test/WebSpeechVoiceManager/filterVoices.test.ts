@@ -461,3 +461,17 @@ testWithContext("filterVoices: deduplication prefers voice with earlier altName 
   t.is(deduped[0].name, "Google US English 5 (Natural)", "Should prefer voice with earlier altName");
   t.is(deduped[0].originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", "Should prefer voice with earlier altName");
 });
+testWithContext("filterVoices: deduplication keeps higher quality voice over the one named as in the JSON", async (t) => {
+  const manager = t.context.manager;
+  const compact = { voiceURI: "com.apple.voice.compact.hr-HR.Lana", name: "Lana", lang: "hr-HR", localService: true, default: false };
+  const enhanced = { voiceURI: "com.apple.voice.enhanced.hr-HR.Lana", name: "Lana (poboljšani)", lang: "hr-HR", localService: true, default: false };
+
+  for (const voices of [[enhanced, compact], [compact, enhanced]]) {
+    const parsedVoices = await (manager as any).parseToReadiumSpeechVoices(voices);
+    const deduped = manager.filterVoices({ removeDuplicates: true }, parsedVoices);
+
+    t.is(deduped.length, 1);
+    t.is(deduped[0].voiceURI, enhanced.voiceURI, voices.map((v) => v.name).join(", "));
+    t.is(deduped[0].quality, "normal");
+  }
+});

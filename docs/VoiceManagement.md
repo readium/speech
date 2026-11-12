@@ -64,7 +64,7 @@ A voice's `quality` is the first of:
 
 With `removeDuplicates`, voices of the same language and name (the JSON `name`, else the browser's), ignoring case, parentheses and punctuation other than hyphens, are kept once:
 
-- when one's JSON entry has `altNames` naming the other, or both share one: the one the browser names as the JSON `name`, else the one whose name comes first in `altNames`;
+- when one's JSON entry has `altNames` naming the other, or both share one: the one of highest `quality`, then the one the browser names as the JSON `name`, else the one whose name comes first in `altNames`;
 - otherwise, the one of highest `quality`, the later one in the browser's list on a tie.
 
 ### Get Languages and Regions
