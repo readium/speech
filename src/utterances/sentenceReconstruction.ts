@@ -8,7 +8,8 @@ import { isAlias, punctuateLoneAlias, punctuateSentenceEndingAliases, segmentAro
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
-import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
+import { blockOf, edgeNode } from "./blocks.js";
+import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
 // if there's only one), falling back to English when it has no language.
@@ -54,21 +55,11 @@ function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, Guide
   return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
-function edgeNode(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing"): GuidedNavigationObject {
-  return Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
-}
-
 // Ancestors carrying a semantic role, at the given edge of a source; unroled and
 // `presentation` wrappers (e.g. fixed-layout `<div>`s, layout tables) are not boundaries.
 function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext): GuidedNavigationObject[] {
   const node = edgeNode(source, edge);
   return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
-}
-
-// The nearest block-level node holding a source's leading/trailing edge, itself included.
-function blockOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext) {
-  const node = edgeNode(source, edge);
-  return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => isBlockNode(n, ctx));
 }
 
 function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {

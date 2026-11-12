@@ -3,8 +3,8 @@ import { sharedLanguage } from "./language.js";
 import { joinPieceTexts, pieceIndexAt, plainOf, pieceSpacing } from "./mergeUtterances.js";
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
-import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
-import type { GuidedNavigationObject } from "@readium/shared";
+import { blockOf } from "./blocks.js";
+import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 export function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
   return ctx.placeholderPieces.get(piece)?.placement === "alias";
@@ -95,12 +95,6 @@ export function punctuateSentenceEndingAliases(
   return punctuated;
 }
 
-// The nearest block-level node holding `source`, itself included.
-function blockOf(source: SourceTrace[number], ctx: WalkContext): GuidedNavigationObject | undefined {
-  const node = Array.isArray(source) ? source[0] : source;
-  return node && [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => isBlockNode(n, ctx));
-}
-
 // An inline alias read as its own sentence ends it with its abbreviation's final terminator.
 export function punctuateLoneAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): void {
   const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
@@ -132,8 +126,8 @@ export async function mergeAliasPieces(
     const shared = sharedLanguage(pieces, ctx);
     const language = (shared === null ? pieces[0].language : shared) ?? "en";
     // The text following the node in its block tells whether a sentence ending the node's own text goes on past it.
-    const block = blockOf(node, ctx);
-    const segmented = j + 1 < out.length && block && blockOf(sources[j + 1], ctx) === block ? [...pieces, out[j + 1]] : pieces;
+    const block = blockOf(node, "trailing", ctx);
+    const segmented = j + 1 < out.length && block && blockOf(sources[j + 1], "leading", ctx) === block ? [...pieces, out[j + 1]] : pieces;
     const plainParts = segmented.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
     const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(segmented, ctx));
     const boundaries = await segmentAroundAliases(segmented, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);

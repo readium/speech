@@ -30,8 +30,8 @@ import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
+import { isBlockNode } from "./blocks.js";
 import {
-  isBlockNode,
   contentlessRoleSet,
   descriptionFoldingRoleSet,
   interruptionRoleSet,

@@ -18,7 +18,6 @@ import type {
   SubstitutionTable,
 } from "./types.js";
 import {
-  blockLevelRoles,
   interruptionRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
@@ -90,11 +89,6 @@ export interface WalkContext {
 // reconstructed across sibling nodes carries a `[first, last]` tuple instead.
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
-export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
-
-export function isBlockNode(node: GuidedNavigationObject, ctx: WalkContext): boolean {
-  return ctx.blockTerms.has(node) || nodeRoles(node).some((role) => blockLevelRoleSet.has(role));
-}
 export const interruptionRoleSet: ReadonlySet<GndRole> = new Set(interruptionRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
