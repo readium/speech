@@ -263,7 +263,7 @@ function emitWithPlaceholders(
       if (!child) continue;
       if (isDropped(segment.placeholderId)) {
         pending = { spaceAcross: spaced.has(segment.placeholderId) };
-      } else if (!isDeferred(child, ctx) || nodeRoles(child).some((role) => textReferenceRoleSet.has(role))) {
+      } else {
         pending = undefined;
       }
       if (!isDeferred(child, ctx)) {
