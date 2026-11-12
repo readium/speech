@@ -745,20 +745,19 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const text = raw.trim();
     if (text) segments.push(afterAbbreviation && !/^\s/.test(raw) ? { ssml: text, touchesPrevious: true } : { ssml: text });
   };
-  for (const match of ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)) {
+  const matches = [...ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)];
+  matches.forEach((match, k) => {
     const isAbbreviation = match[1] === undefined;
     const end = match.index! + match[0].length;
+    const following = ssml.slice(end, matches[k + 1]?.index ?? ssml.length);
     // Text attached to an abbreviation (e.g. a plural "s") stays attached to it and to its alias, as SSML's <sub> reads.
     const word = isAbbreviation ? unescapeSsmlEntities(stripSsmlTags(match[4] ?? match[6])) : "";
     const prefix = isAbbreviation ? attachedBefore(ssml.slice(lastIndex, match.index).match(ATTACHED_END_RE)?.[0] ?? "", word) : "";
-    const suffix = isAbbreviation ? attachedAfter(word, ssml.slice(end).match(ATTACHED_START_RE)?.[0] ?? "") : "";
+    const suffix = isAbbreviation ? attachedAfter(word, following.match(ATTACHED_START_RE)?.[0] ?? "") : "";
     const rawBefore = ssml.slice(lastIndex, match.index! - prefix.length);
     pushText(rawBefore);
     if (!isAbbreviation) {
-      const rest = ssml.slice(end);
-      const next = rest.search(new RegExp(PLACEHOLDER_OR_ABBREVIATION_RE.source));
-      const textAfter = untagged(next === -1 ? rest : rest.slice(0, next));
-      segments.push({ placeholderId: match[1], textBefore: untagged(ssml.slice(lastIndex, match.index)), textAfter });
+      segments.push({ placeholderId: match[1], textBefore: untagged(ssml.slice(lastIndex, match.index)), textAfter: untagged(following) });
       afterAbbreviation = false;
     } else {
       const touchesPrevious = rawBefore.trim() !== "" && !/\s$/.test(rawBefore);
@@ -779,7 +778,7 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
       afterAbbreviation = true;
     }
     lastIndex = end + suffix.length;
-  }
+  });
   pushText(ssml.slice(lastIndex));
   return segments;
 }
