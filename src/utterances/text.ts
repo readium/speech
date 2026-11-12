@@ -607,6 +607,7 @@ const wordsOf = (text: string) => (wordSegmenter ??= new Intl.Segmenter("und", {
 function attachedAfter(word: string, candidate: string): string {
   if (!word || !candidate || /^\p{Pd}/u.test(candidate)) return candidate;
   if (meetsUnspaced(word, candidate)) return "";
+  if (typeof Intl.Segmenter !== "function") return candidate;
   const { index, segment } = wordsOf(word + candidate).containing(word.length - 1)!;
   return candidate.slice(0, Math.max(0, index + segment.length - word.length));
 }
@@ -615,6 +616,7 @@ function attachedAfter(word: string, candidate: string): string {
 function attachedBefore(candidate: string, word: string): string {
   if (!word || !candidate || /\p{Pd}$/u.test(candidate)) return candidate;
   if (meetsUnspaced(candidate, word)) return "";
+  if (typeof Intl.Segmenter !== "function") return candidate;
   const { index } = wordsOf(candidate + word).containing(candidate.length)!;
   return candidate.slice(Math.min(candidate.length, index));
 }
