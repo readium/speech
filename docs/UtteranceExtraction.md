@@ -261,14 +261,14 @@ await extractUtterances(gnd, { format: "plain", language: "always", languageOver
 
 How each role in [`interruptionRoles`](#role-sets) (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) is read where it interrupts the text: `"never"`, `"inline"` at that exact point, or `"after"` (the default) — after the sentence holding it with `segmentation: { mode: "sentence" }`, after its whole block otherwise. Independent of `skip` and of verbosity presets.
 
-- `noteref`: its footnote. `"never"` drops it.
+- `noteref`: its footnote. `"never"` drops it. Read after or never, it takes the brackets or quotes it leaves empty with it: `前（<a role="doc-noteref">1</a>）後` reads "前後", `Text (<a role="doc-noteref">1</a>, <a role="doc-noteref">2</a>) after.` "Text after.".
 - `pagebreak`: its label. `"never"` drops it. A label that's only a page number is read through the catalog's `pagebreak.number` (`"Page {{ number }}"`), contextualized or not. A page number is one of:
   - a run of digits of any script (`5`, `٥`, `५`), or of letter-number characters (`Ⅻ`);
   - a Roman numeral, any case (`iv`, `XII`);
   - CJK numerals (`五`, `十二`) or Ethiopic numerals (`፭`);
   - letter numerals with their numeral mark: Hebrew geresh or gershayim (`ה׳`, `י״ב`), Greek keraia (`εʹ`), Armenian overline (`Ե̅`), Cyrillic titlo (`е҃`). Without the mark, they can't be told apart from words.
 - `biblioref`/`glossref`: the bibliography entry or definition they embed; their own text is always read in place. With `"after"`, a definition is read as "term: definition" (catalog's `glossref.term`). With them in `contextualize`, "Bibliographic reference." or "Glossary definition." is read before the entry or definition.
-- `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only. With `"inline"`, text in the same word goes with the expansion: `<abbr>API</abbr>s` reads "application programming interfaces", `non-<abbr>EU</abbr>` "non-European Union"; and the expansion keeps a period or other terminator of the abbreviation that ends the sentence. A table `cell` or `rowheader` reads its abbreviations as written, whatever this setting.
+- `abbreviation`: its `<sub alias>` expansion, in parentheses after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only. Text in the same word, combining marks included, goes with the abbreviation: with `"inline"`, `<abbr>API</abbr>s` reads "application programming interfaces", `non-<abbr>EU</abbr>` "non-European Union"; with `"after"`, `<abbr>API</abbr>ओं` reads "APIओं (…)". Where it meets a script written without spaces, e.g. Japanese or Thai, nothing attaches: `บริษัท<abbr>ABC</abbr>จำกัด` reads "บริษัทABC (…) จำกัด". With `"inline"`, the expansion keeps a period or other terminator of the abbreviation that ends the sentence. A table `cell` or `rowheader` reads its abbreviations as written, whatever this setting.
 
 ```typescript
 // <p>The <abbr title="World Health Organization">WHO</abbr> said.</p>
@@ -453,6 +453,15 @@ A node's `description` (alt text, an ARIA name, a caption) is spoken as its own 
 - **Folded into the announcement** instead, through `{{ description }}`, when the node is contextualized as `audio`, `video`, `image`, `figure`, `math`, `table` or `cover`: "Table: Team roster. 3 lines. 2 columns." It's then not spoken separately.
 
 `math` never speaks its own text, since math markup can't be voiced reliably: only its description, or "Math formula with no label." when contextualized without one. A `figure` without a description is never announced, even when contextualized; its content still plays.
+
+## Joining text
+
+Text from several elements, announcements or descriptions merged into one utterance keeps the source's spacing. Where the source doesn't tell, a space is added between them, unless one is already there, or:
+
+- the text after starts with closing punctuation, a closing quote or `.,;:!?` (CJK and Arabic forms included), or the text before ends with an opening bracket or quote, `¿` or `¡`;
+- both sides are in a script written without spaces (Han, Hiragana, Katakana, Thai, Lao, Khmer, Myanmar), CJK punctuation or fullwidth forms: `彼女は<em>東京</em>へ` reads "彼女は東京へ".
+
+A lone punctuation mark repeating the one the text before ends with is dropped.
 
 ## Contextualization catalog
 
