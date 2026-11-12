@@ -8,10 +8,13 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
 - `builtInSuppressions`, for a custom `segmentation.segmenter` to apply, and `builtInSubstitutions`, which `substitutions` merges over, with its `SubstitutionTable` and `SubstitutionRule` types.
+- `isAvailable()` on `ReadiumSpeechEngineProvider`: whether the provider can speak again, which `onFailure: "fallbackAndRecover"` checks before swapping back to the primary. `SpeechServerEngineProvider` is available when its server answers, `WebSpeechEngineProvider` when it has a voice it can reach (one available offline, or any once `navigator.onLine` is `true`), and `FallbackEngineProvider` when the provider it would use is.
 
 ### Changed
 
 - **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
+- **Breaking:** With `onFailure: "fallbackAndRecover"`, `FallbackSpeechEngine` swaps back only to a primary whose provider implements `isAvailable()`, once it returns `true`, instead of once the provider's `getVoices(true)` succeeds.
+- `FallbackSpeechEngine.getAvailableVoices()` lists only the voices it can reach on the primary too, not only once fallen back: offline, those with `offlineAvailability`.
 - `@readium/guided-navigation` is `^1.3.0`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.2`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
 
 ### Removed
@@ -28,6 +31,8 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - With `interruptions: { abbreviation: "inline" }` or `"after"`, each word of an abbreviation's expansion resolves to the abbreviation in `resolveBoundaryLocate()` and the navigator's `"boundary"` events, instead of to nothing: "Health" in "World Health Organization" highlights "W.H.O.".
 - Text whose SSML holds nothing but text and footnote references or page breaks is no longer lost when the GND gives no `plain` variant alongside it: a table header `Head (<a role="doc-noteref">1</a>)` reads "Head", and contextualizes its cells as "Head: cell".
 - `WebSpeechEngine`'s `"error"` events carry `recoverable`, like every `ErrorEventDetail`: `true` for a `"network"` error, `false` otherwise.
+- `FallbackSpeechEngine` matches the fallback voice to the voice of the utterance that failed, its own `voice` when the primary has it, instead of to the engine's current voice.
+- `FallbackSpeechEngine` drops an utterance's own `voice` that the active engine can't reach, so the engine speaks it with its own voice instead of failing again: offline, a network voice on the fallback, or on the primary it swapped back to.
 - With `segmentation: { mode: "sentence" }`, an abbreviation ending in a period, e.g. "W.H.O.", no longer ends a sentence before its alias: "The W.H.O. (World Health Organization) said." is one sentence. When its period does end the sentence, the alias stays in it instead of opening the next one, and with `interruptions: { abbreviation: "inline" }` the sentence still ends there.
 - With `interruptions: { abbreviation: "inline" }`, an expansion keeps its abbreviation's final period or other sentence terminator where it ends a sentence, whatever `segmentation`: "She joined the World Health Organization. Then she left." A custom `segmentation.segmenter` is called to tell, outside `"sentence"` mode too.
 - With `interruptions: { abbreviation: "inline" }` or `"after"`, an abbreviation in text written without spaces between words, e.g. Japanese, Chinese or Thai, no longer takes the text around it into its alias: only what's in the same word attaches to it, like the "s" of "APIs", or what a hyphen joins to it, like "non-" in "non-EU".

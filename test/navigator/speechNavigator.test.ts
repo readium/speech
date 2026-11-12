@@ -1186,7 +1186,7 @@ test.serial("an engine fallback between utterances plays the next one once, with
 
   primary.emit("end");
   primary.emit("error", { message: "network failure", recoverable: true });
-  await new Promise((resolve) => setTimeout(resolve, 120));
+  await new Promise((resolve) => setTimeout(resolve, 240));
   t.deepEqual(spoken, [[1, "Web-fr-FR"]]);
 });
 

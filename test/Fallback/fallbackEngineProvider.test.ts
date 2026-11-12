@@ -1,7 +1,7 @@
 import test from "ava";
 import { FallbackEngineProvider, FallbackSpeechEngine, SpeechServerEngineProvider, WebSpeechEngineProvider, WebSpeechVoiceManager } from "../../build/index.js";
 import { createMockFetch, makeServerVoice } from "../SpeechServer/testUtils.js";
-import { FakeFallbackProvider } from "./testUtils.js";
+import { FakeFallbackProvider, stubOnLine } from "./testUtils.js";
 
 // =============================================
 // Mock Web Speech API
@@ -159,4 +159,29 @@ test.serial("destroy() tears down both providers", async (t) => {
 
   t.true(primaryDestroyed);
   t.true(fallbackDestroyed);
+});
+
+test.serial("WebSpeechEngineProvider is available offline through an offline voice", async (t) => {
+  t.teardown(stubOnLine(false));
+  t.true(await new WebSpeechEngineProvider().isAvailable());
+});
+
+test.serial("WebSpeechEngineProvider is unavailable offline with network voices only, available once online", async (t) => {
+  (globalThis as any).window.speechSynthesis.getVoices = () => [{ voiceURI: "google-en", name: "Google US English", lang: "en-US", localService: false, default: false }];
+  const provider = new WebSpeechEngineProvider();
+  const restoreOnLine = stubOnLine(false);
+  t.teardown(restoreOnLine);
+
+  t.false(await provider.isAvailable());
+  stubOnLine(true);
+  t.true(await provider.isAvailable());
+});
+
+test.serial("isAvailable() is the primary's, else the fallback's unless onFailure is \"error\"", async (t) => {
+  const unavailable = { id: "a", name: "A", getVoices: async () => [], createEngine: async () => { throw new Error(); }, isAvailable: async () => false, destroy: async () => {} };
+  const available = { ...unavailable, id: "b", name: "B", isAvailable: async () => true };
+
+  t.true(await new FallbackEngineProvider({ primary: available as any, fallback: unavailable as any }).isAvailable());
+  t.true(await new FallbackEngineProvider({ primary: unavailable as any, fallback: available as any }).isAvailable());
+  t.false(await new FallbackEngineProvider({ primary: unavailable as any, fallback: available as any, onFailure: "error" }).isAvailable());
 });

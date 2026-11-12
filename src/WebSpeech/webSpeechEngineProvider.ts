@@ -2,6 +2,7 @@ import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEngine } from "../engine.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { WebSpeechEngine } from "./webSpeechEngine.js";
+import { isVoiceReachable } from "../voices/reachability.js";
 
 export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
   readonly id: string = "webspeech";
@@ -16,6 +17,11 @@ export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
       await this.voiceEngine.initialize();
     }
     return this.voiceEngine.getAvailableVoices();
+  }
+
+  // Offline voices keep it available without a connection.
+  async isAvailable(): Promise<boolean> {
+    return (await this.getVoices()).some(isVoiceReachable);
   }
 
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {

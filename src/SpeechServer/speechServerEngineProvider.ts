@@ -45,6 +45,15 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
     return this.voices;
   }
 
+  async isAvailable(): Promise<boolean> {
+    try {
+      await this.getVoices(true);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {
     const engine = new SpeechServerEngine(this.options);
     if (this.voices.length > 0) {
