@@ -154,13 +154,13 @@ function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavig
 }
 
 function findBlockTerms(nodes: GuidedNavigationObject[], out = new WeakSet<GuidedNavigationObject>()): WeakSet<GuidedNavigationObject> {
-  nodes.forEach((node, i) => {
-    if (nodeRoles(node).includes("term")) {
-      const next = nodes.slice(i + 1).find((sibling) => !nodeRoles(sibling).includes("term"));
-      if (next && nodeRoles(next).includes("definition")) out.add(node);
-    }
+  let next: GuidedNavigationObject | undefined;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const node = nodes[i];
+    if (!nodeRoles(node).includes("term")) next = node;
+    else if (next && nodeRoles(next).includes("definition")) out.add(node);
     if (node.children) findBlockTerms(node.children, out);
-  });
+  }
   return out;
 }
 
