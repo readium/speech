@@ -159,7 +159,9 @@ async function pushSplitSingle(
   const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
   const nodeOwnSubstitutedLocate = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
   const edges = ctx.edgeSubstitutedLocate.get(utterance);
-  fragments.forEach(({ text: fragment, start, end }, k) => {
+  const ownStart = ctx.pendingRange.get(utterance)?.start ?? 0;
+  fragments.forEach(({ text: fragment, start: localStart, end: localEnd }, k) => {
+    const [start, end] = [ownStart + localStart, ownStart + localEnd];
     const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
     const substitutedLocate =
       (k === 0 ? edges?.leading : undefined) ??
@@ -282,7 +284,8 @@ function buildJoinedOffsets(
     const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
     if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
     if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
-    offsets.push({ start: localStart, end: localEnd, locate });
+    const ownStart = ctx.pendingRange.get(pieces[k])?.start ?? 0;
+    offsets.push({ start: ownStart + localStart, end: ownStart + localEnd, locate });
   }
   return offsets;
 }

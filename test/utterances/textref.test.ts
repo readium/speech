@@ -91,16 +91,8 @@ test("a language-split fragment gets its own locate/offsets, not the whole node'
   // offsets are positions in the shared <p>'s own text, so they advance
   // instead of each fragment restarting at 0.
   t.deepEqual(before.offsets?.[0], { start: 0, end: before.plain!.length, locate: before.locate });
-  t.deepEqual(fr.offsets?.[0], {
-    start: before.plain!.length,
-    end: before.plain!.length + fr.plain!.length,
-    locate: fr.locate,
-  });
-  t.deepEqual(after.offsets?.[0], {
-    start: before.plain!.length + fr.plain!.length,
-    end: before.plain!.length + fr.plain!.length + after.plain!.length,
-    locate: after.locate,
-  });
+  t.deepEqual(fr.offsets?.[0], { start: 6, end: 13, locate: fr.locate });
+  t.deepEqual(after.offsets?.[0], { start: 14, end: 20, locate: after.locate });
 });
 
 test("extractUtterances disambiguates recurring text with prefix/suffix context", async (t) => {

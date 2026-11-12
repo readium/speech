@@ -173,6 +173,12 @@ export function mergeUtterances(
   return merged;
 }
 
+// A node's own text, as `applyFormat()` speaks it whole: what offsets' `start`/`end` are positions in.
+export function nodeOwnText(resolved: ResolvedNodeText | undefined, format: ExtractionFormat): string {
+  if (format === "ssml" && resolved?.ssml) return plainOf(resolved.ssml, "ssml");
+  return resolved?.plain ?? stripSsmlTags(resolved?.ssml ?? "");
+}
+
 // Applies the required `format` option to an already-resolved node text,
 // synthesizing whichever field is missing: escaping `plain` into `ssml`
 // with no markup, or stripping `ssml`'s tags down to `plain`. Then applies
@@ -193,11 +199,17 @@ export function applyFormat(
   ctx: WalkContext,
 ): ReadiumSpeechUtterance[] {
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
+    const ownText = nodeOwnText(resolved, format);
+    let cursor = 0;
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
       const segmentLanguage = languageFor(segment.language, ctx);
       if (segmentLanguage) utterance.language = segmentLanguage;
-      ctx.pendingRange.set(utterance, { start: segment.start, end: segment.end });
+      const start = ownText.indexOf(segment.plain, cursor);
+      if (start !== -1) {
+        cursor = start + segment.plain.length;
+        ctx.pendingRange.set(utterance, { start, end: cursor });
+      }
       return utterance;
     });
   }

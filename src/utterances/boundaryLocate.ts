@@ -26,6 +26,17 @@ export function markNonQuotable<T extends LocatorOptions>(locate: T): T {
   return locate;
 }
 
+// An alias offset spans its abbreviation in the node's own text, so its spoken length is kept here.
+const aliasSpokenLengths = new WeakMap<UtteranceOffset, number>();
+
+export function recordAliasOffset(offset: UtteranceOffset, spokenLength: number): void {
+  aliasSpokenLengths.set(offset, spokenLength);
+}
+
+export function aliasSpokenLength(offset: UtteranceOffset): number | undefined {
+  return aliasSpokenLengths.get(offset);
+}
+
 // charIndex is the engine's own runtime position, unknowable when `offsets`
 // was built — resolved by scanning pieces in order from where the last ended.
 // charIndex is always plain-text space (see ssmlIndexToPlainIndex), so SSML
@@ -64,12 +75,18 @@ export function resolveBoundaryLocate(
     const offset = offsets[i];
     // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found past its own length.
     if (nonQuotableLocates.has(offset.locate)) {
+      const spokenLength = aliasSpokenLengths.get(offset);
       const nextQuote = offsets.slice(i + 1).find((next) => !nonQuotableLocates.has(next.locate) && quoteOf(next));
       const quote = nextQuote && quoteOf(nextQuote)!;
-      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + offset.end - offset.start) : -1;
+      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + (spokenLength ?? offset.end - offset.start)) : -1;
       const nextStart = quote && pastOwnLength === -1 ? outputText.indexOf(quote, cursor) : pastOwnLength;
       const end = nextStart === -1 ? outputText.length : nextStart;
-      if (charIndex >= cursor && charIndex < end) return undefined;
+      if (charIndex >= cursor && charIndex < end) {
+        // An alias's words aren't on the page, so they highlight its whole abbreviation.
+        if (spokenLength === undefined) return undefined;
+        lastMatch.set(utterance, { pieceIndex: i, cursor });
+        return { locate: offset.locate, word: outputText.substring(charIndex, Math.min(charIndex + charLength, end)) };
+      }
       cursor = end;
       continue;
     }

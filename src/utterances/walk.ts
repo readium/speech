@@ -24,9 +24,9 @@ import {
   resolveEntryText,
   scopeToQuote,
 } from "./contextualization.js";
-import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
+import { applyFormat, mergeUtterances, nodeOwnText, plainOf } from "./mergeUtterances.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { markNonQuotable } from "./boundaryLocate.js";
+import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
@@ -178,16 +178,23 @@ function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
   return interruption !== undefined && interruption !== "inline";
 }
 
-// An alias isn't on the page, so it's located on its abbreviation instead.
-function locateOnAbbreviation(aliasPieces: ReadiumSpeechUtterance[], abbreviationSsml: string, node: GuidedNavigationObject, ctx: WalkContext): void {
+// An alias isn't on the page, so it's located on its abbreviation instead, at `range` in the node's own text.
+function locateOnAbbreviation(
+  aliasPieces: ReadiumSpeechUtterance[],
+  abbreviation: string,
+  range: { start: number; end: number },
+  node: GuidedNavigationObject,
+  ctx: WalkContext,
+): void {
   const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
   if (!nodeRef) return;
-  const locate = markNonQuotable(subLocateFor(nodeRef.ref, stripSsmlTags(abbreviationSsml)));
+  const locate = markNonQuotable(subLocateFor(nodeRef.ref, abbreviation));
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
-    const text = ctx.format === "ssml" ? stripSsmlTags(piece.ssml ?? "") : piece.plain;
+    const offset = { ...range, locate };
     piece.locate = locate;
-    piece.offsets = [{ start: 0, end: text?.length ?? 0, locate }];
+    piece.offsets = [offset];
+    recordAliasOffset(offset, plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format).length);
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
   }
 }
@@ -216,12 +223,29 @@ function emitWithPlaceholders(
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
+  const ownText = nodeOwnText(resolveNodeText(spokenText(node)), ctx.format);
+  let ownCursor = 0;
+  let abbreviationFrom = 0;
+  const findInOwnText = (text: string, from: number) => {
+    const start = text ? ownText.indexOf(text, from) : -1;
+    if (start === -1) return undefined;
+    ownCursor = Math.max(ownCursor, start + text.length);
+    return { start, end: start + text.length };
+  };
+  const placeInOwnText = (before: number) => {
+    for (const piece of pieces.slice(before)) {
+      const range = findInOwnText(plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format), ownCursor);
+      if (range) ctx.pendingRange.set(piece, range);
+    }
+  };
   // An alias's pieces, pushed since `before`, stay whole in their sentence.
   const placeAlias = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
-    locateOnAbbreviation(aliasPieces, segment.abbreviationText!, node, ctx);
-    const abbreviation = abbreviationInline ? stripSsmlTags(segment.abbreviationText!) : undefined;
+    const abbreviationText = stripSsmlTags(segment.abbreviationText!);
+    const range = findInOwnText(abbreviationText, abbreviationFrom) ?? { start: 0, end: abbreviationText.length };
+    locateOnAbbreviation(aliasPieces, abbreviationText, range, node, ctx);
+    const abbreviation = abbreviationInline ? abbreviationText : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
   // Text touching an abbreviation doesn't touch the parenthesized expansion read after it.
@@ -256,6 +280,7 @@ function emitWithPlaceholders(
   const { ssml, spaced } = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
   for (let segment of splitOnPlaceholders(ssml)) {
+    if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
     if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
     if (segment.placeholderId !== undefined) {
@@ -332,6 +357,7 @@ function emitWithPlaceholders(
         pieces.push(utterance);
         pieceSources.push(node);
       }
+      if (segment.abbreviation !== "alias") placeInOwnText(before);
       meetPending(before);
       placeAlias(segment, before);
       markTouching(segment, before);
@@ -346,6 +372,7 @@ function emitWithPlaceholders(
     }
     pieces.push(utterance);
     pieceSources.push(node);
+    if (segment.abbreviation !== "alias") placeInOwnText(before);
     meetPending(before);
     placeAlias(segment, before);
     markTouching(segment, before);

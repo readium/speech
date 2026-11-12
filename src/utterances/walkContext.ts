@@ -61,8 +61,8 @@ export interface WalkContext {
   synthetic: Set<ReadiumSpeechUtterance>;
   // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
   ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
-  // A language-split utterance's position in its source node's own text
-  // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
+  // A language-split or placeholder-split utterance's position in its source node's own text
+  // (see `applyFormat`, `emitWithPlaceholders`) — read back for its offsets, same identity-keyed pattern.
   pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
   // Set for a merge whose leading/trailing piece is aria-substituted (see
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
