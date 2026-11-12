@@ -200,10 +200,11 @@ For ChromeOS development, the project includes a debug mode that mocks the Web S
 
 ### Testing
 
-`npm test` builds the library and runs the full test suite (`ava`) across `test/**/*.test.ts`. Narrower scripts are available for working on one area at a time:
+`npm test` builds the library, typechecks `src/` and `test/` (`npm run typecheck`), and runs the full test suite (`ava`) across `test/**/*.test.ts`. Narrower scripts are available for working on one area at a time:
 
 ```bash
-npm test           # build + full suite
+npm test           # build + typecheck + full suite
+npm run typecheck  # src/ and test/, after a build
 npm run test:voices     # WebSpeechVoiceManager only
 npm run test:utterances # Guided Navigation -> utterance extraction
 ```

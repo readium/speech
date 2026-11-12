@@ -4,7 +4,7 @@ import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { segmentSentences, type SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
-import type { Contextualizations, Interruption } from "../../src/utterances/types.js";
+import type { Contextualizations, ExtractUtterancesOptions, Interruption } from "../../src/utterances/types.js";
 
 const html =
   '<p>Before the break <span epub:type="pagebreak" title="5"></span> and before the note' +
@@ -127,7 +127,7 @@ async function spoken(markup: string, format: "plain" | "ssml", options: Paramet
   return utterances.map((u) => [u[format], u.language]);
 }
 
-const sentenceOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } } as const;
+const sentenceOptions: ExtractUtterancesOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } };
 
 test("sentence segmentation speaks deferred announcements after their sentence in another language than the catalog's", async (t) => {
   t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", sentenceOptions), [
@@ -344,7 +344,7 @@ test("a dropped note's emptied brackets are left out of the text quotes locating
 // GND whose SSML carries placeholders without a plain variant, as a producer may emit it.
 function withoutPlain(nodes: GuidedNavigationObject[]): GuidedNavigationObject[] {
   for (const node of nodes) {
-    if (node.text?.ssml && node.text.plain !== undefined) node.text = { ...node.text, plain: undefined };
+    if (node.text?.ssml && node.text.plain !== undefined) Object.assign(node, { text: { ...node.text, plain: undefined } });
     if (node.children) withoutPlain(node.children);
   }
   return nodes;
@@ -366,7 +366,7 @@ test("a source's own plain text is kept over its placeholder-holding SSML", asyn
   const gnd = parseMarkup('<table><tr><th>Head (<a role="doc-noteref" href="#n">1</a>)</th></tr><tr><td>cell</td></tr></table><aside id="n" role="doc-footnote">Note.</aside>');
   const setPlain = (nodes: GuidedNavigationObject[]) =>
     nodes.forEach((node) => {
-      if (node.text?.ssml?.includes("Head")) node.text = { ...node.text, plain: "Heading" };
+      if (node.text?.ssml?.includes("Head")) Object.assign(node, { text: { ...node.text, plain: "Heading" } });
       if (node.children) setPlain(node.children);
     });
   setPlain(gnd);

@@ -637,7 +637,7 @@ test("engine 'start' also emits a synthesized 'boundary' with name 'structure' (
   navigator.on("boundary", (event) => seen.push(`boundary:${event.detail.name}`));
   navigator.on("start", () => seen.push("start"));
 
-  engine.emit({ type: "start" });
+  engine.emit({ type: "start", detail: { voice: null } });
 
   t.deepEqual(seen, ["boundary:structure", "start"]);
 });
@@ -647,7 +647,7 @@ test("engine 'start' is re-emitted with its detail, reporting the voice used", a
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
   await settled();
-  const voice = { name: "Voice", language: "en-US", voiceURI: "voice-en-US" };
+  const voice: ReadiumSpeechVoice = { source: "browser", label: "Voice", name: "Voice", originalName: "Voice", language: "en-US", voiceURI: "voice-en-US" };
 
   let detail: any;
   navigator.on("start", (event) => { detail = event.detail; });
@@ -671,7 +671,7 @@ test("synthesized 'boundary' carries the utterance's own locate in structure mod
   await settled();
   const captured = captureLastBoundary(navigator);
 
-  engine.emit({ type: "start" });
+  engine.emit({ type: "start", detail: { voice: null } });
 
   t.is(captured.detail.name, "structure");
   t.deepEqual(captured.detail.locate, [{ cssSelector: "p" }]);
@@ -692,7 +692,7 @@ test("synthesized 'boundary' carries one locate per offsets piece in sentence mo
   await settled();
   const captured = captureLastBoundary(navigator);
 
-  engine.emit({ type: "start" });
+  engine.emit({ type: "start", detail: { voice: null } });
 
   t.is(captured.detail.name, "sentence");
   t.is(captured.detail.locate.length, 2);
@@ -707,7 +707,7 @@ test("synthesized 'boundary' is not emitted for an utterance with nothing to loc
   let fired = false;
   navigator.on("boundary", () => { fired = true; });
 
-  engine.emit({ type: "start" });
+  engine.emit({ type: "start", detail: { voice: null } });
 
   t.false(fired);
 });

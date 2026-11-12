@@ -37,7 +37,8 @@
     }
   },
   "scripts": {
-    "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
+    "test": "npm run build && npm run typecheck && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
+    "typecheck": "tsc",
     "test:voices": "npm run build && NODE_NO_WARNINGS=1 ava test/WebSpeechVoiceManager/*.test.ts",
     "test:utterances": "NODE_NO_WARNINGS=1 ava test/utterances/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",

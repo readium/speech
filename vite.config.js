@@ -71,6 +71,7 @@ const libraryBuild = {
   },
   plugins: [
     dts({
+      tsconfigPath: "tsconfig.build.json",
       outDir: "build",
       insertTypesEntry: true,
       include: ["src/**/*"]
