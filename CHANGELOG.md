@@ -17,6 +17,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Removed
 
 - **Breaking:** SpeechServer internals are no longer exported: `chunkPlainText`, `chunkSsmlText`, `TextChunk`, `selectFormat`, `selectBitrate`, `mimeTypeForFormat`, `CanPlayType`, `CanPlayTypeResult`, `NetworkInfo`, `mapServerVoice`, `toSpeechServerError`, `SpeechServerProblemDetails`, `SpeechServerVoice`, `SpeechServerServiceInfo`, `SpeechServerSynthesizeRequest`, `SpeechServerSynthesizeBoundaryResponse` and `SpeechServerTimingMark`.
+- **Breaking:** `WebSpeechVoiceManager.getBrowserVoices()` is private: `initialize()` loads the browser's voices.
 
 ### Fixed
 

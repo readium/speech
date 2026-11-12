@@ -533,7 +533,7 @@ export class WebSpeechVoiceManager {
     return filteredVoices[0];
   }
 
-  getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
+  private getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
     const getAvailableVoices = () => window.speechSynthesis?.getVoices() || [];
 
     // Check if speechSynthesis is available
