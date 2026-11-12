@@ -822,6 +822,7 @@ test("segmentation: sentence keeps the text after an inline alias in its sentenc
 test("segmentation: sentence keeps the final sentence terminator of an inline alias's abbreviation when it ends the sentence", async (t) => {
   const cases = [
     { html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["She joined the World Health Organization."] },
+    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization."] },
     {
       html: '<p>She bought apples, pears, <abbr title="et cetera">etc.</abbr> Then she left.</p>',
       expected: ["She bought apples, pears, et cetera.", "Then she left."],
@@ -833,6 +834,18 @@ test("segmentation: sentence keeps the final sentence terminator of an inline al
     {
       html: '<p>She joined <abbr title="Doctors Without Borders!">MSF.</abbr> Then she left.</p>',
       expected: ["She joined Doctors Without Borders!", "Then she left."],
+    },
+    {
+      html: '<p>She said “I joined the <abbr title="World Health Organization">W.H.O.</abbr>” Then she left.</p>',
+      expected: ["She said “I joined the World Health Organization.”", "Then she left."],
+    },
+    {
+      html: '<p lang="de">Sie sagte „bei der <abbr title="Weltgesundheitsorganisation">W.H.O.</abbr>“ Dann ging sie.</p>',
+      expected: ["Sie sagte „bei der Weltgesundheitsorganisation.“", "Dann ging sie."],
+    },
+    {
+      html: '<p>She joined (the <abbr title="World Health Organization">W.H.O.</abbr>) Then she left.</p>',
+      expected: ["She joined (the World Health Organization.)", "Then she left."],
     },
     {
       html: '<p lang="hi">वह <abbr title="विश्व स्वास्थ्य संगठन">डब्ल्यूएचओ।</abbr> फिर चली गई।</p>',

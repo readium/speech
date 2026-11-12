@@ -4,7 +4,7 @@ import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
-import { isAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
+import { isAlias, punctuateLoneAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
@@ -150,6 +150,7 @@ async function pushSplitSingle(
 ): Promise<void> {
   const fragments = ctx.synthetic.has(utterance) || isAlias(utterance, ctx) ? undefined : await sentenceFragmentsOf(utterance, ctx);
   if (!fragments) {
+    if (isAlias(utterance, ctx)) punctuateLoneAlias(utterance, ctx);
     newOut.push(utterance);
     newSources.push(source);
     return;

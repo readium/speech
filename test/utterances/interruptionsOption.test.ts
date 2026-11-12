@@ -380,9 +380,22 @@ test("an inline abbreviation's expansion keeps its final terminator where it end
       html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
       expected: ["She joined the World Health Organization. Then she left."],
     },
+    {
+      html: '<p>She said “I joined the <abbr title="World Health Organization">W.H.O.</abbr>” Then she left.</p>',
+      expected: ["She said “I joined the World Health Organization.” Then she left."],
+    },
+    {
+      html: '<p>She joined the “<abbr title="World Health Organization">W.H.O.</abbr>” group.</p>',
+      expected: ["She joined the “World Health Organization” group."],
+    },
     { html: '<p lang="ja">彼女は<abbr title="世界保健機関">WHO。</abbr>その後去った。</p>', expected: ["彼女は世界保健機関。その後去った。"] },
     { html: '<p>The <abbr title="United States">U.S.</abbr> Army left.</p>', expected: ["The United States Army left."] },
-    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization"] },
+    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization."] },
+    { html: '<p>Ask <dfn>the <abbr title="Doctor">Dr.</abbr></dfn> Watson.</p>', expected: ["Ask", "the Doctor", "Watson."] },
+    {
+      html: '<p>She joined <dfn>the <abbr title="World Health Organization">W.H.O.</abbr></dfn> Then she left.</p>',
+      expected: ["She joined", "the World Health Organization.", "Then she left."],
+    },
   ];
   for (const { html, expected } of cases) {
     for (const textrefs of [false, true]) {

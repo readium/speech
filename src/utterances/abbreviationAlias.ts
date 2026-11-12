@@ -3,7 +3,8 @@ import { sharedLanguage } from "./language.js";
 import { joinPieceTexts, pieceIndexAt, plainOf, pieceSpacing } from "./mergeUtterances.js";
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
+import type { GuidedNavigationObject } from "@readium/shared";
 
 export function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
   return ctx.placeholderPieces.get(piece)?.placement === "alias";
@@ -64,6 +65,8 @@ export async function segmentAroundAliases(
 }
 
 const sentenceTerminal = /\p{Sentence_Terminal}$/u;
+// What may follow a sentence's last word before its end: a quote mark there can only close, whichever way the language writes it.
+const sentenceClosing = /^[\s\p{Pe}\p{Pf}\p{Pi}"']*$/u;
 
 export function endsWithSentenceTerminator(text: string): boolean {
   return sentenceTerminal.test(text);
@@ -83,13 +86,26 @@ export function punctuateSentenceEndingAliases(
     const terminal = ctx.placeholderPieces.get(piece)!.abbreviation?.match(sentenceTerminal)?.[0];
     if (!terminal) return;
     const { start, end } = ranges[k];
-    if (!boundaries.some((boundary) => boundary.start < end && boundary.contentEnd >= end && !joined.slice(end, boundary.contentEnd).trim())) return;
+    if (!boundaries.some((boundary) => boundary.start < end && boundary.contentEnd >= end && sentenceClosing.test(joined.slice(end, boundary.contentEnd)))) return;
     if (sentenceTerminal.test(joined.slice(start, end))) return;
     if (piece.plain !== undefined) piece.plain += terminal;
     if (piece.ssml !== undefined) piece.ssml += terminal;
     punctuated = true;
   });
   return punctuated;
+}
+
+// The nearest block-level node holding `source`, itself included.
+function blockOf(source: SourceTrace[number], ctx: WalkContext): GuidedNavigationObject | undefined {
+  const node = Array.isArray(source) ? source[0] : source;
+  return node && [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => isBlockNode(n, ctx));
+}
+
+// An inline alias read as its own sentence ends it with its abbreviation's final terminator.
+export function punctuateLoneAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): void {
+  const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+  const range = { start: 0, end: text.length };
+  punctuateSentenceEndingAliases([piece], text, [range], [{ text, ...range, contentEnd: text.length }], ctx);
 }
 
 // Without sentence segmentation, merges each node's pieces the walk left unmerged, once its inline aliases are punctuated.
@@ -113,14 +129,14 @@ export async function mergeAliasPieces(
     while (j + 1 < out.length && ctx.placeholderPieces.get(out[j + 1])?.node === node) j++;
     const pieces = out.slice(i, j + 1);
     const pieceSources = sources.slice(i, j + 1);
-    if (pieces.length > 1) {
-      const shared = sharedLanguage(pieces, ctx);
-      const language = (shared === null ? pieces[0].language : shared) ?? "en";
-      const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
-      const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
-      const boundaries = await segmentAroundAliases(pieces, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
-      punctuateSentenceEndingAliases(pieces, joined, ranges, boundaries, ctx);
-    }
+    const shared = sharedLanguage(pieces, ctx);
+    const language = (shared === null ? pieces[0].language : shared) ?? "en";
+    // The text following the node in its block tells whether a sentence ending the node's own text goes on past it.
+    const segmented = blockOf(sources[j + 1], ctx) === blockOf(node, ctx) ? [...pieces, out[j + 1]] : pieces;
+    const plainParts = segmented.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
+    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(segmented, ctx));
+    const boundaries = await segmentAroundAliases(segmented, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
+    punctuateSentenceEndingAliases(pieces, joined, ranges, boundaries, ctx);
     pushMergedRuns(newOut, newSources, ctx, node, pieces, pieceSources);
     i = j + 1;
   }
