@@ -106,10 +106,10 @@ export interface ExtractUtterancesOptions {
   // embedded as SSML `<lang>` tags by the GND converter) are treated. (A
   // different mechanism, `segmentation: "sentence"`, can merge sibling
   // nodes when a sentence spans them — see `SegmentationOptions` below.)
-  //  - "always" or omitted: honor them as declared — `ssml` keeps spans
+  //  - "always": honor them as declared — `ssml` keeps spans
   //    tagged in one string; `plain` splits into one utterance per
   //    language run instead.
-  //  - "block-level": ignore a node's own inline spans — merge their text
+  //  - "block-level" or omitted: ignore a node's own inline spans — merge their text
   //    into the surrounding utterance untagged, keeping only that node's
   //    own (block-level) `language`.
   //  - "none": same merging as "block-level", and every utterance's
