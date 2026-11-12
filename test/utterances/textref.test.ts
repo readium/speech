@@ -44,6 +44,12 @@ test("a link embedded in a larger flow merges into one utterance, falling back t
   t.is(utterance.locate?.cssSelector, "p");
 });
 
+test("a link merging into text of a script written without spaces is never spaced from it across formatting, in SSML", async (t) => {
+  const gnd = parseMarkup('<p lang="ja">東京<em>大学</em><a href="x.html">リンク</a>です。</p>');
+  const [utterance] = await extractUtterances(gnd, { format: "ssml" });
+  t.is(utterance.ssml, "東京<emphasis>大学</emphasis>リンクです。");
+});
+
 // The hoist-collision case (@readium/guided-navigation's object.ts never
 // merges the link's href into the block's own textref) plus the ancestor
 // fallback above, combined: the block's cssSelector survives on the <p> node

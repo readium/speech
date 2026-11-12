@@ -12,7 +12,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Changed
 
 - **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
-- `@readium/guided-navigation` is `^1.2.4`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.2`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
+- `@readium/guided-navigation` is `^1.3.0`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.2`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
 
 ### Removed
 
@@ -20,6 +20,9 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- A footnote reference read after its sentence or not at all no longer leaves the brackets or quotes around it, empty, in the text: `前（<a role="doc-noteref">1</a>）後` reads "前後", in plain text and SSML. Right after a closing quote, it no longer glues the quote to the next word: `„Wort“<a role="doc-noteref">1</a> dann` reads "„Wort“ dann", or "„Wort“ Note. dann" with `interruptions: { noteref: "inline" }`. Read inline between quotes, the note keeps the source's spacing: `”<a role="doc-noteref">1</a>”` reads "”Note.”", not "” Note.”".
+- With `format: "ssml"`, an utterance's `locate` and `offsets` quote its text without SSML markup, so they match the page: `東京<em>大学</em>` is quoted as "東京大学", not `東京<emphasis>大学</emphasis>`, and its offset spans 4 characters.
+- Text whose SSML holds nothing but text and footnote references or page breaks is no longer lost when the GND gives no `plain` variant alongside it: a table header `Head (<a role="doc-noteref">1</a>)` reads "Head", and contextualizes its cells as "Head: cell".
 - `WebSpeechEngine`'s `"error"` events carry `recoverable`, like every `ErrorEventDetail`: `true` for a `"network"` error, `false` otherwise.
 - With `segmentation: { mode: "sentence" }`, an abbreviation ending in a period, e.g. "W.H.O.", no longer ends a sentence before its alias: "The W.H.O. (World Health Organization) said." is one sentence. When its period does end the sentence, the alias stays in it instead of opening the next one, and with `interruptions: { abbreviation: "inline" }` the sentence still ends there.
 - With `interruptions: { abbreviation: "inline" }`, an expansion keeps its abbreviation's final period or other sentence terminator where it ends a sentence, whatever `segmentation`: "She joined the World Health Organization. Then she left." A custom `segmentation.segmenter` is called to tell, outside `"sentence"` mode too.

@@ -5,8 +5,11 @@ import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
+  enclosedPlaceholders,
   hasLangTag,
   hasPlaceholder,
+  keepsSpaceBefore,
+  removeEmptiedPairs,
   resolveNodeText,
   splitOnLangTags,
   splitOnPlaceholders,
@@ -226,17 +229,58 @@ function emitWithPlaceholders(
     const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]);
     if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) ctx.touchingPieces.add(pieces[before]);
   };
-  for (let segment of splitOnPlaceholders(rawSsml)) {
+  // Inline interruptions, walked up front for `isDropped` to know which read nothing in place.
+  const insertedById = new Map<string, { pieces: ReadiumSpeechUtterance[]; sources: SourceTrace }>();
+  for (const { placeholderId } of splitOnPlaceholders(rawSsml)) {
+    const child = placeholderId === undefined ? undefined : childrenById.get(placeholderId);
+    if (!child || isDeferred(child, ctx) || !nodeRoles(child).some((role) => interruptionRoleSet.has(role))) continue;
+    const walked = { pieces: [] as ReadiumSpeechUtterance[], sources: [] as SourceTrace };
+    walkNode(child, walked.pieces, walked.sources, ctx, suppress);
+    insertedById.set(placeholderId!, walked);
+  }
+  // A placeholder read neither in place nor as its own words leaves no brackets or quotes around nothing.
+  const isDropped = (id: string) => {
+    const child = childrenById.get(id);
+    if (insertedById.get(id)?.pieces.length === 0) return true;
+    return child !== undefined && isDeferred(child, ctx) && !nodeRoles(child).some((role) => textReferenceRoleSet.has(role));
+  };
+  // How the next text meets what precedes it across placeholders: spaced where the source spaces a dropped one, else touching if set.
+  let pending: { spaceAcross?: boolean; touching?: boolean } | undefined;
+  const meetPending = (before: number) => {
+    const piece = pieces[before];
+    if (!pending || !piece) return;
+    if (pending.spaceAcross) ctx.spacedPieces.add(piece);
+    else if (pending.touching) ctx.touchingPieces.add(piece);
+    pending = undefined;
+  };
+  const { ssml, spaced } = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
+  for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
     if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
+      if (isDropped(segment.placeholderId)) {
+        pending = { spaceAcross: spaced.has(segment.placeholderId) };
+      } else if (!isDeferred(child, ctx) || nodeRoles(child).some((role) => textReferenceRoleSet.has(role))) {
+        pending = undefined;
+      }
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
         if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
-          walkNode(child, pieces, pieceSources, ctx, suppress);
+          const walked = insertedById.get(segment.placeholderId)!;
+          pieces.push(...walked.pieces);
+          pieceSources.push(...walked.sources);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+          // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
+          if (pieces.length > before) {
+            const enclosed = enclosedIds.has(segment.placeholderId);
+            if (/\s$/.test(segment.textBefore!) || (!enclosed && /\S\p{Pi}$/u.test(segment.textBefore!))) ctx.spacedPieces.add(pieces[before]);
+            else if (enclosed) ctx.touchingPieces.add(pieces[before]);
+            const spaceAfter = /^\s/.test(segment.textAfter!) && keepsSpaceBefore(segment.textAfter!.trimStart(), declaredLanguage);
+            pending = { spaceAcross: spaceAfter, touching: enclosed };
+          }
         } else {
           // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
           walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
@@ -283,6 +327,7 @@ function emitWithPlaceholders(
         pieces.push(utterance);
         pieceSources.push(node);
       }
+      meetPending(before);
       placeAlias(segment, before);
       markTouching(segment, before);
       continue;
@@ -296,6 +341,7 @@ function emitWithPlaceholders(
     }
     pieces.push(utterance);
     pieceSources.push(node);
+    meetPending(before);
     placeAlias(segment, before);
     markTouching(segment, before);
   }

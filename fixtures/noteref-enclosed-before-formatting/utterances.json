@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後",
+          "plain": "前後",
           "language": "ja"
         },
         {
@@ -3982,7 +3982,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後",
+          "plain": "前後",
           "language": "ja"
         }
       ]
@@ -4546,7 +4546,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後"
+          "plain": "前後"
         },
         {
           "plain": "注"
@@ -5910,7 +5910,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後"
+          "plain": "前後"
         }
       ]
     },
@@ -6472,7 +6472,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後",
+          "plain": "前後",
           "language": "ja"
         },
         {
@@ -7190,7 +7190,7 @@
       ],
       "utterances": [
         {
-          "plain": "前（）後"
+          "plain": "前後"
         },
         {
           "plain": "Start of the footnote. 注 End of the footnote."
@@ -7398,7 +7398,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>",
+          "ssml": "前<emphasis>後</emphasis>",
           "language": "ja"
         },
         {
@@ -11372,7 +11372,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>",
+          "ssml": "前<emphasis>後</emphasis>",
           "language": "ja"
         }
       ]
@@ -11936,7 +11936,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>"
+          "ssml": "前<emphasis>後</emphasis>"
         },
         {
           "ssml": "注"
@@ -13300,7 +13300,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>"
+          "ssml": "前<emphasis>後</emphasis>"
         }
       ]
     },
@@ -13862,7 +13862,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>",
+          "ssml": "前<emphasis>後</emphasis>",
           "language": "ja"
         },
         {
@@ -14540,7 +14540,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前（）<emphasis>後</emphasis>"
+          "ssml": "前<emphasis>後</emphasis>"
         },
         {
           "ssml": "Start of the footnote. 注 End of the footnote."

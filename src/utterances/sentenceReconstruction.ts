@@ -5,7 +5,7 @@ import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, s
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { isAlias, punctuateSentenceEndingAliases, segmentAroundAliases } from "./abbreviationAlias.js";
-import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, touchingFlags } from "./mergeUtterances.js";
+import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { isBlockNode, type SourceTrace, type WalkContext } from "./walkContext.js";
@@ -204,7 +204,7 @@ async function detectGenuineJoins(
   suppressions: string[] | undefined,
 ): Promise<boolean[]> {
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-  const { joined, ranges } = joinPieceTexts(plainParts, plainParts, touchingFlags(pieces, ctx));
+  const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
   const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
   for (const boundary of boundaries) {
@@ -345,7 +345,7 @@ async function pushJoinedGroup(
   const suppressions = callerSuppressions(language, ctx);
   const segment = async () => {
     const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
-    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, touchingFlags(pieces, ctx));
+    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
     return { plainParts, joined, ranges, segmented: await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx) };
   };
   let segmentation = await segment();
@@ -367,7 +367,7 @@ async function pushJoinedGroup(
     joinedSsml = joinPieceTexts(
       pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)),
       plainParts,
-      touchingFlags(pieces, ctx),
+      pieceSpacing(pieces, ctx),
     ).joined;
     const partBoundaries = parts.map((part) => part.boundary);
     ssmlFragments =
@@ -407,7 +407,7 @@ async function pushJoinedGroup(
     const firstRef = resolveNodeLocate(pieceSources[firstIdx], ctx.ancestorChains);
     const firstSource = pieceSources[firstIdx];
     const fallback =
-      (isAriaSubstituted(firstSource) ? substitutedBareLocate(firstSource, ctx) : undefined) ?? preciseLocateFor(firstRef, text);
+      (isAriaSubstituted(firstSource) ? substitutedBareLocate(firstSource, ctx) : undefined) ?? preciseLocateFor(firstRef, plainOf(text, ctx.format));
     const locate =
       firstIdx !== lastIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[lastIdx], ctx.ancestorChains), fallback) : fallback;
     if (locate) merged.locate = locate;

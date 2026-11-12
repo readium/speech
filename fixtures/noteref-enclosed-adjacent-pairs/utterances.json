@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after.",
+          "plain": "Text, after.",
           "language": "en"
         },
         {
@@ -18,7 +18,7 @@
           "plain": "Note."
         },
         {
-          "plain": "Text () () more.",
+          "plain": "Text more.",
           "language": "en"
         },
         {
@@ -3994,11 +3994,11 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after.",
+          "plain": "Text, after.",
           "language": "en"
         },
         {
-          "plain": "Text () () more.",
+          "plain": "Text more.",
           "language": "en"
         }
       ]
@@ -4588,7 +4588,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after."
+          "plain": "Text, after."
         },
         {
           "plain": "Note."
@@ -4597,7 +4597,7 @@
           "plain": "Note."
         },
         {
-          "plain": "Text () () more."
+          "plain": "Text more."
         },
         {
           "plain": "Note."
@@ -5964,10 +5964,10 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after."
+          "plain": "Text, after."
         },
         {
-          "plain": "Text () () more."
+          "plain": "Text more."
         }
       ]
     },
@@ -6550,7 +6550,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after.",
+          "plain": "Text, after.",
           "language": "en"
         },
         {
@@ -6562,7 +6562,7 @@
           "language": "en"
         },
         {
-          "plain": "Text () () more.",
+          "plain": "Text more.",
           "language": "en"
         },
         {
@@ -7256,7 +7256,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () (), after."
+          "plain": "Text, after."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7265,7 +7265,7 @@
           "plain": "Start of the footnote. Note. End of the footnote."
         },
         {
-          "plain": "Text () () more."
+          "plain": "Text more."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7485,7 +7485,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after.",
+          "ssml": "Text, after.",
           "language": "en"
         },
         {
@@ -7495,7 +7495,7 @@
           "ssml": "Note."
         },
         {
-          "ssml": "Text () () more.",
+          "ssml": "Text more.",
           "language": "en"
         },
         {
@@ -11471,11 +11471,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after.",
+          "ssml": "Text, after.",
           "language": "en"
         },
         {
-          "ssml": "Text () () more.",
+          "ssml": "Text more.",
           "language": "en"
         }
       ]
@@ -12065,7 +12065,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after."
+          "ssml": "Text, after."
         },
         {
           "ssml": "Note."
@@ -12074,7 +12074,7 @@
           "ssml": "Note."
         },
         {
-          "ssml": "Text () () more."
+          "ssml": "Text more."
         },
         {
           "ssml": "Note."
@@ -13441,10 +13441,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after."
+          "ssml": "Text, after."
         },
         {
-          "ssml": "Text () () more."
+          "ssml": "Text more."
         }
       ]
     },
@@ -14027,7 +14027,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after.",
+          "ssml": "Text, after.",
           "language": "en"
         },
         {
@@ -14039,7 +14039,7 @@
           "language": "en"
         },
         {
-          "ssml": "Text () () more.",
+          "ssml": "Text more.",
           "language": "en"
         },
         {
@@ -14733,7 +14733,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text () (), after."
+          "ssml": "Text, after."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -14742,7 +14742,7 @@
           "ssml": "Start of the footnote. Note. End of the footnote."
         },
         {
-          "ssml": "Text () () more."
+          "ssml": "Text more."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."

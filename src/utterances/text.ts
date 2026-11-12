@@ -1,5 +1,6 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
+import { DROPPED, removeDropped } from "@readium/guided-navigation";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
 import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
@@ -58,7 +59,8 @@ function hasSsmlMarkup(s: string): boolean {
  * applied first, since this extractor speaks referenced objects (noterefs,
  * pagebreaks) separately via the normal children walk rather than inline —
  * and if stripping a placeholder leaves no actual SSML markup behind, `ssml`
- * is dropped entirely rather than reported as a duplicate of `plain`.
+ * is dropped rather than reported as a duplicate of `plain`, standing in for
+ * `plain` when the source provides none.
  *
  * `language` is carried alongside either variant: the GND converter attaches
  * the nearest ancestor's declared language (e.g. `<html lang="fr">`) to every
@@ -69,11 +71,10 @@ export function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedN
   if (text === undefined) return undefined;
   const result: ResolvedNodeText = {};
   if (text.language !== undefined) result.language = text.language;
-  if (text.ssml) {
-    const stripped = stripPlaceholders(text.ssml);
-    if (hasSsmlMarkup(stripped)) result.ssml = stripped;
-  }
+  const stripped = text.ssml ? stripPlaceholders(removeEmptiedPairs(text.ssml, () => true, text.language).ssml) : "";
+  if (hasSsmlMarkup(stripped)) result.ssml = stripped;
   if (text.plain) result.plain = text.plain;
+  else if (stripped && !result.ssml) result.plain = stripSsmlTags(stripped);
 
   return result.plain || result.ssml ? result : undefined;
 }
@@ -572,6 +573,9 @@ export interface SsmlSegment {
   // The `id` of a `<readium:TAG id="...">` placeholder at this position,
   // linking to the sibling/child `GuidedNavigationObject` carrying that `id`.
   placeholderId?: string;
+  // On a placeholder: the text between it and the marks before and after it, without tags.
+  textBefore?: string;
+  textAfter?: string;
   // Whether `ssml` is a `<sub alias>`'s abbreviation or its alias, each keeping a `<lang>` wrapping the `<sub>`.
   abbreviation?: "text" | "alias";
   // On an alias segment: the abbreviation's ssml, and the alias in parentheses, to follow it.
@@ -623,6 +627,75 @@ export function hasPlaceholder(ssml: string): boolean {
   return new RegExp(PLACEHOLDER_OR_ABBREVIATION_RE).test(ssml);
 }
 
+// Removes the brackets and quotes each dropped placeholder leaves around nothing, as `removeDropped()` does in plain text,
+// and tells which dropped placeholders it keeps a space at.
+export function removeEmptiedPairs(
+  ssml: string,
+  isDropped: (id: string) => boolean,
+  language: string | undefined,
+): { ssml: string; spaced: Set<string> } {
+  const { chars, removed } = dropInText(ssml, isDropped, language);
+  const spaced = new Set<string>();
+  chars.forEach(({ char, id }, k) => {
+    if (char !== DROPPED) return;
+    for (const step of [-1, 1]) {
+      for (let i = k + step; chars[i] && (removed[i] || /\s/.test(chars[i].char)); i += step) {
+        if (!removed[i]) spaced.add(id!);
+      }
+    }
+  });
+  // Spaces stay: the text around a placeholder is joined by `spaced`, not by them.
+  const positions = new Set(chars.filter(({ char, at }, k) => removed[k] && at >= 0 && !/\s/.test(char)).map(({ at }) => at));
+  if (positions.size === 0) return { ssml, spaced };
+  // An element left empty by the removal goes with it.
+  return { ssml: ssml.split("").filter((_, i) => !positions.has(i)).join("").replace(/<([\w:-]+)\b[^>]*><\/\1>/g, ""), spaced };
+}
+
+// The placeholders that a bracket or quote pair encloses alone, as `removeDropped()` finds it.
+export function enclosedPlaceholders(ssml: string, language: string | undefined): Set<string> {
+  const { chars, removed } = dropInText(ssml, () => true, language);
+  const nearest = (k: number, step: number) => {
+    for (let i = k + step; i >= 0 && i < chars.length; i += step) if (chars[i].id === undefined && !/\s/.test(chars[i].char)) return i;
+    return -1;
+  };
+  const enclosed = new Set<string>();
+  chars.forEach(({ id }, k) => {
+    const [before, after] = [nearest(k, -1), nearest(k, 1)];
+    if (id !== undefined && before !== -1 && after !== -1 && removed[before] && removed[after]) enclosed.add(id);
+  });
+  return enclosed;
+}
+
+// The text of `ssml` without tags, each placeholder or abbreviation as one character, and which characters `removeDropped()` takes out.
+function dropInText(ssml: string, isDropped: (id: string) => boolean, language: string | undefined) {
+  const chars: { char: string; at: number; id?: string }[] = [];
+  const pushText = (from: number, to: number) => {
+    for (let i = from; i < to; i++) {
+      if (ssml[i] !== "<") chars.push({ char: ssml[i], at: i });
+      else if ((i = ssml.indexOf(">", i)) === -1) break;
+    }
+  };
+  let last = 0;
+  for (const mark of ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)) {
+    pushText(last, mark.index);
+    chars.push({ char: mark[1] !== undefined && isDropped(mark[1]) ? DROPPED : "\uFFFC", at: -1, id: mark[1] });
+    last = mark.index + mark[0].length;
+  }
+  pushText(last, ssml.length);
+  const kept = removeDropped(chars.map(({ char }) => char).join(""), language);
+  // removeDropped() only takes characters out, so the ones it keeps are found in order.
+  let j = 0;
+  const removed = chars.map(({ char }) => (j < kept.length && char === kept[j] ? (j++, false) : true));
+  return { chars, removed };
+}
+
+// Whether `text`, after a space and a dropped object, keeps that space as `removeDropped()` joins them.
+export function keepsSpaceBefore(text: string, language: string | undefined): boolean {
+  return removeDropped(`x ${DROPPED}${text}`, language).startsWith("x ");
+}
+
+const untagged = (ssml: string) => ssml.replace(/<[^>]*>/g, "");
+
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
  * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `interruptions`: each
@@ -647,7 +720,10 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const rawBefore = ssml.slice(lastIndex, match.index! - prefix.length);
     pushText(rawBefore);
     if (!isAbbreviation) {
-      segments.push({ placeholderId: match[1] });
+      const rest = ssml.slice(end);
+      const next = rest.search(new RegExp(PLACEHOLDER_OR_ABBREVIATION_RE.source));
+      const textAfter = untagged(next === -1 ? rest : rest.slice(0, next));
+      segments.push({ placeholderId: match[1], textBefore: untagged(ssml.slice(lastIndex, match.index)), textAfter });
       afterAbbreviation = false;
     } else {
       const touchesPrevious = rawBefore.trim() !== "" && !/\s$/.test(rawBefore);

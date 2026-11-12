@@ -80,6 +80,8 @@ export interface WalkContext {
   >;
   // Pieces whose text touches the previous piece's in the source, at an abbreviation's edge: joined without a space.
   touchingPieces: WeakSet<ReadiumSpeechUtterance>;
+  // Pieces spaced from the previous piece as the source spaces them around a placeholder, whatever punctuation meets there.
+  spacedPieces: WeakSet<ReadiumSpeechUtterance>;
   // `term`s that start a block, like `<dt>`: a `definition` follows them among their siblings, unlike an inline `<dfn>`.
   blockTerms: WeakSet<GuidedNavigationObject>;
 }
@@ -199,6 +201,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),
     touchingPieces: new WeakSet(),
+    spacedPieces: new WeakSet(),
     blockTerms: findBlockTerms(nodes),
   };
 }

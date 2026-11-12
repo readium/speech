@@ -1,6 +1,6 @@
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { sharedLanguage } from "./language.js";
-import { joinPieceTexts, pieceIndexAt, plainOf, touchingFlags } from "./mergeUtterances.js";
+import { joinPieceTexts, pieceIndexAt, plainOf, pieceSpacing } from "./mergeUtterances.js";
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
@@ -28,8 +28,7 @@ export async function segmentAroundAliases(
     included.push(k);
     parts.push(text);
   });
-  const touching = included.map((k) => ctx.touchingPieces.has(pieces[k]));
-  const { joined: text, ranges: textRanges } = joinPieceTexts(parts, parts, touching);
+  const { joined: text, ranges: textRanges } = joinPieceTexts(parts, parts, pieceSpacing(included.map((k) => pieces[k]), ctx));
   // A content end at or inside an alias's abbreviation is moved past the aliases following it.
   const toJoined = (pos: number, isContentEnd: boolean): number => {
     let i = pieceIndexAt(textRanges, pos);
@@ -118,7 +117,7 @@ export async function mergeAliasPieces(
       const shared = sharedLanguage(pieces, ctx);
       const language = (shared === null ? pieces[0].language : shared) ?? "en";
       const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
-      const { joined, ranges } = joinPieceTexts(plainParts, plainParts, touchingFlags(pieces, ctx));
+      const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
       const boundaries = await segmentAroundAliases(pieces, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
       punctuateSentenceEndingAliases(pieces, joined, ranges, boundaries, ctx);
     }

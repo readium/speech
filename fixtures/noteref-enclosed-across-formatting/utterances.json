@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after.",
+          "plain": "Text after.",
           "language": "en"
         },
         {
@@ -3981,7 +3981,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after.",
+          "plain": "Text after.",
           "language": "en"
         }
       ]
@@ -4545,7 +4545,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after."
+          "plain": "Text after."
         },
         {
           "plain": "Note."
@@ -5909,7 +5909,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after."
+          "plain": "Text after."
         }
       ]
     },
@@ -6471,7 +6471,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after.",
+          "plain": "Text after.",
           "language": "en"
         },
         {
@@ -7135,7 +7135,7 @@
       ],
       "utterances": [
         {
-          "plain": "Text () after."
+          "plain": "Text after."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7331,7 +7331,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after.",
+          "ssml": "Text after.",
           "language": "en"
         },
         {
@@ -11304,7 +11304,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after.",
+          "ssml": "Text after.",
           "language": "en"
         }
       ]
@@ -11319,126 +11319,6 @@
         },
         {
           "format": "ssml",
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Text (Note. <emphasis>)</emphasis> after.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
           "interruptions": {
             "noteref": "inline"
           },
@@ -11461,6 +11341,13 @@
           "language": "always",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -11475,6 +11362,13 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11505,6 +11399,15 @@
           ],
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -11521,6 +11424,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11558,6 +11471,16 @@
           "language": "block-level",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -11584,6 +11507,15 @@
           ],
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -11600,6 +11532,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11627,6 +11569,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11666,6 +11618,18 @@
           ],
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -11685,6 +11649,19 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11718,6 +11695,19 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -11878,7 +11868,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after."
+          "ssml": "Text after."
         },
         {
           "ssml": "Note."
@@ -13242,7 +13232,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after."
+          "ssml": "Text after."
         }
       ]
     },
@@ -13257,48 +13247,6 @@
         },
         {
           "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Text (Note. <emphasis>)</emphasis> after."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
           "language": "none",
           "interruptions": {
             "noteref": "inline"
@@ -13316,6 +13264,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -13353,6 +13311,16 @@
           "language": "none",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -13370,6 +13338,19 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -13813,7 +13794,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after.",
+          "ssml": "Text after.",
           "language": "en"
         },
         {
@@ -13838,147 +13819,6 @@
           "contextualize": [
             "footnote"
           ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Text (Start of the footnote. Note. End of the footnote. <emphasis>)</emphasis> after.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "footnote"
-          ],
           "interruptions": {
             "noteref": "inline"
           },
@@ -13997,6 +13837,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14034,6 +13884,16 @@
           "language": "block-level",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14051,6 +13911,16 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14089,6 +13959,17 @@
           "language": "always",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14107,6 +13988,17 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14148,6 +14040,18 @@
           ],
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14167,6 +14071,19 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14213,6 +14130,19 @@
           "language": "block-level",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14246,6 +14176,19 @@
           ],
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14266,6 +14209,20 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14301,6 +14258,20 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14487,7 +14458,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Text (<emphasis>)</emphasis> after."
+          "ssml": "Text after."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -14509,53 +14480,6 @@
         {
           "format": "ssml",
           "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "interruptions": {
-            "noteref": "inline"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Text (Start of the footnote. Note. End of the footnote. <emphasis>)</emphasis> after."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
             "footnote"
           ],
           "language": "none",
@@ -14578,6 +14502,17 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {
@@ -14620,6 +14555,19 @@
           "language": "none",
           "interruptions": {
             "noteref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           },
           "segmentation": {
             "mode": "sentence"
@@ -14640,6 +14588,20 @@
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "interruptions": {
+            "noteref": "inline"
           }
         },
         {

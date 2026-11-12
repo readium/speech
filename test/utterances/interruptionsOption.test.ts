@@ -313,6 +313,67 @@ test("text attached to an abbreviation is never cut at a combining mark, and nev
   }
 });
 
+test("a note reference read after its sentence or not at all leaves no brackets or quotes around nothing", async (t) => {
+  const note = '<aside id="n" role="doc-footnote">Note.</aside>';
+  const cases = [
+    { html: `<p lang="ja">前（<a role="doc-noteref" href="#n">1</a>）<em>後</em></p>${note}`, plain: "前後", ssml: "前<emphasis>後</emphasis>", inline: "前（Note.）後" },
+    { html: `<p lang="zh">前“<a role="doc-noteref" href="#n">1</a>”后</p>${note}`, plain: "前后", ssml: "前后", inline: "前“Note.”后" },
+    { html: `<p>Text (<a role="doc-noteref" href="#n">1</a> <em>)</em> after.</p>${note}`, plain: "Text after.", ssml: "Text after.", inline: "Text (Note.) after." },
+    { html: `<p>Text (<a role="doc-noteref" href="#n">1</a>, <a role="doc-noteref" href="#n">2</a>) after.</p>${note}`, plain: "Text after.", ssml: "Text after.", inline: "Text (Note., Note.) after." },
+    { html: `<p lang="sv">Han sa ”<a role="doc-noteref" href="#n">1</a>” sedan.</p>${note}`, plain: "Han sa sedan.", ssml: "Han sa sedan.", inline: "Han sa ”Note.” sedan." },
+    { html: `<p lang="de">Er sagt „Wort“<a role="doc-noteref" href="#n">1</a> dann.</p>${note}`, plain: "Er sagt „Wort“ dann.", ssml: "Er sagt „Wort“ dann.", inline: "Er sagt „Wort“ Note. dann." },
+  ];
+  for (const { html, ...expected } of cases) {
+    for (const noteref of ["after", "never"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const [first] = await extractUtterances(parseMarkup(html), { format, interruptions: { noteref } });
+        t.is(first[format], expected[format], `${format} ${noteref}: ${html}`);
+      }
+    }
+    const inline = await extractUtterances(parseMarkup(html), { format: "plain", interruptions: { noteref: "inline" } });
+    t.is(inline.map((u) => u.plain).join(" "), expected.inline, `inline: ${html}`);
+  }
+});
+
+test("a dropped note's emptied brackets are left out of the text quotes locating its sentence", async (t) => {
+  const html = '<p>Text (<a role="doc-noteref" href="#n">1</a>) after. Next one.</p><aside id="n" role="doc-footnote">Note.</aside>';
+  const [first] = await extractUtterances(parseMarkup(html, "text/html", { textrefs: true }), { format: "plain", interruptions: { noteref: "never" } });
+  t.deepEqual(first.offsets?.map((offset) => offset.locate.text?.highlight), ["Text", "after. Next one."]);
+});
+
+// GND whose SSML carries placeholders without a plain variant, as a producer may emit it.
+function withoutPlain(nodes: GuidedNavigationObject[]): GuidedNavigationObject[] {
+  for (const node of nodes) {
+    if (node.text?.ssml && node.text.plain !== undefined) node.text = { ...node.text, plain: undefined };
+    if (node.children) withoutPlain(node.children);
+  }
+  return nodes;
+}
+
+test("text whose SSML holds only a placeholder is read from it when the source gives no plain text", async (t) => {
+  const note = '<aside id="n" role="doc-footnote">Note.</aside>';
+  const header = `<table><tr><th>Head (<a role="doc-noteref" href="#n">1</a>)</th></tr><tr><td>cell</td></tr></table>${note}`;
+  const glossref = '<p>See <a role="doc-glossref" href="#g">term (<span role="doc-pagebreak" id="p5" aria-label="5"></span>)</a> here.</p><dl><dt id="g">term</dt><dd>Def.</dd></dl>';
+  for (const format of ["plain", "ssml"] as const) {
+    const table = await extractUtterances(withoutPlain(parseMarkup(header)), { format, contextualize: ["table"], interruptions: { noteref: "never" } });
+    t.true(table.some((u) => u[format] === "Head: cell"), `${format}: ${JSON.stringify(table)}`);
+    const [sentence] = await extractUtterances(withoutPlain(parseMarkup(glossref)), { format, interruptions: { pagebreak: "never" } });
+    t.is(sentence[format], "See term here.", format);
+  }
+});
+
+test("a source's own plain text is kept over its placeholder-holding SSML", async (t) => {
+  const gnd = parseMarkup('<table><tr><th>Head (<a role="doc-noteref" href="#n">1</a>)</th></tr><tr><td>cell</td></tr></table><aside id="n" role="doc-footnote">Note.</aside>');
+  const setPlain = (nodes: GuidedNavigationObject[]) =>
+    nodes.forEach((node) => {
+      if (node.text?.ssml?.includes("Head")) node.text = { ...node.text, plain: "Heading" };
+      if (node.children) setPlain(node.children);
+    });
+  setPlain(gnd);
+  const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["table"], interruptions: { noteref: "never" } });
+  t.true(utterances.some((u) => u.plain === "Heading: cell"), JSON.stringify(utterances));
+});
+
 test("an inline abbreviation's expansion keeps its final terminator where it ends a sentence, without sentence segmentation", async (t) => {
   const cases = [
     {

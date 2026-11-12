@@ -12,11 +12,11 @@ import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
-// on `plainParts` (their plain text, for SSML `parts`), except before a `touching[i]` part. `ranges[i]` is where `parts[i]` landed in `joined`.
+// on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
 export function joinPieceTexts(
   parts: string[],
   plainParts: string[] = parts,
-  touching: boolean[] = [],
+  spacing: PieceSpacing[] = [],
 ): { joined: string; ranges: { start: number; end: number }[] } {
   let joined = "";
   let plain = "";
@@ -29,7 +29,10 @@ export function joinPieceTexts(
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
-    if (plain && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !/\s$/.test(plain) && !/^\s/.test(plainPart) && !touching[i] && !joinsWithoutSpace(plain, plainPart)) {
+    const spaced =
+      spacing[i] === "spaced" ||
+      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain.replace(/(?:<[^>]*>)+$/, ""), plainPart.replace(/^(?:<[^>]*>)+/, "")));
+    if (plain && spaced && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
       joined += " ";
       plain += " ";
     }
@@ -41,8 +44,10 @@ export function joinPieceTexts(
   return { joined, ranges };
 }
 
-export function touchingFlags(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): boolean[] {
-  return pieces.map((piece) => ctx.touchingPieces.has(piece));
+export type PieceSpacing = "touching" | "spaced" | undefined;
+
+export function pieceSpacing(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): PieceSpacing[] {
+  return pieces.map((piece) => (ctx.touchingPieces.has(piece) ? "touching" : ctx.spacedPieces.has(piece) ? "spaced" : undefined));
 }
 
 // Which piece index a position in a joined string falls in — a position
@@ -81,7 +86,7 @@ export function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources
     if (!source || Array.isArray(source)) return;
     const nodeRef = resolveNodeLocate(source, ctx.ancestorChains);
     if (!nodeRef) return;
-    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
     if (!text) return;
     const range = ctx.pendingRange.get(piece);
     const locate = isAriaSubstituted(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
@@ -111,7 +116,7 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     if (ctx.synthetic.has(piece)) return undefined;
     const source = pieceSources[i];
     if (!source || Array.isArray(source)) return undefined;
-    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
     if (!text) return undefined;
     if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx.ancestorChains) && substitutedBareLocate(source, ctx);
     return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
@@ -154,7 +159,7 @@ export function mergeUtterances(
   const language = runLanguage(usedPieces, ctx);
   if (language === null) return undefined;
   const texts = ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts;
-  const { joined } = joinPieceTexts(texts, texts, touchingFlags(usedPieces, ctx));
+  const { joined } = joinPieceTexts(texts, texts, pieceSpacing(usedPieces, ctx));
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);

@@ -57,3 +57,15 @@ test("an empty rowheader'd cell still gets offsets for its header wording, not j
   const emptyCell = utterances.find((u) => u.plain === "Author: ");
   t.truthy(emptyCell?.offsets);
 });
+
+test("an SSML utterance's text quotes and offsets are its plain text, without markup", async (t) => {
+  const cases = [
+    { html: '<p lang="ja">東京<em>大学</em><a href="x.html">リンク</a>です。</p>', highlights: ["東京大学", "リンク", "です。"] },
+    { html: '<p>Text (<a role="doc-noteref" href="#n">1</a> <em>)</em> after.</p><aside id="n" role="doc-footnote">Note.</aside>', highlights: ["Text (", "Note.", ") after."] },
+  ];
+  for (const { html, highlights } of cases) {
+    const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format: "ssml", interruptions: { noteref: "inline" } });
+    t.deepEqual(utterance.offsets?.map((offset) => offset.locate.text?.highlight), highlights, html);
+    t.deepEqual(utterance.offsets?.map((offset) => offset.end - offset.start), highlights.map((h) => h.length), html);
+  }
+});
