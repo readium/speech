@@ -264,6 +264,11 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   let substitutedPlain = "";
   const map: number[] = [];
   let spanIndex = 0;
+  const writeReplacement = (span: SubstitutionSpan, chain: SsmlElement[]) => {
+    substitutedPlain += span.replacement;
+    for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
+    writer.text(chain, span.replacement);
+  };
 
   for (const piece of pieces) {
     if ("node" in piece) {
@@ -274,11 +279,8 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
     while (cursor < piece.end) {
       const span = spans[spanIndex];
       if (span && span.start <= cursor) {
-        if (span.start === cursor) {
-          substitutedPlain += span.replacement;
-          for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
-          writer.text(commonAncestors(piece.chain, pieceAt(span.end - 1).chain), span.replacement);
-        }
+        // A zero-width match stays in the piece it sits in.
+        if (span.start === cursor) writeReplacement(span, span.end > span.start ? commonAncestors(piece.chain, pieceAt(span.end - 1).chain) : piece.chain);
         cursor = Math.min(span.end, piece.end);
         if (span.end <= piece.end) spanIndex++;
         continue;
@@ -291,6 +293,8 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
       cursor = next;
     }
   }
+  // A zero-width match at the very end, past every piece, goes in the last one.
+  for (const span of spans.slice(spanIndex)) writeReplacement(span, textPieces[textPieces.length - 1]?.chain ?? []);
   const outSsml = writer.flush();
 
   let plainStart = 0;

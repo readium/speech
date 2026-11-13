@@ -203,6 +203,13 @@ test("stripSsmlTagsKeepSpacing separates words at a sentence element", (t) => {
   t.is(stripSsmlTagsKeepSpacing("<s>Hello.</s><s>World.</s>"), "Hello. World.");
 });
 
+test("substituteSsmlText writes a zero-width match where it sits, at the start, middle or end", (t) => {
+  const ssml = "a <emphasis>b</emphasis> c";
+  t.is(substituteSsmlText(ssml, { prefix: { pattern: /^/, replace: "Note: " } }).ssml, "Note: a <emphasis>b</emphasis> c");
+  t.is(substituteSsmlText(ssml, { middle: { pattern: /(?=b)/, replace: "[" } }).ssml, "a <emphasis>[b</emphasis> c");
+  t.is(substituteSsmlText(ssml, { suffix: { pattern: /$/, replace: " (end)" } }).ssml, "a <emphasis>b</emphasis> c (end)");
+});
+
 test("substituteSsmlText separates words at a paragraph element, outside its tags", (t) => {
   const result = substituteSsmlText("one<p>two</p>three", { nomatch: "X" });
   t.is(result.plain, "one two three");
