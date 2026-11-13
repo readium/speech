@@ -32,7 +32,7 @@ test("decodeSsmlEntities reads &nbsp; as a no-break space", (t) => {
 });
 
 test("parseSsml drops comments and processing instructions, and reads CDATA as text", (t) => {
-  t.deepEqual(parseSsml('<?xml version="1.0"?>a<!-- b > c -->d<![CDATA[<e>]]>'), [{ kind: "text", text: "ad<e>" }]);
+  t.deepEqual(parseSsml('<?xml version="1.0"?>a<?producer f > g?><!-- b > c -->d<![CDATA[<e>]]>'), [{ kind: "text", text: "ad<e>" }]);
 });
 
 test("parseSsml reads input that isn't well-formed as one text node", (t) => {

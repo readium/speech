@@ -91,7 +91,11 @@ function parseOrThrow(ssml: string): SsmlNode[] {
       if (end === -1) throw new Error("unclosed CDATA");
       pushText(ssml.slice(lt + 9, end));
       i = end + 3;
-    } else if (rest.startsWith("<?") || rest.startsWith("<!")) {
+    } else if (rest.startsWith("<?")) {
+      const end = ssml.indexOf("?>", lt + 2);
+      if (end === -1) throw new Error("unclosed processing instruction");
+      i = end + 2;
+    } else if (rest.startsWith("<!")) {
       const end = ssml.indexOf(">", lt);
       if (end === -1) throw new Error("unclosed declaration");
       i = end + 1;

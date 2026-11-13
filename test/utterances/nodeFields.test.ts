@@ -41,3 +41,9 @@ test("a node's root speak is unwrapped in its utterance, its language spoken", a
     [['<p>Bonjour <lang xml:lang="en">Page 5</lang> le monde.</p>', "fr"]],
   );
 });
+
+test("nodeText unwraps a root speak after a processing instruction holding a '>'", (t) => {
+  const text = nodeText(GuidedNavigationText.deserialize({ ssml: '<?producer a > b?><speak xml:lang="fr">Bonjour</speak>' }));
+  t.is(text?.ssml, "Bonjour");
+  t.is(text?.language, "fr");
+});
