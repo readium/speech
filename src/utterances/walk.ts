@@ -30,7 +30,7 @@ import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
-import { setEnclosingTags } from "./enclosingTags.js";
+import { nestEnclosingTags, setEnclosingTags, type SliceScope } from "./enclosingTags.js";
 import { isBlockNode } from "./blocks.js";
 import {
   contentlessRoleSet,
@@ -287,7 +287,7 @@ function emitWithPlaceholders(
     if (ctx.language === "block-level" || ctx.language === "none") ssml = stripLangTags(ssml);
   }
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
-  const slices = {};
+  const slices: SliceScope = {};
   let sliceIndex = 0;
   for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
@@ -308,6 +308,7 @@ function emitWithPlaceholders(
           pieces.push(...walked.pieces);
           pieceSources.push(...walked.sources);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
           // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
           if (pieces.length > before) {
             const enclosed = enclosedIds.has(segment.placeholderId);
@@ -319,6 +320,7 @@ function emitWithPlaceholders(
         } else {
           // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
           walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
+          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
           pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
           // Its text keeps the source's spacing, which joining wouldn't add in text written without spaces.
           if (pieces.length > before) {
@@ -378,7 +380,7 @@ function emitWithPlaceholders(
     if (language) utterance.language = language;
     if (ctx.format === "ssml") {
       utterance.ssml = segment.ssml;
-      setEnclosingTags(utterance, { open: segment.openTags ?? "", close: segment.closeTags ?? "", source: slices, index: sliceIndex++ });
+      setEnclosingTags(utterance, { open: segment.openTags ?? "", close: segment.closeTags ?? "", scope: slices, index: sliceIndex++ });
     } else utterance.plain = stripSsmlTags(readable);
     pieces.push(utterance);
     pieceSources.push(node);

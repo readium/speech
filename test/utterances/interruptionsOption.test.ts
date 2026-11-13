@@ -223,6 +223,23 @@ test("text split around a link in another language closes and reopens the emphas
   }
 });
 
+test("a link's own formatted text stays inside the emphasis around the link", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<emphasis>A <readium:link id="l"/> B.</emphasis>' },
+      children: [{ id: "l", role: ["link"], text: { ssml: '<prosody rate="slow">C <sub alias="Organization">WHO</sub> D</prosody>' } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode }, interruptions: { abbreviation: "inline" } })).map((u) => u.ssml),
+      ['<emphasis>A <prosody rate="slow">C Organization D</prosody> B.</emphasis>'],
+      mode,
+    );
+  }
+});
+
 test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({
