@@ -129,6 +129,20 @@ test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async
   t.deepEqual(result, ["Hello world.", "This is a test."]);
 });
 
+test("splitSsmlAtSentences keeps elements nested in another one as markup", async (t) => {
+  const result = await splitSsmlAtSentences("<p>One. <emphasis>Two</emphasis>. Three.</p>", "en", segmentSentences);
+  t.deepEqual(result, ["<p>One.</p>", "<p><emphasis>Two</emphasis>.</p>", "<p>Three.</p>"]);
+});
+
+test("splitSsmlAtSentences closes and reopens every element open at a boundary", async (t) => {
+  const result = await splitSsmlAtSentences(
+    '<lang xml:lang="fr"><emphasis>Un. Deux<break/>trois.</emphasis></lang>',
+    "fr",
+    segmentSentences,
+  );
+  t.deepEqual(result, ['<lang xml:lang="fr"><emphasis>Un.</emphasis></lang>', '<lang xml:lang="fr"><emphasis>Deux<break/>trois.</emphasis></lang>']);
+});
+
 test("splitSsmlAtSentences returns undefined for a single sentence", async (t) => {
   const result = await splitSsmlAtSentences("Just one sentence.", "en", segmentSentences);
   t.is(result, undefined);

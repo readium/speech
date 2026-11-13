@@ -289,34 +289,6 @@ export function substitutedIndexToSourceIndex(map: number[], substitutedIndex: n
   return map[substitutedIndex];
 }
 
-// One paired tag+inner-text span (`<tag attrs>...</tag>`, always flat and
-// self-contained per the GND converter's `flushText()`), one self-closing
-// tag, or a run of plain text.
-export interface SsmlTextAtom {
-  kind: "paired" | "selfClosing" | "text";
-  raw: string;
-  tag?: string;
-  attrs?: string;
-  innerText?: string; // unescaped, "paired" only
-  text?: string; // unescaped, "text" only
-}
-
-const SSML_TEXT_TOKEN_RE = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-
-export function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[] {
-  const atoms: SsmlTextAtom[] = [];
-  for (const match of ssml.matchAll(SSML_TEXT_TOKEN_RE)) {
-    if (match[1] !== undefined) {
-      atoms.push({ kind: "paired", raw: match[0], tag: match[1], attrs: match[2], innerText: decodeSsmlEntities(match[3]) });
-    } else if (match[0][0] === "<") {
-      atoms.push({ kind: "selfClosing", raw: match[0] });
-    } else {
-      atoms.push({ kind: "text", raw: match[0], text: decodeSsmlEntities(match[0]) });
-    }
-  }
-  return atoms;
-}
-
 export interface SsmlSubstitutionResult {
   ssml: string;
   plain: string; // the pre-substitution text `map` resolves into, same shape as stripSsmlTags(ssml)
