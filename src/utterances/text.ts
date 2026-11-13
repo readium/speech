@@ -511,7 +511,7 @@ function peelLeadingClose(tokens: Token[]): Token[] {
  * Splits an SSML string into per-language runs of plain text (`format:
  * "plain"` has no `<lang>` markup, so a language shift mid-string becomes
  * separate segments instead). Punctuation touching a `<lang>` boundary —
- * separated by nothing or only whitespace — joins the tagged run rather
+ * separated by nothing or only whitespace — joins the nested run rather
  * than staying with its lexical run: close-punct after `</lang>` joins the
  * run that just closed, open-punct before `<lang>` joins the run about to
  * start. Text in nested elements declaring a language (`<lang>`, or `xml:lang` on `<p>`, `<s>`...) takes the innermost one's.
@@ -520,30 +520,37 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
   interface Run {
     tokens: Token[];
     language: string | undefined;
-    tagged: boolean;
+    // The elements declaring a language around the run, outermost first.
+    langs: SsmlElement[];
   }
   // Consecutive leaves under the same innermost element declaring a language (or none), written without it and its ancestors.
-  const groups: { lang?: SsmlElement; writer: SsmlWriter }[] = [];
+  const groups: { lang?: SsmlElement; langs: SsmlElement[]; writer: SsmlWriter }[] = [];
   for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
     let langDepth = ancestors.length - 1;
     while (langDepth >= 0 && declaredLanguage(ancestors[langDepth]) === undefined) langDepth--;
     const lang = langDepth === -1 ? undefined : ancestors[langDepth];
-    if (groups.length === 0 || groups[groups.length - 1].lang !== lang) groups.push({ lang, writer: new SsmlWriter() });
+    if (groups.length === 0 || groups[groups.length - 1].lang !== lang) {
+      const langs = ancestors.filter((element) => declaredLanguage(element) !== undefined);
+      groups.push({ lang, langs, writer: new SsmlWriter() });
+    }
     const { writer } = groups[groups.length - 1];
     const chain = ancestors.slice(langDepth + 1);
     if (node.kind === "text") writer.text(chain, node.text);
     else writer.node(chain, node);
   }
-  const runs: Run[] = groups.map(({ lang, writer }) =>
-    lang
-      ? { tokens: tokenize(stripSsmlTags(writer.flush())), language: declaredLanguage(lang), tagged: true }
-      : { tokens: tokenize(stripSsmlTagsKeepEdges(writer.flush())), language: baseLanguage, tagged: false },
-  );
+  const runs: Run[] = groups.map(({ lang, langs, writer }) => ({
+    tokens: tokenize(stripSsmlTagsKeepEdges(writer.flush())),
+    language: lang ? declaredLanguage(lang) : baseLanguage,
+    langs,
+  }));
+  // Whether `inner` is nested in `outer`'s innermost element declaring a language.
+  const nestedIn = (inner: Run, outer: Run) =>
+    inner.langs.length > outer.langs.length && outer.langs.every((element, k) => inner.langs[k] === element);
 
   for (let i = 0; i < runs.length - 1; i++) {
-    if (!runs[i].tagged && runs[i + 1].tagged) {
+    if (nestedIn(runs[i + 1], runs[i])) {
       runs[i + 1].tokens.unshift(...peelTrailingOpen(runs[i].tokens));
-    } else if (runs[i].tagged && !runs[i + 1].tagged) {
+    } else if (nestedIn(runs[i], runs[i + 1])) {
       runs[i].tokens.push(...peelLeadingClose(runs[i + 1].tokens));
     }
   }

@@ -245,6 +245,20 @@ test("splitOnLangTags keeps punctuation touching a lang element nested in anothe
   ]);
 });
 
+test("splitOnLangTags keeps punctuation touching a lang element with it inside a paragraph declaring a language", (t) => {
+  t.deepEqual(splitOnLangTags('<p xml:lang="en">He said « <lang xml:lang="fr">oui</lang> ».</p>', "de"), [
+    { plain: "He said", language: "en" },
+    { plain: "« oui ».", language: "fr" },
+  ]);
+});
+
+test("splitOnLangTags leaves punctuation between sibling lang elements where it is", (t) => {
+  t.deepEqual(splitOnLangTags('<lang xml:lang="fr">oui</lang> « <lang xml:lang="de">ja</lang>', "en"), [
+    { plain: "oui", language: "fr" },
+    { plain: "« ja", language: "de" },
+  ]);
+});
+
 test("hasPlaceholder finds a placeholder nested in an element, with single-quoted attributes", (t) => {
   t.true(hasPlaceholder("<p><readium:pagebreak id='p1'/></p>"));
 });
