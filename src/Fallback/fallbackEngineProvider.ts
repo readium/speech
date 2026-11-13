@@ -43,7 +43,7 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
 
   // Available when the provider createEngine() would end up using is.
   async isAvailable(): Promise<boolean> {
-    if (await this.primary.isAvailable?.()) return true;
+    if (await this.primary.isAvailable?.().catch(() => false)) return true;
     return this.onFailure !== "error" && (await this.fallback.isAvailable?.()) === true;
   }
 

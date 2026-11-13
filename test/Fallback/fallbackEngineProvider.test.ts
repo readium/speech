@@ -185,3 +185,11 @@ test.serial("isAvailable() is the primary's, else the fallback's unless onFailur
   t.true(await new FallbackEngineProvider({ primary: unavailable as any, fallback: available as any }).isAvailable());
   t.false(await new FallbackEngineProvider({ primary: unavailable as any, fallback: available as any, onFailure: "error" }).isAvailable());
 });
+
+test.serial("isAvailable() checks the fallback when the primary's probe rejects", async (t) => {
+  const rejecting = { id: "a", name: "A", getVoices: async () => [], createEngine: async () => { throw new Error(); }, isAvailable: async () => { throw new Error("offline"); }, destroy: async () => {} };
+  const available = { ...rejecting, id: "b", name: "B", isAvailable: async () => true };
+
+  t.true(await new FallbackEngineProvider({ primary: rejecting as any, fallback: available as any }).isAvailable());
+  t.false(await new FallbackEngineProvider({ primary: rejecting as any, fallback: available as any, onFailure: "error" }).isAvailable());
+});
