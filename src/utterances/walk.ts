@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
+import { languageFor, overrideLangTags, setEnclosingLanguage, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
@@ -308,6 +308,7 @@ function emitWithPlaceholders(
           pieces.push(...walked.pieces);
           pieceSources.push(...walked.sources);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+          if (segment.language) pieces.slice(before).forEach((piece) => setEnclosingLanguage(piece, segment.language!));
           nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
           // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
           if (pieces.length > before) {

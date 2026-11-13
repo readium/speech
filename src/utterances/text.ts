@@ -581,6 +581,8 @@ export interface SsmlSegment {
   // On a placeholder: the text between it and the marks before and after it, without tags.
   textBefore?: string;
   textAfter?: string;
+  // On a placeholder: the language declared by the innermost element open around it.
+  language?: string;
   // Whether `ssml` is a `<sub alias>`'s abbreviation or its alias, each keeping the formatting wrapping just the `<sub>`.
   abbreviation?: "text" | "alias";
   // On an alias segment: the abbreviation's ssml, and the alias in parentheses, to follow it.
@@ -764,7 +766,13 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const following = ssml.slice(mark.end, marks[k + 1]?.start ?? ssml.length);
     if (mark.placeholderId !== undefined) {
       pushText(lastIndex, mark.start);
-      segments.push({ placeholderId: mark.placeholderId, textBefore: untagged(ssml.slice(lastIndex, mark.start)), textAfter: untagged(following) });
+      const language = openAt(mark.start).map(declaredLanguage).filter((declared) => declared !== undefined).pop();
+      segments.push({
+        placeholderId: mark.placeholderId,
+        textBefore: untagged(ssml.slice(lastIndex, mark.start)),
+        textAfter: untagged(following),
+        ...(language && { language }),
+      });
       afterAbbreviation = false;
       lastIndex = mark.end;
       return;

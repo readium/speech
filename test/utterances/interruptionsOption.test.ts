@@ -240,6 +240,24 @@ test("a link's own formatted text stays inside the emphasis around the link", as
   }
 });
 
+test("an inline page label inside a span in another language keeps the catalog's language", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: 'Hello <lang xml:lang="fr">avant <readium:pagebreak id="pb"/> après</lang> bye.', language: "en" },
+      children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const options = { format: "ssml" as const, language: "always" as const, segmentation: { mode }, interruptions: { pagebreak: "inline" as const } };
+    t.deepEqual(
+      (await extractUtterances(gnd(), options)).map((u) => u.ssml),
+      ['Hello <lang xml:lang="fr">avant <lang xml:lang="en">Page 5</lang> après</lang> bye.'],
+      mode,
+    );
+  }
+});
+
 test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({

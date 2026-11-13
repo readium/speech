@@ -101,9 +101,17 @@ export function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext):
   return commonLanguage(pieces, ctx, ctx.format === "ssml");
 }
 
-// A piece's SSML, a catalog entry in another primary language than `language` wrapped in a `<lang>`.
-export function ssmlInLanguage(piece: ReadiumSpeechUtterance, language: string | undefined, ctx: WalkContext): string {
+// The language declared around a piece inserted inside a language-tagged span of its node's SSML.
+const enclosingLanguages = new WeakMap<ReadiumSpeechUtterance, string>();
+
+export function setEnclosingLanguage(piece: ReadiumSpeechUtterance, language: string): void {
+  enclosingLanguages.set(piece, language);
+}
+
+// A piece's SSML, a catalog entry in another primary language than `language` (or the span it's inserted in) wrapped in a `<lang>`.
+export function ssmlInLanguage(piece: ReadiumSpeechUtterance, runLanguage: string | undefined, ctx: WalkContext): string {
   const ssml = piece.ssml ?? "";
+  const language = enclosingLanguages.get(piece) ?? runLanguage;
   if (!language || !piece.language || !isCatalogEntry(piece, ctx) || isWordless(piece)) return ssml;
   if (samePrimaryLanguage(piece.language, language)) return ssml;
   return `<lang xml:lang="${ssmlAttrEscape(piece.language)}">${ssml}</lang>`;
