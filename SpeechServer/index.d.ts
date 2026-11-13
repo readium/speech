@@ -1,7 +1,7 @@
-export * from './chunkText.js';
-export * from './selectFormat.js';
-export * from './speechServerEngine.js';
-export * from './speechServerEngineProvider.js';
-export * from './speechServerVoiceMapping.js';
-export * from './errors.js';
-export * from './types.js';
+export { SpeechServerEngine } from './speechServerEngine.js';
+export type { SpeechServerEndpoints, SpeechServerEngineOptions } from './speechServerEngine.js';
+export { SpeechServerEngineProvider } from './speechServerEngineProvider.js';
+export type { SpeechServerEngineProviderOptions } from './speechServerEngineProvider.js';
+export type { SpeechServerFormatOptions } from './selectFormat.js';
+export type { SpeechServerAudioFormat } from './types.js';
+export { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError } from './errors.js';

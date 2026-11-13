@@ -27,6 +27,7 @@ export declare class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine
     private swapInFlight;
     private teardownEpoch;
     private loadToken;
+    private readonly listedVoices;
     private readonly events;
     private unbindActiveEngine;
     constructor(options: FallbackSpeechEngineOptions);
@@ -50,7 +51,7 @@ export declare class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine
     getCurrentUtteranceIndex(): number;
     setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;
     getUtteranceCount(): number;
-    on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
+    on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void;
     private emitEvent;
     private bindActiveEngine;
     private handleError;
@@ -59,9 +60,14 @@ export declare class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine
     private startHealthCheck;
     private maybeRecoverNow;
     private swapToFallback;
+    private utteranceVoice;
     private recoverToPrimary;
     private performSwap;
     private reachableVoices;
+    private recordListedVoices;
+    private listedVoice;
+    private listUtteranceVoices;
+    private withReachableVoices;
     private pickBestFallbackVoice;
     destroy(): Promise<void>;
 }

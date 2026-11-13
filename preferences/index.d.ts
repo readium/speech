@@ -5,7 +5,7 @@ export type { IEnumPreference, IPreference, IRangePreference } from './Preferenc
 export { SpeechPreferences } from './SpeechPreferences.js';
 export type { AutoPauseScope, ISpeechPreferences, VerbosityPreset, VoicePreference } from './SpeechPreferences.js';
 export type { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
-export { autoPauseScopes, extractionFormats, extractionPreferenceKeys, languageModes, pauseDurationRangeConfig, pitchRangeConfig, rateRangeConfig, segmentationModes, verbosityPresets, volumeRangeConfig, } from './constraints.js';
+export { autoPauseScopes, extractionFormats, extractionPreferenceKeys, interruptionValues, languageModes, pauseDurationRangeConfig, pitchRangeConfig, rateRangeConfig, segmentationModes, verbosityPresets, volumeRangeConfig, } from './constraints.js';
 export type { RangeConfig } from './constraints.js';
 export { SpeechDefaults } from './SpeechDefaults.js';
 export type { ISpeechDefaults } from './SpeechDefaults.js';

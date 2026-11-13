@@ -6,3 +6,4 @@ export declare function formatEntryText(text: string, ctx: WalkContext): Readium
 export declare function formatDescription(text: string, node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance;
 export declare function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: SourceTrace[number], items: ReadiumSpeechUtterance[]): void;
 export declare function pushPiecesOrMerged(out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, node: GuidedNavigationObject, pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, merged: ReadiumSpeechUtterance | undefined): void;
+export declare function pushMergedRuns(out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, node: GuidedNavigationObject, pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace): void;

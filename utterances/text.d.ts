@@ -17,7 +17,8 @@ export interface ResolvedNodeText {
  * applied first, since this extractor speaks referenced objects (noterefs,
  * pagebreaks) separately via the normal children walk rather than inline —
  * and if stripping a placeholder leaves no actual SSML markup behind, `ssml`
- * is dropped entirely rather than reported as a duplicate of `plain`.
+ * is dropped rather than reported as a duplicate of `plain`, standing in for
+ * `plain` when the source provides none.
  *
  * `language` is carried alongside either variant: the GND converter attaches
  * the nearest ancestor's declared language (e.g. `<html lang="fr">`) to every
@@ -26,6 +27,9 @@ export interface ResolvedNodeText {
  */
 export declare function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedNodeText | undefined;
 export declare function stripSsmlTags(ssml: string): string;
+export declare function breakSpaced(before: string, after: string): boolean;
+export declare function separatesWords(markup: string): boolean;
+export declare function stripSsmlTagsKeepSpacing(ssml: string): string;
 export declare function stripSsmlTagsWithMap(ssml: string): {
     plain: string;
     map: number[];
@@ -55,8 +59,6 @@ export declare function substituteSsmlText(ssml: string, table: SubstitutionTabl
 export interface LangSegment {
     plain: string;
     language?: string;
-    start: number;
-    end: number;
 }
 export declare function hasLangTag(ssml: string): boolean;
 /**
@@ -72,11 +74,20 @@ export declare function splitOnLangTags(ssml: string, baseLanguage: string | und
 export interface SsmlSegment {
     ssml?: string;
     placeholderId?: string;
+    textBefore?: string;
+    textAfter?: string;
     abbreviation?: "text" | "alias";
     abbreviationText?: string;
     parenthesizedSsml?: string;
+    touchesPrevious?: boolean;
 }
 export declare function hasPlaceholder(ssml: string): boolean;
+export declare function removeEmptiedPairs(ssml: string, isDropped: (id: string) => boolean, language: string | undefined): {
+    ssml: string;
+    spaced: Set<string>;
+};
+export declare function enclosedPlaceholders(ssml: string, language: string | undefined): Set<string>;
+export declare function keepsSpaceBefore(text: string, language: string | undefined): boolean;
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
  * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `interruptions`: each

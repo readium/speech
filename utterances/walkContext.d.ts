@@ -39,10 +39,13 @@ export interface WalkContext {
     placeholderPieces: Map<ReadiumSpeechUtterance, {
         node: GuidedNavigationObject;
         placement?: "inline" | "after" | "alias";
+        abbreviation?: string;
     }>;
+    touchingPieces: WeakSet<ReadiumSpeechUtterance>;
+    spacedPieces: WeakSet<ReadiumSpeechUtterance>;
+    blockTerms: WeakSet<GuidedNavigationObject>;
 }
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
-export declare const blockLevelRoleSet: ReadonlySet<GndRole>;
 export declare const interruptionRoleSet: ReadonlySet<GndRole>;
 export declare const descriptionFoldingRoleSet: ReadonlySet<GndRole>;
 export declare const valueFoldingRoleSet: ReadonlySet<GndRole>;

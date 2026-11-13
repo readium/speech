@@ -165,7 +165,7 @@ export declare class WebSpeechVoiceManager {
      * @returns The default voice for the language, or null if no voices are available
      */
     getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>;
-    getBrowserVoices(maxTimeout?: number, interval?: number): Promise<SpeechSynthesisVoice[]>;
+    private getBrowserVoices;
     /**
      * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
      * @private

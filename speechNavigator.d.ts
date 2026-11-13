@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEngine } from './engine.js';
 import { GuidedNavigationObject } from '@readium/shared';
-import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator.js';
+import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechNavigatorEvent, ReadiumSpeechPlaybackState } from './navigator.js';
 import { ISpeechDefaults } from './preferences/SpeechDefaults.js';
 import { ISpeechPreferences, SpeechPreferences } from './preferences/SpeechPreferences.js';
 import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor.js';
@@ -102,7 +102,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     previous(forcePlay?: boolean): boolean;
     jumpTo(utteranceIndex: number, forcePlay?: boolean): boolean;
     getState(): ReadiumSpeechPlaybackState;
-    on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
+    on<T extends ReadiumSpeechNavigatorEvent["type"]>(event: T, listener: (event: ReadiumSpeechNavigatorEvent<T>) => void): () => void;
     private emitEvent;
     private emitUtteranceBoundary;
     private emitContentChangeEvent;

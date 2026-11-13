@@ -6,6 +6,7 @@ export declare class WebSpeechEngineProvider implements ReadiumSpeechEngineProvi
     readonly name: string;
     private voiceEngine;
     getVoices(): Promise<ReadiumSpeechVoice[]>;
+    isAvailable(): Promise<boolean>;
     createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine>;
     destroy(): Promise<void>;
 }

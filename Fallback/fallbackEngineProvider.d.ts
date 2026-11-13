@@ -16,6 +16,7 @@ export declare class FallbackEngineProvider implements ReadiumSpeechEngineProvid
     private readonly healthCheckIntervalMs?;
     constructor(options: FallbackEngineProviderOptions);
     getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]>;
+    isAvailable(): Promise<boolean>;
     createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine>;
     destroy(): Promise<void>;
 }

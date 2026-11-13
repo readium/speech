@@ -98,7 +98,7 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     getCurrentUtteranceIndex(): number;
     setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;
     getUtteranceCount(): number;
-    on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
+    on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void;
     private emitEvent;
     private setState;
     destroy(): Promise<void>;
