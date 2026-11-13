@@ -6,7 +6,7 @@ import {
   commonAncestors,
   declaredLanguage,
   decodeSsmlEntities,
-  isStructureElement,
+  isUnrepeatable,
   parseSsml,
   serializeSsml,
   SsmlWriter,
@@ -712,7 +712,7 @@ function marksOf(ssml: string, nodes: SsmlNode[]): Mark[] {
     if (placeholderId !== undefined) marks.push({ start: node.start, end: node.end, placeholderId });
     if (!isAbbreviation(node)) continue;
     let wrapStart = ancestors.length;
-    while (wrapStart > 0 && ancestors[wrapStart - 1].children.length === 1 && !isStructureElement(ancestors[wrapStart - 1])) wrapStart--;
+    while (wrapStart > 0 && ancestors[wrapStart - 1].children.length === 1 && !isUnrepeatable(ancestors[wrapStart - 1])) wrapStart--;
     const wrappers = ancestors.slice(wrapStart);
     marks.push({
       start: wrappers[0]?.start ?? node.start,

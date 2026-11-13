@@ -32,7 +32,7 @@ export function joinPieceTexts(
     const spaced =
       spacing[i] === "spaced" ||
       (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain.replace(/(?:<[^>]*>)+$/, ""), plainPart.replace(/^(?:<[^>]*>)+/, "")));
-    if (plain && spaced && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
+    if (plain && spaced && !/\s(?:<[^>]*>)*$/.test(plain) && !/^(?:<[^>]*>)*\s/.test(plainPart)) {
       joined += " ";
       plain += " ";
     }

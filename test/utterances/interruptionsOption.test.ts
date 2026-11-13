@@ -206,6 +206,22 @@ test("an inline interruption and an abbreviation keep the source's paragraph and
   }
 });
 
+test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: 'The <audio src="clip.wav"><sub alias="World Health Organization">WHO</sub></audio> said.' },
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode } })).map((u) => u.ssml),
+      ['The <audio src="clip.wav">WHO (World Health Organization)</audio> said.'],
+      mode,
+    );
+  }
+});
+
 const enLang = (ssml: string) => `<lang xml:lang="en">${ssml}</lang>`;
 
 test("sentence segmentation wraps a deferred note's announcements in another language than the catalog's in lang tags in SSML", async (t) => {

@@ -191,11 +191,11 @@ export class SsmlWriter {
   }
 }
 
-const STRUCTURE_ELEMENTS = new Set(["speak", "p", "s"]);
+const UNREPEATABLE_ELEMENTS = new Set(["speak", "p", "s", "audio"]);
 
-// Whether `element` is a `<speak>`, `<p>` or `<s>`, which a split must never repeat around each piece.
-export function isStructureElement(element: SsmlElement): boolean {
-  return STRUCTURE_ELEMENTS.has(element.name);
+// Whether `element` is a `<speak>`, `<p>`, `<s>` or `<audio>`, which a split must never repeat around each piece.
+export function isUnrepeatable(element: SsmlElement): boolean {
+  return UNREPEATABLE_ELEMENTS.has(element.name);
 }
 
 const LANGUAGE_ELEMENTS = new Set(["lang", "p", "s", "voice", "token", "w"]);
