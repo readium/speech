@@ -1,12 +1,17 @@
 import test from "ava";
+import { GuidedNavigationText } from "@readium/shared";
 import {
-  ssmlIndexToPlainIndex,
-  stripSsmlTagsKeepSpacing,
-  stripSsmlTagsWithMap,
+  hasLangTag,
+  hasPlaceholder,
+  removeEmptiedPairs,
+  resolveNodeText,
+  splitOnPlaceholders,
+  splitOnLangTags,
   substitutedIndexToSourceIndex,
   substituteSsmlText,
   substituteWithMap,
 } from "../../src/utterances/text.js";
+import { ssmlIndexToPlainIndex, stripSsmlTags, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap } from "../../src/utterances/plainText.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
@@ -28,6 +33,19 @@ test("stripSsmlTagsWithMap unescapes entities as single characters", (t) => {
   const { plain, map } = stripSsmlTagsWithMap(ssml);
   t.is(plain, "Fish & chips");
   t.is(map.length, plain.length);
+});
+
+test("stripSsmlTagsWithMap reads a > inside a comment, attribute or CDATA as the parser does, mapping each char to its source", (t) => {
+  for (const [ssml, expected] of [
+    ["One,<!-- comment > Phantom, --> Two", "One, Two"],
+    ['A <say-as interpret-as="x>y">b</say-as> c', "A b c"],
+    ["A<![CDATA[ x &amp; y ]]> z", "A x &amp; y z"],
+  ]) {
+    const { plain, map } = stripSsmlTagsWithMap(ssml);
+    t.is(plain, expected);
+    t.is(map.length, plain.length);
+    for (let i = 0; i < plain.length; i++) if (plain[i] !== " ") t.is(ssml[map[i]], plain[i], `${ssml} at ${i}`);
+  }
 });
 
 test("ssmlIndexToPlainIndex translates a raw SSML boundary position into the equivalent plain-text position", (t) => {
@@ -133,6 +151,30 @@ test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag,
   t.is(result.plain, "1) and (c) too");
 });
 
+test("substituteSsmlText keeps nested elements as markup", (t) => {
+  const table: SubstitutionTable = { nomatch: "X" };
+  t.is(
+    substituteSsmlText('x<lang xml:lang="en"><sub alias="World Health Organization">WHO</sub></lang>y', table).ssml,
+    'x<lang xml:lang="en"><sub alias="World Health Organization">WHO</sub></lang>y',
+  );
+  t.is(substituteSsmlText("<speak>a<p>b</p>c</speak>", table).ssml, "<speak>a <p>b</p> c</speak>");
+});
+
+test("substituteSsmlText keeps a match within one nested text node in all its elements", (t) => {
+  const result = substituteSsmlText('<lang xml:lang="fr"><emphasis>(c)</emphasis> x</lang>', { "(c)": "©" });
+  t.is(result.ssml, '<lang xml:lang="fr"><emphasis>©</emphasis> x</lang>');
+});
+
+test("substituteSsmlText puts a match crossing nested elements in the innermost element enclosing all of it", (t) => {
+  const result = substituteSsmlText('<lang xml:lang="fr">1<emphasis>)</emphasis> x</lang>', { "1)": "X" });
+  t.is(result.ssml, '<lang xml:lang="fr">X x</lang>');
+  t.is(result.plain, "1) x");
+});
+
+test("substituteSsmlText keeps a self-closing element inside a nested element", (t) => {
+  t.is(substituteSsmlText("a<emphasis>b<break/>c</emphasis>d", { nomatch: "X" }).ssml, "a<emphasis>b<break/> c</emphasis>d");
+});
+
 test("substituteSsmlText echoes a break's glue space into the returned ssml, not just plain", (t) => {
   const table: SubstitutionTable = { nomatch: "X" };
   const result = substituteSsmlText("foo<break/>bar", table);
@@ -161,12 +203,138 @@ test("stripSsmlTagsKeepSpacing separates words at a sentence element", (t) => {
   t.is(stripSsmlTagsKeepSpacing("<s>Hello.</s><s>World.</s>"), "Hello. World.");
 });
 
+test("substituteSsmlText writes a zero-width match where it sits, at the start, middle or end", (t) => {
+  const ssml = "a <emphasis>b</emphasis> c";
+  t.is(substituteSsmlText(ssml, { prefix: { pattern: /^/, replace: "Note: " } }).ssml, "Note: a <emphasis>b</emphasis> c");
+  t.is(substituteSsmlText(ssml, { middle: { pattern: /(?=b)/, replace: "[" } }).ssml, "a <emphasis>[b</emphasis> c");
+  t.is(substituteSsmlText(ssml, { suffix: { pattern: /$/, replace: " (end)" } }).ssml, "a <emphasis>b</emphasis> c (end)");
+});
+
 test("substituteSsmlText separates words at a paragraph element, outside its tags", (t) => {
   const result = substituteSsmlText("one<p>two</p>three", { nomatch: "X" });
   t.is(result.plain, "one two three");
   t.is(result.ssml, "one <p>two</p> three");
 });
 
+test("stripSsmlTagsWithMap decodes every entity, mapping each decoded char to the entity's position", (t) => {
+  const { plain, map } = stripSsmlTagsWithMap("&quot;a&#x1F600;&nbsp;b");
+  t.is(plain, '"a\u{1F600} b');
+  t.deepEqual(map, [0, 6, 7, 7, 16, 22]);
+});
+
+test("stripSsmlTags decodes an escaped angle bracket as text, not as a tag", (t) => {
+  t.is(stripSsmlTags("&#60;b&#62;bold&amp;lt;"), "<b>bold&lt;");
+});
+
 test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
   t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
+});
+
+test("stripSsmlTagsKeepSpacing reads a > inside a comment, attribute or CDATA as the parser does", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("One,<!-- comment > Phantom, --> Two"), "One, Two");
+  t.is(stripSsmlTagsKeepSpacing('A <say-as interpret-as="x>y">b</say-as> c'), "A b c");
+  t.is(stripSsmlTagsKeepSpacing("A<![CDATA[ x > y ]]> z"), "A x > y  z");
+});
+
+test("hasLangTag finds a lang element in any attribute shape, nested or not", (t) => {
+  t.true(hasLangTag("<p>a <lang xml:lang='fr'>b</lang></p>"));
+});
+
+test("hasLangTag finds xml:lang on a paragraph, sentence, voice, token or word, not on other elements", (t) => {
+  for (const name of ["p", "s", "voice", "token", "w"]) t.true(hasLangTag(`<${name} xml:lang="fr">a</${name}>`), name);
+  t.false(hasLangTag('<emphasis xml:lang="fr">a</emphasis>'));
+});
+
+test("splitOnLangTags reads a single-quoted xml:lang", (t) => {
+  t.deepEqual(splitOnLangTags("<lang xml:lang='fr'>bonjour</lang> hi", "en"), [
+    { plain: "bonjour", language: "fr" },
+    { plain: "hi", language: "en" },
+  ]);
+});
+
+test("splitOnLangTags gives text in nested lang elements the innermost one's language", (t) => {
+  t.deepEqual(splitOnLangTags('<lang xml:lang="fr">a <lang xml:lang="de">b</lang> c</lang> d', "en"), [
+    { plain: "a", language: "fr" },
+    { plain: "b", language: "de" },
+    { plain: "c", language: "fr" },
+    { plain: "d", language: "en" },
+  ]);
+});
+
+test("splitOnLangTags keeps punctuation touching a lang element nested in another element with that element", (t) => {
+  t.deepEqual(splitOnLangTags('<p>He said « <emphasis><lang xml:lang="fr">oui</lang></emphasis> ».</p>', "en"), [
+    { plain: "He said", language: "en" },
+    { plain: "« oui ».", language: "fr" },
+  ]);
+});
+
+test("splitOnLangTags keeps punctuation touching a lang element with it inside a paragraph declaring a language", (t) => {
+  t.deepEqual(splitOnLangTags('<p xml:lang="en">He said « <lang xml:lang="fr">oui</lang> ».</p>', "de"), [
+    { plain: "He said", language: "en" },
+    { plain: "« oui ».", language: "fr" },
+  ]);
+});
+
+test("splitOnLangTags leaves punctuation between sibling lang elements where it is", (t) => {
+  t.deepEqual(splitOnLangTags('<lang xml:lang="fr">oui</lang> « <lang xml:lang="de">ja</lang>', "en"), [
+    { plain: "oui", language: "fr" },
+    { plain: "« ja", language: "de" },
+  ]);
+});
+
+test("hasPlaceholder finds a placeholder nested in an element, with single-quoted attributes", (t) => {
+  t.true(hasPlaceholder("<p><readium:pagebreak id='p1'/></p>"));
+});
+
+const segmentSsml = (ssml: string) => splitOnPlaceholders(ssml).map((segment) => segment.ssml ?? segment.placeholderId);
+
+test("splitOnPlaceholders reads a sub with a single-quoted alias", (t) => {
+  const segments = splitOnPlaceholders("The <sub alias='World Health Organization'>WHO</sub> said");
+  t.deepEqual(segments.map((segment) => segment.ssml), ["The", "WHO", "World Health Organization", "said"]);
+  t.like(segments[2], { abbreviation: "alias", abbreviationText: "WHO", parenthesizedSsml: "(World Health Organization)" });
+});
+
+test("splitOnPlaceholders cuts the source where a placeholder is, leaving each element opened once and closed once", (t) => {
+  const segments = splitOnPlaceholders('<p>a <emphasis>b <readium:noteref id="n"/> c</emphasis> d</p>');
+  t.deepEqual(segments.map((segment) => segment.ssml ?? segment.placeholderId), ["<p>a <emphasis>b", "n", "c</emphasis> d</p>"]);
+  t.like(segments[1], { textBefore: "a b ", textAfter: " c d" });
+});
+
+test("splitOnPlaceholders gives a segment the elements open around it, to read it on its own", (t) => {
+  const [before, , after] = splitOnPlaceholders('<lang xml:lang="fr"><p>a <readium:noteref id="n"/> b</p></lang>');
+  t.like(before, { ssml: '<lang xml:lang="fr"><p>a', openTags: "", closeTags: "</p></lang>" });
+  t.like(after, { ssml: "b</p></lang>", openTags: '<lang xml:lang="fr"><p>', closeTags: "" });
+});
+
+test("splitOnPlaceholders keeps a paragraph around a sub once, in the text around it", (t) => {
+  const segments = splitOnPlaceholders('<p>The <sub alias="World Health Organization">WHO</sub> said</p>');
+  t.deepEqual(segments.map((segment) => segment.ssml), ["<p>The", "WHO", "World Health Organization", "said</p>"]);
+  t.like(segments[1], { openTags: "<p>", closeTags: "</p>" });
+});
+
+test("splitOnPlaceholders keeps formatting wrapping just a sub on the abbreviation and its alias, with its attached text", (t) => {
+  const segments = splitOnPlaceholders('The <emphasis><sub alias="World Health Organization">WHO</sub></emphasis>s said');
+  t.deepEqual(segments.map((segment) => segment.ssml), ["The", "<emphasis>WHOs</emphasis>", "<emphasis>World Health Organizations</emphasis>", "said"]);
+  t.like(segments[2], { parenthesizedSsml: "<emphasis>(World Health Organization)</emphasis>" });
+});
+
+test("splitOnPlaceholders keeps a sentence before a placeholder as written", (t) => {
+  t.deepEqual(segmentSsml('<s>a</s> <readium:noteref id="n"/>'), ["<s>a</s>", "n"]);
+});
+
+test("removeEmptiedPairs removes every element the removal leaves empty, nested or not", (t) => {
+  const { ssml } = removeEmptiedPairs('a <emphasis><lang xml:lang="fr">(</lang></emphasis><readium:noteref id="n"/>) b', () => true, "en");
+  t.is(ssml, 'a <readium:noteref id="n"/> b');
+});
+
+test("resolveNodeText removes a placeholder nested in an element, with the space before binding punctuation", (t) => {
+  t.deepEqual(resolveNodeText(GuidedNavigationText.deserialize({ ssml: "<emphasis>word <readium:noteref id='n'/>.</emphasis>" })), { ssml: "<emphasis>word.</emphasis>" });
+});
+
+test("splitOnLangTags reads the language of a paragraph or sentence declaring one", (t) => {
+  t.deepEqual(splitOnLangTags('<p xml:lang="fr">Bonjour.</p> <p><s xml:lang="de">Hallo.</s> Hi.</p>', "en"), [
+    { plain: "Bonjour.", language: "fr" },
+    { plain: "Hallo.", language: "de" },
+    { plain: "Hi.", language: "en" },
+  ]);
 });

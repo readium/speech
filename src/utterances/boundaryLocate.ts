@@ -1,6 +1,7 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { stripSsmlTags, substitutedIndexToSourceIndex } from "./text.js";
+import { substitutedIndexToSourceIndex } from "./text.js";
+import { stripSsmlTags } from "./plainText.js";
 
 // Boundary events for one utterance arrive in increasing charIndex order
 // (word by word) — remembering the last matched piece lets a call resume

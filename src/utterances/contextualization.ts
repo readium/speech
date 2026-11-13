@@ -5,7 +5,7 @@ import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { languageFor } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { descriptionLanguageOf, descriptionOf } from "./nodeFields.js";
+import { descriptionLanguageOf, descriptionOf, nodeText } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
 import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
@@ -55,7 +55,7 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
   if (value !== undefined && value === plainTextOf(node)) {
     // Language reflects the node's own real text regardless of whether a
     // locate can be computed — a node with no textref still lost its language otherwise.
-    const language = languageFor(node.text?.language, ctx);
+    const language = languageFor(nodeText(node.text)?.language, ctx);
     if (language) utterance.language = language;
     ctx.synthetic.delete(utterance);
     scopeToQuote(utterance, text, value, node, ctx);

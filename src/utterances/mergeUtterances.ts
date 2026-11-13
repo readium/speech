@@ -4,12 +4,15 @@ import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navig
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
-import { hasLangTag, splitOnLangTags, stripSsmlTags, stripSsmlTagsKeepSpacing, type ResolvedNodeText } from "./text.js";
+import { hasLangTag, splitOnLangTags, type ResolvedNodeText } from "./text.js";
+import { stripSsmlTags, stripSsmlTagsKeepSpacing } from "./plainText.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { balancedSsml, withEnclosingTags } from "./enclosingTags.js";
+import { ssmlMarkup } from "./ssml.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
 // on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
@@ -23,15 +26,18 @@ export function joinPieceTexts(
   const ranges: { start: number; end: number }[] = [];
   parts.forEach((part, i) => {
     const plainPart = plainParts[i];
-    if (plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart)) {
-      ranges.push({ start: joined.length, end: joined.length }); // redundant punctuation
+    // Redundant punctuation: an SSML part keeps its tags, without its text.
+    const markup = plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart) ? (part === plainPart ? "" : ssmlMarkup(part)) : undefined;
+    if (markup !== undefined) {
+      ranges.push({ start: joined.length, end: joined.length });
+      joined += markup;
       return;
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
     const spaced =
       spacing[i] === "spaced" ||
-      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain.replace(/(?:<[^>]*>)+$/, ""), plainPart.replace(/^(?:<[^>]*>)+/, "")));
+      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain, plainPart));
     if (plain && spaced && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
       joined += " ";
       plain += " ";
@@ -86,7 +92,7 @@ export function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources
     if (!source || Array.isArray(source)) return;
     const nodeRef = resolveNodeLocate(source, ctx.ancestorChains);
     if (!nodeRef) return;
-    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+    const text = pieceText(piece, ctx);
     if (!text) return;
     const range = ctx.pendingRange.get(piece);
     const locate = isAriaSubstituted(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
@@ -116,7 +122,7 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     if (ctx.synthetic.has(piece)) return undefined;
     const source = pieceSources[i];
     if (!source || Array.isArray(source)) return undefined;
-    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+    const text = pieceText(piece, ctx);
     if (!text) return undefined;
     if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx.ancestorChains) && substitutedBareLocate(source, ctx);
     return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
@@ -158,8 +164,8 @@ export function mergeUtterances(
   if (parts.length === 0) return undefined;
   const language = runLanguage(usedPieces, ctx);
   if (language === null) return undefined;
-  const texts = ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts;
-  const { joined } = joinPieceTexts(texts, texts, pieceSpacing(usedPieces, ctx));
+  const texts = ctx.format === "ssml" ? withEnclosingTags(usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)), usedPieces) : parts;
+  const { joined } = joinPieceTexts(texts, usedPieces.map((piece) => pieceText(piece, ctx)), pieceSpacing(usedPieces, ctx));
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
@@ -228,8 +234,13 @@ export function applyFormat(
   return [utterance];
 }
 
-// Strips SSML down to plain text the same way `splitSsmlAtSentences()` does
-// internally — unlike `stripSsmlTags()`, must NOT collapse/trim whitespace, or offsets drift.
+// The plain text offsets and sentence boundaries are measured in — unlike `stripSsmlTags()`,
+// must NOT collapse/trim whitespace, or offsets drift.
 export function plainOf(text: string, format: ExtractionFormat): string {
   return format === "ssml" ? stripSsmlTagsKeepSpacing(text) : text;
+}
+
+// A piece's text as offsets measure it, an SSML slice read with the tags it leaves open around it.
+export function pieceText(piece: ReadiumSpeechUtterance, ctx: WalkContext): string {
+  return plainOf(ctx.format === "ssml" ? balancedSsml(piece) : (piece.plain ?? ""), ctx.format);
 }

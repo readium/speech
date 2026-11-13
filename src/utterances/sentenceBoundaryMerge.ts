@@ -152,3 +152,21 @@ export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppr
     return { text: text.slice(b.start, contentEnd), start: b.start, end: b.end, contentEnd };
   });
 }
+
+// `boundaries` of `text`, each one `joinsNext` says the sentence runs past merged into the next.
+export function mergeBoundaries(
+  text: string,
+  boundaries: SentenceBoundary[],
+  joinsNext: (boundary: SentenceBoundary, next: SentenceBoundary) => boolean,
+): SentenceBoundary[] {
+  const kept: SentenceBoundary[] = [];
+  let first: SentenceBoundary | undefined;
+  boundaries.forEach((boundary, k) => {
+    first ??= boundary;
+    const next = boundaries[k + 1];
+    if (next && joinsNext(boundary, next)) return;
+    kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
+    first = undefined;
+  });
+  return kept;
+}

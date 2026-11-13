@@ -12,8 +12,8 @@ import { EventEmitter } from "../utils/eventEmitter.js";
 import { clampIndex } from "../utils/array.js";
 import { clamp } from "../utils/clamp.js";
 
-import { decodeResidualHtmlEntities, neutralizeAngleBrackets } from "../utils/text.js";
-import { stripSsmlTags } from "../utterances/text.js";
+import { neutralizeAngleBrackets } from "../utils/text.js";
+import { stripSsmlTags } from "../utterances/plainText.js";
 
 // Safari ends whichever utterance is current when a cancelled one's late "finished" arrives, about 100 ms after cancel()
 const SAFARI_CANCEL_SETTLE_DELAY = 250;
@@ -194,7 +194,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private toPlainText(utterances: ReadiumSpeechUtterance[]): ReadiumSpeechUtterance[] {
     return utterances.map(content => ({
       ...content,
-      plain: content.plain ?? (content.ssml ? stripSsmlTags(decodeResidualHtmlEntities(content.ssml)) : "")
+      plain: content.plain ?? (content.ssml ? stripSsmlTags(content.ssml) : "")
     }));
   }
 

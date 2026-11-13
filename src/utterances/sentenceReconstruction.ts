@@ -3,7 +3,7 @@ import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
-import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
+import { keepUnrepeatableWhole, splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import {
   isAlias,
   mapAliasBoundaries,
@@ -12,11 +12,13 @@ import {
   segmentAliasText,
   segmentAroundAliases,
 } from "./abbreviationAlias.js";
-import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
+import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, pieceText, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
+import { mergeBoundaries } from "./sentenceBoundaryMerge.js";
 import { blockOf, edgeNode } from "./blocks.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { encloseOwnTags, withEnclosingTags } from "./enclosingTags.js";
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
 // if there's only one), falling back to English when it has no language.
@@ -33,9 +35,10 @@ async function sentenceFragmentsOf(
   const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
   if (boundaries.length <= 1) return undefined;
   if (ctx.format !== "ssml") return boundaries.map((b) => ({ text: b.text, start: b.start, end: b.contentEnd }));
-  const ssmlFragments = await splitSsmlAtSentences(sourceText, language, ctx.segmenter, customSuppressions);
+  const whole = keepUnrepeatableWhole(sourceText, boundaries);
+  const ssmlFragments = whole.length > 1 ? await splitSsmlAtSentences(sourceText, language, async () => whole) : undefined;
   if (!ssmlFragments) return undefined;
-  return boundaries.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.contentEnd }));
+  return whole.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.contentEnd }));
 }
 
 // A node with one of these roles never joins a reconstruction run — tabular/
@@ -146,6 +149,7 @@ async function pushSplitSingle(
   newOut: ReadiumSpeechUtterance[],
   newSources: SourceTrace,
 ): Promise<void> {
+  encloseOwnTags(utterance);
   const fragments = ctx.synthetic.has(utterance) || isAlias(utterance, ctx) ? undefined : await sentenceFragmentsOf(utterance, ctx);
   if (!fragments) {
     if (isAlias(utterance, ctx)) punctuateLoneAlias(utterance, ctx);
@@ -204,7 +208,7 @@ async function detectGenuineJoins(
   language: string,
   suppressions: string[] | undefined,
 ): Promise<boolean[]> {
-  const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
+  const plainParts = pieces.map((piece) => pieceText(piece, ctx));
   const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
   const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
@@ -240,16 +244,7 @@ function keepInsertionsWhole(
   ctx: WalkContext,
 ): SentenceBoundary[] {
   const insertedAt = (pos: number) => isInserted(pieces[pieceIndexAt(ranges, pos)], ctx);
-  const kept: SentenceBoundary[] = [];
-  let first: SentenceBoundary | undefined;
-  boundaries.forEach((boundary, k) => {
-    first ??= boundary;
-    const next = boundaries[k + 1];
-    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start))) return;
-    kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
-    first = undefined;
-  });
-  return kept;
+  return mergeBoundaries(text, boundaries, (boundary, next) => insertedAt(boundary.contentEnd - 1) || insertedAt(next.start));
 }
 
 // `start`/`end` are positions in each contributing node's own source text.
@@ -280,7 +275,7 @@ function buildJoinedOffsets(
     if (contribEnd <= contribStart) continue;
     const localStart = contribStart - pieceRange.start;
     const localEnd = contribEnd - pieceRange.start;
-    const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
+    const text = pieceText(pieces[k], ctx);
     const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
     if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
     if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
@@ -346,7 +341,7 @@ async function pushJoinedGroup(
   const language = segmentationLanguage(pieces, ctx);
   const suppressions = callerSuppressions(language, ctx);
   const join = () => {
-    const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
+    const plainParts = pieces.map((piece) => pieceText(piece, ctx));
     return { plainParts, ...joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx)) };
   };
   let { plainParts, joined: joinedPlain, ranges } = join();
@@ -360,7 +355,11 @@ async function pushJoinedGroup(
       segmented = mapAliasBoundaries(aliasSegmentation, pieces, joinedPlain, ranges, ctx);
     }
   }
-  const boundaries = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
+  const insertionsWhole = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
+  const boundaries =
+    ctx.format === "ssml"
+      ? keepUnrepeatableWhole(joinPieceTexts(withEnclosingTags(pieces.map((piece) => piece.ssml ?? ""), pieces), plainParts, pieceSpacing(pieces, ctx)).joined, insertionsWhole)
+      : insertionsWhole;
 
   const effectiveBoundaries =
     boundaries.length > 0
@@ -374,7 +373,7 @@ async function pushJoinedGroup(
     const partLanguages = new Map<number, string | undefined>();
     for (const part of parts) for (let k = part.startIdx; k <= part.endIdx; k++) partLanguages.set(k, part.language);
     joinedSsml = joinPieceTexts(
-      pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)),
+      withEnclosingTags(pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)), pieces),
       plainParts,
       pieceSpacing(pieces, ctx),
     ).joined;
@@ -393,6 +392,7 @@ async function pushJoinedGroup(
   };
   parts.forEach(({ boundary, startIdx, endIdx, language: partLanguage, sentenceEnd, isolated }, k) => {
     if (isolated) {
+      encloseOwnTags(pieces[startIdx]);
       newOut.push(pieces[startIdx]);
       newSources.push(pieceSources[startIdx]);
       pushPlacedAfterSentence(sentenceEnd, k);

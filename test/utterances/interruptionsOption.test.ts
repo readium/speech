@@ -188,6 +188,117 @@ test("sentence segmentation splits SSML whose piece ends in a tag at its plain t
   ]);
 });
 
+test("an inline interruption and an abbreviation keep the source's emphasis, opened once, without its paragraph", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<p>Before <emphasis>the <readium:pagebreak id="pb"/> break</emphasis>, the <sub alias="World Health Organization">WHO</sub> said.</p>' },
+      children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const options = { format: "ssml" as const, segmentation: { mode }, interruptions: { pagebreak: "inline" as const, abbreviation: "after" as const } };
+    t.deepEqual(
+      (await extractUtterances(gnd(), options)).map((u) => u.ssml),
+      ["Before <emphasis>the Page 5 break</emphasis>, the WHO (World Health Organization) said."],
+      mode,
+    );
+  }
+});
+
+test("text split around a link in another language closes and reopens the emphasis it's in", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<p>Avant <emphasis>x <readium:link id="l"/> y</emphasis> après.</p>', language: "fr" },
+      children: [{ id: "l", role: ["link"], text: { plain: "the link", language: "en" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", language: "always", segmentation: { mode } })).map((u) => u.ssml),
+      ["Avant <emphasis>x</emphasis>", "the link", "<emphasis>y</emphasis> après."],
+      mode,
+    );
+  }
+});
+
+test("a link's own formatted text stays inside the emphasis around the link", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<emphasis>A <readium:link id="l"/> B.</emphasis>' },
+      children: [{ id: "l", role: ["link"], text: { ssml: '<prosody rate="slow">C <sub alias="Organization">WHO</sub> D</prosody>' } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode }, interruptions: { abbreviation: "inline" } })).map((u) => u.ssml),
+      ['<emphasis>A <prosody rate="slow">C Organization D</prosody> B.</emphasis>'],
+      mode,
+    );
+  }
+});
+
+test("an inline page label inside a span in another language keeps the catalog's language", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: 'Hello <lang xml:lang="fr">avant <readium:pagebreak id="pb"/> après</lang> bye.', language: "en" },
+      children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const options = { format: "ssml" as const, language: "always" as const, segmentation: { mode }, interruptions: { pagebreak: "inline" as const } };
+    t.deepEqual(
+      (await extractUtterances(gnd(), options)).map((u) => u.ssml),
+      ['Hello <lang xml:lang="fr">avant <lang xml:lang="en">Page 5</lang> après</lang> bye.'],
+      mode,
+    );
+  }
+});
+
+test("sentence segmentation keeps an audio element whole, also in a sentence joined across paragraphs", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml: 'Start <audio src="clip.wav">one. Two</audio>' } })!,
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml: "continues here. Next." } })!,
+  ];
+  t.deepEqual(
+    (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } })).map((u) => u.ssml),
+    ['Start <audio src="clip.wav">one. Two</audio> continues here.', "Next."],
+  );
+});
+
+test("punctuation repeating a link's own keeps the formatting it closes", async (t) => {
+  for (const [ssml, expected] of [
+    ['<emphasis>Hello <readium:link id="l"/>.</emphasis>', "<emphasis>Hello world.</emphasis>"],
+    ['<emphasis>Hello <readium:link id="l"/></emphasis>.', "<emphasis>Hello world.</emphasis>"],
+  ]) {
+    const gnd = () => [
+      GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml }, children: [{ id: "l", role: ["link"], text: { plain: "world." } }] })!,
+    ];
+    for (const mode of ["structure", "sentence"] as const) {
+      t.deepEqual((await extractUtterances(gnd(), { format: "ssml", segmentation: { mode } })).map((u) => u.ssml), [expected], `${ssml} (${mode})`);
+    }
+  }
+});
+
+test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: 'The <audio src="clip.wav"><sub alias="World Health Organization">WHO</sub></audio> said.' },
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode } })).map((u) => u.ssml),
+      ['The <audio src="clip.wav">WHO (World Health Organization)</audio> said.'],
+      mode,
+    );
+  }
+});
+
 const enLang = (ssml: string) => `<lang xml:lang="en">${ssml}</lang>`;
 
 test("sentence segmentation wraps a deferred note's announcements in another language than the catalog's in lang tags in SSML", async (t) => {

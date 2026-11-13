@@ -2,8 +2,8 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
-import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
+import { languageFor, overrideLangTags, setEnclosingLanguage, stripLangTags } from "./language.js";
+import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
   hasLangTag,
@@ -14,8 +14,8 @@ import {
   splitOnLangTags,
   splitOnPlaceholders,
   type SsmlSegment,
-  stripSsmlTags,
 } from "./text.js";
+import { stripSsmlTags } from "./plainText.js";
 import {
   contextualizationParamsFor,
   isDroppedByAnotherRole,
@@ -24,12 +24,13 @@ import {
   resolveEntryText,
   scopeToQuote,
 } from "./contextualization.js";
-import { applyFormat, mergeUtterances, nodeOwnText, plainOf } from "./mergeUtterances.js";
+import { applyFormat, mergeUtterances, nodeOwnText, pieceText } from "./mergeUtterances.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
+import { nestEnclosingTags, setEnclosingTags, type SliceScope } from "./enclosingTags.js";
 import { isBlockNode } from "./blocks.js";
 import {
   contentlessRoleSet,
@@ -58,7 +59,7 @@ function interruptionOf(roles: GndRole[], ctx: WalkContext): Interruption | unde
 
 // A bare page-number label is always spoken as "Page N", contextualized or not.
 function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
-  const resolved = resolveNodeText(node.text);
+  const resolved = resolveNodeText(nodeText(node.text));
   if (!resolved) return [];
   const label = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   if (isPageNumber(label)) {
@@ -194,7 +195,7 @@ function locateOnAbbreviation(
     const offset = { ...range, locate };
     piece.locate = locate;
     piece.offsets = [offset];
-    recordAliasOffset(offset, plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format).length);
+    recordAliasOffset(offset, pieceText(piece, ctx).length);
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
   }
 }
@@ -210,7 +211,7 @@ function emitWithPlaceholders(
   suppress: boolean,
   isBlockRole: boolean,
 ): Deferred[] {
-  const declaredLanguage = node.text?.language;
+  const declaredLanguage = nodeText(node.text)?.language;
   const language = languageFor(declaredLanguage, ctx);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
@@ -234,7 +235,7 @@ function emitWithPlaceholders(
   };
   const placeInOwnText = (before: number) => {
     for (const piece of pieces.slice(before)) {
-      const range = findInOwnText(plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format), ownCursor);
+      const range = findInOwnText(pieceText(piece, ctx), ownCursor);
       if (range) ctx.pendingRange.set(piece, range);
     }
   };
@@ -277,8 +278,17 @@ function emitWithPlaceholders(
     else if (pending.touching) ctx.touchingPieces.add(piece);
     pending = undefined;
   };
-  const { ssml, spaced } = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const removed = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const { spaced } = removed;
+  let ssml = removed.ssml;
+  // On the whole text, since segments are slices of it whose tags may open or close in another segment.
+  if (ctx.format === "ssml") {
+    ssml = overrideLangTags(ssml, ctx.languageOverrides);
+    if (ctx.language === "block-level" || ctx.language === "none") ssml = stripLangTags(ssml);
+  }
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
+  const slices: SliceScope = {};
+  let sliceIndex = 0;
   for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
@@ -298,6 +308,8 @@ function emitWithPlaceholders(
           pieces.push(...walked.pieces);
           pieceSources.push(...walked.sources);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+          if (segment.language) pieces.slice(before).forEach((piece) => setEnclosingLanguage(piece, segment.language!));
+          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
           // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
           if (pieces.length > before) {
             const enclosed = enclosedIds.has(segment.placeholderId);
@@ -309,6 +321,7 @@ function emitWithPlaceholders(
         } else {
           // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
           walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
+          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
           pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
           // Its text keeps the source's spacing, which joining wouldn't add in text written without spaces.
           if (pieces.length > before) {
@@ -344,13 +357,14 @@ function emitWithPlaceholders(
     }
     if (!segment.ssml) continue;
     const before = pieces.length;
+    const readable = `${segment.openTags ?? ""}${segment.ssml}${segment.closeTags ?? ""}`;
     if (
       ctx.format === "plain" &&
       ctx.language !== "block-level" &&
       ctx.language !== "none" &&
-      hasLangTag(segment.ssml)
+      hasLangTag(readable)
     ) {
-      for (const langSegment of splitOnLangTags(segment.ssml, declaredLanguage)) {
+      for (const langSegment of splitOnLangTags(readable, declaredLanguage)) {
         const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
         const segmentLanguage = languageFor(langSegment.language, ctx);
         if (segmentLanguage) utterance.language = segmentLanguage;
@@ -365,11 +379,10 @@ function emitWithPlaceholders(
     }
     const utterance: ReadiumSpeechUtterance = {};
     if (language) utterance.language = language;
-    if (ctx.format === "ssml") utterance.ssml = overrideLangTags(segment.ssml, ctx.languageOverrides);
-    else utterance.plain = stripSsmlTags(segment.ssml);
-    if ((ctx.language === "block-level" || ctx.language === "none") && utterance.ssml) {
-      utterance.ssml = stripLangTags(utterance.ssml);
-    }
+    if (ctx.format === "ssml") {
+      utterance.ssml = segment.ssml;
+      setEnclosingTags(utterance, { open: segment.openTags ?? "", close: segment.closeTags ?? "", scope: slices, index: sliceIndex++ });
+    } else utterance.plain = stripSsmlTags(readable);
     pieces.push(utterance);
     pieceSources.push(node);
     if (segment.abbreviation !== "alias") placeInOwnText(before);

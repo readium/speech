@@ -129,6 +129,40 @@ test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async
   t.deepEqual(result, ["Hello world.", "This is a test."]);
 });
 
+test("splitSsmlAtSentences keeps elements nested in another one as markup", async (t) => {
+  const result = await splitSsmlAtSentences("<p>One. <emphasis>Two</emphasis>. Three.</p>", "en", segmentSentences);
+  t.deepEqual(result, ["<p>One.</p>", "<p><emphasis>Two</emphasis>.</p>", "<p>Three.</p>"]);
+});
+
+test("splitSsmlAtSentences closes and reopens every element open at a boundary", async (t) => {
+  const result = await splitSsmlAtSentences(
+    '<lang xml:lang="fr"><emphasis>Un. Deux<break/>trois.</emphasis></lang>',
+    "fr",
+    segmentSentences,
+  );
+  t.deepEqual(result, ['<lang xml:lang="fr"><emphasis>Un.</emphasis></lang>', '<lang xml:lang="fr"><emphasis>Deux<break/>trois.</emphasis></lang>']);
+});
+
+test("splitSsmlAtSentences never splits inside an audio element, so its clip plays once", async (t) => {
+  t.deepEqual(await splitSsmlAtSentences('Before. <emphasis><audio src="clip.wav">One. Two.</audio></emphasis> After.', "en", segmentSentences), [
+    "Before.",
+    '<emphasis><audio src="clip.wav">One. Two.</audio></emphasis>',
+    "After.",
+  ]);
+});
+
+test("splitSsmlAtSentences keeps an audio element whole across formatting inside it, but splits between two of them", async (t) => {
+  t.deepEqual(await splitSsmlAtSentences('Before. <audio src="clip.wav">One. <emphasis>Two.</emphasis> Three.</audio> After.', "en", segmentSentences), [
+    "Before.",
+    '<audio src="clip.wav">One. <emphasis>Two.</emphasis> Three.</audio>',
+    "After.",
+  ]);
+  t.deepEqual(await splitSsmlAtSentences('<audio src="a.wav">One.</audio> <audio src="b.wav">Two.</audio>', "en", segmentSentences), [
+    '<audio src="a.wav">One.</audio>',
+    '<audio src="b.wav">Two.</audio>',
+  ]);
+});
+
 test("splitSsmlAtSentences returns undefined for a single sentence", async (t) => {
   const result = await splitSsmlAtSentences("Just one sentence.", "en", segmentSentences);
   t.is(result, undefined);
