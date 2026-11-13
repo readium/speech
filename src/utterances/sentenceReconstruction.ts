@@ -15,6 +15,7 @@ import {
 import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, pieceText, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
+import { mergeBoundaries } from "./sentenceBoundaryMerge.js";
 import { blockOf, edgeNode } from "./blocks.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 import { encloseOwnTags, withEnclosingTags } from "./enclosingTags.js";
@@ -243,16 +244,7 @@ function keepInsertionsWhole(
   ctx: WalkContext,
 ): SentenceBoundary[] {
   const insertedAt = (pos: number) => isInserted(pieces[pieceIndexAt(ranges, pos)], ctx);
-  const kept: SentenceBoundary[] = [];
-  let first: SentenceBoundary | undefined;
-  boundaries.forEach((boundary, k) => {
-    first ??= boundary;
-    const next = boundaries[k + 1];
-    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start))) return;
-    kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
-    first = undefined;
-  });
-  return kept;
+  return mergeBoundaries(text, boundaries, (boundary, next) => insertedAt(boundary.contentEnd - 1) || insertedAt(next.start));
 }
 
 // `start`/`end` are positions in each contributing node's own source text.

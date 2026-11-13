@@ -151,6 +151,18 @@ test("splitSsmlAtSentences never splits inside an audio element, so its clip pla
   ]);
 });
 
+test("splitSsmlAtSentences keeps an audio element whole across formatting inside it, but splits between two of them", async (t) => {
+  t.deepEqual(await splitSsmlAtSentences('Before. <audio src="clip.wav">One. <emphasis>Two.</emphasis> Three.</audio> After.', "en", segmentSentences), [
+    "Before.",
+    '<audio src="clip.wav">One. <emphasis>Two.</emphasis> Three.</audio>',
+    "After.",
+  ]);
+  t.deepEqual(await splitSsmlAtSentences('<audio src="a.wav">One.</audio> <audio src="b.wav">Two.</audio>', "en", segmentSentences), [
+    '<audio src="a.wav">One.</audio>',
+    '<audio src="b.wav">Two.</audio>',
+  ]);
+});
+
 test("splitSsmlAtSentences returns undefined for a single sentence", async (t) => {
   const result = await splitSsmlAtSentences("Just one sentence.", "en", segmentSentences);
   t.is(result, undefined);

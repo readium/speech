@@ -1,5 +1,6 @@
 import type { SentenceBoundary, SentenceSegmenter } from "./sentenceSegmenter.js";
-import { isUnrepeatable, SsmlWriter } from "./ssml.js";
+import { mergeBoundaries } from "./sentenceBoundaryMerge.js";
+import { isUnrepeatable, SsmlWriter, type SsmlElement } from "./ssml.js";
 import { layoutSsml, type PlainPiece } from "./plainText.js";
 
 // Splits `ssml` into one fragment per real sentence boundary, closing the
@@ -52,18 +53,19 @@ export async function splitSsmlAtSentences(
 }
 
 function unrepeatableWhole(plain: string, pieces: PlainPiece[], boundaries: SentenceBoundary[]): SentenceBoundary[] {
-  const ranges = pieces.flatMap((piece) => (piece.kind === "text" && piece.chain.some(isUnrepeatable) ? [{ start: piece.start, end: piece.start + piece.text.length }] : []));
-  if (!ranges.length) return boundaries;
-  const kept: SentenceBoundary[] = [];
-  let first: SentenceBoundary | undefined;
-  boundaries.forEach((boundary, k) => {
-    first ??= boundary;
-    const next = boundaries[k + 1];
-    if (next && ranges.some((range) => range.start < boundary.contentEnd && range.end > next.start)) return;
-    kept.push({ text: plain.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
-    first = undefined;
-  });
-  return kept;
+  // Each outermost element read once, from its first text to its last.
+  const ranges = new Map<SsmlElement, { start: number; end: number }>();
+  for (const piece of pieces) {
+    if (piece.kind !== "text") continue;
+    const element = piece.chain.find(isUnrepeatable);
+    if (!element) continue;
+    const end = piece.start + piece.text.length;
+    const range = ranges.get(element);
+    if (range) range.end = end;
+    else ranges.set(element, { start: piece.start, end });
+  }
+  if (!ranges.size) return boundaries;
+  return mergeBoundaries(plain, boundaries, (boundary, next) => [...ranges.values()].some((range) => range.start < boundary.contentEnd && range.end > next.start));
 }
 
 // Drops the sentence boundaries of `ssml`'s plain text that fall inside an element read once (e.g. `<audio>`), so no fragment repeats it.
