@@ -72,10 +72,15 @@ export function withEnclosingTags(texts: string[], pieces: ReadiumSpeechUtteranc
   return result;
 }
 
+// `piece`'s SSML with the tags its slice leaves open around it, well-formed on its own.
+export function balancedSsml(piece: ReadiumSpeechUtterance): string {
+  const tags = enclosingTags.get(piece);
+  return (tags?.open ?? "") + (piece.ssml ?? "") + (tags?.close ?? "");
+}
+
 // Makes `piece`'s own SSML well-formed on its own, for a piece output without the slices around it.
 export function encloseOwnTags(piece: ReadiumSpeechUtterance): void {
-  const tags = enclosingTags.get(piece);
-  if (!tags || piece.ssml === undefined) return;
-  piece.ssml = tags.open + piece.ssml + tags.close;
+  if (!enclosingTags.has(piece) || piece.ssml === undefined) return;
+  piece.ssml = balancedSsml(piece);
   enclosingTags.delete(piece);
 }

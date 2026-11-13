@@ -24,7 +24,7 @@ import {
   resolveEntryText,
   scopeToQuote,
 } from "./contextualization.js";
-import { applyFormat, mergeUtterances, nodeOwnText, plainOf } from "./mergeUtterances.js";
+import { applyFormat, mergeUtterances, nodeOwnText, pieceText } from "./mergeUtterances.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
@@ -195,7 +195,7 @@ function locateOnAbbreviation(
     const offset = { ...range, locate };
     piece.locate = locate;
     piece.offsets = [offset];
-    recordAliasOffset(offset, plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format).length);
+    recordAliasOffset(offset, pieceText(piece, ctx).length);
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
   }
 }
@@ -235,7 +235,7 @@ function emitWithPlaceholders(
   };
   const placeInOwnText = (before: number) => {
     for (const piece of pieces.slice(before)) {
-      const range = findInOwnText(plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format), ownCursor);
+      const range = findInOwnText(pieceText(piece, ctx), ownCursor);
       if (range) ctx.pendingRange.set(piece, range);
     }
   };

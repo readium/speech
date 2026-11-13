@@ -12,7 +12,7 @@ import {
   segmentAliasText,
   segmentAroundAliases,
 } from "./abbreviationAlias.js";
-import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
+import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, pieceText, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { blockOf, edgeNode } from "./blocks.js";
@@ -207,7 +207,7 @@ async function detectGenuineJoins(
   language: string,
   suppressions: string[] | undefined,
 ): Promise<boolean[]> {
-  const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
+  const plainParts = pieces.map((piece) => pieceText(piece, ctx));
   const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx));
   const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
@@ -283,7 +283,7 @@ function buildJoinedOffsets(
     if (contribEnd <= contribStart) continue;
     const localStart = contribStart - pieceRange.start;
     const localEnd = contribEnd - pieceRange.start;
-    const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
+    const text = pieceText(pieces[k], ctx);
     const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
     if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
     if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
@@ -349,7 +349,7 @@ async function pushJoinedGroup(
   const language = segmentationLanguage(pieces, ctx);
   const suppressions = callerSuppressions(language, ctx);
   const join = () => {
-    const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
+    const plainParts = pieces.map((piece) => pieceText(piece, ctx));
     return { plainParts, ...joinPieceTexts(plainParts, plainParts, pieceSpacing(pieces, ctx)) };
   };
   let { plainParts, joined: joinedPlain, ranges } = join();

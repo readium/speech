@@ -1,6 +1,6 @@
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { sharedLanguage } from "./language.js";
-import { joinPieceTexts, pieceIndexAt, plainOf, pieceSpacing } from "./mergeUtterances.js";
+import { joinPieceTexts, pieceIndexAt, pieceSpacing, pieceText } from "./mergeUtterances.js";
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
 import { blockOf } from "./blocks.js";
@@ -125,7 +125,7 @@ export function punctuateSentenceEndingAliases(
 
 // An inline alias read as its own sentence ends it with its abbreviation's final terminator.
 export function punctuateLoneAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): void {
-  const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+  const text = pieceText(piece, ctx);
   const range = { start: 0, end: text.length };
   punctuateSentenceEndingAliases([piece], text, [range], [{ text, ...range, contentEnd: text.length }], ctx);
 }
@@ -156,7 +156,7 @@ export async function mergeAliasPieces(
     // The text following the node in its block tells whether a sentence ending the node's own text goes on past it.
     const block = blockOf(node, "trailing", ctx);
     const segmented = j + 1 < out.length && block && blockOf(sources[j + 1], "leading", ctx) === block ? [...pieces, out[j + 1]] : pieces;
-    const plainParts = segmented.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format));
+    const plainParts = segmented.map((piece) => pieceText(piece, ctx));
     const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(segmented, ctx));
     const boundaries = await segmentAroundAliases(segmented, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
     punctuateSentenceEndingAliases(pieces, joined, ranges, boundaries, ctx);

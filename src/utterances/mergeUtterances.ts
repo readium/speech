@@ -11,7 +11,7 @@ import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
-import { withEnclosingTags } from "./enclosingTags.js";
+import { balancedSsml, withEnclosingTags } from "./enclosingTags.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
 // on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
@@ -88,7 +88,7 @@ export function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources
     if (!source || Array.isArray(source)) return;
     const nodeRef = resolveNodeLocate(source, ctx.ancestorChains);
     if (!nodeRef) return;
-    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+    const text = pieceText(piece, ctx);
     if (!text) return;
     const range = ctx.pendingRange.get(piece);
     const locate = isAriaSubstituted(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
@@ -118,7 +118,7 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     if (ctx.synthetic.has(piece)) return undefined;
     const source = pieceSources[i];
     if (!source || Array.isArray(source)) return undefined;
-    const text = plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format);
+    const text = pieceText(piece, ctx);
     if (!text) return undefined;
     if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx.ancestorChains) && substitutedBareLocate(source, ctx);
     return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
@@ -234,4 +234,9 @@ export function applyFormat(
 // must NOT collapse/trim whitespace, or offsets drift.
 export function plainOf(text: string, format: ExtractionFormat): string {
   return format === "ssml" ? stripSsmlTagsKeepSpacing(text) : text;
+}
+
+// A piece's text as offsets measure it, an SSML slice read with the tags it leaves open around it.
+export function pieceText(piece: ReadiumSpeechUtterance, ctx: WalkContext): string {
+  return plainOf(ctx.format === "ssml" ? balancedSsml(piece) : (piece.plain ?? ""), ctx.format);
 }

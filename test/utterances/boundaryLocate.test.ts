@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "@readium/guided-navigation";
+import { GuidedNavigationObject } from "@readium/shared";
+import { encodeCssSelectorFragment, parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 import { stripSsmlTags } from "../../src/utterances/plainText.js";
@@ -306,5 +307,31 @@ test("resolveBoundaryLocate highlights every word of SSML whose formatting is sp
         }
       }
     }
+  }
+});
+
+test("resolveBoundaryLocate highlights every word around a placeholder inside formatting", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["body"],
+      textref: "c.xhtml",
+      children: [
+        {
+          role: ["paragraph"],
+          textref: `c.xhtml${encodeCssSelectorFragment("body > p")}`,
+          text: { ssml: '<emphasis>One two <readium:pagebreak id="pb"/> three four.</emphasis> Five six.' },
+          children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+        },
+      ],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const utterances = await extractUtterances(gnd(), { format: "ssml", segmentation: { mode }, interruptions: { pagebreak: "after" } });
+    const words = utterances
+      .filter((utterance) => utterance.offsets)
+      .flatMap((utterance) =>
+        [...stripSsmlTags(utterance.ssml!).matchAll(/\S+/g)].map((word) => resolveBoundaryLocate(utterance, word.index, word[0].length)?.locate.text?.highlight),
+      );
+    t.deepEqual(words, ["One", "two", "three", "four.", "Five", "six."], mode);
   }
 });
