@@ -258,6 +258,17 @@ test("an inline page label inside a span in another language keeps the catalog's
   }
 });
 
+test("sentence segmentation keeps an audio element whole, also in a sentence joined across paragraphs", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml: 'Start <audio src="clip.wav">one. Two</audio>' } })!,
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml: "continues here. Next." } })!,
+  ];
+  t.deepEqual(
+    (await extractUtterances(gnd(), { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } })).map((u) => u.ssml),
+    ['Start <audio src="clip.wav">one. Two</audio> continues here.', "Next."],
+  );
+});
+
 test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({

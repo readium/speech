@@ -143,6 +143,14 @@ test("splitSsmlAtSentences closes and reopens every element open at a boundary",
   t.deepEqual(result, ['<lang xml:lang="fr"><emphasis>Un.</emphasis></lang>', '<lang xml:lang="fr"><emphasis>Deux<break/>trois.</emphasis></lang>']);
 });
 
+test("splitSsmlAtSentences never splits inside an audio element, so its clip plays once", async (t) => {
+  t.deepEqual(await splitSsmlAtSentences('Before. <emphasis><audio src="clip.wav">One. Two.</audio></emphasis> After.', "en", segmentSentences), [
+    "Before.",
+    '<emphasis><audio src="clip.wav">One. Two.</audio></emphasis>',
+    "After.",
+  ]);
+});
+
 test("splitSsmlAtSentences returns undefined for a single sentence", async (t) => {
   const result = await splitSsmlAtSentences("Just one sentence.", "en", segmentSentences);
   t.is(result, undefined);

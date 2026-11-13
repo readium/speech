@@ -3,7 +3,7 @@ import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
-import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
+import { keepUnrepeatableWhole, splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import {
   isAlias,
   mapAliasBoundaries,
@@ -34,9 +34,10 @@ async function sentenceFragmentsOf(
   const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
   if (boundaries.length <= 1) return undefined;
   if (ctx.format !== "ssml") return boundaries.map((b) => ({ text: b.text, start: b.start, end: b.contentEnd }));
-  const ssmlFragments = await splitSsmlAtSentences(sourceText, language, ctx.segmenter, customSuppressions);
+  const whole = keepUnrepeatableWhole(sourceText, boundaries);
+  const ssmlFragments = whole.length > 1 ? await splitSsmlAtSentences(sourceText, language, async () => whole) : undefined;
   if (!ssmlFragments) return undefined;
-  return boundaries.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.contentEnd }));
+  return whole.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.contentEnd }));
 }
 
 // A node with one of these roles never joins a reconstruction run — tabular/
@@ -362,7 +363,11 @@ async function pushJoinedGroup(
       segmented = mapAliasBoundaries(aliasSegmentation, pieces, joinedPlain, ranges, ctx);
     }
   }
-  const boundaries = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
+  const insertionsWhole = keepInsertionsWhole(joinedPlain, segmented, pieces, ranges, ctx);
+  const boundaries =
+    ctx.format === "ssml"
+      ? keepUnrepeatableWhole(joinPieceTexts(withEnclosingTags(pieces.map((piece) => piece.ssml ?? ""), pieces), plainParts, pieceSpacing(pieces, ctx)).joined, insertionsWhole)
+      : insertionsWhole;
 
   const effectiveBoundaries =
     boundaries.length > 0
