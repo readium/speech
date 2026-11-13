@@ -188,7 +188,7 @@ test("sentence segmentation splits SSML whose piece ends in a tag at its plain t
   ]);
 });
 
-test("an inline interruption and an abbreviation keep the source's paragraph and emphasis, opened once", async (t) => {
+test("an inline interruption and an abbreviation keep the source's emphasis, opened once, without its paragraph", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({
       role: ["paragraph"],
@@ -200,7 +200,7 @@ test("an inline interruption and an abbreviation keep the source's paragraph and
     const options = { format: "ssml" as const, segmentation: { mode }, interruptions: { pagebreak: "inline" as const, abbreviation: "after" as const } };
     t.deepEqual(
       (await extractUtterances(gnd(), options)).map((u) => u.ssml),
-      ["<p>Before <emphasis>the Page 5 break</emphasis>, the WHO (World Health Organization) said.</p>"],
+      ["Before <emphasis>the Page 5 break</emphasis>, the WHO (World Health Organization) said."],
       mode,
     );
   }

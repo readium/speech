@@ -191,9 +191,9 @@ export class SsmlWriter {
   }
 }
 
-const UNREPEATABLE_ELEMENTS = new Set(["speak", "p", "s", "audio"]);
+const UNREPEATABLE_ELEMENTS = new Set(["speak", "audio"]);
 
-// Whether `element` is a `<speak>`, `<p>`, `<s>` or `<audio>`, which a split must never repeat around each piece.
+// Whether `element` is a `<speak>` or `<audio>`, which a split must never repeat around each piece.
 export function isUnrepeatable(element: SsmlElement): boolean {
   return UNREPEATABLE_ELEMENTS.has(element.name);
 }
