@@ -133,6 +133,30 @@ test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag,
   t.is(result.plain, "1) and (c) too");
 });
 
+test("substituteSsmlText keeps nested elements as markup", (t) => {
+  const table: SubstitutionTable = { nomatch: "X" };
+  t.is(
+    substituteSsmlText('x<lang xml:lang="en"><sub alias="World Health Organization">WHO</sub></lang>y', table).ssml,
+    'x<lang xml:lang="en"><sub alias="World Health Organization">WHO</sub></lang>y',
+  );
+  t.is(substituteSsmlText("<speak>a<p>b</p>c</speak>", table).ssml, "<speak>a <p>b</p> c</speak>");
+});
+
+test("substituteSsmlText keeps a match within one nested text node in all its elements", (t) => {
+  const result = substituteSsmlText('<lang xml:lang="fr"><emphasis>(c)</emphasis> x</lang>', { "(c)": "©" });
+  t.is(result.ssml, '<lang xml:lang="fr"><emphasis>©</emphasis> x</lang>');
+});
+
+test("substituteSsmlText puts a match crossing nested elements in the innermost element enclosing all of it", (t) => {
+  const result = substituteSsmlText('<lang xml:lang="fr">1<emphasis>)</emphasis> x</lang>', { "1)": "X" });
+  t.is(result.ssml, '<lang xml:lang="fr">X x</lang>');
+  t.is(result.plain, "1) x");
+});
+
+test("substituteSsmlText keeps a self-closing element inside a nested element", (t) => {
+  t.is(substituteSsmlText("a<emphasis>b<break/>c</emphasis>d", { nomatch: "X" }).ssml, "a<emphasis>b<break/> c</emphasis>d");
+});
+
 test("substituteSsmlText echoes a break's glue space into the returned ssml, not just plain", (t) => {
   const table: SubstitutionTable = { nomatch: "X" };
   const result = substituteSsmlText("foo<break/>bar", table);

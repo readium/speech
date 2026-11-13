@@ -1,6 +1,7 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import { DROPPED, removeDropped } from "@readium/guided-navigation";
+import { commonAncestors, parseSsml, SsmlWriter, ssmlLeaves, type SsmlElement } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
 import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
@@ -326,128 +327,77 @@ export interface SsmlSubstitutionResult {
   map: number[]; // map[i] = position in `plain` for substituted-plain char i
 }
 
-interface PlainSegment {
-  start: number;
-  end: number; // exclusive
-  atomIndex: number; // -1 for a synthetic glue space (no ssml form)
-}
+// A run of `plain` under its enclosing elements, or a childless element (e.g. `<break/>`) at that point.
+type PlainPiece = { start: number; end: number; chain: SsmlElement[] } | { node: SsmlElement; chain: SsmlElement[] };
 
 // Rewrites SSML text content only (tags/attributes untouched), re-escaping
 // each replacement so a caller-supplied `replace` can't corrupt the markup.
-// A rule matched entirely within one atom's own text stays wrapped in that
-// atom's tag; a match spanning two atoms (crossing a tag boundary) has no
-// single tag it could unambiguously belong to, so it's spliced in flat
-// instead of silently left unmatched. `plain`/`map` describe the same
-// rewrite over tag-stripped text.
+// A match within one text node stays in that node's elements; a match crossing
+// elements goes into the innermost element enclosing all of it.
+// `plain`/`map` describe the same rewrite over tag-stripped text.
 export function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult {
-  const atoms = tokenizeSsmlTextAtoms(ssml);
-
-  // Pass 1: lay out `plain` (tag-stripped, with the same tag-boundary glue
-  // space as stripSsmlTagsWithMap) and record which atom (or glue) owns each span of it.
+  // Lays out `plain` with the same word-separating space as stripSsmlTagsWithMap.
   let plain = "";
   let lastWasSpace = false;
-  let afterSeparator = false;
-  const segments: PlainSegment[] = [];
-  const atomSegmentIndices: number[][] = atoms.map(() => []);
+  let separated = false;
+  let previousChain: SsmlElement[] = [];
+  const pieces: PlainPiece[] = [];
 
-  atoms.forEach((atom, atomIndex) => {
-    if (atom.kind === "selfClosing") {
-      afterSeparator = true;
-      return;
-    }
-    const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
-    const separating = atom.kind === "paired" && separatesWords(atom.raw);
-    const separated = afterSeparator || separating;
-    if (sourceText.length > 0) afterSeparator = false;
-    if (separating) afterSeparator = true;
-    if (separated && !lastWasSpace && breakSpaced(plain, sourceText)) {
-      const glueStart = plain.length;
-      plain += " ";
-      atomSegmentIndices[atomIndex].push(segments.length);
-      segments.push({ start: glueStart, end: glueStart + 1, atomIndex: -1 });
-      lastWasSpace = true;
-    }
-    const start = plain.length;
-    plain += sourceText;
-    atomSegmentIndices[atomIndex].push(segments.length);
-    segments.push({ start, end: plain.length, atomIndex });
-    if (sourceText.length > 0) lastWasSpace = /\s$/.test(sourceText);
-  });
-
-  const spans = resolveSubstitutionSpans(plain, table);
-
-  // Pass 2: walk atoms in order, applying `spans` against `plain` positions.
-  // A real atom's escaped output accumulates in `buffer` until it's known
-  // safe to wrap in that atom's tag; a span crossing out of the current
-  // atom flushes early and is spliced in unwrapped.
-  let outSsml = "";
-  let substitutedPlain = "";
-  const map: number[] = [];
-  let bufferAtom = -2; // -2 = nothing buffered, >=0 = index of the atom currently accumulating
-  let buffer = "";
-  let spanIndex = 0;
-
-  const flushBuffer = () => {
-    if (bufferAtom >= 0) {
-      const atom = atoms[bufferAtom];
-      outSsml += atom.kind === "paired" ? `<${atom.tag}${atom.attrs}>${buffer}</${atom.tag}>` : buffer;
-    }
-    buffer = "";
-    bufferAtom = -2;
-  };
-
-  for (let atomIndex = 0; atomIndex < atoms.length; atomIndex++) {
-    const atom = atoms[atomIndex];
-    if (atom.kind === "selfClosing") {
-      flushBuffer();
-      outSsml += atom.raw;
+  for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
+    const common = commonAncestors(previousChain, ancestors).length;
+    if ([...previousChain.slice(common), ...ancestors.slice(common)].some((element) => separatesWords(element.openTag))) separated = true;
+    previousChain = ancestors;
+    if (node.kind === "element") {
+      pieces.push({ node, chain: ancestors });
+      if (separatesWords(node.openTag)) separated = true;
       continue;
     }
-    for (const segIndex of atomSegmentIndices[atomIndex]) {
-      const segment = segments[segIndex];
-      let cursor = segment.start;
-      while (cursor < segment.end) {
-        const span = spanIndex < spans.length ? spans[spanIndex] : undefined;
-        if (span && span.start <= cursor && span.end > cursor) {
-          const startingHere = span.start === cursor;
-          const crossesOut = span.end > segment.end;
-          if (startingHere) {
-            substitutedPlain += span.replacement;
-            for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
-            if (segment.atomIndex === -1 || crossesOut) {
-              flushBuffer();
-              outSsml += ssmlTextEscape(span.replacement);
-            } else {
-              if (bufferAtom !== segment.atomIndex) {
-                flushBuffer();
-                bufferAtom = segment.atomIndex;
-              }
-              buffer += ssmlTextEscape(span.replacement);
-            }
-          }
-          cursor = Math.min(span.end, segment.end);
-          if (span.end <= segment.end) spanIndex++;
-          continue;
+    if (separated && !lastWasSpace && breakSpaced(plain, node.text)) {
+      pieces.push({ start: plain.length, end: plain.length + 1, chain: ancestors.slice(0, common) });
+      plain += " ";
+    }
+    pieces.push({ start: plain.length, end: plain.length + node.text.length, chain: ancestors });
+    plain += node.text;
+    lastWasSpace = /\s$/.test(node.text);
+    separated = false;
+  }
+
+  const spans = resolveSubstitutionSpans(plain, table);
+  const textPieces = pieces.filter((piece) => "start" in piece);
+  const pieceAt = (position: number) => textPieces.find((piece) => piece.start <= position && position < piece.end)!;
+
+  const writer = new SsmlWriter();
+  let substitutedPlain = "";
+  const map: number[] = [];
+  let spanIndex = 0;
+
+  for (const piece of pieces) {
+    if ("node" in piece) {
+      writer.node(piece.chain, piece.node);
+      continue;
+    }
+    let cursor = piece.start;
+    while (cursor < piece.end) {
+      const span = spans[spanIndex];
+      if (span && span.start <= cursor) {
+        if (span.start === cursor) {
+          substitutedPlain += span.replacement;
+          for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
+          writer.text(commonAncestors(piece.chain, pieceAt(span.end - 1).chain), span.replacement);
         }
-        const next = span ? Math.min(span.start, segment.end) : segment.end;
-        const text = plain.slice(cursor, next);
-        substitutedPlain += text;
-        for (let i = 0; i < text.length; i++) map.push(cursor + i);
-        if (segment.atomIndex === -1) {
-          flushBuffer();
-          outSsml += ssmlTextEscape(text);
-        } else {
-          if (bufferAtom !== segment.atomIndex) {
-            flushBuffer();
-            bufferAtom = segment.atomIndex;
-          }
-          buffer += ssmlTextEscape(text);
-        }
-        cursor = next;
+        cursor = Math.min(span.end, piece.end);
+        if (span.end <= piece.end) spanIndex++;
+        continue;
       }
+      const next = span ? Math.min(span.start, piece.end) : piece.end;
+      const text = plain.slice(cursor, next);
+      substitutedPlain += text;
+      for (let i = 0; i < text.length; i++) map.push(cursor + i);
+      writer.text(piece.chain, text);
+      cursor = next;
     }
   }
-  flushBuffer();
+  const outSsml = writer.flush();
 
   let plainStart = 0;
   while (plainStart < plain.length && /\s/.test(plain[plainStart])) plainStart++;

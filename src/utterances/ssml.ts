@@ -124,6 +124,46 @@ export function serializeSsml(nodes: SsmlNode[]): string {
   return out;
 }
 
+export function commonAncestors(a: SsmlElement[], b: SsmlElement[]): SsmlElement[] {
+  let common = 0;
+  while (common < a.length && common < b.length && a[common] === b[common]) common++;
+  return a.slice(0, common);
+}
+
+// Builds SSML from pieces each placed under a chain of elements, closing and reopening elements as the chain changes.
+export class SsmlWriter {
+  private out = "";
+  private open: SsmlElement[] = [];
+
+  private moveTo(chain: SsmlElement[]): void {
+    const common = commonAncestors(this.open, chain).length;
+    while (this.open.length > common) this.out += closeTag(this.open.pop()!);
+    for (const element of chain.slice(common)) {
+      this.out += element.openTag;
+      this.open.push(element);
+    }
+  }
+
+  text(chain: SsmlElement[], text: string): void {
+    if (!text) return;
+    this.moveTo(chain);
+    this.out += ssmlTextEscape(text);
+  }
+
+  node(chain: SsmlElement[], node: SsmlNode): void {
+    this.moveTo(chain);
+    this.out += serializeSsml([node]);
+  }
+
+  // The SSML written so far, with every open element closed; the writer starts over empty.
+  flush(): string {
+    this.moveTo([]);
+    const out = this.out;
+    this.out = "";
+    return out;
+  }
+}
+
 // Every text node and childless element of `nodes`, in document order.
 export function ssmlLeaves(nodes: SsmlNode[], ancestors: SsmlElement[] = []): SsmlLeaf[] {
   const leaves: SsmlLeaf[] = [];
