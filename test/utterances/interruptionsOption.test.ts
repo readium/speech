@@ -188,6 +188,24 @@ test("sentence segmentation splits SSML whose piece ends in a tag at its plain t
   ]);
 });
 
+test("an inline interruption and an abbreviation keep the source's paragraph and emphasis, opened once", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<p>Before <emphasis>the <readium:pagebreak id="pb"/> break</emphasis>, the <sub alias="World Health Organization">WHO</sub> said.</p>' },
+      children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const options = { format: "ssml" as const, segmentation: { mode }, interruptions: { pagebreak: "inline" as const, abbreviation: "after" as const } };
+    t.deepEqual(
+      (await extractUtterances(gnd(), options)).map((u) => u.ssml),
+      ["<p>Before <emphasis>the Page 5 break</emphasis>, the WHO (World Health Organization) said.</p>"],
+      mode,
+    );
+  }
+});
+
 const enLang = (ssml: string) => `<lang xml:lang="en">${ssml}</lang>`;
 
 test("sentence segmentation wraps a deferred note's announcements in another language than the catalog's in lang tags in SSML", async (t) => {

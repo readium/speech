@@ -1,6 +1,11 @@
 import test from "ava";
+import { GuidedNavigationText } from "@readium/shared";
 import {
   hasLangTag,
+  hasPlaceholder,
+  removeEmptiedPairs,
+  resolveNodeText,
+  splitOnPlaceholders,
   splitOnLangTags,
   ssmlIndexToPlainIndex,
   stripSsmlTags,
@@ -234,4 +239,53 @@ test("splitOnLangTags keeps punctuation touching a lang element nested in anothe
     { plain: "He said", language: "en" },
     { plain: "« oui ».", language: "fr" },
   ]);
+});
+
+test("hasPlaceholder finds a placeholder nested in an element, with single-quoted attributes", (t) => {
+  t.true(hasPlaceholder("<p><readium:pagebreak id='p1'/></p>"));
+});
+
+const segmentSsml = (ssml: string) => splitOnPlaceholders(ssml).map((segment) => segment.ssml ?? segment.placeholderId);
+
+test("splitOnPlaceholders reads a sub with a single-quoted alias", (t) => {
+  const segments = splitOnPlaceholders("The <sub alias='World Health Organization'>WHO</sub> said");
+  t.deepEqual(segments.map((segment) => segment.ssml), ["The", "WHO", "World Health Organization", "said"]);
+  t.like(segments[2], { abbreviation: "alias", abbreviationText: "WHO", parenthesizedSsml: "(World Health Organization)" });
+});
+
+test("splitOnPlaceholders cuts the source where a placeholder is, leaving each element opened once and closed once", (t) => {
+  const segments = splitOnPlaceholders('<p>a <emphasis>b <readium:noteref id="n"/> c</emphasis> d</p>');
+  t.deepEqual(segments.map((segment) => segment.ssml ?? segment.placeholderId), ["<p>a <emphasis>b", "n", "c</emphasis> d</p>"]);
+  t.like(segments[1], { textBefore: "a b ", textAfter: " c d" });
+});
+
+test("splitOnPlaceholders gives a segment the elements open around it, to read it on its own", (t) => {
+  const [before, , after] = splitOnPlaceholders('<lang xml:lang="fr"><p>a <readium:noteref id="n"/> b</p></lang>');
+  t.like(before, { ssml: '<lang xml:lang="fr"><p>a', openTags: "", closeTags: "</p></lang>" });
+  t.like(after, { ssml: "b</p></lang>", openTags: '<lang xml:lang="fr"><p>', closeTags: "" });
+});
+
+test("splitOnPlaceholders keeps a paragraph around a sub once, in the text around it", (t) => {
+  const segments = splitOnPlaceholders('<p>The <sub alias="World Health Organization">WHO</sub> said</p>');
+  t.deepEqual(segments.map((segment) => segment.ssml), ["<p>The", "WHO", "World Health Organization", "said</p>"]);
+  t.like(segments[1], { openTags: "<p>", closeTags: "</p>" });
+});
+
+test("splitOnPlaceholders keeps formatting wrapping just a sub on the abbreviation and its alias, with its attached text", (t) => {
+  const segments = splitOnPlaceholders('The <emphasis><sub alias="World Health Organization">WHO</sub></emphasis>s said');
+  t.deepEqual(segments.map((segment) => segment.ssml), ["The", "<emphasis>WHOs</emphasis>", "<emphasis>World Health Organizations</emphasis>", "said"]);
+  t.like(segments[2], { parenthesizedSsml: "<emphasis>(World Health Organization)</emphasis>" });
+});
+
+test("splitOnPlaceholders keeps a sentence before a placeholder as written", (t) => {
+  t.deepEqual(segmentSsml('<s>a</s> <readium:noteref id="n"/>'), ["<s>a</s>", "n"]);
+});
+
+test("removeEmptiedPairs removes every element the removal leaves empty, nested or not", (t) => {
+  const { ssml } = removeEmptiedPairs('a <emphasis><lang xml:lang="fr">(</lang></emphasis><readium:noteref id="n"/>) b', () => true, "en");
+  t.is(ssml, 'a <readium:noteref id="n"/> b');
+});
+
+test("resolveNodeText removes a placeholder nested in an element, with the space before binding punctuation", (t) => {
+  t.deepEqual(resolveNodeText(GuidedNavigationText.deserialize({ ssml: "<emphasis>word <readium:noteref id='n'/>.</emphasis>" })), { ssml: "<emphasis>word.</emphasis>" });
 });

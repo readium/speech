@@ -8,6 +8,10 @@ export interface SsmlElement {
   selfClosing: boolean;
   // The opening tag as written in the source, so unchanged elements serialize byte-identically.
   openTag: string;
+  // Source offsets: where the element starts, where its closing tag starts, and where it ends.
+  start: number;
+  closeStart: number;
+  end: number;
 }
 
 export interface SsmlText {
@@ -93,8 +97,11 @@ function parseOrThrow(ssml: string): SsmlNode[] {
       i = end + 1;
     } else if (rest.startsWith("</")) {
       const match = CLOSE_TAG_RE.exec(rest);
-      if (!match || stack.pop()?.name !== match[1]) throw new Error("mismatched closing tag");
+      const element = stack.pop();
+      if (!match || element?.name !== match[1]) throw new Error("mismatched closing tag");
       i = lt + match[0].length;
+      element.closeStart = lt;
+      element.end = i;
     } else {
       const match = OPEN_TAG_RE.exec(rest);
       if (!match) throw new Error("malformed tag");
@@ -105,6 +112,9 @@ function parseOrThrow(ssml: string): SsmlNode[] {
         children: [],
         selfClosing: match[3] === "/",
         openTag: match[0],
+        start: lt,
+        closeStart: lt + match[0].length,
+        end: lt + match[0].length,
       };
       children().push(element);
       if (!element.selfClosing) stack.push(element);
@@ -177,6 +187,13 @@ export class SsmlWriter {
   }
 }
 
+const STRUCTURE_ELEMENTS = new Set(["speak", "p", "s"]);
+
+// Whether `element` is a `<speak>`, `<p>` or `<s>`, which a split must never repeat around each piece.
+export function isStructureElement(element: SsmlElement): boolean {
+  return STRUCTURE_ELEMENTS.has(element.name);
+}
+
 // The language a `<lang>` element declares, `undefined` for any other element.
 export function langElementLanguage(element: SsmlElement): string | undefined {
   return element.name === "lang" ? element.attrs.get("xml:lang") : undefined;
@@ -206,12 +223,13 @@ export function unwrapSsmlElements(nodes: SsmlNode[], unwrap: (element: SsmlElem
   });
 }
 
-// Every text node and childless element of `nodes`, in document order.
-export function ssmlLeaves(nodes: SsmlNode[], ancestors: SsmlElement[] = []): SsmlLeaf[] {
+// Every text node and childless element of `nodes`, in document order; an element matching `whole` counts as one leaf.
+export function ssmlLeaves(nodes: SsmlNode[], whole?: (element: SsmlElement) => boolean, ancestors: SsmlElement[] = []): SsmlLeaf[] {
   const leaves: SsmlLeaf[] = [];
   for (const node of nodes) {
-    if (node.kind === "element" && node.children.length > 0) leaves.push(...ssmlLeaves(node.children, [...ancestors, node]));
-    else leaves.push({ node, ancestors });
+    if (node.kind === "element" && node.children.length > 0 && !whole?.(node)) {
+      leaves.push(...ssmlLeaves(node.children, whole, [...ancestors, node]));
+    } else leaves.push({ node, ancestors });
   }
   return leaves;
 }

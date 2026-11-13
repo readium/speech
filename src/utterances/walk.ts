@@ -277,7 +277,14 @@ function emitWithPlaceholders(
     else if (pending.touching) ctx.touchingPieces.add(piece);
     pending = undefined;
   };
-  const { ssml, spaced } = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const removed = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const { spaced } = removed;
+  let ssml = removed.ssml;
+  // On the whole text, since segments are slices of it whose tags may open or close in another segment.
+  if (ctx.format === "ssml") {
+    ssml = overrideLangTags(ssml, ctx.languageOverrides);
+    if (ctx.language === "block-level" || ctx.language === "none") ssml = stripLangTags(ssml);
+  }
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
   for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
@@ -344,13 +351,14 @@ function emitWithPlaceholders(
     }
     if (!segment.ssml) continue;
     const before = pieces.length;
+    const readable = `${segment.openTags ?? ""}${segment.ssml}${segment.closeTags ?? ""}`;
     if (
       ctx.format === "plain" &&
       ctx.language !== "block-level" &&
       ctx.language !== "none" &&
-      hasLangTag(segment.ssml)
+      hasLangTag(readable)
     ) {
-      for (const langSegment of splitOnLangTags(segment.ssml, declaredLanguage)) {
+      for (const langSegment of splitOnLangTags(readable, declaredLanguage)) {
         const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
         const segmentLanguage = languageFor(langSegment.language, ctx);
         if (segmentLanguage) utterance.language = segmentLanguage;
@@ -365,11 +373,8 @@ function emitWithPlaceholders(
     }
     const utterance: ReadiumSpeechUtterance = {};
     if (language) utterance.language = language;
-    if (ctx.format === "ssml") utterance.ssml = overrideLangTags(segment.ssml, ctx.languageOverrides);
-    else utterance.plain = stripSsmlTags(segment.ssml);
-    if ((ctx.language === "block-level" || ctx.language === "none") && utterance.ssml) {
-      utterance.ssml = stripLangTags(utterance.ssml);
-    }
+    if (ctx.format === "ssml") utterance.ssml = segment.ssml;
+    else utterance.plain = stripSsmlTags(readable);
     pieces.push(utterance);
     pieceSources.push(node);
     if (segment.abbreviation !== "alias") placeInOwnText(before);
