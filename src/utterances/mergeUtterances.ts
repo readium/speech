@@ -10,6 +10,7 @@ import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { withEnclosingTags } from "./enclosingTags.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
 // on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
@@ -158,7 +159,7 @@ export function mergeUtterances(
   if (parts.length === 0) return undefined;
   const language = runLanguage(usedPieces, ctx);
   if (language === null) return undefined;
-  const texts = ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts;
+  const texts = ctx.format === "ssml" ? withEnclosingTags(usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)), usedPieces) : parts;
   const { joined } = joinPieceTexts(texts, texts, pieceSpacing(usedPieces, ctx));
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;

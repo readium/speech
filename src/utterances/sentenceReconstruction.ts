@@ -17,6 +17,7 @@ import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from ".
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { blockOf, edgeNode } from "./blocks.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { encloseOwnTags, withEnclosingTags } from "./enclosingTags.js";
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
 // if there's only one), falling back to English when it has no language.
@@ -146,6 +147,7 @@ async function pushSplitSingle(
   newOut: ReadiumSpeechUtterance[],
   newSources: SourceTrace,
 ): Promise<void> {
+  encloseOwnTags(utterance);
   const fragments = ctx.synthetic.has(utterance) || isAlias(utterance, ctx) ? undefined : await sentenceFragmentsOf(utterance, ctx);
   if (!fragments) {
     if (isAlias(utterance, ctx)) punctuateLoneAlias(utterance, ctx);
@@ -374,7 +376,7 @@ async function pushJoinedGroup(
     const partLanguages = new Map<number, string | undefined>();
     for (const part of parts) for (let k = part.startIdx; k <= part.endIdx; k++) partLanguages.set(k, part.language);
     joinedSsml = joinPieceTexts(
-      pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)),
+      withEnclosingTags(pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)), pieces),
       plainParts,
       pieceSpacing(pieces, ctx),
     ).joined;
@@ -393,6 +395,7 @@ async function pushJoinedGroup(
   };
   parts.forEach(({ boundary, startIdx, endIdx, language: partLanguage, sentenceEnd, isolated }, k) => {
     if (isolated) {
+      encloseOwnTags(pieces[startIdx]);
       newOut.push(pieces[startIdx]);
       newSources.push(pieceSources[startIdx]);
       pushPlacedAfterSentence(sentenceEnd, k);

@@ -206,6 +206,23 @@ test("an inline interruption and an abbreviation keep the source's emphasis, ope
   }
 });
 
+test("text split around a link in another language closes and reopens the emphasis it's in", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<p>Avant <emphasis>x <readium:link id="l"/> y</emphasis> après.</p>', language: "fr" },
+      children: [{ id: "l", role: ["link"], text: { plain: "the link", language: "en" } }],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    t.deepEqual(
+      (await extractUtterances(gnd(), { format: "ssml", language: "always", segmentation: { mode } })).map((u) => u.ssml),
+      ["Avant <emphasis>x</emphasis>", "the link", "<emphasis>y</emphasis> après."],
+      mode,
+    );
+  }
+});
+
 test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({

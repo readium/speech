@@ -30,6 +30,7 @@ import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
+import { setEnclosingTags } from "./enclosingTags.js";
 import { isBlockNode } from "./blocks.js";
 import {
   contentlessRoleSet,
@@ -286,6 +287,8 @@ function emitWithPlaceholders(
     if (ctx.language === "block-level" || ctx.language === "none") ssml = stripLangTags(ssml);
   }
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
+  const slices = {};
+  let sliceIndex = 0;
   for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
@@ -373,8 +376,10 @@ function emitWithPlaceholders(
     }
     const utterance: ReadiumSpeechUtterance = {};
     if (language) utterance.language = language;
-    if (ctx.format === "ssml") utterance.ssml = segment.ssml;
-    else utterance.plain = stripSsmlTags(readable);
+    if (ctx.format === "ssml") {
+      utterance.ssml = segment.ssml;
+      setEnclosingTags(utterance, { open: segment.openTags ?? "", close: segment.closeTags ?? "", source: slices, index: sliceIndex++ });
+    } else utterance.plain = stripSsmlTags(readable);
     pieces.push(utterance);
     pieceSources.push(node);
     if (segment.abbreviation !== "alias") placeInOwnText(before);

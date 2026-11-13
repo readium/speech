@@ -5,6 +5,7 @@ import type { SourceTrace, WalkContext } from "./walkContext.js";
 import { languageFor, languageRuns } from "./language.js";
 import { mergeUtterances } from "./mergeUtterances.js";
 import { descriptionLanguageOf } from "./nodeFields.js";
+import { encloseOwnTags } from "./enclosingTags.js";
 
 // Contextualization/label text is always plain (no markup) — formats it
 // per the requested `format`, same as any other utterance.
@@ -70,6 +71,7 @@ export function pushMergedRuns(
     const run = pieces.slice(start, end);
     const runSources = pieceSources.slice(start, end);
     const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
+    if (!merged) run.forEach(encloseOwnTags);
     pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
   }
 }
