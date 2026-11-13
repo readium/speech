@@ -8,7 +8,7 @@ test("parseSsml builds nested elements", (t) => {
   const sub = lang.children[0] as SsmlElement;
   t.is(sub.name, "sub");
   t.is(sub.attrs.get("alias"), "World Health Organization");
-  t.deepEqual(sub.children, [{ kind: "text", text: "WHO" }]);
+  t.deepEqual(sub.children, [{ kind: "text", text: "WHO", positions: [59, 60, 61] }]);
 });
 
 test("parseSsml reads single-quoted attributes in any order", (t) => {
@@ -20,7 +20,7 @@ test("parseSsml reads single-quoted attributes in any order", (t) => {
 test("parseSsml decodes named and numeric entities in text and attributes", (t) => {
   const [sub] = parseSsml('<sub alias="&quot;A&quot; &amp; B">a&#160;b&#x2014;&apos;</sub>') as SsmlElement[];
   t.is(sub.attrs.get("alias"), '"A" & B');
-  t.deepEqual(sub.children, [{ kind: "text", text: "a b—'" }]);
+  t.deepEqual(sub.children, [{ kind: "text", text: "a b—'", positions: [35, 36, 42, 43, 51] }]);
 });
 
 test("decodeSsmlEntities leaves an unknown entity as written", (t) => {
@@ -32,12 +32,12 @@ test("decodeSsmlEntities reads &nbsp; as a no-break space", (t) => {
 });
 
 test("parseSsml drops comments and processing instructions, and reads CDATA as text", (t) => {
-  t.deepEqual(parseSsml('<?xml version="1.0"?>a<?producer f > g?><!-- b > c -->d<![CDATA[<e>]]>'), [{ kind: "text", text: "ad<e>" }]);
+  t.deepEqual(parseSsml('<?xml version="1.0"?>a<?producer f > g?><!-- b > c -->d<![CDATA[<e>]]>'), [{ kind: "text", text: "ad<e>", positions: [21, 54, 64, 65, 66] }]);
 });
 
 test("parseSsml reads input that isn't well-formed as one text node", (t) => {
-  t.deepEqual(parseSsml("<p>a</s>"), [{ kind: "text", text: "<p>a</s>" }]);
-  t.deepEqual(parseSsml("<p>a"), [{ kind: "text", text: "<p>a" }]);
+  t.deepEqual(parseSsml("<p>a</s>"), [{ kind: "text", text: "<p>a</s>", positions: [0, 1, 2, 3, 4, 5, 6, 7] }]);
+  t.deepEqual(parseSsml("<p>a"), [{ kind: "text", text: "<p>a", positions: [0, 1, 2, 3] }]);
 });
 
 test("serializeSsml round-trips the source byte for byte when entities are the ones it escapes", (t) => {

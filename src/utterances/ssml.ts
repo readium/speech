@@ -17,6 +17,8 @@ export interface SsmlElement {
 export interface SsmlText {
   kind: "text";
   text: string; // decoded
+  // As parsed: the source position of each char of `text`.
+  positions?: number[];
 }
 
 export type SsmlNode = SsmlElement | SsmlText;
@@ -61,14 +63,14 @@ function parseAttrs(source: string): Map<string, string> {
   return attrs;
 }
 
-export type SsmlToken =
+type SsmlToken =
   | { kind: "text"; text: string; start: number; end: number; cdata?: true }
   | { kind: "open"; name: string; attrs: string; selfClosing: boolean; markup: string; start: number; end: number }
   | { kind: "close"; name: string; markup: string; start: number; end: number };
 
 // Lexes `ssml` into decoded text (CDATA kept raw) and tags, dropping comments, processing instructions and declarations.
-// Nesting isn't checked, so unbalanced fragments lex fine; malformed markup throws.
-export function* ssmlTokens(ssml: string): Generator<SsmlToken> {
+// Malformed markup throws; nesting is `parseOrThrow()`'s to check.
+function* ssmlTokens(ssml: string): Generator<SsmlToken> {
   let i = 0;
   while (i < ssml.length) {
     const lt = ssml.indexOf("<", i);
@@ -107,20 +109,33 @@ export function* ssmlTokens(ssml: string): Generator<SsmlToken> {
   }
 }
 
+// The source position of each char a text token decodes to.
+function textPositions(ssml: string, token: Extract<SsmlToken, { kind: "text" }>): number[] {
+  const positions: number[] = [];
+  for (let i = token.start; i < token.end; ) {
+    const entity = !token.cdata && ssml[i] === "&" ? ssmlEntityAt(ssml, i) : undefined;
+    for (let k = 0; k < (entity?.decoded.length ?? 1); k++) positions.push(i);
+    i += entity?.length ?? 1;
+  }
+  return positions;
+}
+
 function parseOrThrow(ssml: string): SsmlNode[] {
   const root: SsmlNode[] = [];
   const stack: SsmlElement[] = [];
   const children = () => (stack.length ? stack[stack.length - 1].children : root);
-  const pushText = (text: string) => {
+  const pushText = (text: string, positions: number[]) => {
     const siblings = children();
     const last = siblings[siblings.length - 1];
-    if (last?.kind === "text") last.text += text;
-    else siblings.push({ kind: "text", text });
+    if (last?.kind === "text") {
+      last.text += text;
+      last.positions!.push(...positions);
+    } else siblings.push({ kind: "text", text, positions });
   };
 
   for (const token of ssmlTokens(ssml)) {
     if (token.kind === "text") {
-      pushText(token.text);
+      pushText(token.text, textPositions(ssml, token));
     } else if (token.kind === "close") {
       const element = stack.pop();
       if (element?.name !== token.name) throw new Error("mismatched closing tag");
@@ -151,7 +166,7 @@ export function parseSsml(ssml: string): SsmlNode[] {
   try {
     return parseOrThrow(ssml);
   } catch {
-    return ssml ? [{ kind: "text", text: ssml }] : [];
+    return ssml ? [{ kind: "text", text: ssml, positions: Array.from({ length: ssml.length }, (_, i) => i) }] : [];
   }
 }
 

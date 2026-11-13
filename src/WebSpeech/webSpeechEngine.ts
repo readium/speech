@@ -13,7 +13,7 @@ import { clampIndex } from "../utils/array.js";
 import { clamp } from "../utils/clamp.js";
 
 import { neutralizeAngleBrackets } from "../utils/text.js";
-import { stripSsmlTags } from "../utterances/text.js";
+import { stripSsmlTags } from "../utterances/plainText.js";
 
 // Safari ends whichever utterance is current when a cancelled one's late "finished" arrives, about 100 ms after cancel()
 const SAFARI_CANCEL_SETTLE_DELAY = 250;

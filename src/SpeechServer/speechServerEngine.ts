@@ -10,7 +10,7 @@ import { EventEmitter } from "../utils/eventEmitter.js";
 import { clampIndex } from "../utils/array.js";
 import { clamp } from "../utils/clamp.js";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText.js";
-import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/text.js";
+import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/plainText.js";
 import { neutralizeAngleBrackets } from "../utils/text.js";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat.js";
 import {

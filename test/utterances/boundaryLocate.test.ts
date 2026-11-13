@@ -3,7 +3,7 @@ import test from "ava";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
-import { stripSsmlTags } from "../../src/utterances/text.js";
+import { stripSsmlTags } from "../../src/utterances/plainText.js";
 
 test("resolveBoundaryLocate finds a word within a single-offset utterance", async (t) => {
   const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });

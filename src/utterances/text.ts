@@ -5,22 +5,20 @@ import {
   closeTag,
   commonAncestors,
   declaredLanguage,
-  decodeSsmlEntities,
   isUnrepeatable,
   parseSsml,
   serializeSsml,
   SsmlWriter,
   ssmlElements,
-  ssmlEntityAt,
   ssmlLeaves,
-  ssmlTokens,
   type SsmlElement,
   type SsmlLeaf,
   type SsmlNode,
   type SsmlText,
 } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
+import { layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textBetween } from "./plainText.js";
+import { meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
   plain?: string;
@@ -133,114 +131,6 @@ export function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedN
   return result.plain || result.ssml ? result : undefined;
 }
 
-// Strips every SSML tag (not just `<readium:...>` placeholders — `<lang>`,
-// `<emphasis>`, `<break/>`...) and unescapes the entities `ssmlTextEscape`
-// applies, for synthesizing a `plain` variant from a node that only
-// naturally has `ssml` (e.g. an inline language shift with no embedded
-// placeholder, so the GND converter never generated a `plain` variant for
-// it — see `@readium/guided-navigation`'s `converter.ts` `flushText()`).
-export function stripSsmlTags(ssml: string): string {
-  return stripSsmlTagsWithMap(ssml).plain;
-}
-
-// Whether a removed `<break/>` between `before` and `after` reads as a space: not before binding punctuation, at either end, or within unspaced text.
-export function breakSpaced(before: string, after: string): boolean {
-  return before.length > 0 && after.length > 0 && !/\s$/.test(before) && !/^\s/.test(after) && !startsWithBindingPunct(after) && !joinsWithoutSpace(before, after);
-}
-
-// SSML elements that delimit a sentence, paragraph, token, speaker or sound; other paired elements can fall within a word.
-const WORD_SEPARATING_ELEMENTS = new Set(["speak", "p", "s", "voice", "audio", "desc", "token", "w"]);
-
-// Whether `markup`, starting with a tag, leaves a word boundary where it's removed: a self-closing tag like `<break/>`, or a structural element.
-export function separatesWords(markup: string): boolean {
-  return /^<[^>]*\/>/.test(markup) || WORD_SEPARATING_ELEMENTS.has(/^<\/?([^\s/>]+)/.exec(markup)?.[1] ?? "");
-}
-
-// Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
-// Markup that doesn't lex is read as raw text, as `parseSsml()` does.
-export function stripSsmlTagsKeepSpacing(ssml: string): string {
-  let plain = "";
-  let separated = false;
-  try {
-    for (const token of ssmlTokens(ssml)) {
-      if (token.kind !== "text") {
-        separated ||= separatesWords(token.markup);
-        continue;
-      }
-      if (separated && breakSpaced(plain, token.text)) plain += " ";
-      plain += token.text;
-      separated = false;
-    }
-  } catch {
-    return ssml;
-  }
-  return plain;
-}
-
-// Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
-export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
-  let plain = "";
-  const map: number[] = [];
-  let lastWasSpace = false;
-  // Where the first word-separating tag since the last text ends, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
-  let separatorEnd: number | undefined;
-  const pushText = (text: string, from: number, to: number, decoded: boolean) => {
-    if (separatorEnd !== undefined && !lastWasSpace && breakSpaced(plain, text)) {
-      plain += " ";
-      map.push(separatorEnd);
-      lastWasSpace = true;
-    }
-    separatorEnd = undefined;
-    let i = from;
-    while (i < to) {
-      const ch = ssml[i];
-      const entity = decoded && ch === "&" ? ssmlEntityAt(ssml, i) : undefined;
-      if (entity) {
-        plain += entity.decoded;
-        for (let k = 0; k < entity.decoded.length; k++) map.push(i);
-        i += entity.length;
-        lastWasSpace = false;
-        continue;
-      }
-      if (ch !== " " || !lastWasSpace) {
-        plain += ch;
-        map.push(i);
-      }
-      lastWasSpace = ch === " ";
-      i++;
-    }
-  };
-  let tokens;
-  try {
-    tokens = [...ssmlTokens(ssml)];
-  } catch {
-    // Markup that doesn't lex is read as raw text, as `parseSsml()` does.
-    pushText(ssml, 0, ssml.length, false);
-  }
-  for (const token of tokens ?? []) {
-    if (token.kind === "text") pushText(token.text, token.start, token.end, !token.cdata);
-    else if (separatorEnd === undefined && separatesWords(token.markup)) separatorEnd = token.end;
-  }
-  let start = 0;
-  while (start < plain.length && /\s/.test(plain[start])) start++;
-  let end = plain.length;
-  while (end > start && /\s/.test(plain[end - 1])) end--;
-  return { plain: plain.slice(start, end), map: map.slice(start, end) };
-}
-
-// Smallest plain index whose SSML source position is >= `ssmlIndex` — lands
-// on the next real character when `ssmlIndex` fell inside a stripped tag.
-export function ssmlIndexToPlainIndex(map: number[], ssmlIndex: number): number {
-  let lo = 0;
-  let hi = map.length;
-  while (lo < hi) {
-    const mid = (lo + hi) >> 1;
-    if (map[mid] < ssmlIndex) lo = mid + 1;
-    else hi = mid;
-  }
-  return lo;
-}
-
 interface CompiledSubstitutionRule {
   regex: RegExp;
   replace: string | ((...match: string[]) => string);
@@ -347,12 +237,12 @@ export function substitutedIndexToSourceIndex(map: number[], substitutedIndex: n
 
 export interface SsmlSubstitutionResult {
   ssml: string;
-  plain: string; // the pre-substitution text `map` resolves into, same shape as stripSsmlTags(ssml)
+  plain: string; // the pre-substitution text `map` resolves into: `layoutSsml(ssml).plain`, trimmed
   map: number[]; // map[i] = position in `plain` for substituted-plain char i
 }
 
 // A run of `plain` under its enclosing elements, or a childless element (e.g. `<break/>`) at that point.
-type PlainPiece = { start: number; end: number; chain: SsmlElement[] } | { node: SsmlElement; chain: SsmlElement[] };
+type PlainSpan = { start: number; end: number; chain: SsmlElement[] } | { node: SsmlNode; chain: SsmlElement[] };
 
 // Rewrites SSML text content only (tags/attributes untouched), re-escaping
 // each replacement so a caller-supplied `replace` can't corrupt the markup.
@@ -360,31 +250,11 @@ type PlainPiece = { start: number; end: number; chain: SsmlElement[] } | { node:
 // elements goes into the innermost element enclosing all of it.
 // `plain`/`map` describe the same rewrite over tag-stripped text.
 export function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult {
-  // Lays out `plain` with the same word-separating space as stripSsmlTagsWithMap.
-  let plain = "";
-  let lastWasSpace = false;
-  let separated = false;
-  let previousChain: SsmlElement[] = [];
-  const pieces: PlainPiece[] = [];
-
-  for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
-    const common = commonAncestors(previousChain, ancestors).length;
-    if ([...previousChain.slice(common), ...ancestors.slice(common)].some((element) => separatesWords(element.openTag))) separated = true;
-    previousChain = ancestors;
-    if (node.kind === "element") {
-      pieces.push({ node, chain: ancestors });
-      if (separatesWords(node.openTag)) separated = true;
-      continue;
-    }
-    if (separated && !lastWasSpace && breakSpaced(plain, node.text)) {
-      pieces.push({ start: plain.length, end: plain.length + 1, chain: ancestors.slice(0, common) });
-      plain += " ";
-    }
-    pieces.push({ start: plain.length, end: plain.length + node.text.length, chain: ancestors });
-    plain += node.text;
-    lastWasSpace = /\s$/.test(node.text);
-    separated = false;
-  }
+  const layout = layoutSsml(ssml);
+  const plain = layout.plain;
+  const pieces: PlainSpan[] = layout.pieces.map((piece) =>
+    piece.kind === "element" ? piece : { start: piece.start, end: piece.start + (piece.kind === "text" ? piece.text.length : 1), chain: piece.chain },
+  );
 
   const spans = resolveSubstitutionSpans(plain, table);
   const textPieces = pieces.filter((piece) => "start" in piece);
@@ -447,11 +317,6 @@ export interface LangSegment {
 
 export function hasLangTag(ssml: string): boolean {
   return [...ssmlElements(parseSsml(ssml))].some((element) => declaredLanguage(element) !== undefined);
-}
-
-// Same as `stripSsmlTags`, minus the final trim.
-function stripSsmlTagsKeepEdges(ssml: string): string {
-  return stripSsmlTagsKeepSpacing(ssml).replace(/ {2,}/g, " ");
 }
 
 // An atom of a run's text: a word, a punctuation run (open/close), or whitespace.
@@ -543,7 +408,7 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
     else writer.node(chain, node);
   }
   const runs: Run[] = groups.map(({ lang, langs, writer }) => ({
-    tokens: tokenize(stripSsmlTagsKeepEdges(writer.flush())),
+    tokens: tokenize(stripSsmlTagsKeepSpacing(writer.flush())),
     language: lang ? declaredLanguage(lang) : baseLanguage,
     langs,
   }));
@@ -732,8 +597,6 @@ function marksOf(ssml: string, nodes: SsmlNode[]): Mark[] {
   return marks;
 }
 
-const untagged = (ssml: string) => ssml.replace(/<[^>]*>/g, "");
-
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
  * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `interruptions`: each
@@ -742,6 +605,8 @@ const untagged = (ssml: string) => ssml.replace(/<[^>]*>/g, "");
  */
 export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const nodes = parseSsml(ssml);
+  const { pieces } = layoutSsml(ssml);
+  const textIn = (from: number, to: number) => textBetween(pieces, from, to);
   const elements = [...ssmlElements(nodes)].filter((element) => !element.selfClosing);
   // The elements open at `offset` in the source, outermost first.
   const openAt = (offset: number) => elements.filter((element) => element.start < offset && offset <= element.closeStart);
@@ -759,7 +624,7 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     if (!text) return;
     const start = from + raw.length - raw.trimStart().length;
     const segment: SsmlSegment = { ssml: text, ...context(start, start + text.length) };
-    segments.push(afterAbbreviation && !/^\s/.test(raw) ? { ...segment, touchesPrevious: true } : segment);
+    segments.push(afterAbbreviation && !/^\s/.test(textIn(from, to)) ? { ...segment, touchesPrevious: true } : segment);
   };
   const marks = marksOf(ssml, nodes);
   marks.forEach((mark, k) => {
@@ -769,8 +634,8 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
       const language = openAt(mark.start).map(declaredLanguage).filter((declared) => declared !== undefined).pop();
       segments.push({
         placeholderId: mark.placeholderId,
-        textBefore: untagged(ssml.slice(lastIndex, mark.start)),
-        textAfter: untagged(following),
+        textBefore: textIn(lastIndex, mark.start),
+        textAfter: textIn(mark.end, marks[k + 1]?.start ?? ssml.length),
         ...(language && { language }),
       });
       afterAbbreviation = false;
@@ -781,9 +646,9 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const word = stripSsmlTags(mark.inner!);
     const prefix = attachedBefore(ssml.slice(lastIndex, mark.start).match(ATTACHED_END_RE)?.[0] ?? "", word);
     const suffix = attachedAfter(word, following.match(ATTACHED_START_RE)?.[0] ?? "");
-    const rawBefore = ssml.slice(lastIndex, mark.start - prefix.length);
+    const textBefore = textIn(lastIndex, mark.start - prefix.length);
     pushText(lastIndex, mark.start - prefix.length);
-    const touchesPrevious = rawBefore.trim() !== "" && !/\s$/.test(rawBefore);
+    const touchesPrevious = textBefore.trim() !== "" && !/\s$/.test(textBefore);
     const wrap = (inner: string) => `${mark.wrapOpen}${inner}${mark.wrapClose}`;
     const attach = (inner: string) => wrap(`${prefix}${inner}${suffix}`);
     const around = context(mark.start, mark.end);

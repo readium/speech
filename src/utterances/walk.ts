@@ -14,8 +14,8 @@ import {
   splitOnLangTags,
   splitOnPlaceholders,
   type SsmlSegment,
-  stripSsmlTags,
 } from "./text.js";
+import { stripSsmlTags } from "./plainText.js";
 import {
   contextualizationParamsFor,
   isDroppedByAnotherRole,

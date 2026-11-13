@@ -2,7 +2,7 @@ import { GuidedNavigationText, type GuidedNavigationObject } from "@readium/shar
 import type { GndRole } from "@readium/guided-navigation";
 import { ssmlAttrEscape } from "@readium/helpers";
 import { bindNamespacesInward, parseSsml, ssmlElements, type SsmlElement } from "./ssml.js";
-import { breakSpaced, stripSsmlTags, stripSsmlTagsKeepSpacing } from "./text.js";
+import { breakSpaced, layoutSsml, stripSsmlTags, textBetween } from "./plainText.js";
 
 export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
   return node.role ? [...node.role] : [];
@@ -41,6 +41,7 @@ function withoutParagraphsAndSentences(source: string): string {
   }
   if (!edits.length) return ssml;
   edits.sort((a, b) => a.start - b.start);
+  const { pieces } = layoutSsml(ssml);
   let out = "";
   let cursor = 0;
   for (let i = 0; i < edits.length; ) {
@@ -52,7 +53,7 @@ function withoutParagraphsAndSentences(source: string): string {
     const [closing, opening] = firstOpen === -1 ? [group, []] : [group.slice(0, firstOpen), group.slice(firstOpen)];
     cursor = group[group.length - 1].end;
     out += closing.map((edit) => edit.text).join("");
-    if (breakSpaced(stripSsmlTagsKeepSpacing(out), stripSsmlTagsKeepSpacing(ssml.slice(cursor)))) out += " ";
+    if (breakSpaced(textBetween(pieces, 0, group[0].start), textBetween(pieces, cursor, ssml.length))) out += " ";
     out += opening.map((edit) => edit.text).join("");
     i = j;
   }

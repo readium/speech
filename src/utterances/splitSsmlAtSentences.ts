@@ -1,9 +1,6 @@
 import type { SentenceBoundary, SentenceSegmenter } from "./sentenceSegmenter.js";
-import { commonAncestors, isUnrepeatable, parseSsml, SsmlWriter, ssmlLeaves, type SsmlElement, type SsmlNode } from "./ssml.js";
-import { breakSpaced, separatesWords } from "./text.js";
-
-// A text node at `start` in the plain text, or a childless element (e.g. `<break/>`).
-type Piece = { text: string; start: number; chain: SsmlElement[] } | { node: SsmlNode; chain: SsmlElement[] };
+import { isUnrepeatable, SsmlWriter } from "./ssml.js";
+import { layoutSsml, type PlainPiece } from "./plainText.js";
 
 // Splits `ssml` into one fragment per real sentence boundary, closing the
 // elements open at a boundary and reopening them in the next fragment so each
@@ -15,7 +12,7 @@ export async function splitSsmlAtSentences(
   segmenter: SentenceSegmenter,
   customSuppressions?: string[]
 ): Promise<string[] | undefined> {
-  const { plain, pieces } = layout(ssml);
+  const { plain, pieces } = layoutSsml(ssml);
   if (!plain) return undefined;
   const boundaries = unrepeatableWhole(plain, pieces, await segmenter(language, plain, customSuppressions));
   if (boundaries.length <= 1) return undefined;
@@ -25,7 +22,8 @@ export async function splitSsmlAtSentences(
   let boundaryIndex = 0;
 
   for (const piece of pieces) {
-    if ("node" in piece) {
+    if (piece.kind === "separator") continue;
+    if (piece.kind === "element") {
       writer.node(piece.chain, piece.node);
       continue;
     }
@@ -53,31 +51,8 @@ export async function splitSsmlAtSentences(
   return results;
 }
 
-// Lays out the same plain text as stripSsmlTagsKeepSpacing(), which callers measure boundaries in.
-function layout(ssml: string): { plain: string; pieces: Piece[] } {
-  let plain = "";
-  let separated = false;
-  let previousChain: SsmlElement[] = [];
-  const pieces: Piece[] = [];
-  for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
-    const common = commonAncestors(previousChain, ancestors).length;
-    if ([...previousChain.slice(common), ...ancestors.slice(common)].some((element) => separatesWords(element.openTag))) separated = true;
-    previousChain = ancestors;
-    if (node.kind === "element") {
-      pieces.push({ node, chain: ancestors });
-      if (separatesWords(node.openTag)) separated = true;
-      continue;
-    }
-    if (separated && breakSpaced(plain, node.text)) plain += " ";
-    pieces.push({ text: node.text, start: plain.length, chain: ancestors });
-    plain += node.text;
-    separated = false;
-  }
-  return { plain, pieces };
-}
-
-function unrepeatableWhole(plain: string, pieces: Piece[], boundaries: SentenceBoundary[]): SentenceBoundary[] {
-  const ranges = pieces.flatMap((piece) => ("text" in piece && piece.chain.some(isUnrepeatable) ? [{ start: piece.start, end: piece.start + piece.text.length }] : []));
+function unrepeatableWhole(plain: string, pieces: PlainPiece[], boundaries: SentenceBoundary[]): SentenceBoundary[] {
+  const ranges = pieces.flatMap((piece) => (piece.kind === "text" && piece.chain.some(isUnrepeatable) ? [{ start: piece.start, end: piece.start + piece.text.length }] : []));
   if (!ranges.length) return boundaries;
   const kept: SentenceBoundary[] = [];
   let first: SentenceBoundary | undefined;
@@ -93,6 +68,6 @@ function unrepeatableWhole(plain: string, pieces: Piece[], boundaries: SentenceB
 
 // Drops the sentence boundaries of `ssml`'s plain text that fall inside an element read once (e.g. `<audio>`), so no fragment repeats it.
 export function keepUnrepeatableWhole(ssml: string, boundaries: SentenceBoundary[]): SentenceBoundary[] {
-  const { plain, pieces } = layout(ssml);
+  const { plain, pieces } = layoutSsml(ssml);
   return unrepeatableWhole(plain, pieces, boundaries);
 }

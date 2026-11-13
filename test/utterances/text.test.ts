@@ -7,14 +7,11 @@ import {
   resolveNodeText,
   splitOnPlaceholders,
   splitOnLangTags,
-  ssmlIndexToPlainIndex,
-  stripSsmlTags,
-  stripSsmlTagsKeepSpacing,
-  stripSsmlTagsWithMap,
   substitutedIndexToSourceIndex,
   substituteSsmlText,
   substituteWithMap,
 } from "../../src/utterances/text.js";
+import { ssmlIndexToPlainIndex, stripSsmlTags, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap } from "../../src/utterances/plainText.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
