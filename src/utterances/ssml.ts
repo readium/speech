@@ -265,15 +265,15 @@ export function setSsmlAttribute(element: SsmlElement, name: string, value: stri
   element.openTag = `<${element.name}${attrs}${element.selfClosing ? "/" : ""}>`;
 }
 
-// `ssml` with the `xmlns:*` declarations of each element matching `unwrapped` copied onto the nearest
-// elements below it that don't declare that prefix themselves, so their prefixes stay bound once it's unwrapped.
+// `ssml` with the `xmlns:*` declarations and `xml:base` of each element matching `unwrapped` copied onto the nearest
+// elements below it that don't declare them themselves, so prefixes and relative URIs read the same once it's unwrapped.
 export function bindNamespacesInward(ssml: string, unwrapped: (element: SsmlElement) => boolean): string {
   const insertions: { at: number; text: string }[] = [];
   const visit = (nodes: SsmlNode[], declarations: Map<string, string>) => {
     for (const node of nodes) {
       if (node.kind !== "element") continue;
       if (unwrapped(node)) {
-        const own = [...node.attrs].filter(([name]) => name.startsWith("xmlns:"));
+        const own = [...node.attrs].filter(([name]) => name.startsWith("xmlns:") || name === "xml:base");
         visit(node.children, new Map([...declarations, ...own]));
         continue;
       }

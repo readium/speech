@@ -12,6 +12,13 @@ test("stripLangTags keeps an unwrapped lang's namespace declarations on what it 
   );
 });
 
+test("stripLangTags keeps an unwrapped lang's xml:base on what it held", (t) => {
+  t.is(
+    stripLangTags('<lang xml:lang="fr" xml:base="http://example.com/a/"><audio src="clip.wav">Hi</audio></lang>'),
+    '<audio src="clip.wav" xml:base="http://example.com/a/">Hi</audio>',
+  );
+});
+
 test("stripLangTags leaves SSML without a lang element as written", (t) => {
   t.is(stripLangTags("a &#34;b&#34;"), "a &#34;b&#34;");
 });

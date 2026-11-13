@@ -10,7 +10,7 @@ export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
 
 const unwrappedTexts = new WeakMap<GuidedNavigationText, GuidedNavigationText>();
 
-// `speak`'s content, its `xmlns:*` declarations moved onto the elements inside so prefixes stay bound.
+// `speak`'s content, its `xmlns:*` declarations and `xml:base` moved onto the elements inside.
 function speakContent(ssml: string, speak: SsmlElement): string {
   if (speak.selfClosing) return "";
   const bound = bindNamespacesInward(ssml, (element) => element.start === speak.start);
