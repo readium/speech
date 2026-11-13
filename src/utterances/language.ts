@@ -2,6 +2,7 @@ import { ssmlAttrEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
 import {
+  bindNamespacesInward,
   declaredLanguage,
   decodeSsmlEntities,
   parseSsml,
@@ -19,7 +20,7 @@ import type { WalkContext } from "./walkContext.js";
 // `language: "block-level"` (the default) and `"none"` extraction options, which
 // ignore a node's own inline language spans (only `"always"` honors them).
 export function stripLangTags(ssml: string): string {
-  const nodes = parseSsml(ssml);
+  const nodes = parseSsml(bindNamespacesInward(ssml, (element) => element.name === "lang" && declaredLanguage(element) !== undefined));
   const declaring = [...ssmlElements(nodes)].filter((element) => declaredLanguage(element) !== undefined);
   if (declaring.length === 0) return ssml;
   const isLang = (element: SsmlElement) => declaring.includes(element) && element.name === "lang";

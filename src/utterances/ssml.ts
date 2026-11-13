@@ -239,6 +239,36 @@ export function setSsmlAttribute(element: SsmlElement, name: string, value: stri
   element.openTag = `<${element.name}${attrs}${element.selfClosing ? "/" : ""}>`;
 }
 
+// `ssml` with the `xmlns:*` declarations of each element matching `unwrapped` copied onto the nearest
+// elements below it that don't declare that prefix themselves, so their prefixes stay bound once it's unwrapped.
+export function bindNamespacesInward(ssml: string, unwrapped: (element: SsmlElement) => boolean): string {
+  const insertions: { at: number; text: string }[] = [];
+  const visit = (nodes: SsmlNode[], declarations: Map<string, string>) => {
+    for (const node of nodes) {
+      if (node.kind !== "element") continue;
+      if (unwrapped(node)) {
+        const own = [...node.attrs].filter(([name]) => name.startsWith("xmlns:"));
+        visit(node.children, new Map([...declarations, ...own]));
+        continue;
+      }
+      const missing = [...declarations].filter(([name]) => !node.attrs.has(name));
+      if (missing.length) {
+        const at = node.start + node.openTag.search(/\s*\/?>$/);
+        insertions.push({ at, text: missing.map(([name, value]) => ` ${name}="${ssmlAttrEscape(value)}"`).join("") });
+      }
+      visit(node.children, new Map());
+    }
+  };
+  visit(parseSsml(ssml), new Map());
+  let out = "";
+  let at = 0;
+  for (const insertion of insertions) {
+    out += ssml.slice(at, insertion.at) + insertion.text;
+    at = insertion.at;
+  }
+  return out + ssml.slice(at);
+}
+
 // `nodes` with each element matching `unwrap` replaced by its children.
 export function unwrapSsmlElements(nodes: SsmlNode[], unwrap: (element: SsmlElement) => boolean): SsmlNode[] {
   return nodes.flatMap((node) => {

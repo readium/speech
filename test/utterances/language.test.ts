@@ -5,6 +5,13 @@ test("stripLangTags unwraps nested lang elements, keeping other elements", (t) =
   t.is(stripLangTags('<lang xml:lang="fr">a <emphasis><lang xml:lang=\'de\'>b</lang></emphasis> c</lang>'), "a <emphasis>b</emphasis> c");
 });
 
+test("stripLangTags keeps an unwrapped lang's namespace declarations on what it held, an inner one winning", (t) => {
+  t.is(
+    stripLangTags('<lang xml:lang="fr" xmlns:x="urn:a"><x:effect>Hi</x:effect><lang xml:lang="de" xmlns:x="urn:b"><x:breath/></lang></lang>'),
+    '<x:effect xmlns:x="urn:a">Hi</x:effect><x:breath xmlns:x="urn:b"/>',
+  );
+});
+
 test("stripLangTags leaves SSML without a lang element as written", (t) => {
   t.is(stripLangTags("a &#34;b&#34;"), "a &#34;b&#34;");
 });

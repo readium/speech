@@ -55,6 +55,13 @@ test("nodeText unwraps paragraphs and sentences, keeping their language and the 
   t.is(text?.ssml, 'One. <lang xml:lang="fr">Deux.</lang> Three four.');
 });
 
+test("nodeText keeps a removed paragraph's namespace declarations on what it held, over the speak's", (t) => {
+  const text = nodeText(
+    GuidedNavigationText.deserialize({ ssml: '<speak xmlns:x="urn:outer"><p xml:lang="fr" xmlns:x="urn:inner"><x:effect>Hi</x:effect> <x:breath/></p></speak>' }),
+  );
+  t.is(text?.ssml, '<lang xml:lang="fr" xmlns:x="urn:outer"><x:effect xmlns:x="urn:inner">Hi</x:effect> <x:breath xmlns:x="urn:inner"/></lang>');
+});
+
 test("nodeText unwraps a paragraph in a root speak, keeping the speak's namespace declarations on what it held", (t) => {
   const text = nodeText(GuidedNavigationText.deserialize({ ssml: '<speak xmlns:x="urn:example"><p><x:effect>Hi</x:effect></p></speak>' }));
   t.is(text?.ssml, '<x:effect xmlns:x="urn:example">Hi</x:effect>');

@@ -1,7 +1,7 @@
 import { GuidedNavigationText, type GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import { ssmlAttrEscape } from "@readium/helpers";
-import { parseSsml, ssmlElements, type SsmlElement } from "./ssml.js";
+import { bindNamespacesInward, parseSsml, ssmlElements, type SsmlElement } from "./ssml.js";
 import { breakSpaced, stripSsmlTags, stripSsmlTagsKeepSpacing } from "./text.js";
 
 export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
@@ -10,21 +10,11 @@ export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
 
 const unwrappedTexts = new WeakMap<GuidedNavigationText, GuidedNavigationText>();
 
-// `speak`'s content, its `xmlns:*` declarations moved onto each top-level element so prefixes stay bound.
+// `speak`'s content, its `xmlns:*` declarations moved onto the elements inside so prefixes stay bound.
 function speakContent(ssml: string, speak: SsmlElement): string {
   if (speak.selfClosing) return "";
-  const declarations = [...speak.attrs].filter(([name]) => name.startsWith("xmlns:"));
-  let content = "";
-  let at = speak.start + speak.openTag.length;
-  for (const child of speak.children) {
-    if (child.kind !== "element") continue;
-    const missing = declarations.filter(([name]) => !child.attrs.has(name));
-    if (!missing.length) continue;
-    const tagEnd = child.start + child.openTag.search(/\s*\/?>$/);
-    content += ssml.slice(at, tagEnd) + missing.map(([name, value]) => ` ${name}="${ssmlAttrEscape(value)}"`).join("");
-    at = tagEnd;
-  }
-  return content + ssml.slice(at, speak.closeStart);
+  const bound = bindNamespacesInward(ssml, (element) => element.start === speak.start);
+  return bound.slice(speak.start + speak.openTag.length, speak.closeStart + bound.length - ssml.length);
 }
 
 interface Edit {
@@ -34,8 +24,9 @@ interface Edit {
   opens: boolean;
 }
 
-// `ssml` with every `<p>`/`<s>` unwrapped, one declaring `xml:lang` kept as a `<lang>`, and a space where one separated words.
-function withoutParagraphsAndSentences(ssml: string): string {
+// `source` with every `<p>`/`<s>` unwrapped, one declaring `xml:lang` kept as a `<lang>`, and a space where one separated words.
+function withoutParagraphsAndSentences(source: string): string {
+  const ssml = bindNamespacesInward(source, (element) => element.name === "p" || element.name === "s");
   const edits: Edit[] = [];
   for (const element of ssmlElements(parseSsml(ssml))) {
     if (element.name !== "p" && element.name !== "s") continue;
