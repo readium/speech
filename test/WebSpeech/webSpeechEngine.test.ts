@@ -482,7 +482,7 @@ test.serial("outside Safari, speaking right after stop() speaks right away", asy
 const usesResumeInfinity = (lacksNativePauseEvents: boolean): boolean => {
   setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
-  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false };
+  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false, isLinux: false };
   (engine as any).lacksNativePauseEvents = lacksNativePauseEvents;
   return (engine as any).shouldUseResumeInfinity();
 };
@@ -599,4 +599,70 @@ test.serial("a network synthesis error is recoverable", async (t) => {
   synth.spoken[synth.spoken.length - 1].onerror?.({ error: "network" });
 
   t.deepEqual(details, [{ error: "network", message: "Speech synthesis error: network", recoverable: true }]);
+});
+
+async function pausedWithoutNativePause() {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).lacksNativePause = true;
+  engine.loadUtterances([{ plain: "First." }]);
+  const events: string[] = [];
+  for (const type of ["pause", "resume", "end", "stop"] as const) engine.on(type, () => events.push(type));
+  engine.speak();
+  await flush();
+  const utterance = synth.spoken[synth.spoken.length - 1];
+  utterance.onstart?.();
+  synth.calls.length = 0;
+  engine.pause();
+  return { synth, engine, utterance, events };
+}
+
+test.serial("without native pause, pause cancels and emits a single pause", async (t) => {
+  const { synth, engine, events } = await pausedWithoutNativePause();
+
+  t.deepEqual(synth.calls, ["cancel"]);
+  t.is(engine.getState(), "paused");
+  t.deepEqual(events, ["pause"]);
+});
+
+test.serial("without native pause, the cancelled utterance's end and interrupted error don't undo the pause", async (t) => {
+  const { engine, utterance, events } = await pausedWithoutNativePause();
+
+  utterance.onend?.();
+  utterance.onerror?.({ error: "interrupted" });
+
+  t.is(engine.getState(), "paused");
+  t.deepEqual(events, ["pause"]);
+});
+
+test.serial("without native pause, resume speaks the paused utterance again", async (t) => {
+  const { synth, engine, utterance, events } = await pausedWithoutNativePause();
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"));
+  t.is(synth.spoken[synth.spoken.length - 1].text, utterance.text);
+  t.not(synth.spoken[synth.spoken.length - 1], utterance);
+  t.deepEqual(events, ["pause", "resume"]);
+});
+
+test.serial("without native pause, pausing from a start listener still speaks the utterance again on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).lacksNativePause = true;
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.on("start", () => engine.pause());
+  engine.speak();
+  await flush();
+  const utterance = synth.spoken[synth.spoken.length - 1];
+  utterance.onstart?.();
+  synth.calls.length = 0;
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"));
+  t.is(synth.spoken[synth.spoken.length - 1].text, utterance.text);
+  t.not(synth.spoken[synth.spoken.length - 1], utterance);
 });
