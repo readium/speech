@@ -12,6 +12,7 @@ import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from ".
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 import { balancedSsml, withEnclosingTags } from "./enclosingTags.js";
+import { ssmlMarkup } from "./ssml.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
 // on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
@@ -25,8 +26,11 @@ export function joinPieceTexts(
   const ranges: { start: number; end: number }[] = [];
   parts.forEach((part, i) => {
     const plainPart = plainParts[i];
-    if (plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart)) {
-      ranges.push({ start: joined.length, end: joined.length }); // redundant punctuation
+    // Redundant punctuation: an SSML part keeps its tags, without its text.
+    const markup = plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart) ? (part === plainPart ? "" : ssmlMarkup(part)) : undefined;
+    if (markup !== undefined) {
+      ranges.push({ start: joined.length, end: joined.length });
+      joined += markup;
       return;
     }
     // Only synthesizes a joining space when the join would otherwise have

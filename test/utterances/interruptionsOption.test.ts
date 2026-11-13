@@ -269,6 +269,20 @@ test("sentence segmentation keeps an audio element whole, also in a sentence joi
   );
 });
 
+test("punctuation repeating a link's own keeps the formatting it closes", async (t) => {
+  for (const [ssml, expected] of [
+    ['<emphasis>Hello <readium:link id="l"/>.</emphasis>', "<emphasis>Hello world.</emphasis>"],
+    ['<emphasis>Hello <readium:link id="l"/></emphasis>.', "<emphasis>Hello world.</emphasis>"],
+  ]) {
+    const gnd = () => [
+      GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml }, children: [{ id: "l", role: ["link"], text: { plain: "world." } }] })!,
+    ];
+    for (const mode of ["structure", "sentence"] as const) {
+      t.deepEqual((await extractUtterances(gnd(), { format: "ssml", segmentation: { mode } })).map((u) => u.ssml), [expected], `${ssml} (${mode})`);
+    }
+  }
+});
+
 test("an abbreviation inside an audio element keeps the audio around it and its expansion once", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({

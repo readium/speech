@@ -161,6 +161,17 @@ function parseOrThrow(ssml: string): SsmlNode[] {
   return root;
 }
 
+// The tags of an SSML fragment, balanced or not, without its text; `undefined` if it doesn't lex.
+export function ssmlMarkup(ssml: string): string | undefined {
+  try {
+    let markup = "";
+    for (const token of ssmlTokens(ssml)) if (token.kind !== "text") markup += token.markup;
+    return markup;
+  } catch {
+    return undefined;
+  }
+}
+
 // Parses an SSML fragment (any number of top-level nodes); input that isn't well-formed is read as one text node.
 export function parseSsml(ssml: string): SsmlNode[] {
   try {
