@@ -80,7 +80,12 @@ export function resolveBoundaryLocate(
       const quote = nextQuote && quoteOf(nextQuote)!;
       const pastOwnLength = quote ? outputText.indexOf(quote, cursor + (spokenLength ?? offset.end - offset.start)) : -1;
       const nextStart = quote && pastOwnLength === -1 ? outputText.indexOf(quote, cursor) : pastOwnLength;
-      const end = nextStart === -1 ? outputText.length : nextStart;
+      // An alias right before another non-quotable piece ends at its own length, as no quote separates them.
+      const next = offsets[i + 1];
+      const ownStart = cursor + /^\s*/.exec(outputText.slice(cursor))![0].length;
+      const end = spokenLength !== undefined && next && nonQuotableLocates.has(next.locate)
+        ? ownStart + spokenLength
+        : nextStart === -1 ? outputText.length : nextStart;
       if (charIndex >= cursor && charIndex < end) {
         // An alias's words aren't on the page, so they highlight its whole abbreviation.
         if (spokenLength === undefined) return undefined;

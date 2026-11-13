@@ -265,3 +265,23 @@ test("an abbreviation's spoken expansion resolves word by word to the abbreviati
     }
   }
 });
+
+test("consecutive inline abbreviations' expansions each resolve to their own abbreviation", async (t) => {
+  const html = '<p><abbr title="Lieutenant">Lt.</abbr> <abbr title="Colonel">Col.</abbr> Ward took command of the regiment.</p>';
+  for (const mode of ["structure", "sentence"] as const) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, segmentation: { mode }, interruptions: { abbreviation: "inline" } });
+      const resolved = utterances.flatMap((utterance) => {
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "");
+        return [...text.matchAll(/\S+/g)].map((match) => {
+          const result = resolveBoundaryLocate(utterance, match.index!, match[0].length);
+          return [result?.word, result?.locate.text?.highlight];
+        });
+      });
+      t.deepEqual(resolved, [
+        ["Lieutenant", "Lt."], ["Colonel", "Col."], ["Ward", "Ward"], ["took", "took"],
+        ["command", "command"], ["of", "of"], ["the", "the"], ["regiment.", "regiment."],
+      ], `${mode} ${format}`);
+    }
+  }
+});
