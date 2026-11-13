@@ -3,6 +3,7 @@ import test from "ava";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
+import { stripSsmlTags } from "../../src/utterances/text.js";
 
 test("resolveBoundaryLocate finds a word within a single-offset utterance", async (t) => {
   const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
@@ -282,6 +283,28 @@ test("consecutive inline abbreviations' expansions each resolve to their own abb
         ["Lieutenant", "Lt."], ["Colonel", "Col."], ["Ward", "Ward"], ["took", "took"],
         ["command", "command"], ["of", "of"], ["the", "the"], ["regiment.", "regiment."],
       ], `${mode} ${format}`);
+    }
+  }
+});
+
+test("resolveBoundaryLocate highlights every word of SSML whose formatting is split around a link or a sentence end", async (t) => {
+  const html = [
+    '<p lang="fr">Un <em>deux <a href="#x" lang="en">the link</a> trois. Quatre</em> cinq.</p>',
+    '<p>One <em>two <a href="#x">three <strong>four</strong> five</a> six. Seven</em> eight.</p>',
+    '<p>This <em>sentence <a href="#x">goes</a></em></p><p>on <em>here</em>. Next one.</p>',
+  ];
+  for (const markup of html) {
+    for (const mode of ["structure", "sentence"] as const) {
+      for (const language of ["always", "block-level"] as const) {
+        const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+        for (const utterance of await extractUtterances(gnd, { format: "ssml", language, segmentation: { mode, reconstruct: true } })) {
+          const plain = stripSsmlTags(utterance.ssml!);
+          for (const word of plain.matchAll(/\S+/g)) {
+            const resolved = resolveBoundaryLocate(utterance, word.index, word[0].length);
+            t.is(resolved?.locate.text?.highlight, word[0], `${utterance.ssml} (${mode}, ${language})`);
+          }
+        }
+      }
     }
   }
 });

@@ -38,6 +38,19 @@ test("stripSsmlTagsWithMap unescapes entities as single characters", (t) => {
   t.is(map.length, plain.length);
 });
 
+test("stripSsmlTagsWithMap reads a > inside a comment, attribute or CDATA as the parser does, mapping each char to its source", (t) => {
+  for (const [ssml, expected] of [
+    ["One,<!-- comment > Phantom, --> Two", "One, Two"],
+    ['A <say-as interpret-as="x>y">b</say-as> c', "A b c"],
+    ["A<![CDATA[ x &amp; y ]]> z", "A x &amp; y z"],
+  ]) {
+    const { plain, map } = stripSsmlTagsWithMap(ssml);
+    t.is(plain, expected);
+    t.is(map.length, plain.length);
+    for (let i = 0; i < plain.length; i++) if (plain[i] !== " ") t.is(ssml[map[i]], plain[i], `${ssml} at ${i}`);
+  }
+});
+
 test("ssmlIndexToPlainIndex translates a raw SSML boundary position into the equivalent plain-text position", (t) => {
   const ssml = "<p>Hello <emphasis>world</emphasis>.</p>";
   const { plain, map } = stripSsmlTagsWithMap(ssml);

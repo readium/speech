@@ -62,7 +62,7 @@ function parseAttrs(source: string): Map<string, string> {
 }
 
 export type SsmlToken =
-  | { kind: "text"; text: string }
+  | { kind: "text"; text: string; start: number; end: number; cdata?: true }
   | { kind: "open"; name: string; attrs: string; selfClosing: boolean; markup: string; start: number; end: number }
   | { kind: "close"; name: string; markup: string; start: number; end: number };
 
@@ -73,7 +73,7 @@ export function* ssmlTokens(ssml: string): Generator<SsmlToken> {
   while (i < ssml.length) {
     const lt = ssml.indexOf("<", i);
     const textEnd = lt === -1 ? ssml.length : lt;
-    if (textEnd > i) yield { kind: "text", text: decodeSsmlEntities(ssml.slice(i, textEnd)) };
+    if (textEnd > i) yield { kind: "text", text: decodeSsmlEntities(ssml.slice(i, textEnd)), start: i, end: textEnd };
     if (lt === -1) return;
     const rest = ssml.slice(lt);
     if (rest.startsWith("<!--")) {
@@ -83,7 +83,7 @@ export function* ssmlTokens(ssml: string): Generator<SsmlToken> {
     } else if (rest.startsWith("<![CDATA[")) {
       const end = ssml.indexOf("]]>", lt + 9);
       if (end === -1) throw new Error("unclosed CDATA");
-      if (end > lt + 9) yield { kind: "text", text: ssml.slice(lt + 9, end) };
+      if (end > lt + 9) yield { kind: "text", text: ssml.slice(lt + 9, end), start: lt + 9, end, cdata: true };
       i = end + 3;
     } else if (rest.startsWith("<?")) {
       const end = ssml.indexOf("?>", lt + 2);

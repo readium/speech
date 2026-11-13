@@ -156,14 +156,6 @@ export function separatesWords(markup: string): boolean {
   return /^<[^>]*\/>/.test(markup) || WORD_SEPARATING_ELEMENTS.has(/^<\/?([^\s/>]+)/.exec(markup)?.[1] ?? "");
 }
 
-const NEXT_TEXT_RE = /(?:<[^>]*>)*([^<]*)/y;
-
-// The text right after `pos` in `ssml`, past any tags there.
-function textAfter(ssml: string, pos: number): string {
-  NEXT_TEXT_RE.lastIndex = pos;
-  return decodeSsmlEntities(NEXT_TEXT_RE.exec(ssml)![1]);
-}
-
 // Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
 // Markup that doesn't lex is read as raw text, as `parseSsml()` does.
 export function stripSsmlTagsKeepSpacing(ssml: string): string {
@@ -190,42 +182,44 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
   let plain = "";
   const map: number[] = [];
   let lastWasSpace = false;
-  let i = 0;
-  while (i < ssml.length) {
-    const ch = ssml[i];
-    if (ch === "<") {
-      const close = ssml.indexOf(">", i);
-      const tag = ssml.slice(i, close + 1);
-      i = close === -1 ? ssml.length : close + 1;
-      // A removed `<break/>` or `<s>` must not glue two words together, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
-      if (close !== -1 && separatesWords(tag) && !lastWasSpace && breakSpaced(plain, textAfter(ssml, i))) {
-        plain += " ";
-        map.push(i);
-        lastWasSpace = true;
+  // Where the first word-separating tag since the last text ends, unlike inline formatting within a word (e.g. "<emphasis>two</emphasis>fold").
+  let separatorEnd: number | undefined;
+  const pushText = (text: string, from: number, to: number, decoded: boolean) => {
+    if (separatorEnd !== undefined && !lastWasSpace && breakSpaced(plain, text)) {
+      plain += " ";
+      map.push(separatorEnd);
+      lastWasSpace = true;
+    }
+    separatorEnd = undefined;
+    let i = from;
+    while (i < to) {
+      const ch = ssml[i];
+      const entity = decoded && ch === "&" ? ssmlEntityAt(ssml, i) : undefined;
+      if (entity) {
+        plain += entity.decoded;
+        for (let k = 0; k < entity.decoded.length; k++) map.push(i);
+        i += entity.length;
+        lastWasSpace = false;
+        continue;
       }
-      continue;
-    }
-    const entity = ch === "&" ? ssmlEntityAt(ssml, i) : undefined;
-    if (entity) {
-      plain += entity.decoded;
-      for (let k = 0; k < entity.decoded.length; k++) map.push(i);
-      i += entity.length;
-      lastWasSpace = false;
-      continue;
-    }
-    if (ch === " ") {
-      if (!lastWasSpace) {
+      if (ch !== " " || !lastWasSpace) {
         plain += ch;
         map.push(i);
-        lastWasSpace = true;
       }
+      lastWasSpace = ch === " ";
       i++;
-      continue;
     }
-    plain += ch;
-    map.push(i);
-    lastWasSpace = false;
-    i++;
+  };
+  let tokens;
+  try {
+    tokens = [...ssmlTokens(ssml)];
+  } catch {
+    // Markup that doesn't lex is read as raw text, as `parseSsml()` does.
+    pushText(ssml, 0, ssml.length, false);
+  }
+  for (const token of tokens ?? []) {
+    if (token.kind === "text") pushText(token.text, token.start, token.end, !token.cdata);
+    else if (separatorEnd === undefined && separatesWords(token.markup)) separatorEnd = token.end;
   }
   let start = 0;
   while (start < plain.length && /\s/.test(plain[start])) start++;
