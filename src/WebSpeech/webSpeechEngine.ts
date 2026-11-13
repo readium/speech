@@ -43,7 +43,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private isSpeakingInternal: boolean = false;
   private restartPending: boolean = false;
   private isPausedInternal: boolean = false;
-  private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
+  private lacksNativePause: boolean; // Android and Firefox on Linux (speech-dispatcher) ignore pause()
+  private restartOnResume: boolean = false;
   private pausedAtUtteranceIndex: number | null = null; // Tracks which utterance was playing when paused
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
@@ -63,6 +64,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     // Use detected features instead of hardcoded window properties
     this.features = detectFeatures();
     this.patches = detectPlatformFeatures();
+    this.lacksNativePause = this.patches.isAndroid || (this.patches.isFirefox && this.patches.isLinux);
 
     if (!this.features.speechSynthesis || !this.features.speechSynthesisUtterance) {
       throw new Error("Web Speech API is not available in this environment");
@@ -371,15 +373,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     utterance.onstart = () => {
       started = true;
       if (generation !== this.speakGeneration) return;
+      // A new utterance started: nothing left to restart. Before the events, whose listeners may pause again
+      this.restartOnResume = false;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
       this.setState("playing");
       this.emitEvent({ type: "start", detail: { voice: selectedVoice } });
-
-      // Clear Android paused state when new utterance actually starts
-      if (this.patches.isAndroid && this.isAndroidPaused) {
-        this.isAndroidPaused = false;
-      }
 
       const shouldUseResumeInfinity = this.shouldUseResumeInfinity();
       if (shouldUseResumeInfinity) {
@@ -427,10 +426,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     utterance.onerror = (event) => {
       if (generation !== this.speakGeneration) return;
-      // Skip error handling for Android pause operations
-      if (event.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused) {
-        return;
-      }
 
       // Common cleanup
       this.isSpeakingInternal = false;
@@ -549,14 +544,16 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.isSpeakingInternal = false;
       this.setState("paused");
 
-      if (this.patches.isAndroid) {
-        this.isAndroidPaused = true;
+      if (this.lacksNativePause) {
+        this.restartOnResume = true;
+        // Stale first, so the cancelled utterance's onend/onerror can't undo the pause
+        this.speakGeneration++;
         this.speechSynthesis.cancel();
-        // Android's cancel() never fires the native onpause handler below — this is the only "pause" signal there.
+        // cancel() never fires the native onpause handler below — this is the only "pause" signal there.
         this.emitEvent({ type: "pause" });
       } else {
         this.speechSynthesis.pause();
-        // Non-Android fires the native onpause handler asynchronously, so emitting here would duplicate it,
+        // Native pause() fires the onpause handler asynchronously, so emitting here would duplicate it,
         // except for voices that never fire it.
         if (this.lacksNativePauseEvents) this.emitEvent({ type: "pause" });
       }
@@ -571,7 +568,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.setState("playing");
 
       // Check if we need to restart or can resume
-      const shouldRestart = this.patches.isAndroid || 
+      const shouldRestart = this.restartOnResume || 
                           this.pausedAtUtteranceIndex !== this.currentUtteranceIndex;
       
       if (shouldRestart) {
@@ -595,9 +592,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speakGeneration++;
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
     
-    // Reset Android paused state when stopping
-    if (this.patches.isAndroid) {
-      this.isAndroidPaused = false;
+    // Nothing to restart once stopped
+    if (this.restartOnResume) {
+      this.restartOnResume = false;
     }
     
     this.setState("idle");
