@@ -9,6 +9,15 @@ test("nodeText unwraps a root speak, taking its xml:lang when the text declares 
   t.is(text?.language, "fr");
 });
 
+test("nodeText moves the speak's prefixed namespace declarations onto its top-level elements", (t) => {
+  const ssml =
+    '<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:x="urn:example">Hi <x:effect name="whispered">there</x:effect> <x:breath/><p xmlns:x="urn:other">x</p></speak>';
+  t.is(
+    nodeText(GuidedNavigationText.deserialize({ ssml }))?.ssml,
+    'Hi <x:effect name="whispered" xmlns:x="urn:example">there</x:effect> <x:breath xmlns:x="urn:example"/><p xmlns:x="urn:other">x</p>',
+  );
+});
+
 test("nodeText keeps the text's own language over the speak's", (t) => {
   t.is(nodeText(GuidedNavigationText.deserialize({ ssml: "<speak xml:lang='fr'>a</speak>", language: "de" }))?.language, "de");
 });

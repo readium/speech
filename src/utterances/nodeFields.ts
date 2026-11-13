@@ -1,6 +1,7 @@
 import { GuidedNavigationText, type GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
-import { parseSsml } from "./ssml.js";
+import { ssmlAttrEscape } from "@readium/helpers";
+import { parseSsml, type SsmlElement } from "./ssml.js";
 import { stripSsmlTags } from "./text.js";
 
 export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
@@ -8,6 +9,23 @@ export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
 }
 
 const unwrappedTexts = new WeakMap<GuidedNavigationText, GuidedNavigationText>();
+
+// `speak`'s content, its `xmlns:*` declarations moved onto each top-level element so prefixes stay bound.
+function speakContent(ssml: string, speak: SsmlElement): string {
+  if (speak.selfClosing) return "";
+  const declarations = [...speak.attrs].filter(([name]) => name.startsWith("xmlns:"));
+  let content = "";
+  let at = speak.start + speak.openTag.length;
+  for (const child of speak.children) {
+    if (child.kind !== "element") continue;
+    const missing = declarations.filter(([name]) => !child.attrs.has(name));
+    if (!missing.length) continue;
+    const tagEnd = child.start + child.openTag.search(/\s*\/?>$/);
+    content += ssml.slice(at, tagEnd) + missing.map(([name, value]) => ` ${name}="${ssmlAttrEscape(value)}"`).join("");
+    at = tagEnd;
+  }
+  return content + ssml.slice(at, speak.closeStart);
+}
 
 // `text` with a root `<speak>` unwrapped, as its SSML is spliced into utterances where a `<speak>` can't nest;
 // the `<speak>`'s `xml:lang` stands for the text's language when it declares none.
@@ -20,7 +38,7 @@ export function nodeText(text: GuidedNavigationText | undefined): GuidedNavigati
     unwrapped = speak
       ? new GuidedNavigationText({
           plain: text.plain,
-          ssml: speak.selfClosing ? "" : text.ssml.slice(speak.start + speak.openTag.length, speak.closeStart),
+          ssml: speakContent(text.ssml, speak),
           language: text.language ?? speak.attrs.get("xml:lang"),
         })
       : text;
