@@ -215,7 +215,11 @@ test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
 
 test("hasLangTag finds a lang element in any attribute shape, nested or not", (t) => {
   t.true(hasLangTag("<p>a <lang xml:lang='fr'>b</lang></p>"));
-  t.false(hasLangTag("<p xml:lang=\"fr\">a</p>"));
+});
+
+test("hasLangTag finds xml:lang on a paragraph, sentence, voice, token or word, not on other elements", (t) => {
+  for (const name of ["p", "s", "voice", "token", "w"]) t.true(hasLangTag(`<${name} xml:lang="fr">a</${name}>`), name);
+  t.false(hasLangTag('<emphasis xml:lang="fr">a</emphasis>'));
 });
 
 test("splitOnLangTags reads a single-quoted xml:lang", (t) => {
@@ -288,4 +292,12 @@ test("removeEmptiedPairs removes every element the removal leaves empty, nested 
 
 test("resolveNodeText removes a placeholder nested in an element, with the space before binding punctuation", (t) => {
   t.deepEqual(resolveNodeText(GuidedNavigationText.deserialize({ ssml: "<emphasis>word <readium:noteref id='n'/>.</emphasis>" })), { ssml: "<emphasis>word.</emphasis>" });
+});
+
+test("splitOnLangTags reads the language of a paragraph or sentence declaring one", (t) => {
+  t.deepEqual(splitOnLangTags('<p xml:lang="fr">Bonjour.</p> <p><s xml:lang="de">Hallo.</s> Hi.</p>', "en"), [
+    { plain: "Bonjour.", language: "fr" },
+    { plain: "Hallo.", language: "de" },
+    { plain: "Hi.", language: "en" },
+  ]);
 });

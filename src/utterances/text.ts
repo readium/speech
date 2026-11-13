@@ -4,9 +4,9 @@ import { DROPPED, removeDropped } from "@readium/guided-navigation";
 import {
   closeTag,
   commonAncestors,
+  declaredLanguage,
   decodeSsmlEntities,
   isStructureElement,
-  langElementLanguage,
   parseSsml,
   serializeSsml,
   SsmlWriter,
@@ -442,7 +442,7 @@ export interface LangSegment {
 }
 
 export function hasLangTag(ssml: string): boolean {
-  return [...ssmlElements(parseSsml(ssml))].some((element) => langElementLanguage(element) !== undefined);
+  return [...ssmlElements(parseSsml(ssml))].some((element) => declaredLanguage(element) !== undefined);
 }
 
 // Same as `stripSsmlTags`, minus the final trim.
@@ -514,7 +514,7 @@ function peelLeadingClose(tokens: Token[]): Token[] {
  * separated by nothing or only whitespace — joins the tagged run rather
  * than staying with its lexical run: close-punct after `</lang>` joins the
  * run that just closed, open-punct before `<lang>` joins the run about to
- * start. Text in nested `<lang>` elements takes the innermost one's language.
+ * start. Text in nested elements declaring a language (`<lang>`, or `xml:lang` on `<p>`, `<s>`...) takes the innermost one's.
  */
 export function splitOnLangTags(ssml: string, baseLanguage: string | undefined): LangSegment[] {
   interface Run {
@@ -522,11 +522,11 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
     language: string | undefined;
     tagged: boolean;
   }
-  // Consecutive leaves under the same innermost `<lang>` (or none), written without that `<lang>` and its ancestors.
+  // Consecutive leaves under the same innermost element declaring a language (or none), written without it and its ancestors.
   const groups: { lang?: SsmlElement; writer: SsmlWriter }[] = [];
   for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
     let langDepth = ancestors.length - 1;
-    while (langDepth >= 0 && langElementLanguage(ancestors[langDepth]) === undefined) langDepth--;
+    while (langDepth >= 0 && declaredLanguage(ancestors[langDepth]) === undefined) langDepth--;
     const lang = langDepth === -1 ? undefined : ancestors[langDepth];
     if (groups.length === 0 || groups[groups.length - 1].lang !== lang) groups.push({ lang, writer: new SsmlWriter() });
     const { writer } = groups[groups.length - 1];
@@ -536,7 +536,7 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
   }
   const runs: Run[] = groups.map(({ lang, writer }) =>
     lang
-      ? { tokens: tokenize(stripSsmlTags(writer.flush())), language: langElementLanguage(lang), tagged: true }
+      ? { tokens: tokenize(stripSsmlTags(writer.flush())), language: declaredLanguage(lang), tagged: true }
       : { tokens: tokenize(stripSsmlTagsKeepEdges(writer.flush())), language: baseLanguage, tagged: false },
   );
 

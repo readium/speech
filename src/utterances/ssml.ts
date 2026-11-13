@@ -194,9 +194,11 @@ export function isStructureElement(element: SsmlElement): boolean {
   return STRUCTURE_ELEMENTS.has(element.name);
 }
 
-// The language a `<lang>` element declares, `undefined` for any other element.
-export function langElementLanguage(element: SsmlElement): string | undefined {
-  return element.name === "lang" ? element.attrs.get("xml:lang") : undefined;
+const LANGUAGE_ELEMENTS = new Set(["lang", "p", "s", "voice", "token", "w"]);
+
+// The language an element declares with `xml:lang`, `undefined` for an element that can't declare one.
+export function declaredLanguage(element: SsmlElement): string | undefined {
+  return LANGUAGE_ELEMENTS.has(element.name) ? element.attrs.get("xml:lang") : undefined;
 }
 
 // Every element of `nodes`, in document order.
@@ -208,8 +210,10 @@ export function* ssmlElements(nodes: SsmlNode[]): Generator<SsmlElement> {
   }
 }
 
-export function setSsmlAttribute(element: SsmlElement, name: string, value: string): void {
-  element.attrs.set(name, value);
+// Sets, or with `undefined` removes, an attribute, rebuilding the opening tag.
+export function setSsmlAttribute(element: SsmlElement, name: string, value: string | undefined): void {
+  if (value === undefined) element.attrs.delete(name);
+  else element.attrs.set(name, value);
   const attrs = [...element.attrs].map(([key, attrValue]) => ` ${key}="${ssmlAttrEscape(attrValue)}"`).join("");
   element.openTag = `<${element.name}${attrs}${element.selfClosing ? "/" : ""}>`;
 }

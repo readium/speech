@@ -19,3 +19,11 @@ test("overrideLangTags overrides a lang element in any attribute shape, nested o
 test("overrideLangTags leaves SSML with nothing to override as written", (t) => {
   t.is(overrideLangTags(`<lang xml:lang='fr'>&#34;b&#34;</lang>`, { en: "en-GB" }), `<lang xml:lang='fr'>&#34;b&#34;</lang>`);
 });
+
+test("stripLangTags removes a paragraph's xml:lang, keeping the paragraph", (t) => {
+  t.is(stripLangTags('<p xml:lang="fr">a <lang xml:lang="de">b</lang></p><s id="x" xml:lang="en">c</s>'), '<p>a b</p><s id="x">c</s>');
+});
+
+test("overrideLangTags overrides a sentence's xml:lang", (t) => {
+  t.is(overrideLangTags('<s xml:lang="en">a</s>', { en: "en-GB" }), '<s xml:lang="en-GB">a</s>');
+});

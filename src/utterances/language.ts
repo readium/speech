@@ -2,8 +2,8 @@ import { ssmlAttrEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
 import {
+  declaredLanguage,
   decodeSsmlEntities,
-  langElementLanguage,
   parseSsml,
   serializeSsml,
   setSsmlAttribute,
@@ -14,13 +14,17 @@ import {
 import type { WalkContext } from "./walkContext.js";
 
 // Removes `<lang xml:lang="...">...</lang>` wrapping from an SSML string,
-// keeping the inner text merged into the surrounding flow — for the
+// keeping the inner text merged into the surrounding flow, and the `xml:lang` of
+// any other element (keeping the element) — for the
 // `language: "block-level"` (the default) and `"none"` extraction options, which
 // ignore a node's own inline language spans (only `"always"` honors them).
 export function stripLangTags(ssml: string): string {
   const nodes = parseSsml(ssml);
-  const isLang = (element: SsmlElement) => langElementLanguage(element) !== undefined;
-  return [...ssmlElements(nodes)].some(isLang) ? serializeSsml(unwrapSsmlElements(nodes, isLang)) : ssml;
+  const declaring = [...ssmlElements(nodes)].filter((element) => declaredLanguage(element) !== undefined);
+  if (declaring.length === 0) return ssml;
+  const isLang = (element: SsmlElement) => declaring.includes(element) && element.name === "lang";
+  for (const element of declaring) if (!isLang(element)) setSsmlAttribute(element, "xml:lang", undefined);
+  return serializeSsml(unwrapSsmlElements(nodes, isLang));
 }
 
 // The language content declared in `language` is spoken in, per `languageOverrides`.
@@ -126,7 +130,7 @@ export function overrideLangTags(ssml: string, languageOverrides: Record<string,
   const nodes = parseSsml(ssml);
   let changed = false;
   for (const element of ssmlElements(nodes)) {
-    const language = langElementLanguage(element);
+    const language = declaredLanguage(element);
     const overridden = overriddenLanguage(language, languageOverrides);
     if (overridden === undefined || overridden === language) continue;
     setSsmlAttribute(element, "xml:lang", overridden);
