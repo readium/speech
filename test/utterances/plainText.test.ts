@@ -1,5 +1,5 @@
 import test from "ava";
-import { layoutSsml, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap, textBetween } from "../../src/utterances/plainText.js";
+import { layoutSsml, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap, textReader } from "../../src/utterances/plainText.js";
 import { splitSsmlAtSentences } from "../../src/utterances/splitSsmlAtSentences.js";
 
 const corpus = [
@@ -42,9 +42,9 @@ test("stripSsmlTagsWithMap maps each char to the source char or entity it's read
   }
 });
 
-test("textBetween reads a source span's text, decoded, without tags or separator spaces", (t) => {
+test("textReader reads a source span's text, decoded, without tags or separator spaces", (t) => {
   const ssml = "a<emphasis>b &amp; c</emphasis><break/>d";
-  const { pieces } = layoutSsml(ssml);
-  t.is(textBetween(pieces, 0, ssml.length), "ab & cd");
-  t.is(textBetween(pieces, ssml.indexOf("b"), ssml.indexOf("</emphasis>")), "b & c");
+  const textIn = textReader(layoutSsml(ssml).pieces);
+  t.is(textIn(0, ssml.length), "ab & cd");
+  t.is(textIn(ssml.indexOf("b"), ssml.indexOf("</emphasis>")), "b & c");
 });

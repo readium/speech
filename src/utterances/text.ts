@@ -17,7 +17,7 @@ import {
   type SsmlText,
 } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textBetween } from "./plainText.js";
+import { layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textReader } from "./plainText.js";
 import { meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
@@ -609,8 +609,7 @@ function marksOf(ssml: string, nodes: SsmlNode[]): Mark[] {
  */
 export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const nodes = parseSsml(ssml);
-  const { pieces } = layoutSsml(ssml);
-  const textIn = (from: number, to: number) => textBetween(pieces, from, to);
+  const textIn = textReader(layoutSsml(ssml).pieces);
   const elements = [...ssmlElements(nodes)].filter((element) => !element.selfClosing);
   // The elements open at `offset` in the source, outermost first.
   const openAt = (offset: number) => elements.filter((element) => element.start < offset && offset <= element.closeStart);

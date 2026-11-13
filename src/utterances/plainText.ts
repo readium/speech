@@ -50,16 +50,16 @@ export function layoutSsml(ssml: string): { plain: string; pieces: PlainPiece[] 
   return { plain, pieces };
 }
 
-// The text, without separator spaces, read from the source span `from`–`to` of the SSML `pieces` were laid out from.
-export function textBetween(pieces: PlainPiece[], from: number, to: number): string {
+// Reads the text, without separator spaces, of a source span `from`–`to` of the SSML `pieces` were laid out from.
+export function textReader(pieces: PlainPiece[]): (from: number, to: number) => string {
   let text = "";
+  const positions: number[] = [];
   for (const piece of pieces) {
     if (piece.kind !== "text") continue;
-    piece.positions.forEach((position, i) => {
-      if (position >= from && position < to) text += piece.text[i];
-    });
+    text += piece.text;
+    for (const position of piece.positions) positions.push(position);
   }
-  return text;
+  return (from, to) => text.slice(ssmlIndexToPlainIndex(positions, from), ssmlIndexToPlainIndex(positions, to));
 }
 
 // Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
