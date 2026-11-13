@@ -20,7 +20,8 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private isSpeakingInternal;
     private restartPending;
     private isPausedInternal;
-    private isAndroidPaused;
+    private lacksNativePause;
+    private restartOnResume;
     private pausedAtUtteranceIndex;
     private initialized;
     private maxLengthExceeded;

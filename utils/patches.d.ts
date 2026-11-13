@@ -3,6 +3,7 @@ export interface WebSpeechPlatformPatches {
     isFirefox: boolean;
     isSafari: boolean;
     isKaiOS: boolean;
+    isLinux: boolean;
 }
 /**
  * Detects platform features
