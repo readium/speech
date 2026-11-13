@@ -20,7 +20,7 @@ const SAFARI_CANCEL_SETTLE_DELAY = 250;
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
-  private speechSynthesisUtterance: any;
+  private speechSynthesisUtterance: typeof SpeechSynthesisUtterance;
   private currentVoice: ReadiumSpeechVoice | null = null;
   // The voice of the utterance being spoken, reported in its "start" event.
   private speakingVoice: ReadiumSpeechVoice | null = null;
@@ -449,7 +449,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
           type: "error",
           detail: {
             error: event.error,  // Preserve original error type
-            message: `Speech synthesis error: ${event.error}`
+            message: `Speech synthesis error: ${event.error}`,
+            recoverable: event.error === "network"
           }
         });
       }
@@ -689,8 +690,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Events
-  on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    return this.events.on(event, callback);
+  on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void {
+    return this.events.on(event, callback as (event: ReadiumSpeechPlaybackEvent) => void);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {

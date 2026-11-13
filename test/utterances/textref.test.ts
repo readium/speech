@@ -44,6 +44,20 @@ test("a link embedded in a larger flow merges into one utterance, falling back t
   t.is(utterance.locate?.cssSelector, "p");
 });
 
+test("a link merging into text of a script written without spaces is never spaced from it across formatting, in SSML", async (t) => {
+  const gnd = parseMarkup('<p lang="ja">東京<em>大学</em><a href="x.html">リンク</a>です。</p>');
+  const [utterance] = await extractUtterances(gnd, { format: "ssml" });
+  t.is(utterance.ssml, "東京<emphasis>大学</emphasis>リンクです。");
+});
+
+test("a link keeps the source's spaces around it in text of a script written without spaces", async (t) => {
+  const gnd = parseMarkup('<p lang="ja">東京 <a href="x.html">リンク</a> へ行った。</p>');
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format });
+    t.is(utterance.plain ?? utterance.ssml, "東京 リンク へ行った。", format);
+  }
+});
+
 // The hoist-collision case (@readium/guided-navigation's object.ts never
 // merges the link's href into the block's own textref) plus the ancestor
 // fallback above, combined: the block's cssSelector survives on the <p> node
@@ -77,16 +91,8 @@ test("a language-split fragment gets its own locate/offsets, not the whole node'
   // offsets are positions in the shared <p>'s own text, so they advance
   // instead of each fragment restarting at 0.
   t.deepEqual(before.offsets?.[0], { start: 0, end: before.plain!.length, locate: before.locate });
-  t.deepEqual(fr.offsets?.[0], {
-    start: before.plain!.length,
-    end: before.plain!.length + fr.plain!.length,
-    locate: fr.locate,
-  });
-  t.deepEqual(after.offsets?.[0], {
-    start: before.plain!.length + fr.plain!.length,
-    end: before.plain!.length + fr.plain!.length + after.plain!.length,
-    locate: after.locate,
-  });
+  t.deepEqual(fr.offsets?.[0], { start: 6, end: 13, locate: fr.locate });
+  t.deepEqual(after.offsets?.[0], { start: 14, end: 20, locate: after.locate });
 });
 
 test("extractUtterances disambiguates recurring text with prefix/suffix context", async (t) => {

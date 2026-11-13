@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here.",
+          "plain": "The word here.",
           "language": "en"
         },
         {
@@ -3981,7 +3981,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here.",
+          "plain": "The word here.",
           "language": "en"
         }
       ]
@@ -4423,7 +4423,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" Note. \" here.",
+          "plain": "The word \"Note.\" here.",
           "language": "en"
         }
       ]
@@ -4545,7 +4545,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here."
+          "plain": "The word here."
         },
         {
           "plain": "Note."
@@ -5909,7 +5909,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here."
+          "plain": "The word here."
         }
       ]
     },
@@ -6066,7 +6066,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" Note. \" here."
+          "plain": "The word \"Note.\" here."
         }
       ]
     },
@@ -6471,7 +6471,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here.",
+          "plain": "The word here.",
           "language": "en"
         },
         {
@@ -6989,7 +6989,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" Start of the footnote. Note. End of the footnote. \" here.",
+          "plain": "The word \"Start of the footnote. Note. End of the footnote.\" here.",
           "language": "en"
         }
       ]
@@ -7135,7 +7135,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" \" here."
+          "plain": "The word here."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7319,7 +7319,7 @@
       ],
       "utterances": [
         {
-          "plain": "The word \" Start of the footnote. Note. End of the footnote. \" here."
+          "plain": "The word \"Start of the footnote. Note. End of the footnote.\" here."
         }
       ]
     },
@@ -7331,7 +7331,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here.",
+          "ssml": "The word here.",
           "language": "en"
         },
         {
@@ -11304,7 +11304,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here.",
+          "ssml": "The word here.",
           "language": "en"
         }
       ]
@@ -11746,7 +11746,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" Note. \" here.",
+          "ssml": "The word \"Note.\" here.",
           "language": "en"
         }
       ]
@@ -11868,7 +11868,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here."
+          "ssml": "The word here."
         },
         {
           "ssml": "Note."
@@ -13232,7 +13232,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here."
+          "ssml": "The word here."
         }
       ]
     },
@@ -13389,7 +13389,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" Note. \" here."
+          "ssml": "The word \"Note.\" here."
         }
       ]
     },
@@ -13794,7 +13794,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here.",
+          "ssml": "The word here.",
           "language": "en"
         },
         {
@@ -14312,7 +14312,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" Start of the footnote. Note. End of the footnote. \" here.",
+          "ssml": "The word \"Start of the footnote. Note. End of the footnote.\" here.",
           "language": "en"
         }
       ]
@@ -14458,7 +14458,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" \" here."
+          "ssml": "The word here."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -14642,7 +14642,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The word \" Start of the footnote. Note. End of the footnote. \" here."
+          "ssml": "The word \"Start of the footnote. Note. End of the footnote.\" here."
         }
       ]
     }

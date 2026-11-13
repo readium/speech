@@ -165,6 +165,22 @@ test("segmentation: sentence leaves single-sentence ssml untouched", async (t) =
   );
 });
 
+test("segmentation: a description list's term starts a block, an inline <dfn> doesn't", async (t) => {
+  const cases = [
+    {
+      html: "<dl><dt>Fresnel lens</dt><dd>A compact lens for focusing light.</dd><dt>Lens</dt><dd>A piece of glass.</dd></dl>",
+      utterances: ["Fresnel lens", "A compact lens for focusing light.", "Lens", "A piece of glass."],
+      blockStarts: [true, false, true, false],
+    },
+    { html: "<p>A <dfn>WHO</dfn> said.</p>", utterances: ["A WHO said."], blockStarts: [true] },
+  ];
+  for (const { html, ...expected } of cases) {
+    const { utterances, blockStarts } = await extractUtterancesWithSources(parseMarkup(html), { format: "plain", segmentation: { mode: "sentence" } });
+    t.deepEqual(utterances.map((u) => u.plain), expected.utterances, html);
+    t.deepEqual(blockStarts, expected.blockStarts, html);
+  }
+});
+
 test("segmentation: sentence keeps blockStarts on only the first sentence of a split paragraph", async (t) => {
   const gnd = parseMarkup("<p>First. Second.</p><p>Third.</p>");
   const { utterances, blockStarts } = await extractUtterancesWithSources(gnd, {
@@ -743,12 +759,143 @@ test("segmentation: sentence speaks the same sentences with and without textrefs
   }
 });
 
+test("segmentation: sentence keeps an abbreviation's alias in the sentence holding the abbreviation", async (t) => {
+  const cases = [
+    {
+      html: '<p>The <abbr title="World Health Organization">W.H.O.</abbr> said.</p>',
+      after: ["The W.H.O. (World Health Organization) said."],
+      inline: ["The World Health Organization said."],
+    },
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
+      after: ["She joined the W.H.O. (World Health Organization)", "Then she left."],
+      inline: ["She joined the World Health Organization.", "Then she left."],
+    },
+  ];
+  for (const { html, ...expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        for (const abbreviation of ["after", "inline"] as const) {
+          const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+            format,
+            segmentation: { mode: "sentence" },
+            interruptions: { abbreviation },
+          });
+          t.deepEqual(
+            utterances.map((u) => u[format]),
+            expected[abbreviation],
+            `${format} ${abbreviation} textrefs=${textrefs}: ${html}`,
+          );
+        }
+      }
+    }
+  }
+});
+
+test("segmentation: sentence keeps the text after an inline alias in its sentence when the abbreviation holds a sentence end", async (t) => {
+  const cases = [
+    { html: '<p>She was born in the <abbr title="United States">U. S.</abbr></p>', expected: ["She was born in the United States."] },
+    { html: '<p>She was born in the <abbr title="United States">U. S</abbr>.</p>', expected: ["She was born in the United States."] },
+    {
+      html: '<p>She was born in the <abbr title="United States">U. S.</abbr>, then left.</p>',
+      expected: ["She was born in the United States, then left."],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+          format,
+          segmentation: { mode: "sentence" },
+          interruptions: { abbreviation: "inline" },
+        });
+        t.deepEqual(
+          utterances.map((u) => u[format]),
+          expected,
+          `${format} textrefs=${textrefs}: ${html}`,
+        );
+      }
+    }
+  }
+});
+
+test("segmentation: sentence keeps the final sentence terminator of an inline alias's abbreviation when it ends the sentence", async (t) => {
+  const cases = [
+    { html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["She joined the World Health Organization."] },
+    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization."] },
+    {
+      html: '<p>She bought apples, pears, <abbr title="et cetera">etc.</abbr> Then she left.</p>',
+      expected: ["She bought apples, pears, et cetera.", "Then she left."],
+    },
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">WHO</abbr>. Then she left.</p>',
+      expected: ["She joined the World Health Organization.", "Then she left."],
+    },
+    {
+      html: '<p>She joined <abbr title="Doctors Without Borders!">MSF.</abbr> Then she left.</p>',
+      expected: ["She joined Doctors Without Borders!", "Then she left."],
+    },
+    {
+      html: '<p>She said “I joined the <abbr title="World Health Organization">W.H.O.</abbr>” Then she left.</p>',
+      expected: ["She said “I joined the World Health Organization.”", "Then she left."],
+    },
+    {
+      html: '<p lang="de">Sie sagte „bei der <abbr title="Weltgesundheitsorganisation">W.H.O.</abbr>“ Dann ging sie.</p>',
+      expected: ["Sie sagte „bei der Weltgesundheitsorganisation.“", "Dann ging sie."],
+    },
+    {
+      html: '<p>She joined (the <abbr title="World Health Organization">W.H.O.</abbr>) Then she left.</p>',
+      expected: ["She joined (the World Health Organization.)", "Then she left."],
+    },
+    {
+      html: '<p lang="hi">वह <abbr title="विश्व स्वास्थ्य संगठन">डब्ल्यूएचओ।</abbr> फिर चली गई।</p>',
+      expected: ["वह विश्व स्वास्थ्य संगठन।", "फिर चली गई।"],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+          format,
+          segmentation: { mode: "sentence" },
+          interruptions: { abbreviation: "inline" },
+        });
+        t.deepEqual(
+          utterances.map((u) => u[format]),
+          expected,
+          `${format} textrefs=${textrefs}: ${html}`,
+        );
+      }
+    }
+  }
+});
+
+test("segmentation: sentence keeps an inline alias alone in its block whole", async (t) => {
+  const html = '<p><abbr title="Martin Luther King Jr. Day">MLK Day</abbr></p>';
+  for (const textrefs of [false, true]) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), {
+        format,
+        segmentation: { mode: "sentence" },
+        interruptions: { abbreviation: "inline" },
+      });
+      t.deepEqual(
+        utterances.map((u) => u[format]),
+        ["Martin Luther King Jr. Day"],
+        `${format} textrefs=${textrefs}`,
+      );
+    }
+  }
+});
+
 test("segmentation: sentence breaks in the same places whatever an abbreviation's mode", async (t) => {
   const inputs = [
     '<p>First. <abbr title="World Health Organization">WHO</abbr> said.</p>',
     '<p>First <abbr title="World Health Organization">WHO</abbr>. Then said.</p>',
     '<p>First. The <abbr title="World Health Organization">WHO</abbr> said. Third.</p>',
     '<p>First. <abbr title="U.S. Army">USA</abbr> said. Third.</p>',
+    '<p>The <abbr title="World Health Organization">W.H.O.</abbr> said.</p>',
+    '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
   ];
   for (const html of inputs) {
     for (const textrefs of [false, true]) {

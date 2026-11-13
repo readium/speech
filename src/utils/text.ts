@@ -13,6 +13,20 @@ export function endsWithOpeningPunct(s: string): boolean {
   return TRAILING_OPENING_PUNCT_RE.test(s);
 }
 
+// Scripts written without spaces between words, plus CJK punctuation and fullwidth forms.
+const UNSPACED_CLASS = "\\p{scx=Han}\\p{scx=Hiragana}\\p{scx=Katakana}\\p{scx=Thai}\\p{scx=Lao}\\p{scx=Khmer}\\p{scx=Myanmar}\\u3000-\\u303F\\uFF00-\\uFFEF";
+const TRAILING_UNSPACED_RE = new RegExp(`[${UNSPACED_CLASS}]$`, "u");
+const LEADING_UNSPACED_RE = new RegExp(`^[${UNSPACED_CLASS}]`, "u");
+
+export function joinsWithoutSpace(before: string, after: string): boolean {
+  return TRAILING_UNSPACED_RE.test(before) && LEADING_UNSPACED_RE.test(after);
+}
+
+// Whether `before` and `after` meet at a character of a script written without spaces, where touching text says nothing of word boundaries.
+export function meetsUnspaced(before: string, after: string): boolean {
+  return TRAILING_UNSPACED_RE.test(before) || LEADING_UNSPACED_RE.test(after);
+}
+
 // Whether `s` is exactly one punctuation character (any Unicode category,
 // not just the binding/opening classes) — e.g. for deduplicating a
 // repeated citation mark, as opposed to a genuine one-letter/digit piece.

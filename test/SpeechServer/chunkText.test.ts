@@ -1,5 +1,5 @@
 import test from "ava";
-import { chunkPlainText, chunkSsmlText } from "../../build/index.js";
+import { chunkPlainText, chunkSsmlText } from "../../src/SpeechServer/chunkText.js";
 
 function reconstruct(chunks: { text: string; offset: number }[]): string {
   return chunks.map(c => c.text).join("");

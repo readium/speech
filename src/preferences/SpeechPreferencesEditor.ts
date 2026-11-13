@@ -88,7 +88,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     return new StringArrayPreference({
       initialValue: this.preferences.skip,
       effectiveValue: this.settings.skip,
-      isEffective: this.preferences.skip != null,
+      isEffective: this.settings.verbosity === "custom" && this.preferences.skip != null,
       onChange: (value) => this.updatePreference("skip", (value ?? null) as GndRole[] | null),
     });
   }
@@ -97,7 +97,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     return new StringArrayPreference({
       initialValue: this.preferences.contextualize,
       effectiveValue: this.settings.contextualize,
-      isEffective: this.preferences.contextualize != null,
+      isEffective: this.settings.verbosity === "custom" && this.preferences.contextualize != null,
       onChange: (value) => this.updatePreference("contextualize", (value ?? null) as GndRole[] | null),
     });
   }

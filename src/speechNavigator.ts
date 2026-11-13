@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine.js";
 import type { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechNavigatorEvent, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
 import { extractionPreferenceKeys } from "./preferences/constraints.js";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
 import { ISpeechPreferences, SpeechPreferences, VoicePreference } from "./preferences/SpeechPreferences.js";
@@ -52,7 +52,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
   private loadedQueue: ReadiumSpeechUtterance[] = [];
   private loadedLanguages: string[] = [];
-  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ReadiumSpeechPlaybackEvent>();
+  private readonly events = new EventEmitter<ReadiumSpeechNavigatorEvent["type"], ReadiumSpeechNavigatorEvent>();
 
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
@@ -690,11 +690,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Events
-  on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    return this.events.on(event, listener);
+  on<T extends ReadiumSpeechNavigatorEvent["type"]>(event: T, listener: (event: ReadiumSpeechNavigatorEvent<T>) => void): () => void {
+    return this.events.on(event, listener as (event: ReadiumSpeechNavigatorEvent) => void);
   }
 
-  private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
+  private emitEvent(event: ReadiumSpeechNavigatorEvent): void {
     this.events.emit(event.type, event);
   }
 
@@ -717,7 +717,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   private emitContentChangeEvent(event: { content: ReadiumSpeechUtterance[] }): void {
-    this.events.emit("contentchange", { type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent);
+    this.emitEvent({ type: "contentchange", detail: event });
   }
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)

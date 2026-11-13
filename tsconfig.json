@@ -3,14 +3,14 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "outDir": "build",
-    "rootDir": "src",
+    "noEmit": true,
+    "rootDir": ".",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@json/*": ["json/*"]
     }
   },
-  "include": ["src/**/*", "json"],
-  "exclude": ["node_modules", "dist", "test", "demo", "build"]
+  "include": ["src/**/*", "test/**/*", "json"],
+  "exclude": ["node_modules", "dist", "demo", "build"]
 }

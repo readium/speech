@@ -4,6 +4,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
+import { nodeRoles } from "./nodeFields.js";
 import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
 import type {
@@ -17,7 +18,6 @@ import type {
   SubstitutionTable,
 } from "./types.js";
 import {
-  blockLevelRoles,
   interruptionRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
@@ -61,8 +61,8 @@ export interface WalkContext {
   synthetic: Set<ReadiumSpeechUtterance>;
   // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
   ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
-  // A language-split utterance's position in its source node's own text
-  // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
+  // A language-split or placeholder-split utterance's position in its source node's own text
+  // (see `applyFormat`, `emitWithPlaceholders`) — read back for its offsets, same identity-keyed pattern.
   pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
   // Set for a merge whose leading/trailing piece is aria-substituted (see
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
@@ -72,14 +72,23 @@ export interface WalkContext {
   aliasLocates: WeakSet<LocatorOptions>;
   // A sentence's pieces around its footnotes, pagebreaks or abbreviation aliases, left unmerged for sentence segmentation to place:
   // `inline` ones inside the sentence holding them, `after` ones right after it, `alias` ones where they fall, never cut.
-  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias" }>;
+  // `abbreviation` is the plain text an inline alias replaces, segmented in its place.
+  placeholderPieces: Map<
+    ReadiumSpeechUtterance,
+    { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias"; abbreviation?: string }
+  >;
+  // Pieces whose text touches the previous piece's in the source, at an abbreviation's edge: joined without a space.
+  touchingPieces: WeakSet<ReadiumSpeechUtterance>;
+  // Pieces spaced from the previous piece as the source spaces them around a placeholder, whatever punctuation meets there.
+  spacedPieces: WeakSet<ReadiumSpeechUtterance>;
+  // `term`s that start a block, like `<dt>`: a `definition` follows them among their siblings, unlike an inline `<dfn>`.
+  blockTerms: WeakSet<GuidedNavigationObject>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
 // reconstructed across sibling nodes carries a `[first, last]` tuple instead.
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
-export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 export const interruptionRoleSet: ReadonlySet<GndRole> = new Set(interruptionRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
@@ -138,6 +147,17 @@ function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavig
   return out;
 }
 
+function findBlockTerms(nodes: GuidedNavigationObject[], out = new WeakSet<GuidedNavigationObject>()): WeakSet<GuidedNavigationObject> {
+  let next: GuidedNavigationObject | undefined;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const node = nodes[i];
+    if (!nodeRoles(node).includes("term")) next = node;
+    else if (next && nodeRoles(next).includes("definition")) out.add(node);
+    if (node.children) findBlockTerms(node.children, out);
+  }
+  return out;
+}
+
 export async function makeWalkContext(nodes: GuidedNavigationObject[], options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
   const contextualizations = mergeContextualizations(
@@ -174,5 +194,8 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     edgeSubstitutedLocate: new WeakMap(),
     aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),
+    touchingPieces: new WeakSet(),
+    spacedPieces: new WeakSet(),
+    blockTerms: findBlockTerms(nodes),
   };
 }

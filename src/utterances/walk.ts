@@ -2,11 +2,14 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageFor, languageRuns, overrideLangTags, stripLangTags } from "./language.js";
+import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
+  enclosedPlaceholders,
   hasLangTag,
   hasPlaceholder,
+  keepsSpaceBefore,
+  removeEmptiedPairs,
   resolveNodeText,
   splitOnLangTags,
   splitOnPlaceholders,
@@ -21,13 +24,14 @@ import {
   resolveEntryText,
   scopeToQuote,
 } from "./contextualization.js";
-import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
+import { applyFormat, mergeUtterances, nodeOwnText, plainOf } from "./mergeUtterances.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { markNonQuotable } from "./boundaryLocate.js";
+import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
-import { formatDescription, formatEntryText, push, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
+import { isBlockNode } from "./blocks.js";
 import {
-  blockLevelRoleSet,
   contentlessRoleSet,
   descriptionFoldingRoleSet,
   interruptionRoleSet,
@@ -133,7 +137,7 @@ function pushTextReferenceTargets(
     walk(walked, out, sources, ctx, suppress);
     return;
   }
-  const eligible = nodeRoles(walked[0]).some((r) => blockLevelRoleSet.has(r)) && !suppress;
+  const eligible = isBlockNode(walked[0], ctx) && !suppress;
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
   if (contextualization !== undefined) {
@@ -154,12 +158,7 @@ function pushTextReferenceTargets(
   }
   announced.forEach((node) => announcedTargets.delete(node));
   if (eligible && pieces.length > 0) ctx.blockStarts.add(pieces[0]);
-  for (const [start, end] of languageRuns(pieces, ctx)) {
-    const run = pieces.slice(start, end);
-    const runSources = pieceSources.slice(start, end);
-    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
-    pushPiecesOrMerged(out, sources, ctx, ref, run, runSources, merged);
-  }
+  pushMergedRuns(out, sources, ctx, ref, pieces, pieceSources);
 }
 
 // A deferred interruption: a node, or a text reference's targets.
@@ -179,16 +178,23 @@ function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
   return interruption !== undefined && interruption !== "inline";
 }
 
-// An alias isn't on the page, so it's located on its abbreviation instead.
-function locateOnAbbreviation(aliasPieces: ReadiumSpeechUtterance[], abbreviationSsml: string, node: GuidedNavigationObject, ctx: WalkContext): void {
+// An alias isn't on the page, so it's located on its abbreviation instead, at `range` in the node's own text.
+function locateOnAbbreviation(
+  aliasPieces: ReadiumSpeechUtterance[],
+  abbreviation: string,
+  range: { start: number; end: number },
+  node: GuidedNavigationObject,
+  ctx: WalkContext,
+): void {
   const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
   if (!nodeRef) return;
-  const locate = markNonQuotable(subLocateFor(nodeRef.ref, stripSsmlTags(abbreviationSsml)));
+  const locate = markNonQuotable(subLocateFor(nodeRef.ref, abbreviation));
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
-    const text = ctx.format === "ssml" ? stripSsmlTags(piece.ssml ?? "") : piece.plain;
+    const offset = { ...range, locate };
     piece.locate = locate;
-    piece.offsets = [{ start: 0, end: text?.length ?? 0, locate }];
+    piece.offsets = [offset];
+    recordAliasOffset(offset, plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format).length);
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
   }
 }
@@ -212,28 +218,103 @@ function emitWithPlaceholders(
   const deferred: Deferred[] = [];
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
-  const aliases = new Set<ReadiumSpeechUtterance>();
+  const aliases = new Map<ReadiumSpeechUtterance, string | undefined>();
+  const nested = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
+  const ownText = nodeOwnText(resolveNodeText(spokenText(node)), ctx.format);
+  let ownCursor = 0;
+  let abbreviationFrom = 0;
+  const findInOwnText = (text: string, from: number) => {
+    const start = text ? ownText.indexOf(text, from) : -1;
+    if (start === -1) return undefined;
+    ownCursor = Math.max(ownCursor, start + text.length);
+    return { start, end: start + text.length };
+  };
+  const placeInOwnText = (before: number) => {
+    for (const piece of pieces.slice(before)) {
+      const range = findInOwnText(plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain) ?? "", ctx.format), ownCursor);
+      if (range) ctx.pendingRange.set(piece, range);
+    }
+  };
   // An alias's pieces, pushed since `before`, stay whole in their sentence.
   const placeAlias = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
-    locateOnAbbreviation(aliasPieces, segment.abbreviationText!, node, ctx);
-    aliasPieces.forEach((piece) => aliases.add(piece));
+    const abbreviationText = stripSsmlTags(segment.abbreviationText!);
+    const range = findInOwnText(abbreviationText, abbreviationFrom) ?? { start: 0, end: abbreviationText.length };
+    locateOnAbbreviation(aliasPieces, abbreviationText, range, node, ctx);
+    const abbreviation = abbreviationInline ? abbreviationText : undefined;
+    aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
-  for (let segment of splitOnPlaceholders(rawSsml)) {
+  // Text touching an abbreviation doesn't touch the parenthesized expansion read after it.
+  const markTouching = (segment: SsmlSegment, before: number) => {
+    const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]);
+    if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) ctx.touchingPieces.add(pieces[before]);
+  };
+  // Inline interruptions, walked up front for `isDropped` to know which read nothing in place.
+  const insertedById = new Map<string, { pieces: ReadiumSpeechUtterance[]; sources: SourceTrace }>();
+  for (const { placeholderId } of splitOnPlaceholders(rawSsml)) {
+    const child = placeholderId === undefined ? undefined : childrenById.get(placeholderId);
+    if (!child || isDeferred(child, ctx) || !nodeRoles(child).some((role) => interruptionRoleSet.has(role))) continue;
+    const walked = { pieces: [] as ReadiumSpeechUtterance[], sources: [] as SourceTrace };
+    walkNode(child, walked.pieces, walked.sources, ctx, suppress);
+    insertedById.set(placeholderId!, walked);
+  }
+  // A placeholder read neither in place nor as its own words leaves no brackets or quotes around nothing.
+  const isDropped = (id: string) => {
+    const child = childrenById.get(id);
+    if (insertedById.get(id)?.pieces.length === 0) return true;
+    return child !== undefined && isDeferred(child, ctx) && !nodeRoles(child).some((role) => textReferenceRoleSet.has(role));
+  };
+  // How the next text meets what precedes it across placeholders: spaced where the source spaces a dropped one, else touching if set.
+  let pending: { spaceAcross?: boolean; touching?: boolean } | undefined;
+  const meetPending = (before: number) => {
+    const piece = pieces[before];
+    if (!pending || !piece) return;
+    if (pending.spaceAcross) ctx.spacedPieces.add(piece);
+    else if (pending.touching) ctx.touchingPieces.add(piece);
+    pending = undefined;
+  };
+  const { ssml, spaced } = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
+  const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
+  for (let segment of splitOnPlaceholders(ssml)) {
+    if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
-    if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml };
+    if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
+      if (isDropped(segment.placeholderId)) {
+        pending = { spaceAcross: spaced.has(segment.placeholderId) };
+      } else {
+        pending = undefined;
+      }
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
-        walkNode(child, pieces, pieceSources, ctx, suppress);
         if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
+          const walked = insertedById.get(segment.placeholderId)!;
+          pieces.push(...walked.pieces);
+          pieceSources.push(...walked.sources);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
+          // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
+          if (pieces.length > before) {
+            const enclosed = enclosedIds.has(segment.placeholderId);
+            if (/\s$/.test(segment.textBefore!) || (!enclosed && /\S\p{Pi}$/u.test(segment.textBefore!))) ctx.spacedPieces.add(pieces[before]);
+            else if (enclosed) ctx.touchingPieces.add(pieces[before]);
+            const spaceAfter = /^\s/.test(segment.textAfter!) && keepsSpaceBefore(segment.textAfter!.trimStart(), declaredLanguage);
+            pending = { spaceAcross: spaceAfter, touching: enclosed };
+          }
+        } else {
+          // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
+          walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
+          pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
+          // Its text keeps the source's spacing, which joining wouldn't add in text written without spaces.
+          if (pieces.length > before) {
+            if (/\s$/.test(segment.textBefore!)) ctx.spacedPieces.add(pieces[before]);
+            pending = { spaceAcross: /^\s/.test(segment.textAfter!) };
+          }
         }
       } else {
         const childRoles = nodeRoles(child);
@@ -276,7 +357,10 @@ function emitWithPlaceholders(
         pieces.push(utterance);
         pieceSources.push(node);
       }
+      if (segment.abbreviation !== "alias") placeInOwnText(before);
+      meetPending(before);
       placeAlias(segment, before);
+      markTouching(segment, before);
       continue;
     }
     const utterance: ReadiumSpeechUtterance = {};
@@ -288,26 +372,44 @@ function emitWithPlaceholders(
     }
     pieces.push(utterance);
     pieceSources.push(node);
+    if (segment.abbreviation !== "alias") placeInOwnText(before);
+    meetPending(before);
     placeAlias(segment, before);
+    markTouching(segment, before);
   }
-  if (isSentence && deferred.length + inserted.size + aliases.size > 0) {
+  // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
+  const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));
+  if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {
     pieces.forEach((piece) => {
-      const placement = inserted.has(piece) ? "inline" : placedAfter.has(piece) ? "after" : aliases.has(piece) ? "alias" : undefined;
-      ctx.placeholderPieces.set(piece, { node, placement });
+      const own = inserted.has(piece)
+        ? { placement: "inline" as const }
+        : placedAfter.has(piece)
+          ? { placement: "after" as const }
+          : aliases.has(piece)
+            ? { placement: "alias" as const, abbreviation: aliases.get(piece) }
+            : nested.has(piece)
+              ? ctx.placeholderPieces.get(piece)
+              : undefined;
+      ctx.placeholderPieces.set(piece, { ...own, node });
     });
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
-    return [];
+    return isSentence ? [] : deferred;
   }
-  for (const [start, end] of languageRuns(pieces, ctx)) {
-    const run = pieces.slice(start, end);
-    const runSources = pieceSources.slice(start, end);
-    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
-    pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
-  }
+  pushMergedRuns(out, sources, ctx, node, pieces, pieceSources);
   return deferred;
 }
 
-function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+// With `hoisted`, deferred interruptions in the node's own text are handed to the caller instead of walked.
+// With `ownTextInValue`, its own text was already spoken in an ancestor's folded value: only what it embeds is.
+function walkNode(
+  node: GuidedNavigationObject,
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  suppress: boolean,
+  hoisted?: Deferred[],
+  ownTextInValue = false,
+): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
   // A text reference read "never" keeps its own text, without its embedded target.
@@ -324,7 +426,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   // speak something of its own (e.g. a contextualization)
   // claims the boundary itself and suppresses every nested block reached
   // through it, so entering deeply nested markup never stacks pauses.
-  const isBlockRole = roles.some((role) => blockLevelRoleSet.has(role));
+  const isBlockRole = isBlockNode(node, ctx);
   const eligible = isBlockRole && !suppress;
   const beforeLength = out.length;
 
@@ -376,7 +478,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
         const childEligible =
-          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && ctx.interruptions.noteref !== "inline";
+          isBlockNode(child, ctx) && !suppress && ctx.interruptions.noteref !== "inline";
         const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
         const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
         const pieces: ReadiumSpeechUtterance[] = [];
@@ -410,10 +512,12 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = spokenText(node)?.ssml;
-    const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
+    const foldsValue = ownTextInValue || roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
     if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
-      if (deferred.length > 0) {
+      if (hoisted) {
+        hoisted.push(...deferred);
+      } else if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         walkDeferred(deferred, out, sources, ctx, childSuppress);
       }
@@ -432,6 +536,17 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         if (roles.some((role) => textReferenceRoleSet.has(role))) {
           pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, isDeferred(node, ctx));
+        } else if (foldsValue && rawSsml && hasPlaceholder(rawSsml)) {
+          // A value's plain text holds the words of the links and text references its placeholders embed.
+          const embedded = new Set(splitOnPlaceholders(rawSsml).flatMap((segment) => segment.placeholderId ?? []));
+          node.children.forEach((child, index) => {
+            const childRoles = nodeRoles(child);
+            const inValue =
+              child.id !== undefined &&
+              embedded.has(child.id) &&
+              (childRoles.length === 0 || childRoles.some((role) => textReferenceRoleSet.has(role)));
+            walkNode(child, out, sources, ctx, index === 0 ? childSuppress : false, undefined, inValue);
+          });
         } else {
           walk(node.children, out, sources, ctx, childSuppress);
         }

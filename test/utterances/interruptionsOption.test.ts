@@ -3,7 +3,8 @@ import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
-import type { Contextualizations, Interruption } from "../../src/utterances/types.js";
+import { segmentSentences, type SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
+import type { Contextualizations, ExtractUtterancesOptions, Interruption } from "../../src/utterances/types.js";
 
 const html =
   '<p>Before the break <span epub:type="pagebreak" title="5"></span> and before the note' +
@@ -126,7 +127,7 @@ async function spoken(markup: string, format: "plain" | "ssml", options: Paramet
   return utterances.map((u) => [u[format], u.language]);
 }
 
-const sentenceOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } } as const;
+const sentenceOptions: ExtractUtterancesOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } };
 
 test("sentence segmentation speaks deferred announcements after their sentence in another language than the catalog's", async (t) => {
   t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", sentenceOptions), [
@@ -279,4 +280,168 @@ test("an abbreviation reads as its page text, or with its content replaced by it
       }
     }
   }
+});
+
+test("an abbreviation in a script written without spaces doesn't take the text around it into its alias", async (t) => {
+  const html = '<p lang="ja">彼女は<abbr title="世界保健機関">WHO。</abbr>その後去った。</p>';
+  const expected = { inline: ["彼女は世界保健機関。", "その後去った。"], never: ["彼女はWHO。", "その後去った。"] };
+  for (const abbreviation of ["inline", "never"] as const) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format, segmentation: { mode: "sentence" }, interruptions: { abbreviation } });
+      t.deepEqual(utterances.map((u) => u[format]), expected[abbreviation], `${format} ${abbreviation}`);
+    }
+  }
+});
+
+test("text attached to an abbreviation is never cut at a combining mark, and never attaches in a script written without spaces", async (t) => {
+  const cases = [
+    {
+      html: '<p lang="hi">कई <abbr title="एप्लिकेशन प्रोग्रामिंग इंटरफ़ेस">API</abbr>ओं का उपयोग।</p>',
+      expected: ["कई APIओं (एप्लिकेशन प्रोग्रामिंग इंटरफ़ेस) का उपयोग।"],
+    },
+    { html: '<p>Le <abbr title="Organisation mondiale">OMS</abbr>e\u0301 dit.</p>', expected: ["Le OMSe\u0301 (Organisation mondiale) dit."] },
+    {
+      html: '<p lang="th">บริษัท<abbr title="Asian Broadcasting Company">ABC</abbr>จำกัด ประกาศแล้ว</p>',
+      expected: ["บริษัทABC (Asian Broadcasting Company) จำกัด ประกาศแล้ว"],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format, interruptions: { abbreviation: "after" } });
+      t.deepEqual(utterances.map((u) => u[format]), expected, `${format}: ${html}`);
+    }
+  }
+});
+
+test("a note reference read after its sentence or not at all leaves no brackets or quotes around nothing", async (t) => {
+  const note = '<aside id="n" role="doc-footnote">Note.</aside>';
+  const cases = [
+    { html: `<p lang="ja">前（<a role="doc-noteref" href="#n">1</a>）<em>後</em></p>${note}`, plain: "前後", ssml: "前<emphasis>後</emphasis>", inline: "前（Note.）後" },
+    { html: `<p lang="zh">前“<a role="doc-noteref" href="#n">1</a>”后</p>${note}`, plain: "前后", ssml: "前后", inline: "前“Note.”后" },
+    { html: `<p>Text (<a role="doc-noteref" href="#n">1</a> <em>)</em> after.</p>${note}`, plain: "Text after.", ssml: "Text after.", inline: "Text (Note.) after." },
+    { html: `<p>Text (<a role="doc-noteref" href="#n">1</a>, <a role="doc-noteref" href="#n">2</a>) after.</p>${note}`, plain: "Text after.", ssml: "Text after.", inline: "Text (Note., Note.) after." },
+    { html: `<p lang="sv">Han sa ”<a role="doc-noteref" href="#n">1</a>” sedan.</p>${note}`, plain: "Han sa sedan.", ssml: "Han sa sedan.", inline: "Han sa ”Note.” sedan." },
+    { html: `<p lang="de">Er sagt „Wort“<a role="doc-noteref" href="#n">1</a> dann.</p>${note}`, plain: "Er sagt „Wort“ dann.", ssml: "Er sagt „Wort“ dann.", inline: "Er sagt „Wort“ Note. dann." },
+  ];
+  for (const { html, ...expected } of cases) {
+    for (const noteref of ["after", "never"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const [first] = await extractUtterances(parseMarkup(html), { format, interruptions: { noteref } });
+        t.is(first[format], expected[format], `${format} ${noteref}: ${html}`);
+      }
+    }
+    const inline = await extractUtterances(parseMarkup(html), { format: "plain", interruptions: { noteref: "inline" } });
+    t.is(inline.map((u) => u.plain).join(" "), expected.inline, `inline: ${html}`);
+  }
+});
+
+test("a dropped note's emptied brackets are left out of the text quotes locating its sentence", async (t) => {
+  const html = '<p>Text (<a role="doc-noteref" href="#n">1</a>) after. Next one.</p><aside id="n" role="doc-footnote">Note.</aside>';
+  const [first] = await extractUtterances(parseMarkup(html, "text/html", { textrefs: true }), { format: "plain", interruptions: { noteref: "never" } });
+  t.deepEqual(first.offsets?.map((offset) => offset.locate.text?.highlight), ["Text", "after. Next one."]);
+});
+
+// GND whose SSML carries placeholders without a plain variant, as a producer may emit it.
+function withoutPlain(nodes: GuidedNavigationObject[]): GuidedNavigationObject[] {
+  for (const node of nodes) {
+    if (node.text?.ssml && node.text.plain !== undefined) Object.assign(node, { text: { ...node.text, plain: undefined } });
+    if (node.children) withoutPlain(node.children);
+  }
+  return nodes;
+}
+
+test("text whose SSML holds only a placeholder is read from it when the source gives no plain text", async (t) => {
+  const note = '<aside id="n" role="doc-footnote">Note.</aside>';
+  const header = `<table><tr><th>Head (<a role="doc-noteref" href="#n">1</a>)</th></tr><tr><td>cell</td></tr></table>${note}`;
+  const glossref = '<p>See <a role="doc-glossref" href="#g">term (<span role="doc-pagebreak" id="p5" aria-label="5"></span>)</a> here.</p><dl><dt id="g">term</dt><dd>Def.</dd></dl>';
+  for (const format of ["plain", "ssml"] as const) {
+    const table = await extractUtterances(withoutPlain(parseMarkup(header)), { format, contextualize: ["table"], interruptions: { noteref: "never" } });
+    t.true(table.some((u) => u[format] === "Head: cell"), `${format}: ${JSON.stringify(table)}`);
+    const [sentence] = await extractUtterances(withoutPlain(parseMarkup(glossref)), { format, interruptions: { pagebreak: "never" } });
+    t.is(sentence[format], "See term here.", format);
+  }
+});
+
+test("a source's own plain text is kept over its placeholder-holding SSML", async (t) => {
+  const gnd = parseMarkup('<table><tr><th>Head (<a role="doc-noteref" href="#n">1</a>)</th></tr><tr><td>cell</td></tr></table><aside id="n" role="doc-footnote">Note.</aside>');
+  const setPlain = (nodes: GuidedNavigationObject[]) =>
+    nodes.forEach((node) => {
+      if (node.text?.ssml?.includes("Head")) Object.assign(node, { text: { ...node.text, plain: "Heading" } });
+      if (node.children) setPlain(node.children);
+    });
+  setPlain(gnd);
+  const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["table"], interruptions: { noteref: "never" } });
+  t.true(utterances.some((u) => u.plain === "Heading: cell"), JSON.stringify(utterances));
+});
+
+test("an inline abbreviation's expansion keeps its final terminator where it ends a sentence, without sentence segmentation", async (t) => {
+  const cases = [
+    {
+      html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>',
+      expected: ["She joined the World Health Organization. Then she left."],
+    },
+    {
+      html: '<p>She said “I joined the <abbr title="World Health Organization">W.H.O.</abbr>” Then she left.</p>',
+      expected: ["She said “I joined the World Health Organization.” Then she left."],
+    },
+    {
+      html: '<p>She joined the “<abbr title="World Health Organization">W.H.O.</abbr>” group.</p>',
+      expected: ["She joined the “World Health Organization” group."],
+    },
+    { html: '<p lang="ja">彼女は<abbr title="世界保健機関">WHO。</abbr>その後去った。</p>', expected: ["彼女は世界保健機関。その後去った。"] },
+    { html: '<p>The <abbr title="United States">U.S.</abbr> Army left.</p>', expected: ["The United States Army left."] },
+    { html: '<p><abbr title="World Health Organization">W.H.O.</abbr></p>', expected: ["World Health Organization."] },
+    { html: '<p>Ask <dfn>the <abbr title="Doctor">Dr.</abbr></dfn> Watson.</p>', expected: ["Ask", "the Doctor", "Watson."] },
+    {
+      html: '<p>She joined <dfn>the <abbr title="World Health Organization">W.H.O.</abbr></dfn> Then she left.</p>',
+      expected: ["She joined", "the World Health Organization.", "Then she left."],
+    },
+  ];
+  for (const { html, expected } of cases) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs }), { format, interruptions: { abbreviation: "inline" } });
+        t.deepEqual(utterances.map((u) => u[format]), expected, `${format} textrefs=${textrefs}: ${html}`);
+      }
+    }
+  }
+});
+
+test("an inline abbreviation's expansion keeps its final terminator at the end of roleless GND, without sentence segmentation", async (t) => {
+  const gnd = [GuidedNavigationObject.deserialize({ text: { ssml: 'She joined the <sub alias="World Health Organization">W.H.O.</sub>' } })!];
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, interruptions: { abbreviation: "inline" } });
+    t.deepEqual(utterances.map((u) => u[format]), ["She joined the World Health Organization."], format);
+  }
+});
+
+test("without sentence segmentation, a custom segmenter tells whether an inline abbreviation's terminator ends a sentence", async (t) => {
+  const segmented: string[] = [];
+  const segmenter: SentenceSegmenter = async (language, text, suppressions) => {
+    segmented.push(text);
+    return segmentSentences(language, text, suppressions);
+  };
+  const html = '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>';
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", interruptions: { abbreviation: "inline" }, segmentation: { mode: "structure", segmenter } });
+  t.deepEqual(segmented, ["She joined the W.H.O. Then she left."]);
+  t.deepEqual(utterances.map((u) => u.plain), ["She joined the World Health Organization. Then she left."]);
+});
+
+test("a table cell reads its links' and glossrefs' words once, in its value, then what they embed", async (t) => {
+  const html =
+    '<table><tr><th>Keeper</th><th>Year</th></tr>' +
+    '<tr><td>Henry <a href="c.html">Winstanley<span role="doc-pagebreak" id="p3">3</span></a> himself</td>' +
+    '<td>1698 <a href="#ad" role="doc-glossref">AD</a></td></tr></table>' +
+    '<dl role="doc-glossary"><dt id="ad"><dfn>AD</dfn></dt><dd>Anno Domini.</dd></dl>';
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain" });
+  t.deepEqual(utterances.map((u) => u.plain), [
+    "Keeper",
+    "Year",
+    "Keeper: Henry Winstanley himself",
+    "Page 3",
+    "Year: 1698 AD",
+    "AD: Anno Domini.",
+    "AD",
+    "Anno Domini.",
+  ]);
 });

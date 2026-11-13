@@ -1,0 +1,1516 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après.",
+          "language": "fr"
+        },
+        {
+          "plain": "Page 5",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "language": "fr",
+          "plain": "Avant"
+        },
+        {
+          "plain": "Page 5",
+          "language": "en"
+        },
+        {
+          "language": "fr",
+          "plain": "après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après."
+        },
+        {
+          "plain": "Page 5"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant Page 5 après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après.",
+          "language": "fr"
+        },
+        {
+          "plain": "Pagebreak. Page 5.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "language": "fr",
+          "plain": "Avant"
+        },
+        {
+          "plain": "Pagebreak. Page 5.",
+          "language": "en"
+        },
+        {
+          "language": "fr",
+          "plain": "après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant après."
+        },
+        {
+          "plain": "Pagebreak. Page 5."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Avant Pagebreak. Page 5. après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après.",
+          "language": "fr"
+        },
+        {
+          "ssml": "Page 5",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant <lang xml:lang=\"en\">Page 5</lang> après.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après."
+        },
+        {
+          "ssml": "Page 5"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant Page 5 après."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après.",
+          "language": "fr"
+        },
+        {
+          "ssml": "Pagebreak. Page 5.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "always",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant <lang xml:lang=\"en\">Pagebreak. Page 5.</lang> après.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant après."
+        },
+        {
+          "ssml": "Pagebreak. Page 5."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pagebreak"
+          ],
+          "language": "none",
+          "interruptions": {
+            "pagebreak": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Avant Pagebreak. Page 5. après."
+        }
+      ]
+    }
+  ]
+}

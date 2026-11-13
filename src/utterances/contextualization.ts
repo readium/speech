@@ -38,15 +38,14 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
   });
 }
 
-// Narrows utterance's offsets/locate to quoteText's own span within text.
+// Narrows utterance's offsets/locate to quoteText, when text speaks it.
 // Leaves ctx.synthetic alone — that also gates sentence-splitting/merging.
 export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
-  const start = text.lastIndexOf(quoteText);
-  if (start === -1) return;
+  if (!text.includes(quoteText)) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
   const quoteLocate = subLocateFor(resolved.ref, quoteText);
-  utterance.offsets = [{ start, end: start + quoteText.length, locate: quoteLocate }];
+  utterance.offsets = [{ start: 0, end: quoteText.length, locate: quoteLocate }];
   utterance.locate = resolved.own ? resolved.ref : quoteLocate;
 }
 

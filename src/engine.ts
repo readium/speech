@@ -41,9 +41,9 @@ export interface ReadiumSpeechPlaybackEngine {
   getUtteranceCount(): number;
   
   // Events
-  on(
-    event: ReadiumSpeechPlaybackEvent["type"],
-    callback: (event: ReadiumSpeechPlaybackEvent) => void
+  on<T extends ReadiumSpeechPlaybackEvent["type"]>(
+    event: T,
+    callback: (event: ReadiumSpeechPlaybackEvent<T>) => void
   ): () => void;
   
   // Cleanup

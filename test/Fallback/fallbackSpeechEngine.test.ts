@@ -134,18 +134,21 @@ test.serial("while offline, only considers offline-available voices, since an on
   t.is(fallbackProvider.receivedVoice?.name, "French Male", "skipped the best language+gender match because it needs network, picked the offline-available one instead");
 });
 
-test.serial("while offline, once fallen back, getAvailableVoices() lists only offline-available voices", async (t) => {
+test.serial("while offline, getAvailableVoices() lists only offline-available voices, before and after falling back", async (t) => {
   const restoreOnLine = stubOnLine(false);
   t.teardown(restoreOnLine);
 
   const primary = new FakeEngine();
   primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
-  primary.availableVoices = [makeReadiumVoice({ name: "Online", language: "fr-FR" })];
+  primary.availableVoices = [
+    makeReadiumVoice({ name: "Online", language: "fr-FR" }),
+    makeReadiumVoice({ name: "Offline", language: "fr-FR", offlineAvailability: true })
+  ];
 
   const fallbackProvider = new FakeFallbackProvider();
   const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
   wrapper.loadUtterances([{ plain: "hello" }]);
-  t.deepEqual((await wrapper.getAvailableVoices()).map(voice => voice.name), ["Online"], "not restricted before falling back");
+  t.deepEqual((await wrapper.getAvailableVoices()).map(voice => voice.name), ["Offline"], "on the primary");
 
   primary.emit("error", { message: "network failure", recoverable: true });
   await tick();
@@ -601,8 +604,35 @@ test.serial("onFailure: \"fallback\" (default) never polls or recovers, even lon
 
   await wait(120);
 
-  t.is(primaryProvider.getVoicesCalls, 0, "never polled the primary");
+  t.is(primaryProvider.isAvailableCalls, 0, "never polled the primary");
   t.is(recovered.length, 0);
+});
+
+test.serial("fallbackAndRecover never recovers to a primary without isAvailable()", async (t) => {
+  const primary = new FakeEngine();
+  const fallbackProvider = new FakeFallbackProvider();
+  const primaryProvider = new FakePrimaryProvider();
+  (primaryProvider as any).isAvailable = undefined;
+  const wrapper = new FallbackSpeechEngine({
+    primaryEngine: primary as any,
+    primaryProvider: primaryProvider as any,
+    fallbackProvider: fallbackProvider as any,
+    onFailure: "fallbackAndRecover",
+    healthCheckIntervalMs: 20
+  });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  const recovered: any[] = [];
+  wrapper.on("enginerecovered", (e: any) => recovered.push(e));
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+  fallbackProvider.engine!.setStateForTest("idle");
+  await wait(120);
+
+  t.is(recovered.length, 0);
+  t.is(primaryProvider.engine, null, "the primary was never recreated");
+  await wrapper.destroy();
 });
 
 test.serial("fallbackAndRecover: waits until nothing is playing before swapping back, then resumes on a fresh primary engine", async (t) => {
@@ -819,14 +849,14 @@ test.serial("fallbackAndRecover: if recreating the primary fails despite a succe
 
   await wait(80);
   await tick();
-  const callsAfterFirstFailedRecovery = primaryProvider.getVoicesCalls;
+  const callsAfterFirstFailedRecovery = primaryProvider.isAvailableCalls;
 
   t.is(recovered.length, 0, "recreating the primary failed, no swap happened");
   t.is(primaryProvider.engine, null);
   t.true(callsAfterFirstFailedRecovery >= 1, "kept probing");
 
   await wait(80);
-  t.true(primaryProvider.getVoicesCalls > callsAfterFirstFailedRecovery, "polling resumed after the failed recovery attempt");
+  t.true(primaryProvider.isAvailableCalls > callsAfterFirstFailedRecovery, "polling resumed after the failed recovery attempt");
 
   await wrapper.destroy();
 });
@@ -885,9 +915,62 @@ test.serial("destroy() clears the health-check timer", async (t) => {
   await wait(60);
 
   await wrapper.destroy();
-  const callsAtDestroy = primaryProvider.getVoicesCalls;
+  const callsAtDestroy = primaryProvider.isAvailableCalls;
 
   await wait(120);
 
-  t.is(primaryProvider.getVoicesCalls, callsAtDestroy, "no further polling after destroy");
+  t.is(primaryProvider.isAvailableCalls, callsAtDestroy, "no further polling after destroy");
+});
+
+test.serial("the fallback voice matches the failing utterance's own voice, not the engine's", async (t) => {
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "en-US", gender: "female" });
+  primary.availableVoices = [makeReadiumVoice({ name: "Server French Male", voiceURI: "server-fr-male", language: "fr-FR", gender: "male" })];
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "Bonjour.", voice: "server-fr-male" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Male");
+});
+
+test.serial("while offline, an utterance's network voice is given neither to the fallback nor to the recovered primary", async (t) => {
+  t.teardown(stubOnLine(false));
+  const voices = [
+    makeReadiumVoice({ name: "Network", voiceURI: "network", language: "fr-FR" }),
+    makeReadiumVoice({ name: "Local", voiceURI: "local", language: "fr-FR", offlineAvailability: true })
+  ];
+  const primary = new FakeEngine();
+  primary.availableVoices = voices;
+  const listing = <P extends { createEngine(voice?: any): Promise<FakeEngine> }>(provider: P): P => {
+    const createEngine = provider.createEngine.bind(provider);
+    provider.createEngine = async (voice?: any) => {
+      const engine = await createEngine(voice);
+      engine.availableVoices = voices;
+      return engine;
+    };
+    return provider;
+  };
+  const fallbackProvider = listing(new FakeFallbackProvider());
+  const primaryProvider = listing(new FakePrimaryProvider());
+  const wrapper = new FallbackSpeechEngine({
+    primaryEngine: primary as any,
+    primaryProvider: primaryProvider as any,
+    fallbackProvider: fallbackProvider as any,
+    onFailure: "fallbackAndRecover",
+    healthCheckIntervalMs: 20
+  });
+  wrapper.loadUtterances([{ plain: "Bonjour.", voice: "network" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Bonjour." }], "on the fallback");
+
+  fallbackProvider.engine!.setStateForTest("idle");
+  await wait(80);
+  await tick();
+  t.deepEqual(primaryProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Bonjour." }], "on the recovered primary");
+  await wrapper.destroy();
 });

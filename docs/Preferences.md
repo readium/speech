@@ -14,6 +14,52 @@ await navigator.submitPreferences(editor.preferences);
 
 `submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `interruptions`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`, `reconstruct`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
+## Editor
+
+`navigator.preferencesEditor` stages edits on a copy of the submitted preferences; nothing changes until `editor.preferences` is passed to `submitPreferences()`, which also replaces the editor. Each field is a handle:
+
+```typescript
+interface IPreference<T> {
+  value: T | null | undefined;          // the staged preference; assigning stages it
+  effectiveValue: T | null | undefined; // the resolved setting as of the last submission
+  isEffective: boolean;                 // whether `value` is set and applies
+  clear(): void;                        // stages `null`
+}
+
+interface IEnumPreference<T> extends IPreference<T> {
+  supportedValues: readonly T[];
+}
+
+interface IRangePreference<T> extends IPreference<T> {
+  supportedRange: readonly [T, T];
+  step: number;
+  increment(): void; // by `step`, clamped to `supportedRange`
+  decrement(): void;
+  format(value: T): string;
+}
+```
+
+| Handle | Fields |
+| --- | --- |
+| `EnumPreference` | `format`, `verbosity`, `language`, `segmentation`, `autoPause` |
+| `RangePreference` | `pauseDuration`, `rate`, `pitch`, `volume` |
+| `BooleanPreference` | `reconstruct` |
+| `StringArrayPreference` | `skip`, `contextualize` |
+| `Preference` | `interruptions`, `languageOverrides`, `voice` |
+
+Assigning an unsupported enum value, an out-of-range number, or a wrong type throws; `Preference` handles don't check. `increment()`/`decrement()` do nothing while `value` is unset. `reconstruct.isEffective` is `false` unless `segmentation` is `"sentence"`, `skip`/`contextualize.isEffective` unless `verbosity` is `"custom"`. `editor.clear()` stages `null` for every field.
+
+`submitPreferences()` merges into the current preferences: an `undefined` field keeps the current preference, a `null` one clears it so the default applies.
+
+```typescript
+const editor = navigator.preferencesEditor;
+editor.rate.supportedRange;        // [0.1, 10]
+editor.rate.value ??= editor.rate.effectiveValue;
+editor.rate.increment();
+editor.autoPause.clear();
+await navigator.submitPreferences(editor.preferences);
+```
+
 ## Defaults
 
 Every default (`"few"` verbosity, 300ms `pauseDuration`, rate/pitch/volume of `1.0`, ...) is itself configurable — pass a `defaults` object to `ReadiumSpeechNavigator`'s constructor, alongside optional initial `preferences`:
@@ -39,7 +85,7 @@ Every field on `SpeechPreferences` (and `SpeechDefaults`) is checked against its
 type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 ```
 
-Each preset resolves to a fixed set of roles that are skipped and a fixed set whose contextualizations fire, from `skippedAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. It also resolves each role's contextualization shape (`contextualizationShapesAtVerbosity`) — e.g. `table` is `"inline"` at `"few"`, `"block"` at `"some"`/`"most"` (see [Utterance Extraction](UtteranceExtraction.md#options)). `shapeableRoles` lists which roles ever switch shape this way (`table` today) — every other role with a `block` catalog entry is a fixed block always. `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
+Each preset resolves to a fixed set of roles that are skipped and a fixed set whose contextualizations fire, from `skippedAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. It also resolves each role's contextualization shape (`contextualizationShapesAtVerbosity`) — e.g. `table` is `"inline"` at `"few"`, `"block"` at `"some"`/`"most"` (see [Utterance Extraction](UtteranceExtraction.md#options)). `shapeableRoles` lists which roles ever switch shape this way (`table` today) — every other role with a `block` catalog entry is a fixed block always. Per-role tables: [Verbosity](Verbosity.md). `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
 
 ```typescript
 new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnote"] });
@@ -55,7 +101,7 @@ pitch?: number;                                  // default 1.0, range [0, 2]
 volume?: number;                                 // default 1.0, range [0, 1]
 ```
 
-`pauseDuration` and `autoPause` are unrelated. `pauseDuration` always delays the navigator's next automatic `speak()` call after an utterance ends — it's just a gap, playback keeps going on its own. `autoPause` decides whether that automatic continuation happens at all: `"none"` (the default) never interrupts it; `"utterance"` stops playback after every utterance; `"block"` stops it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...). An auto-pause fires a `pause` event and moves `navigator.getState()` to `"paused"`, exactly like calling `pause()` yourself — nothing plays again until `play()` is called.
+`pauseDuration` and `autoPause` are unrelated. `pauseDuration` always delays the navigator's next automatic `speak()` call after an utterance ends — it's just a gap, playback keeps going on its own. `autoPause` decides whether that automatic continuation happens at all: `"none"` (the default) never interrupts it; `"utterance"` stops playback after every utterance; `"block"` stops it only where the next utterance starts a new element with a role in `blockLevelRoles` (a paragraph, heading, list item, table cell, ...; see [Role sets](UtteranceExtraction.md#role-sets)). An auto-pause fires a `pause` event and moves `navigator.getState()` to `"paused"`, exactly like calling `pause()` yourself — nothing plays again until `play()` is called.
 
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 
@@ -92,3 +138,23 @@ interruptions?: Partial<Record<GndRole, "never" | "inline" | "after">>; // defau
 ```
 
 `interruptions` applies under every `verbosity`, `"custom"` or not.
+
+## Constants
+
+The values the editor's handles check against, exported for building UIs without a navigator:
+
+```typescript
+verbosityPresets;   // ["none", "few", "some", "most", "custom"]
+languageModes;      // ["none", "block-level", "always"]
+segmentationModes;  // ["structure", "sentence"]
+autoPauseScopes;    // ["none", "utterance", "block"]
+extractionFormats;  // ["plain", "ssml"]
+interruptionValues; // ["never", "inline", "after"]
+
+pauseDurationRangeConfig; // { range: [0, 5000], step: 100 }
+rateRangeConfig;          // { range: [0.1, 10], step: 0.1 }
+pitchRangeConfig;         // { range: [0, 2], step: 0.1 }
+volumeRangeConfig;        // { range: [0, 1], step: 0.05 }
+```
+
+`extractionPreferenceKeys` lists the extraction group: `format`, `interruptions`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`, `reconstruct`.

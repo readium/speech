@@ -1,12 +1,17 @@
 import test from "ava";
 import {
   ssmlIndexToPlainIndex,
+  stripSsmlTagsKeepSpacing,
   stripSsmlTagsWithMap,
   substitutedIndexToSourceIndex,
   substituteSsmlText,
   substituteWithMap,
 } from "../../src/utterances/text.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
+
+test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
+  t.is(stripSsmlTagsWithMap("彼女は<emphasis>東京</emphasis>へ行った。").plain, "彼女は東京へ行った。");
+});
 
 test("stripSsmlTagsWithMap strips tags and maps each plain char back to its SSML source position", (t) => {
   const ssml = "<p>Hello <emphasis>world</emphasis>.</p>";
@@ -128,10 +133,40 @@ test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag,
   t.is(result.plain, "1) and (c) too");
 });
 
-test("substituteSsmlText echoes a tag-boundary glue space into the returned ssml, not just plain", (t) => {
+test("substituteSsmlText echoes a break's glue space into the returned ssml, not just plain", (t) => {
   const table: SubstitutionTable = { nomatch: "X" };
-  const ssml = "foo<emphasis>bar</emphasis>baz";
-  const result = substituteSsmlText(ssml, table);
-  t.is(result.plain, "foo bar baz");
-  t.is(result.ssml, "foo <emphasis>bar</emphasis> baz");
+  const result = substituteSsmlText("foo<break/>bar", table);
+  t.is(result.plain, "foo bar");
+  t.is(result.ssml, "foo<break/> bar");
+});
+
+test("substituteSsmlText adds no space around inline formatting within a word", (t) => {
+  const table: SubstitutionTable = { nomatch: "X" };
+  const result = substituteSsmlText("foo<emphasis>bar</emphasis>baz", table);
+  t.is(result.plain, "foobarbaz");
+  t.is(result.ssml, "foo<emphasis>bar</emphasis>baz");
+});
+
+test("stripSsmlTagsKeepSpacing reads a break as a space, not inline formatting or binding punctuation", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("across<break/>two <emphasis>bold</emphasis>ly<break/>, then"), "across two boldly, then");
+});
+
+test("stripSsmlTagsWithMap separates words at a sentence or paragraph element, not inline formatting", (t) => {
+  t.is(stripSsmlTagsWithMap("<s>Hello.</s><s>World.</s>").plain, "Hello. World.");
+  t.is(stripSsmlTagsWithMap("one<p>two</p>three").plain, "one two three");
+  t.is(stripSsmlTagsWithMap("<speak>two<emphasis>fold</emphasis></speak>").plain, "twofold");
+});
+
+test("stripSsmlTagsKeepSpacing separates words at a sentence element", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("<s>Hello.</s><s>World.</s>"), "Hello. World.");
+});
+
+test("substituteSsmlText separates words at a paragraph element, outside its tags", (t) => {
+  const result = substituteSsmlText("one<p>two</p>three", { nomatch: "X" });
+  t.is(result.plain, "one two three");
+  t.is(result.ssml, "one <p>two</p> three");
+});
+
+test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
+  t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
 });

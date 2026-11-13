@@ -92,3 +92,16 @@ test("createEngine forwards overLengthText/format/readyBufferChars to the engine
   t.is(errors[0].status, 413);
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 0);
 });
+
+test("isAvailable refetches the server each time, true only while it answers", async (t) => {
+  let down = false;
+  const { fetchImpl, calls } = createMockFetch({
+    voices: () => down ? { status: 503, ok: false, json: problemDetails({ detail: "Down." }), contentType: "application/problem+json" } : [makeServerVoice()]
+  });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
+
+  t.true(await provider.isAvailable());
+  down = true;
+  t.false(await provider.isAvailable());
+  t.is(calls.filter(c => c.url.endsWith("/voices")).length, 2, "not served from cache");
+});

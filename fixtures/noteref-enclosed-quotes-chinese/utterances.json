@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后",
+          "plain": "前后",
           "language": "zh"
         },
         {
@@ -960,7 +960,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后",
+          "plain": "前后",
           "language": "zh"
         },
         {
@@ -1503,7 +1503,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后"
+          "plain": "前后"
         },
         {
           "plain": "Note."
@@ -1562,7 +1562,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后 Note."
+          "plain": "前后 Note."
         },
         {
           "plain": "Note."
@@ -1774,7 +1774,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后"
+          "plain": "前后"
         },
         {
           "plain": "Note."
@@ -1906,7 +1906,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后 Note."
+          "plain": "前后 Note."
         }
       ]
     },
@@ -2498,7 +2498,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后",
+          "plain": "前后",
           "language": "zh"
         },
         {
@@ -3149,7 +3149,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后"
+          "plain": "前后"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -3216,7 +3216,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后 Note."
+          "plain": "前后 Note."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -6463,7 +6463,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后",
+          "plain": "前后",
           "language": "zh"
         }
       ]
@@ -7505,7 +7505,7 @@
       ],
       "utterances": [
         {
-          "plain": "前“”后"
+          "plain": "前后"
         }
       ]
     },
@@ -7517,7 +7517,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后",
+          "ssml": "前后",
           "language": "zh"
         },
         {
@@ -8469,7 +8469,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后",
+          "ssml": "前后",
           "language": "zh"
         },
         {
@@ -9012,7 +9012,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后"
+          "ssml": "前后"
         },
         {
           "ssml": "Note."
@@ -9071,7 +9071,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后 Note."
+          "ssml": "前后 Note."
         },
         {
           "ssml": "Note."
@@ -9283,7 +9283,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后"
+          "ssml": "前后"
         },
         {
           "ssml": "Note."
@@ -9415,7 +9415,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后 Note."
+          "ssml": "前后 Note."
         }
       ]
     },
@@ -10007,7 +10007,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后",
+          "ssml": "前后",
           "language": "zh"
         },
         {
@@ -10164,7 +10164,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“ <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”后",
+          "ssml": "前“<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”后",
           "language": "zh"
         },
         {
@@ -10541,7 +10541,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“ <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”",
+          "ssml": "前“<lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>”",
           "language": "zh"
         },
         {
@@ -10642,7 +10642,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后"
+          "ssml": "前后"
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -10709,7 +10709,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后 Note."
+          "ssml": "前后 Note."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -13956,7 +13956,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后",
+          "ssml": "前后",
           "language": "zh"
         }
       ]
@@ -14998,7 +14998,7 @@
       ],
       "utterances": [
         {
-          "ssml": "前“”后"
+          "ssml": "前后"
         }
       ]
     }

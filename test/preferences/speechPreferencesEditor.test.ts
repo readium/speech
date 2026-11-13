@@ -146,3 +146,11 @@ test("editing an array or record preference in place leaves the navigator's pref
   t.deepEqual(preferences.languageOverrides, { en: "en-GB" });
   t.deepEqual(preferences.voice, { fr: "Amélie" });
 });
+
+test("skip/contextualize: an explicit preference is effective only with custom verbosity", (t) => {
+  for (const key of ["skip", "contextualize"] as const) {
+    t.false(makeEditor(new SpeechPreferences({ [key]: ["footnote"] }))[key].isEffective);
+    t.false(makeEditor(new SpeechPreferences({ [key]: ["footnote"], verbosity: "most" }))[key].isEffective);
+    t.true(makeEditor(new SpeechPreferences({ [key]: ["footnote"], verbosity: "custom" }))[key].isEffective);
+  }
+});

@@ -363,15 +363,14 @@ export class WebSpeechVoiceManager {
       if (!existing) {
         voiceMap.set(key, voice);
       } else {
-        // Check if these are the same voice with different names (have altNames)
-        if (shouldMergeVoicesByName(voice, existing)) {
+        const existingQuality = getQualityValue(existing.quality);
+        const newQuality = getQualityValue(voice.quality);
+
+        // Same voice under different names (altNames): only names tell them apart at equal quality
+        if (newQuality === existingQuality && shouldMergeVoicesByName(voice, existing)) {
           const preferredVoice = selectPreferredVoiceByName(voice, existing);
           voiceMap.set(key, preferredVoice);
         } else {
-          // Use existing quality-based logic for different voices
-          const existingQuality = getQualityValue(existing.quality);
-          const newQuality = getQualityValue(voice.quality);
-          
           // If new voice has higher or equal quality, use it (preferring the newer one)
           if (newQuality >= existingQuality) {
             voiceMap.set(key, voice);
@@ -533,7 +532,7 @@ export class WebSpeechVoiceManager {
     return filteredVoices[0];
   }
 
-  getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
+  private getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
     const getAvailableVoices = () => window.speechSynthesis?.getVoices() || [];
 
     // Check if speechSynthesis is available

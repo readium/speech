@@ -573,6 +573,34 @@ test.serial("pause and resume leave their events to the native handlers for a lo
   t.deepEqual(events, ["pause", "resume"]);
 });
 
+test.serial("a synthesis error is reported as a non-recoverable ErrorEventDetail", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.speak();
+  await flush();
+  const details: unknown[] = [];
+  engine.on("error", (event) => details.push(event.detail));
+
+  synth.spoken[synth.spoken.length - 1].onerror?.({ error: "synthesis-failed" });
+
+  t.deepEqual(details, [{ error: "synthesis-failed", message: "Speech synthesis error: synthesis-failed", recoverable: false }]);
+});
+
+test.serial("a network synthesis error is recoverable", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.speak();
+  await flush();
+  const details: unknown[] = [];
+  engine.on("error", (event) => details.push(event.detail));
+
+  synth.spoken[synth.spoken.length - 1].onerror?.({ error: "network" });
+
+  t.deepEqual(details, [{ error: "network", message: "Speech synthesis error: network", recoverable: true }]);
+});
+
 async function pausedWithoutNativePause() {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();

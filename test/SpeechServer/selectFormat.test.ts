@@ -1,5 +1,5 @@
 import test from "ava";
-import { selectFormat, selectBitrate, mimeTypeForFormat, CanPlayTypeResult } from "../../build/index.js";
+import { selectFormat, selectBitrate, mimeTypeForFormat, CanPlayTypeResult } from "../../src/SpeechServer/selectFormat.js";
 
 function canPlayAll(): CanPlayTypeResult {
   return "probably";

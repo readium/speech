@@ -202,14 +202,14 @@ export class FakeFallbackProvider {
   async destroy(): Promise<void> {}
 }
 
-// Simulates the primary provider FallbackSpeechEngine reconnects to on recovery. getVoices()
-// re-hits "the network" (never caches) so it doubles as a controllable reachability probe.
+// Simulates the primary provider FallbackSpeechEngine reconnects to on recovery, with a
+// controllable isAvailable() probe.
 export class FakePrimaryProvider {
   readonly id = "fake-primary";
   readonly name = "Fake Primary";
 
   reachable = true;
-  getVoicesCalls = 0;
+  isAvailableCalls = 0;
   receivedVoice: any;
   engine: FakeEngine | null = null;
   shouldFailCreateEngine = false;
@@ -218,11 +218,15 @@ export class FakePrimaryProvider {
   createEngineGate: Promise<void> | null = null;
 
   async getVoices(): Promise<any[]> {
-    this.getVoicesCalls++;
     if (!this.reachable) {
       throw new Error("primary unreachable");
     }
     return [];
+  }
+
+  async isAvailable(): Promise<boolean> {
+    this.isAvailableCalls++;
+    return this.reachable;
   }
 
   async createEngine(voice?: any): Promise<FakeEngine> {

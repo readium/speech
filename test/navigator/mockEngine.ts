@@ -82,12 +82,13 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
     return this.loadedUtterances.length;
   }
 
-  on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
+  on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void {
+    const listener = callback as (event: ReadiumSpeechPlaybackEvent) => void;
     const list = this.listeners.get(event) ?? [];
-    list.push(callback);
+    list.push(listener);
     this.listeners.set(event, list);
     return () => {
-      this.listeners.set(event, (this.listeners.get(event) ?? []).filter((cb) => cb !== callback));
+      this.listeners.set(event, (this.listeners.get(event) ?? []).filter((cb) => cb !== listener));
     };
   }
 

@@ -3,7 +3,7 @@ import { combineDomRangeTextrefs, decodeTextref, isAriaSubstituted, type Decoded
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
-import { substitutedBareLocate } from "./mergeUtterances.js";
+import { plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 
 // Anchors just `quoteText` within the node via a text-quote, since a
 // character-offset domRange would need its internal text-node layout.
@@ -70,7 +70,7 @@ export function attachLocate(
   return utterances.map((u, i) => {
     if (u.offsets) return u;
     const source = sources[i];
-    const text = u.plain ?? u.ssml ?? "";
+    const text = u.plain ?? plainOf(u.ssml ?? "", "ssml");
     if (Array.isArray(source)) {
       const [first, last] = source;
       const firstRef = resolveNodeLocate(first, ancestorChains);

@@ -34,6 +34,27 @@ test("resolveBoundaryLocate finds a word in the second of two offset pieces (sen
   t.is(resolved?.locate.text?.after, ".");
 });
 
+test("resolveBoundaryLocate finds an SSML word formatted within itself in a reconstructed sentence", async (t) => {
+  const gnd = parseMarkup("<p>This sentence continues</p><p>across <em>two</em>fold paragraphs.</p>", undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } });
+  t.is(utterance.ssml, "This sentence continues across <emphasis>two</emphasis>fold paragraphs.");
+
+  const charIndex = "This sentence continues across ".length;
+  const resolved = resolveBoundaryLocate(utterance, charIndex, "twofold".length);
+  t.is(resolved?.word, "twofold");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
+});
+
+test("resolveBoundaryLocate finds an SSML word after a line break in a reconstructed sentence", async (t) => {
+  const gnd = parseMarkup("<p>This sentence continues</p><p>across<br>two lines.</p>", undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence", reconstruct: true } });
+  t.is(utterance.offsets![1].locate.text?.highlight, "across two lines.");
+
+  const resolved = resolveBoundaryLocate(utterance, "This sentence continues across ".length, "two".length);
+  t.is(resolved?.word, "two");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
+});
+
 test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
   const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
@@ -165,11 +186,11 @@ test("page text after substituted text resolves word by word, even when it repea
 
 test("page text right after substituted text resolves word by word, even when it repeats the substitution", async (t) => {
   const substituted = [
-    { markup: '<abbr title="one">1</abbr>', spoken: "one" },
-    { markup: '<abbr title="R&amp;D one">RD</abbr>', spoken: "R&D one" },
-    { markup: '<a href="chapter.xhtml" aria-label="one">1</a>', spoken: "one" },
+    { markup: '<abbr title="one">1</abbr>', spoken: "one", abbreviation: "1" },
+    { markup: '<abbr title="R&amp;D one">RD</abbr>', spoken: "R&D one", abbreviation: "RD" },
+    { markup: '<a href="chapter.xhtml" aria-label="one">1</a>', spoken: "one", abbreviation: undefined },
   ];
-  for (const { markup, spoken } of substituted) {
+  for (const { markup, spoken, abbreviation } of substituted) {
     for (const mode of ["structure", "sentence"] as const) {
       for (const format of ["plain", "ssml"] as const) {
         const html = `<p>${markup} one</p>`;
@@ -183,8 +204,13 @@ test("page text right after substituted text resolves word by word, even when it
         for (const match of text.matchAll(/\p{L}+/gu)) {
           const resolved = resolveBoundaryLocate(utterance, match.index!, match[0].length);
           const label = `${format} ${mode} ${markup}: ${match[0]}@${match.index}`;
-          if (match.index! < spoken.length) t.is(resolved, undefined, label);
-          else t.is(resolved?.word, match[0], label);
+          if (match.index! >= spoken.length) {
+            t.is(resolved?.word, match[0], label);
+            t.is(resolved?.locate.text?.highlight, match[0], label);
+          } else if (abbreviation) {
+            t.is(resolved?.word, match[0], label);
+            t.is(resolved?.locate.text?.highlight, abbreviation, label);
+          } else t.is(resolved, undefined, label);
         }
       }
     }
@@ -202,5 +228,60 @@ test("a sentence's quote cut out of a longer run of page text carries that run a
     const first = utterances[1].offsets![0].locate.text!;
     t.is(first.highlight, "A", abbreviation);
     t.is(first.before, "A computer system is called a speech synthesizer. ", abbreviation);
+  }
+});
+
+test("an abbreviation's spoken expansion resolves word by word to the abbreviation, including the terminator it keeps", async (t) => {
+  const cases = [
+    { abbreviation: "inline" as const, html: '<p>She joined the <abbr title="World Health Organization">W.H.O.</abbr> Then she left.</p>' },
+    { abbreviation: "after" as const, html: '<p>She joined the <abbr title="World Health Organization">WHO</abbr> and then left.</p>' },
+  ];
+  for (const { abbreviation, html } of cases) {
+    for (const mode of ["structure", "sentence"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, segmentation: { mode }, interruptions: { abbreviation } });
+        const resolved = utterances.flatMap((utterance) => {
+          const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "");
+          return [...text.matchAll(/\S+/g)].map((match) => {
+            const result = resolveBoundaryLocate(utterance, match.index!, match[0].length);
+            return [result?.word, result?.locate.text?.highlight];
+          });
+        });
+        const label = `${abbreviation} ${mode} ${format}`;
+        if (abbreviation === "inline") {
+          t.deepEqual(resolved, [
+            ["She", "She"], ["joined", "joined"], ["the", "the"],
+            ["World", "W.H.O."], ["Health", "W.H.O."], ["Organization.", "W.H.O."],
+            ["Then", "Then"], ["she", "she"], ["left.", "left."],
+          ], label);
+        } else {
+          t.deepEqual(resolved, [
+            ["She", "She"], ["joined", "joined"], ["the", "the"], ["WHO", "WHO"],
+            ["(World", "WHO"], ["Health", "WHO"], ["Organization)", "WHO"],
+            ["and", "and"], ["then", "then"], ["left.", "left."],
+          ], label);
+        }
+      }
+    }
+  }
+});
+
+test("consecutive inline abbreviations' expansions each resolve to their own abbreviation", async (t) => {
+  const html = '<p><abbr title="Lieutenant">Lt.</abbr> <abbr title="Colonel">Col.</abbr> Ward took command of the regiment.</p>';
+  for (const mode of ["structure", "sentence"] as const) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, segmentation: { mode }, interruptions: { abbreviation: "inline" } });
+      const resolved = utterances.flatMap((utterance) => {
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "");
+        return [...text.matchAll(/\S+/g)].map((match) => {
+          const result = resolveBoundaryLocate(utterance, match.index!, match[0].length);
+          return [result?.word, result?.locate.text?.highlight];
+        });
+      });
+      t.deepEqual(resolved, [
+        ["Lieutenant", "Lt."], ["Colonel", "Col."], ["Ward", "Ward"], ["took", "took"],
+        ["command", "command"], ["of", "of"], ["the", "the"], ["regiment.", "regiment."],
+      ], `${mode} ${format}`);
+    }
   }
 });

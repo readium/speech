@@ -903,8 +903,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtterances.length;
   }
 
-  on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    return this.events.on(event, callback);
+  on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void {
+    return this.events.on(event, callback as (event: ReadiumSpeechPlaybackEvent) => void);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
