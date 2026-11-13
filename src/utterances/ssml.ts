@@ -61,26 +61,20 @@ function parseAttrs(source: string): Map<string, string> {
   return attrs;
 }
 
-function parseOrThrow(ssml: string): SsmlNode[] {
-  const root: SsmlNode[] = [];
-  const stack: SsmlElement[] = [];
-  const children = () => (stack.length ? stack[stack.length - 1].children : root);
-  const pushText = (text: string) => {
-    if (!text) return;
-    const siblings = children();
-    const last = siblings[siblings.length - 1];
-    if (last?.kind === "text") last.text += text;
-    else siblings.push({ kind: "text", text });
-  };
+export type SsmlToken =
+  | { kind: "text"; text: string }
+  | { kind: "open"; name: string; attrs: string; selfClosing: boolean; markup: string; start: number; end: number }
+  | { kind: "close"; name: string; markup: string; start: number; end: number };
 
+// Lexes `ssml` into decoded text (CDATA kept raw) and tags, dropping comments, processing instructions and declarations.
+// Nesting isn't checked, so unbalanced fragments lex fine; malformed markup throws.
+export function* ssmlTokens(ssml: string): Generator<SsmlToken> {
   let i = 0;
   while (i < ssml.length) {
     const lt = ssml.indexOf("<", i);
-    if (lt === -1) {
-      pushText(decodeSsmlEntities(ssml.slice(i)));
-      break;
-    }
-    pushText(decodeSsmlEntities(ssml.slice(i, lt)));
+    const textEnd = lt === -1 ? ssml.length : lt;
+    if (textEnd > i) yield { kind: "text", text: decodeSsmlEntities(ssml.slice(i, textEnd)) };
+    if (lt === -1) return;
     const rest = ssml.slice(lt);
     if (rest.startsWith("<!--")) {
       const end = ssml.indexOf("-->", lt + 4);
@@ -89,7 +83,7 @@ function parseOrThrow(ssml: string): SsmlNode[] {
     } else if (rest.startsWith("<![CDATA[")) {
       const end = ssml.indexOf("]]>", lt + 9);
       if (end === -1) throw new Error("unclosed CDATA");
-      pushText(ssml.slice(lt + 9, end));
+      if (end > lt + 9) yield { kind: "text", text: ssml.slice(lt + 9, end) };
       i = end + 3;
     } else if (rest.startsWith("<?")) {
       const end = ssml.indexOf("?>", lt + 2);
@@ -101,28 +95,51 @@ function parseOrThrow(ssml: string): SsmlNode[] {
       i = end + 1;
     } else if (rest.startsWith("</")) {
       const match = CLOSE_TAG_RE.exec(rest);
-      const element = stack.pop();
-      if (!match || element?.name !== match[1]) throw new Error("mismatched closing tag");
+      if (!match) throw new Error("malformed closing tag");
       i = lt + match[0].length;
-      element.closeStart = lt;
-      element.end = i;
+      yield { kind: "close", name: match[1], markup: match[0], start: lt, end: i };
     } else {
       const match = OPEN_TAG_RE.exec(rest);
       if (!match) throw new Error("malformed tag");
+      i = lt + match[0].length;
+      yield { kind: "open", name: match[1], attrs: match[2], selfClosing: match[3] === "/", markup: match[0], start: lt, end: i };
+    }
+  }
+}
+
+function parseOrThrow(ssml: string): SsmlNode[] {
+  const root: SsmlNode[] = [];
+  const stack: SsmlElement[] = [];
+  const children = () => (stack.length ? stack[stack.length - 1].children : root);
+  const pushText = (text: string) => {
+    const siblings = children();
+    const last = siblings[siblings.length - 1];
+    if (last?.kind === "text") last.text += text;
+    else siblings.push({ kind: "text", text });
+  };
+
+  for (const token of ssmlTokens(ssml)) {
+    if (token.kind === "text") {
+      pushText(token.text);
+    } else if (token.kind === "close") {
+      const element = stack.pop();
+      if (element?.name !== token.name) throw new Error("mismatched closing tag");
+      element.closeStart = token.start;
+      element.end = token.end;
+    } else {
       const element: SsmlElement = {
         kind: "element",
-        name: match[1],
-        attrs: parseAttrs(match[2]),
+        name: token.name,
+        attrs: parseAttrs(token.attrs),
         children: [],
-        selfClosing: match[3] === "/",
-        openTag: match[0],
-        start: lt,
-        closeStart: lt + match[0].length,
-        end: lt + match[0].length,
+        selfClosing: token.selfClosing,
+        openTag: token.markup,
+        start: token.start,
+        closeStart: token.end,
+        end: token.end,
       };
       children().push(element);
       if (!element.selfClosing) stack.push(element);
-      i = lt + match[0].length;
     }
   }
   if (stack.length) throw new Error("unclosed element");

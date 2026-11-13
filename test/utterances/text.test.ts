@@ -213,6 +213,12 @@ test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
   t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
 });
 
+test("stripSsmlTagsKeepSpacing reads a > inside a comment, attribute or CDATA as the parser does", (t) => {
+  t.is(stripSsmlTagsKeepSpacing("One,<!-- comment > Phantom, --> Two"), "One, Two");
+  t.is(stripSsmlTagsKeepSpacing('A <say-as interpret-as="x>y">b</say-as> c'), "A b c");
+  t.is(stripSsmlTagsKeepSpacing("A<![CDATA[ x > y ]]> z"), "A x > y  z");
+});
+
 test("hasLangTag finds a lang element in any attribute shape, nested or not", (t) => {
   t.true(hasLangTag("<p>a <lang xml:lang='fr'>b</lang></p>"));
 });

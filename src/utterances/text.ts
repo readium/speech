@@ -13,6 +13,7 @@ import {
   ssmlElements,
   ssmlEntityAt,
   ssmlLeaves,
+  ssmlTokens,
   type SsmlElement,
   type SsmlLeaf,
   type SsmlNode,
@@ -164,15 +165,25 @@ function textAfter(ssml: string, pos: number): string {
 }
 
 // Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
+// Markup that doesn't lex is read as raw text, as `parseSsml()` does.
 export function stripSsmlTagsKeepSpacing(ssml: string): string {
-  let plain = "";
-  let last = 0;
-  for (const tag of ssml.matchAll(/<[^>]+>/g)) {
-    plain += decodeSsmlEntities(ssml.slice(last, tag.index));
-    last = tag.index + tag[0].length;
-    if (separatesWords(tag[0]) && breakSpaced(plain, textAfter(ssml, last))) plain += " ";
+  let tokens;
+  try {
+    tokens = [...ssmlTokens(ssml)];
+  } catch {
+    return ssml;
   }
-  return plain + decodeSsmlEntities(ssml.slice(last));
+  let plain = "";
+  tokens.forEach((token, index) => {
+    if (token.kind === "text") {
+      plain += token.text;
+      return;
+    }
+    if (!separatesWords(token.markup)) return;
+    const next = tokens.slice(index + 1).find((later) => later.kind === "text");
+    if (next?.kind === "text" && breakSpaced(plain, next.text)) plain += " ";
+  });
+  return plain;
 }
 
 // Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
