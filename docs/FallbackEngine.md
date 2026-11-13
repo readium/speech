@@ -37,9 +37,39 @@ navigator.on("enginerecovered", (event) => {
 - `getVoices()`/`createEngine()`: the primary is unreachable before anything even starts (e.g. no speech-server configured, DNS failure). The fallback provider's voices/engine are used instead, immediately.
 - Mid-playback: the primary engine reports a **recoverable** failure — the server never answered at all (network failure) or a `SpeechServerStallError` (see [SpeechServerEngine.md](SpeechServerEngine.md#stall-detection)). A structured error the server actually returned (bad request, unsupported voice, unsupported format, etc.) is **not** recoverable — that's surfaced as a normal `"error"` event instead, since a different engine can't fix a request the server rejected.
 
-On a mid-playback swap, the new engine resumes at the same utterance — immediately, or only once `resume()` is called if the caller paused before the swap finished — with the best matching Web Speech voice for the failed voice's language, gender, and boundary-event support (each falling back to the wider match if none satisfies it — language-only if no matching-gender voice exists, then dropping the boundary requirement if no matching-gender voice also supports/lacks boundary events the same way), and `rate`/`pitch`/`volume` carried over. A `"enginefallback"` event always fires before any playback from the new engine, with `detail: { reason, voice }`.
+On a mid-playback swap, the new engine resumes at the same utterance — immediately, or only once `resume()` is called if the caller paused before the swap finished — with the fallback provider's best matching reachable voice for the language of the voice that failed (the failing utterance's own `voice` when the primary has it, else the engine's), gender, and boundary-event support (each falling back to the wider match if none satisfies it — language-only if no matching-gender voice exists, then dropping the boundary requirement if no matching-gender voice also supports/lacks boundary events the same way), and `rate`/`pitch`/`volume` carried over. A `"enginefallback"` event always fires before any playback from the new engine, with `detail: { reason, voice }`.
+
+A voice is reachable when it has `offlineAvailability`, or any voice once `navigator.onLine` is `true`. On either engine, `getAvailableVoices()` lists only reachable voices, and an utterance's own `voice` the engine lists as unreachable is dropped, so the engine speaks it with its own voice.
 
 With `onFailure: "fallback"` (the default), it only ever falls back once per session — a further failure on the fallback engine itself surfaces as a plain `"error"` event, since there's nothing left to fall back to.
+
+## Custom primary engines
+
+Any `ReadiumSpeechEngineProvider` can be the primary. Before playback, any error its `getVoices()`/`createEngine()` throws falls back. Mid-playback, only an `"error"` event whose `detail` is an `ErrorEventDetail` with `recoverable: true` does:
+
+```ts
+interface ErrorEventDetail {
+  message: string;
+  recoverable: boolean; // true only when the server/API was never reached (network failure, timeout)
+  error?: string;       // the SpeechSynthesisErrorEvent's error code, set by WebSpeechEngine only
+  status?: number;      // RFC 9457 Problem Details, set by SpeechServerEngine only
+  type?: string;
+  title?: string;
+  instance?: string;
+}
+
+isRecoverableFailure(event: ReadiumSpeechPlaybackEvent<"error">): boolean // detail?.recoverable === true
+```
+
+An event without `recoverable` is not recoverable, so it's forwarded as a plain `"error"`.
+
+To be recovered to with `onFailure: "fallbackAndRecover"`, the primary provider implements `isAvailable()`:
+
+```ts
+isAvailable?(): Promise<boolean> // whether it can speak again
+```
+
+`SpeechServerEngineProvider` is available when its server answers, `WebSpeechEngineProvider` when it has a reachable voice. Without `isAvailable()`, the primary is never recovered to.
 
 ## Recovering back to the primary
 
@@ -54,7 +84,7 @@ const provider = new FallbackEngineProvider({
 });
 ```
 
-Every `healthCheckIntervalMs`, the primary provider's `getVoices()` is called as a reachability probe (it naturally re-hits the network on every failed call, since nothing gets cached until it succeeds). Once it succeeds, the swap back only happens once the fallback engine is genuinely not playing — an explicit `pause()` (the swap happens silently; the recovered primary only actually starts once `resume()` is called), or the whole queue finishing. It deliberately does **not** swap between utterances mid-queue: that would mean synthesizing the primary's first chunk fast enough to beat the fallback engine's own (much shorter) time-to-next-utterance, a race that can't be won reliably regardless of `timeoutMs` tuning — so recovery waits for a genuinely safe gap instead. It resumes with `rate`/`pitch`/`volume` carried over and the originally requested voice restored. An `"enginerecovered"` event always fires before any playback from the recovered engine, with `detail: { voice }`.
+Every `healthCheckIntervalMs`, the primary provider's [`isAvailable()`](#custom-primary-engines) is called. Once it returns `true`, the swap back only happens once the fallback engine is genuinely not playing — an explicit `pause()` (the swap happens silently; the recovered primary only actually starts once `resume()` is called), or the whole queue finishing. It deliberately does **not** swap between utterances mid-queue: that would mean synthesizing the primary's first chunk fast enough to beat the fallback engine's own (much shorter) time-to-next-utterance, a race that can't be won reliably regardless of `timeoutMs` tuning — so recovery waits for a genuinely safe gap instead. It resumes with `rate`/`pitch`/`volume` carried over and the originally requested voice restored. An `"enginerecovered"` event always fires before any playback from the recovered engine, with `detail: { voice }`.
 
 Recovering resets fallback state, so the pair can bounce back and forth any number of times across a session (fallback → recover → fallback → recover...) as connectivity comes and goes.
 

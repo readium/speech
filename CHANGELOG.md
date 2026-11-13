@@ -2,6 +2,47 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
+- `builtInSuppressions`, for a custom `segmentation.segmenter` to apply, and `builtInSubstitutions`, which `substitutions` merges over, with its `SubstitutionTable` and `SubstitutionRule` types.
+- `isAvailable()` on `ReadiumSpeechEngineProvider`: whether the provider can speak again, which `onFailure: "fallbackAndRecover"` checks before swapping back to the primary. `SpeechServerEngineProvider` is available when its server answers, `WebSpeechEngineProvider` when it has a voice it can reach (one available offline, or any once `navigator.onLine` is `true`), and `FallbackEngineProvider` when the provider it would use is.
+
+### Changed
+
+- **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
+- **Breaking:** With `onFailure: "fallbackAndRecover"`, `FallbackSpeechEngine` swaps back only to a primary whose provider implements `isAvailable()`, once it returns `true`, instead of once the provider's `getVoices(true)` succeeds.
+- `FallbackSpeechEngine.getAvailableVoices()` lists only the voices it can reach on the primary too, not only once fallen back: offline, those with `offlineAvailability`.
+- `@readium/guided-navigation` is `^1.3.0`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.2`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
+
+### Removed
+
+- **Breaking:** SpeechServer internals are no longer exported: `chunkPlainText`, `chunkSsmlText`, `TextChunk`, `selectFormat`, `selectBitrate`, `mimeTypeForFormat`, `CanPlayType`, `CanPlayTypeResult`, `NetworkInfo`, `mapServerVoice`, `toSpeechServerError`, `SpeechServerProblemDetails`, `SpeechServerVoice`, `SpeechServerServiceInfo`, `SpeechServerSynthesizeRequest`, `SpeechServerSynthesizeBoundaryResponse` and `SpeechServerTimingMark`.
+- **Breaking:** `WebSpeechVoiceManager.getBrowserVoices()` is private: `initialize()` loads the browser's voices.
+
+### Fixed
+
+- A footnote reference read after its sentence or not at all no longer leaves the brackets or quotes around it, empty, in the text: `前（<a role="doc-noteref">1</a>）後` reads "前後", in plain text and SSML. Right after a closing quote, it no longer glues the quote to the next word: `„Wort“<a role="doc-noteref">1</a> dann` reads "„Wort“ dann", or "„Wort“ Note. dann" with `interruptions: { noteref: "inline" }`. Read inline between quotes, the note keeps the source's spacing: `”<a role="doc-noteref">1</a>”` reads "”Note.”", not "” Note.”".
+- With `format: "ssml"`, an utterance's `locate` and `offsets` quote its text without SSML markup, so they match the page: `東京<em>大学</em>` is quoted as "東京大学", not `東京<emphasis>大学</emphasis>`, and its offset spans 4 characters.
+- A table cell read with its header, or a figure or table caption read in its contextualization, has its `offsets` in its own text, like every other offset: "Name: Ada" has `start: 0, end: 3`, not `start: 6, end: 9`.
+- Text split around a footnote reference, page break, abbreviation or language change has its `offsets` in its node's own text too: in `She joined<a role="doc-noteref">1</a> and then left.`, "and then left." has `start: 11, end: 25`, not `start: 0, end: 14`, and in `Hello <span lang="fr">Bonjour</span> world.`, "Bonjour" has `start: 6, end: 13`, not `start: 5, end: 12`, also once split into sentences. An abbreviation's expansion has the abbreviation's: "W.H.O." in "She joined the W.H.O. and then left." has `start: 15, end: 21`.
+- With `interruptions: { abbreviation: "inline" }` or `"after"`, each word of an abbreviation's expansion resolves to the abbreviation in `resolveBoundaryLocate()` and the navigator's `"boundary"` events, instead of to nothing: "Health" in "World Health Organization" highlights "W.H.O.".
+- Text whose SSML holds nothing but text and footnote references or page breaks is no longer lost when the GND gives no `plain` variant alongside it: a table header `Head (<a role="doc-noteref">1</a>)` reads "Head", and contextualizes its cells as "Head: cell".
+- `WebSpeechEngine`'s `"error"` events carry `recoverable`, like every `ErrorEventDetail`: `true` for a `"network"` error, `false` otherwise.
+- `WebSpeechEngine` pauses and resumes in Firefox on Linux, whose speech-dispatcher ignores `pause()`: like on Android, `pause()` cancels the utterance and `resume()` speaks it again from its start.
+- `FallbackSpeechEngine` matches the fallback voice to the voice of the utterance that failed, its own `voice` when the primary has it, instead of to the engine's current voice.
+- `FallbackSpeechEngine` drops an utterance's own `voice` that the active engine can't reach, so the engine speaks it with its own voice instead of failing again: offline, a network voice on the fallback, or on the primary it swapped back to.
+- With `segmentation: { mode: "sentence" }`, an abbreviation ending in a period, e.g. "W.H.O.", no longer ends a sentence before its alias: "The W.H.O. (World Health Organization) said." is one sentence. When its period does end the sentence, the alias stays in it instead of opening the next one, and with `interruptions: { abbreviation: "inline" }` the sentence still ends there.
+- With `interruptions: { abbreviation: "inline" }`, an expansion keeps its abbreviation's final period or other sentence terminator where it ends a sentence, whatever `segmentation`: "She joined the World Health Organization. Then she left." A custom `segmentation.segmenter` is called to tell, outside `"sentence"` mode too.
+- With `interruptions: { abbreviation: "inline" }` or `"after"`, an abbreviation in text written without spaces between words, e.g. Japanese, Chinese or Thai, no longer takes the text around it into its alias: only what's in the same word attaches to it, like the "s" of "APIs", or what a hyphen joins to it, like "non-" in "non-EU".
+- With `interruptions: { abbreviation: "after" }`, text attached to an abbreviation is no longer cut at a combining mark, which put the expansion inside the word: `<abbr>API</abbr>ओं` reads "APIओं (…)", not "APIओ (…)ं".
+- No space is added where inline formatting starts or ends within a word: `<em>two</em>fold` reads "twofold", not "two fold", and `彼女は<em>東京</em>へ` reads "彼女は東京へ"; nor between an abbreviation and text touching it in the source. Only a line break separates the words around it. In SSML, such a word or a line break no longer stops word highlighting in its part of a sentence reconstructed across elements, and with `segmentation: { mode: "sentence" }` a line break between two sentences splits them, as in plain text.
+- A description list's term, like `<dt>`, starts a block: with `segmentation: { mode: "sentence" }` it no longer runs into its definition ("Fresnel lens A compact lens…"), and `autoPause: "block"` pauses before each entry. An inline `<dfn>`, which GND gives the same `term` role, doesn't.
+- `SpeechPreferencesEditor`'s `skip.isEffective` and `contextualize.isEffective` are `false` unless `verbosity` is `"custom"`, the only preset they apply under.
+- Of two duplicate voices whose names the JSON lists in `name` and `altNames`, `WebSpeechVoiceManager` keeps the higher quality one: of "Lana" and "Lana (poboljšani)", the enhanced one.
+
 ## [0.19.0] - 2026-11-04
 
 ### Added

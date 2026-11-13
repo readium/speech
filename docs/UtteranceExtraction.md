@@ -24,7 +24,7 @@ interface ReadiumSpeechUtterance {
   language?: string; // BCP 47
   voice?: string; // never set by extraction, see Playback.md
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
-  offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
+  offsets?: UtteranceOffset[]; // Ranges of each source node's own text, each with that node's locate
 }
 
 interface UtteranceOffset {
@@ -40,7 +40,7 @@ Some roles get a synthesized navigational contextualization spoken around their 
 
 ```typescript
 interface ExtractUtterancesOptions {
-  format: "plain" | "ssml";
+  format?: "plain" | "ssml"; // default "plain"
   skip?: GndRole[];
   contextualize?: GndRole[];
   contextualizationLocale?: string;
@@ -61,6 +61,7 @@ interface ContextualizationOptions {
 
 interface SegmentationOptions {
   mode?: "structure" | "sentence"; // default "structure"
+  reconstruct?: boolean; // default false, sentence mode only
   suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
   segmenter?: SentenceSegmenter; // replaces the built-in Intl.Segmenter-based sentence splitter
 }
@@ -109,7 +110,7 @@ Picks the one field every utterance in the result carries, so a consumer never h
 
 ### `skip`
 
-Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles), minus the roles [`interruptions`](#interruptions) controls, which `skip` ignores.
+Drops a role and its whole subtree — content and announcement both — from the output. The exported [`skippableRoles`](#role-sets) lists the roles meant to be skipped. `skip` ignores the roles [`interruptions`](#interruptions) controls.
 
 A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized.
 
@@ -258,12 +259,16 @@ await extractUtterances(gnd, { format: "plain", language: "always", languageOver
 
 ### `interruptions`
 
-How each role in `interruptionRoles` (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) is read where it interrupts the text: `"never"`, `"inline"` at that exact point, or `"after"` (the default) — after the sentence holding it with `segmentation: { mode: "sentence" }`, after its whole block otherwise. Independent of `skip` and of verbosity presets.
+How each role in [`interruptionRoles`](#role-sets) (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) is read where it interrupts the text: `"never"`, `"inline"` at that exact point, or `"after"` (the default) — after the sentence holding it with `segmentation: { mode: "sentence" }`, after its whole block otherwise. Independent of `skip` and of verbosity presets.
 
-- `noteref`: its footnote. `"never"` drops it.
-- `pagebreak`: its label. `"never"` drops it.
+- `noteref`: its footnote. `"never"` drops it. Read after or never, it takes the brackets or quotes it leaves empty with it: `前（<a role="doc-noteref">1</a>）後` reads "前後", `Text (<a role="doc-noteref">1</a>, <a role="doc-noteref">2</a>) after.` "Text after.".
+- `pagebreak`: its label. `"never"` drops it. A label that's only a page number is read through the catalog's `pagebreak.number` (`"Page {{ number }}"`), contextualized or not. A page number is one of:
+  - a run of digits of any script (`5`, `٥`, `५`), or of letter-number characters (`Ⅻ`);
+  - a Roman numeral, any case (`iv`, `XII`);
+  - CJK numerals (`五`, `十二`) or Ethiopic numerals (`፭`);
+  - letter numerals with their numeral mark: Hebrew geresh or gershayim (`ה׳`, `י״ב`), Greek keraia (`εʹ`), Armenian overline (`Ե̅`), Cyrillic titlo (`е҃`). Without the mark, they can't be told apart from words.
 - `biblioref`/`glossref`: the bibliography entry or definition they embed; their own text is always read in place. With `"after"`, a definition is read as "term: definition" (catalog's `glossref.term`). With them in `contextualize`, "Bibliographic reference." or "Glossary definition." is read before the entry or definition.
-- `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only.
+- `abbreviation`: its `<sub alias>` expansion, in parentheses after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only. Text in the same word, combining marks included, goes with the abbreviation: with `"inline"`, `<abbr>API</abbr>s` reads "application programming interfaces", `non-<abbr>EU</abbr>` "non-European Union"; with `"after"`, `<abbr>API</abbr>ओं` reads "APIओं (…)". Where it meets a script written without spaces, e.g. Japanese or Thai, nothing attaches: `บริษัท<abbr>ABC</abbr>จำกัด` reads "บริษัทABC (…) จำกัด". With `"inline"`, the expansion keeps a period or other terminator of the abbreviation that ends the sentence. A table `cell` or `rowheader` reads its abbreviations as written, whatever this setting.
 
 ```typescript
 // <p>The <abbr title="World Health Organization">WHO</abbr> said.</p>
@@ -316,7 +321,7 @@ await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence"
 // [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
 ```
 
-Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a [block-level role](../src/utterances/roles.ts) (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
+Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a role in the exported [`blockLevelRoles`](#role-sets) (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
 
 ```typescript
 // <p>This sentence continues</p><p>across two paragraphs.</p>
@@ -339,13 +344,23 @@ await extractUtterances(gnd, {
 
 #### `segmenter`
 
-The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own abbreviation-suppression pass on top (`suppressions` above, merged with [`builtInSuppressions`](../src/utterances/builtInSuppressions.ts)). Risks worth knowing before relying on it:
+The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own corrections on top:
+
+- **Abbreviations.** A sentence ending in one of `suppressions`, merged with the exported `builtInSuppressions`, joins the next. It must end at a token boundary, after whitespace or an opening bracket or quote: `"See (Mr. Smith) here."` stays whole, and a suppression `"rd."` never matches inside `"Word."`.
+- **Abbreviation expansions.** Sentences are found on an abbreviation as written, not on its `"inline"` expansion, which is never split: `She joined the <abbr>W.H.O.</abbr> Then she left.` → `"She joined the World Health Organization."`, `"Then she left."`, where `"never"` breaks too.
+- **Short markers.** A sentence with fewer than 2 letters, such as a `"1."` list marker, joins the next.
+- **Literal ellipsis.** `"..."` is a continuation, like `"…"`: `"Wait... Then it came."` stays whole.
+- **Glued opening quotes.** An opening `“`, or an unmatched `"`, glued to the end of a sentence moves to the next one: `"He said.“Next one.”"` → `"He said."`, `"“Next one.”"`.
+- **Em dash attributions.** After `.`/`!`/`?` and an optional closing quote or bracket, ` — ` before a capital letter splits the attribution off: `"A quote. — Author"` → `"A quote. —"`, `"Author"`. An em dash without that punctuation before it is left alone.
+- **Closing guillemets.** A `»` split off after the terminator moves back to the previous sentence while a `«` is still open: `"« Il n’y a rien ! Vraiment rien ! » Elle se tut."` → `"« Il n’y a rien !"`, `"Vraiment rien ! »"`, `"Elle se tut."`. The same goes for `«` in German-style `»…«` quotes, and for `›`/`‹`.
+
+Risks worth knowing before relying on it:
 
 - **ICU data availability.** `Intl.Segmenter`'s sentence-break behavior depends on the JS engine's bundled ICU/CLDR data. Runtimes that ship reduced ICU (some mobile WebViews, some server builds configured with `small-icu`) can produce different — sometimes worse — boundaries than a desktop browser, with no error raised.
 - **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
 - **No built-in abbreviation handling.** `Intl.Segmenter` has no concept of "d." or "Mr." not ending a sentence; every such case is caught only by `suppressions`/`builtInSuppressions`, a fixed list rather than real disambiguation — an abbreviation missing from both lists still gets split on.
 
-Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode:
+Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode, and in any mode for telling whether an `"inline"` abbreviation's final terminator ends a sentence:
 
 ```typescript
 interface SentenceBoundary {
@@ -371,7 +386,14 @@ const mySegmenter: SentenceSegmenter = async (language, text, customSuppressions
 await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", segmenter: mySegmenter } });
 ```
 
-A supplied `segmenter` fully replaces the built-in one — it's handed the same per-language `suppressions` (as its own `customSuppressions` argument) but owns deciding what to do with them; `builtInSuppressions` is not merged in automatically, since that list exists specifically to patch `Intl.Segmenter`'s gaps.
+A supplied `segmenter` fully replaces the built-in one — it's handed the same per-language `suppressions` (as its own `customSuppressions` argument) but owns deciding what to do with them; `builtInSuppressions` is not merged in automatically, since that list exists specifically to patch `Intl.Segmenter`'s gaps. It's keyed by primary subtag, while `language` is the utterance's full tag:
+
+```typescript
+const mySegmenter: SentenceSegmenter = async (language, text, customSuppressions = []) => {
+  const suppressions = [...(builtInSuppressions[new Intl.Locale(language).language] ?? []), ...customSuppressions];
+  return mySentenceLibrary.segment(text, { locale: language, suppressions });
+};
+```
 
 #### Reconstruction heuristics
 
@@ -396,7 +418,7 @@ Anything left outside a merge group is split on its own sentence boundaries inde
 
 ### `substitutions`
 
-Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of [`builtInSubstitutions`](../src/utterances/builtInSubstitutions.ts) — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
+Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of the exported `builtInSubstitutions` — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
 
 ```typescript
 // <p>See page 5, fig. 2.</p>
@@ -405,6 +427,11 @@ await extractUtterances(gnd, { format: "plain", substitutions: { "fig.": "figure
 ```
 
 A rule value is either a plain string, matched as a whole token (like `"fig."` above), or `{ pattern, replace }` for a match that needs its own regex:
+
+```typescript
+type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+type SubstitutionTable = Record<string, SubstitutionRule>;
+```
 
 ```typescript
 // <p>See p.5 for details.</p>
@@ -416,6 +443,25 @@ await extractUtterances(gnd, {
 ```
 
 Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
+
+## Descriptions
+
+A node's `description` (alt text, an ARIA name, a caption) is spoken as its own utterance, in the language it's declared in, like content: the content's when undeclared, `languageOverrides` applied.
+
+- **After the content**, before a block role's `end` announcement, for every role but `table`.
+- **Before the rows** for `table`, since its description is its caption.
+- **Folded into the announcement** instead, through `{{ description }}`, when the node is contextualized as `audio`, `video`, `image`, `figure`, `math`, `table` or `cover`: "Table: Team roster. 3 lines. 2 columns." It's then not spoken separately.
+
+`math` never speaks its own text, since math markup can't be voiced reliably: only its description, or "Math formula with no label." when contextualized without one. A `figure` without a description is never announced, even when contextualized; its content still plays.
+
+## Joining text
+
+Text from several elements, announcements or descriptions merged into one utterance keeps the source's spacing. Where the source doesn't tell, a space is added between them, unless one is already there, or:
+
+- the text after starts with closing punctuation, a closing quote or `.,;:!?` (CJK and Arabic forms included), or the text before ends with an opening bracket or quote, `¿` or `¡`;
+- both sides are in a script written without spaces (Han, Hiragana, Katakana, Thai, Lao, Khmer, Myanmar), CJK punctuation or fullwidth forms: `彼女は<em>東京</em>へ` reads "彼女は東京へ".
+
+A lone punctuation mark repeating the one the text before ends with is dropped.
 
 ## Contextualization catalog
 
@@ -453,7 +499,7 @@ A role can have either one or both. `table` has both — see [`contextualization
 A catalog value can be a plain string, or a small object of named variants — `labelled`/`unlabelled`, `withHeader`/`withoutHeader` — that the extractor picks between based on the node:
 
 - `audio`/`video`/`image`/`math`/`table` (and any other role with a `description`) pick `labelled` when the node has one, `unlabelled` otherwise.
-- `cell`/`rowheader` pick `withHeader` when a column header was found for that cell, `withoutHeader` otherwise.
+- `cell`/`rowheader` pick `withHeader` when a column header was found for that cell, `withoutHeader` otherwise. A row with a `columnheader` is the header row for the rows after it, until the next one. A cell's header is the text of the header row's cell at the same position, if not empty. GND has no colspan/rowspan, so a spanning cell shifts every cell after it in its row onto the wrong header. Cells before the first header row have none.
 
 ### `parts`
 
@@ -464,15 +510,39 @@ Pluralizable fragments a role's own wording references as tokens (`{{ lines }}`)
 Each placeholder below is filled in automatically — no `contextualization.params` needed:
 
 - `{{ description }}` — for any node with a `description`, whatever its role.
-- `{{ lines }}` / `{{ columns }}` — `table`'s own row/column counts.
+- `{{ lines }}` / `{{ columns }}` — `table`'s row count, header rows included, and its widest row's cell count.
 - `{{ count }}` — a `row`'s 1-based position.
-- `{{ header }}` / `{{ value }}` — a `cell`/`rowheader`'s column-header text and content. GND carries no colspan/rowspan, so a cell's header is matched by position, not by explicit association.
+- `{{ header }}` / `{{ value }}` — a `cell`/`rowheader`'s column-header text and content, the header matched by position (see [Variants](#variants)).
 
 Any other placeholder — one not in this list, or on a role of your own — needs a [`contextualization.params`](#contextualizationparams) entry.
 
 ### Implicit accessible names
 
 A `<table>`/`<figure>` with no explicit ARIA name (`aria-label`/`aria-labelledby`) but a `<caption>`/`<figcaption>`/`role="caption"` child folds that child's text into its own `description`, instead of speaking it as a separate node — matching HTML-AAM's implicit accessible name computation.
+
+## Role sets
+
+Generated by `npm run generate-role-sets`.
+
+`skippableRoles`, the roles meant to be skipped (see [`skip`](#skip)):
+
+<!-- generated:skippableRoles -->
+`aside`, `audio`, `bibliography`, `cell`, `columnheader`, `details`, `endnotes`, `figure`, `footnote`, `glossary`, `image`, `landmarks`, `loa`, `loi`, `lot`, `lov`, `pullquote`, `row`, `rowheader`, `table`, `toc`, `video`
+<!-- /generated:skippableRoles -->
+
+`interruptionRoles`, the roles [`interruptions`](#interruptions) places:
+
+<!-- generated:interruptionRoles -->
+`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`
+<!-- /generated:interruptionRoles -->
+
+`blockLevelRoles`, the roles that start a block, for [`segmentation`](#segmentation) and `autoPause: "block"` (see [Preferences](Preferences.md#prosody)):
+
+<!-- generated:blockLevelRoles -->
+`abstract`, `acknowledgments`, `afterword`, `appendix`, `article`, `aside`, `audio`, `bibliography`, `blockquote`, `cell`, `chapter`, `colophon`, `columnheader`, `conclusion`, `dedication`, `endnotes`, `epigraph`, `epilogue`, `errata`, `example`, `figure`, `footnote`, `foreword`, `glossary`, `heading1`, `heading2`, `heading3`, `heading4`, `heading5`, `heading6`, `image`, `index`, `introduction`, `list`, `listItem`, `math`, `notice`, `paragraph`, `part`, `preface`, `preformatted`, `prologue`, `pullquote`, `qna`, `row`, `rowheader`, `section`, `summary`, `table`, `tip`, `video`
+<!-- /generated:blockLevelRoles -->
+
+A `term` followed by a `definition` among its siblings, like `<dt>`, also starts a block; an inline `<dfn>`, also a `term`, doesn't.
 
 ## Fixtures
 

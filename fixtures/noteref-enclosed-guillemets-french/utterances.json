@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici.",
+          "plain": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -22,7 +22,7 @@
           "plain": "Note."
         },
         {
-          "plain": "Il dit « bonjour» et part.",
+          "plain": "Il dit « bonjour » et part.",
           "language": "fr"
         },
         {
@@ -3995,7 +3995,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici.",
+          "plain": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -4003,7 +4003,7 @@
           "language": "fr"
         },
         {
-          "plain": "Il dit « bonjour» et part.",
+          "plain": "Il dit « bonjour » et part.",
           "language": "fr"
         }
       ]
@@ -4445,7 +4445,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «Note.» ici.",
+          "plain": "Le mot « Note. » ici.",
           "language": "fr"
         },
         {
@@ -4453,7 +4453,7 @@
           "language": "fr"
         },
         {
-          "plain": "Il dit « bonjour Note.» et part.",
+          "plain": "Il dit « bonjour Note. » et part.",
           "language": "fr"
         }
       ]
@@ -4575,7 +4575,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici."
+          "plain": "Le mot ici."
         },
         {
           "plain": "Note."
@@ -4587,7 +4587,7 @@
           "plain": "Note."
         },
         {
-          "plain": "Il dit « bonjour» et part."
+          "plain": "Il dit « bonjour » et part."
         },
         {
           "plain": "Note."
@@ -5951,13 +5951,13 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici."
+          "plain": "Le mot ici."
         },
         {
           "plain": "Il dit « bonjour » « suite »."
         },
         {
-          "plain": "Il dit « bonjour» et part."
+          "plain": "Il dit « bonjour » et part."
         }
       ]
     },
@@ -6114,13 +6114,13 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «Note.» ici."
+          "plain": "Le mot « Note. » ici."
         },
         {
           "plain": "Il dit « bonjour » Note. « suite »."
         },
         {
-          "plain": "Il dit « bonjour Note.» et part."
+          "plain": "Il dit « bonjour Note. » et part."
         }
       ]
     },
@@ -6525,7 +6525,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici.",
+          "plain": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -6541,7 +6541,7 @@
           "language": "en"
         },
         {
-          "plain": "Il dit « bonjour» et part.",
+          "plain": "Il dit « bonjour » et part.",
           "language": "fr"
         },
         {
@@ -7237,7 +7237,7 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «» ici."
+          "plain": "Le mot ici."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7249,7 +7249,7 @@
           "plain": "Start of the footnote. Note. End of the footnote."
         },
         {
-          "plain": "Il dit « bonjour» et part."
+          "plain": "Il dit « bonjour » et part."
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote."
@@ -7433,13 +7433,13 @@
       ],
       "utterances": [
         {
-          "plain": "Le mot «Start of the footnote. Note. End of the footnote.» ici."
+          "plain": "Le mot « Start of the footnote. Note. End of the footnote. » ici."
         },
         {
           "plain": "Il dit « bonjour » Start of the footnote. Note. End of the footnote. « suite »."
         },
         {
-          "plain": "Il dit « bonjour Start of the footnote. Note. End of the footnote.» et part."
+          "plain": "Il dit « bonjour Start of the footnote. Note. End of the footnote. » et part."
         }
       ]
     },
@@ -7451,7 +7451,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici.",
+          "ssml": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -7465,7 +7465,7 @@
           "ssml": "Note."
         },
         {
-          "ssml": "Il dit « bonjour» et part.",
+          "ssml": "Il dit « bonjour » et part.",
           "language": "fr"
         },
         {
@@ -11438,7 +11438,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici.",
+          "ssml": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -11446,7 +11446,7 @@
           "language": "fr"
         },
         {
-          "ssml": "Il dit « bonjour» et part.",
+          "ssml": "Il dit « bonjour » et part.",
           "language": "fr"
         }
       ]
@@ -11888,7 +11888,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «Note.» ici.",
+          "ssml": "Le mot « Note. » ici.",
           "language": "fr"
         },
         {
@@ -11896,7 +11896,7 @@
           "language": "fr"
         },
         {
-          "ssml": "Il dit « bonjour Note.» et part.",
+          "ssml": "Il dit « bonjour Note. » et part.",
           "language": "fr"
         }
       ]
@@ -12018,7 +12018,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici."
+          "ssml": "Le mot ici."
         },
         {
           "ssml": "Note."
@@ -12030,7 +12030,7 @@
           "ssml": "Note."
         },
         {
-          "ssml": "Il dit « bonjour» et part."
+          "ssml": "Il dit « bonjour » et part."
         },
         {
           "ssml": "Note."
@@ -13394,13 +13394,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici."
+          "ssml": "Le mot ici."
         },
         {
           "ssml": "Il dit « bonjour » « suite »."
         },
         {
-          "ssml": "Il dit « bonjour» et part."
+          "ssml": "Il dit « bonjour » et part."
         }
       ]
     },
@@ -13557,13 +13557,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «Note.» ici."
+          "ssml": "Le mot « Note. » ici."
         },
         {
           "ssml": "Il dit « bonjour » Note. « suite »."
         },
         {
-          "ssml": "Il dit « bonjour Note.» et part."
+          "ssml": "Il dit « bonjour Note. » et part."
         }
       ]
     },
@@ -13968,7 +13968,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici.",
+          "ssml": "Le mot ici.",
           "language": "fr"
         },
         {
@@ -13984,7 +13984,7 @@
           "language": "en"
         },
         {
-          "ssml": "Il dit « bonjour» et part.",
+          "ssml": "Il dit « bonjour » et part.",
           "language": "fr"
         },
         {
@@ -14502,7 +14502,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot « <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>» ici.",
+          "ssml": "Le mot « <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang> » ici.",
           "language": "fr"
         },
         {
@@ -14510,7 +14510,7 @@
           "language": "fr"
         },
         {
-          "ssml": "Il dit « bonjour <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang>» et part.",
+          "ssml": "Il dit « bonjour <lang xml:lang=\"en\">Start of the footnote. Note. End of the footnote.</lang> » et part.",
           "language": "fr"
         }
       ]
@@ -14656,7 +14656,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «» ici."
+          "ssml": "Le mot ici."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -14668,7 +14668,7 @@
           "ssml": "Start of the footnote. Note. End of the footnote."
         },
         {
-          "ssml": "Il dit « bonjour» et part."
+          "ssml": "Il dit « bonjour » et part."
         },
         {
           "ssml": "Start of the footnote. Note. End of the footnote."
@@ -14852,13 +14852,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Le mot «Start of the footnote. Note. End of the footnote.» ici."
+          "ssml": "Le mot « Start of the footnote. Note. End of the footnote. » ici."
         },
         {
           "ssml": "Il dit « bonjour » Start of the footnote. Note. End of the footnote. « suite »."
         },
         {
-          "ssml": "Il dit « bonjour Start of the footnote. Note. End of the footnote.» et part."
+          "ssml": "Il dit « bonjour Start of the footnote. Note. End of the footnote. » et part."
         }
       ]
     }
