@@ -3,7 +3,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
-import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
+import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
   hasLangTag,
@@ -58,7 +58,7 @@ function interruptionOf(roles: GndRole[], ctx: WalkContext): Interruption | unde
 
 // A bare page-number label is always spoken as "Page N", contextualized or not.
 function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
-  const resolved = resolveNodeText(node.text);
+  const resolved = resolveNodeText(nodeText(node.text));
   if (!resolved) return [];
   const label = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   if (isPageNumber(label)) {
@@ -210,7 +210,7 @@ function emitWithPlaceholders(
   suppress: boolean,
   isBlockRole: boolean,
 ): Deferred[] {
-  const declaredLanguage = node.text?.language;
+  const declaredLanguage = nodeText(node.text)?.language;
   const language = languageFor(declaredLanguage, ctx);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
