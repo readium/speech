@@ -1,17 +1,26 @@
 import { ssmlAttrEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
-import { decodeSsmlEntities } from "./ssml.js";
+import {
+  decodeSsmlEntities,
+  langElementLanguage,
+  parseSsml,
+  serializeSsml,
+  setSsmlAttribute,
+  ssmlElements,
+  unwrapSsmlElements,
+  type SsmlElement,
+} from "./ssml.js";
 import type { WalkContext } from "./walkContext.js";
 
 // Removes `<lang xml:lang="...">...</lang>` wrapping from an SSML string,
 // keeping the inner text merged into the surrounding flow — for the
 // `language: "block-level"` (the default) and `"none"` extraction options, which
 // ignore a node's own inline language spans (only `"always"` honors them).
-const LANG_TAG_RE = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
-
 export function stripLangTags(ssml: string): string {
-  return ssml.replace(LANG_TAG_RE, "$1");
+  const nodes = parseSsml(ssml);
+  const isLang = (element: SsmlElement) => langElementLanguage(element) !== undefined;
+  return [...ssmlElements(nodes)].some(isLang) ? serializeSsml(unwrapSsmlElements(nodes, isLang)) : ssml;
 }
 
 // The language content declared in `language` is spoken in, per `languageOverrides`.
@@ -114,8 +123,14 @@ export function languageRuns(pieces: ReadiumSpeechUtterance[], ctx: WalkContext)
 }
 
 export function overrideLangTags(ssml: string, languageOverrides: Record<string, string>): string {
-  return ssml.replace(/<lang xml:lang="([^"]*)">/g, (tag, language: string) => {
+  const nodes = parseSsml(ssml);
+  let changed = false;
+  for (const element of ssmlElements(nodes)) {
+    const language = langElementLanguage(element);
     const overridden = overriddenLanguage(language, languageOverrides);
-    return overridden === language ? tag : `<lang xml:lang="${overridden}">`;
-  });
+    if (overridden === undefined || overridden === language) continue;
+    setSsmlAttribute(element, "xml:lang", overridden);
+    changed = true;
+  }
+  return changed ? serializeSsml(nodes) : ssml;
 }

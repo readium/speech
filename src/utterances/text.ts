@@ -1,7 +1,17 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import { DROPPED, removeDropped } from "@readium/guided-navigation";
-import { commonAncestors, decodeSsmlEntities, parseSsml, SsmlWriter, ssmlEntityAt, ssmlLeaves, type SsmlElement } from "./ssml.js";
+import {
+  commonAncestors,
+  decodeSsmlEntities,
+  langElementLanguage,
+  parseSsml,
+  SsmlWriter,
+  ssmlElements,
+  ssmlEntityAt,
+  ssmlLeaves,
+  type SsmlElement,
+} from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
 import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
@@ -389,13 +399,8 @@ export interface LangSegment {
   language?: string;
 }
 
-// Matches a raw (pre-`stripLangTags`) `<lang xml:lang="...">...</lang>` span
-// — the same wrapping `stripLangTags` unwraps, but captured here (with its
-// `xml:lang`) for splitting the surrounding text apart instead of merging it.
-const RAW_LANG_TAG_RE = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
-
 export function hasLangTag(ssml: string): boolean {
-  return new RegExp(RAW_LANG_TAG_RE).test(ssml);
+  return [...ssmlElements(parseSsml(ssml))].some((element) => langElementLanguage(element) !== undefined);
 }
 
 // Same as `stripSsmlTags`, minus the final trim.
@@ -467,7 +472,7 @@ function peelLeadingClose(tokens: Token[]): Token[] {
  * separated by nothing or only whitespace — joins the tagged run rather
  * than staying with its lexical run: close-punct after `</lang>` joins the
  * run that just closed, open-punct before `<lang>` joins the run about to
- * start.
+ * start. Text in nested `<lang>` elements takes the innermost one's language.
  */
 export function splitOnLangTags(ssml: string, baseLanguage: string | undefined): LangSegment[] {
   interface Run {
@@ -475,23 +480,23 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
     language: string | undefined;
     tagged: boolean;
   }
-  const runs: Run[] = [];
-
-  let lastIndex = 0;
-  for (const match of ssml.matchAll(RAW_LANG_TAG_RE)) {
-    runs.push({
-      tokens: tokenize(stripSsmlTagsKeepEdges(ssml.slice(lastIndex, match.index))),
-      language: baseLanguage,
-      tagged: false,
-    });
-    runs.push({ tokens: tokenize(stripSsmlTags(match[2])), language: match[1], tagged: true });
-    lastIndex = match.index! + match[0].length;
+  // Consecutive leaves under the same innermost `<lang>` (or none), written without that `<lang>` and its ancestors.
+  const groups: { lang?: SsmlElement; writer: SsmlWriter }[] = [];
+  for (const { node, ancestors } of ssmlLeaves(parseSsml(ssml))) {
+    let langDepth = ancestors.length - 1;
+    while (langDepth >= 0 && langElementLanguage(ancestors[langDepth]) === undefined) langDepth--;
+    const lang = langDepth === -1 ? undefined : ancestors[langDepth];
+    if (groups.length === 0 || groups[groups.length - 1].lang !== lang) groups.push({ lang, writer: new SsmlWriter() });
+    const { writer } = groups[groups.length - 1];
+    const chain = ancestors.slice(langDepth + 1);
+    if (node.kind === "text") writer.text(chain, node.text);
+    else writer.node(chain, node);
   }
-  runs.push({
-    tokens: tokenize(stripSsmlTagsKeepEdges(ssml.slice(lastIndex))),
-    language: baseLanguage,
-    tagged: false,
-  });
+  const runs: Run[] = groups.map(({ lang, writer }) =>
+    lang
+      ? { tokens: tokenize(stripSsmlTags(writer.flush())), language: langElementLanguage(lang), tagged: true }
+      : { tokens: tokenize(stripSsmlTagsKeepEdges(writer.flush())), language: baseLanguage, tagged: false },
+  );
 
   for (let i = 0; i < runs.length - 1; i++) {
     if (!runs[i].tagged && runs[i + 1].tagged) {

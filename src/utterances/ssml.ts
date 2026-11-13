@@ -1,4 +1,4 @@
-import { ssmlTextEscape } from "@readium/helpers";
+import { ssmlAttrEscape, ssmlTextEscape } from "@readium/helpers";
 
 export interface SsmlElement {
   kind: "element";
@@ -175,6 +175,35 @@ export class SsmlWriter {
     this.out = "";
     return out;
   }
+}
+
+// The language a `<lang>` element declares, `undefined` for any other element.
+export function langElementLanguage(element: SsmlElement): string | undefined {
+  return element.name === "lang" ? element.attrs.get("xml:lang") : undefined;
+}
+
+// Every element of `nodes`, in document order.
+export function* ssmlElements(nodes: SsmlNode[]): Generator<SsmlElement> {
+  for (const node of nodes) {
+    if (node.kind !== "element") continue;
+    yield node;
+    yield* ssmlElements(node.children);
+  }
+}
+
+export function setSsmlAttribute(element: SsmlElement, name: string, value: string): void {
+  element.attrs.set(name, value);
+  const attrs = [...element.attrs].map(([key, attrValue]) => ` ${key}="${ssmlAttrEscape(attrValue)}"`).join("");
+  element.openTag = `<${element.name}${attrs}${element.selfClosing ? "/" : ""}>`;
+}
+
+// `nodes` with each element matching `unwrap` replaced by its children.
+export function unwrapSsmlElements(nodes: SsmlNode[], unwrap: (element: SsmlElement) => boolean): SsmlNode[] {
+  return nodes.flatMap((node) => {
+    if (node.kind === "text") return [node];
+    const children = unwrapSsmlElements(node.children, unwrap);
+    return unwrap(node) ? children : [{ ...node, children }];
+  });
 }
 
 // Every text node and childless element of `nodes`, in document order.

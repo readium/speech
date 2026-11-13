@@ -1,5 +1,7 @@
 import test from "ava";
 import {
+  hasLangTag,
+  splitOnLangTags,
   ssmlIndexToPlainIndex,
   stripSsmlTags,
   stripSsmlTagsKeepSpacing,
@@ -204,4 +206,32 @@ test("stripSsmlTags decodes an escaped angle bracket as text, not as a tag", (t)
 
 test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {
   t.is(stripSsmlTagsKeepSpacing(" a  &amp; b "), " a  & b ");
+});
+
+test("hasLangTag finds a lang element in any attribute shape, nested or not", (t) => {
+  t.true(hasLangTag("<p>a <lang xml:lang='fr'>b</lang></p>"));
+  t.false(hasLangTag("<p xml:lang=\"fr\">a</p>"));
+});
+
+test("splitOnLangTags reads a single-quoted xml:lang", (t) => {
+  t.deepEqual(splitOnLangTags("<lang xml:lang='fr'>bonjour</lang> hi", "en"), [
+    { plain: "bonjour", language: "fr" },
+    { plain: "hi", language: "en" },
+  ]);
+});
+
+test("splitOnLangTags gives text in nested lang elements the innermost one's language", (t) => {
+  t.deepEqual(splitOnLangTags('<lang xml:lang="fr">a <lang xml:lang="de">b</lang> c</lang> d', "en"), [
+    { plain: "a", language: "fr" },
+    { plain: "b", language: "de" },
+    { plain: "c", language: "fr" },
+    { plain: "d", language: "en" },
+  ]);
+});
+
+test("splitOnLangTags keeps punctuation touching a lang element nested in another element with that element", (t) => {
+  t.deepEqual(splitOnLangTags('<p>He said « <emphasis><lang xml:lang="fr">oui</lang></emphasis> ».</p>', "en"), [
+    { plain: "He said", language: "en" },
+    { plain: "« oui ».", language: "fr" },
+  ]);
 });
