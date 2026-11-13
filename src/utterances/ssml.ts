@@ -28,14 +28,27 @@ const ATTR_RE = new RegExp(`(${NAME})\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, "g");
 const OPEN_TAG_RE = new RegExp(`^<(${NAME})((?:\\s+${NAME}\\s*=\\s*(?:"[^"]*"|'[^']*'))*)\\s*(/?)>`);
 const CLOSE_TAG_RE = new RegExp(`^</(${NAME})\\s*>`);
 
-const NAMED_ENTITIES: Record<string, string> = { lt: "<", gt: ">", amp: "&", quot: '"', apos: "'" };
+// `nbsp` isn't an XML entity, but HTML-minded producers write it; left undecoded it would be read aloud.
+const NAMED_ENTITIES: Record<string, string> = { lt: "<", gt: ">", amp: "&", quot: '"', apos: "'", nbsp: " " };
+
+export const SSML_ENTITY_RE = /&(?:#x([0-9a-fA-F]+)|#([0-9]+)|(lt|gt|amp|quot|apos|nbsp));/g;
+
+function decodeEntity(match: string, hex?: string, dec?: string, named?: string): string {
+  if (named) return NAMED_ENTITIES[named];
+  const code = hex ? parseInt(hex, 16) : parseInt(dec!, 10);
+  return code <= 0x10ffff ? String.fromCodePoint(code) : match;
+}
 
 export function decodeSsmlEntities(text: string): string {
-  return text.replace(/&(?:#x([0-9a-fA-F]+)|#([0-9]+)|(lt|gt|amp|quot|apos));/g, (match, hex, dec, named) => {
-    if (named) return NAMED_ENTITIES[named];
-    const code = hex ? parseInt(hex, 16) : parseInt(dec, 10);
-    return code <= 0x10ffff ? String.fromCodePoint(code) : match;
-  });
+  return text.replace(SSML_ENTITY_RE, decodeEntity);
+}
+
+// The entity starting at `index` in `text` and what it decodes to, if there's one there.
+export function ssmlEntityAt(text: string, index: number): { length: number; decoded: string } | undefined {
+  const re = new RegExp(SSML_ENTITY_RE.source, "y");
+  re.lastIndex = index;
+  const match = re.exec(text);
+  return match ? { length: match[0].length, decoded: decodeEntity(match[0], match[1], match[2], match[3]) } : undefined;
 }
 
 function parseAttrs(source: string): Map<string, string> {

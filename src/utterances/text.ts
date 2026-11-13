@@ -1,7 +1,7 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import { DROPPED, removeDropped } from "@readium/guided-navigation";
-import { commonAncestors, parseSsml, SsmlWriter, ssmlLeaves, type SsmlElement } from "./ssml.js";
+import { commonAncestors, decodeSsmlEntities, parseSsml, SsmlWriter, ssmlEntityAt, ssmlLeaves, type SsmlElement } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
 import { joinsWithoutSpace, meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
@@ -108,7 +108,7 @@ const NEXT_TEXT_RE = /(?:<[^>]*>)*([^<]*)/y;
 // The text right after `pos` in `ssml`, past any tags there.
 function textAfter(ssml: string, pos: number): string {
   NEXT_TEXT_RE.lastIndex = pos;
-  return unescapeSsmlEntities(NEXT_TEXT_RE.exec(ssml)![1]);
+  return decodeSsmlEntities(NEXT_TEXT_RE.exec(ssml)![1]);
 }
 
 // Strips tags and unescapes entities, a word-separating tag read as a space, without collapsing or trimming other whitespace.
@@ -116,11 +116,11 @@ export function stripSsmlTagsKeepSpacing(ssml: string): string {
   let plain = "";
   let last = 0;
   for (const tag of ssml.matchAll(/<[^>]+>/g)) {
-    plain += unescapeSsmlEntities(ssml.slice(last, tag.index));
+    plain += decodeSsmlEntities(ssml.slice(last, tag.index));
     last = tag.index + tag[0].length;
     if (separatesWords(tag[0]) && breakSpaced(plain, textAfter(ssml, last))) plain += " ";
   }
-  return plain + unescapeSsmlEntities(ssml.slice(last));
+  return plain + decodeSsmlEntities(ssml.slice(last));
 }
 
 // Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
@@ -143,11 +143,11 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
       }
       continue;
     }
-    const entity = ssml.startsWith("&lt;", i) ? "<" : ssml.startsWith("&gt;", i) ? ">" : ssml.startsWith("&amp;", i) ? "&" : undefined;
+    const entity = ch === "&" ? ssmlEntityAt(ssml, i) : undefined;
     if (entity) {
-      plain += entity;
-      map.push(i);
-      i += entity === "&" ? 5 : 4;
+      plain += entity.decoded;
+      for (let k = 0; k < entity.decoded.length; k++) map.push(i);
+      i += entity.length;
       lastWasSpace = false;
       continue;
     }
@@ -303,19 +303,15 @@ export interface SsmlTextAtom {
 
 const SSML_TEXT_TOKEN_RE = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
 
-export function unescapeSsmlEntities(text: string): string {
-  return text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
-}
-
 export function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[] {
   const atoms: SsmlTextAtom[] = [];
   for (const match of ssml.matchAll(SSML_TEXT_TOKEN_RE)) {
     if (match[1] !== undefined) {
-      atoms.push({ kind: "paired", raw: match[0], tag: match[1], attrs: match[2], innerText: unescapeSsmlEntities(match[3]) });
+      atoms.push({ kind: "paired", raw: match[0], tag: match[1], attrs: match[2], innerText: decodeSsmlEntities(match[3]) });
     } else if (match[0][0] === "<") {
       atoms.push({ kind: "selfClosing", raw: match[0] });
     } else {
-      atoms.push({ kind: "text", raw: match[0], text: unescapeSsmlEntities(match[0]) });
+      atoms.push({ kind: "text", raw: match[0], text: decodeSsmlEntities(match[0]) });
     }
   }
   return atoms;
@@ -596,10 +592,6 @@ function attachedBefore(candidate: string, word: string): string {
   return candidate.slice(Math.min(candidate.length, index));
 }
 
-function unescapeSsmlAttr(value: string): string {
-  return unescapeSsmlEntities(value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
-}
-
 export function hasPlaceholder(ssml: string): boolean {
   return new RegExp(PLACEHOLDER_OR_ABBREVIATION_RE).test(ssml);
 }
@@ -693,7 +685,7 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const end = match.index! + match[0].length;
     const following = ssml.slice(end, matches[k + 1]?.index ?? ssml.length);
     // Text attached to an abbreviation (e.g. a plural "s") stays attached to it and to its alias, as SSML's <sub> reads.
-    const word = isAbbreviation ? unescapeSsmlEntities(stripSsmlTags(match[4] ?? match[6])) : "";
+    const word = isAbbreviation ? stripSsmlTags(match[4] ?? match[6]) : "";
     const prefix = isAbbreviation ? attachedBefore(ssml.slice(lastIndex, match.index).match(ATTACHED_END_RE)?.[0] ?? "", word) : "";
     const suffix = isAbbreviation ? attachedAfter(word, following.match(ATTACHED_START_RE)?.[0] ?? "") : "";
     const rawBefore = ssml.slice(lastIndex, match.index! - prefix.length);
@@ -709,7 +701,7 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
       const wrap = (inner: string) => (langOpen ? `${langOpen}${inner}</lang>` : inner);
       const attach = (inner: string) => wrap(`${prefix}${inner}${suffix}`);
       segments.push({ ssml: attach(text), abbreviation: "text", ...(touchesPrevious && { touchesPrevious }) });
-      const aliasSsml = ssmlTextEscape(unescapeSsmlAttr(alias));
+      const aliasSsml = ssmlTextEscape(decodeSsmlEntities(alias));
       segments.push({
         ssml: attach(aliasSsml),
         abbreviation: "alias",

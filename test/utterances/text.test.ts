@@ -1,6 +1,7 @@
 import test from "ava";
 import {
   ssmlIndexToPlainIndex,
+  stripSsmlTags,
   stripSsmlTagsKeepSpacing,
   stripSsmlTagsWithMap,
   substitutedIndexToSourceIndex,
@@ -189,6 +190,16 @@ test("substituteSsmlText separates words at a paragraph element, outside its tag
   const result = substituteSsmlText("one<p>two</p>three", { nomatch: "X" });
   t.is(result.plain, "one two three");
   t.is(result.ssml, "one <p>two</p> three");
+});
+
+test("stripSsmlTagsWithMap decodes every entity, mapping each decoded char to the entity's position", (t) => {
+  const { plain, map } = stripSsmlTagsWithMap("&quot;a&#x1F600;&nbsp;b");
+  t.is(plain, '"a\u{1F600} b');
+  t.deepEqual(map, [0, 6, 7, 7, 16, 22]);
+});
+
+test("stripSsmlTags decodes an escaped angle bracket as text, not as a tag", (t) => {
+  t.is(stripSsmlTags("&#60;b&#62;bold&amp;lt;"), "<b>bold&lt;");
 });
 
 test("stripSsmlTagsKeepSpacing keeps whitespace as is", (t) => {

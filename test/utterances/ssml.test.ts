@@ -24,7 +24,11 @@ test("parseSsml decodes named and numeric entities in text and attributes", (t) 
 });
 
 test("decodeSsmlEntities leaves an unknown entity as written", (t) => {
-  t.is(decodeSsmlEntities("&nbsp;&lt;"), "&nbsp;<");
+  t.is(decodeSsmlEntities("&eacute;&lt;"), "&eacute;<");
+});
+
+test("decodeSsmlEntities reads &nbsp; as a no-break space", (t) => {
+  t.is(decodeSsmlEntities("a&nbsp;b"), "a b");
 });
 
 test("parseSsml drops comments and processing instructions, and reads CDATA as text", (t) => {

@@ -1,7 +1,7 @@
 import { ssmlAttrEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
-import { unescapeSsmlEntities } from "./text.js";
+import { decodeSsmlEntities } from "./ssml.js";
 import type { WalkContext } from "./walkContext.js";
 
 // Removes `<lang xml:lang="...">...</lang>` wrapping from an SSML string,
@@ -79,7 +79,7 @@ function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolea
 
 // A catalog entry with no words (e.g. a template's ": ") takes the language of the content around it.
 function isWordless(piece: ReadiumSpeechUtterance): boolean {
-  return !/[\p{L}\p{N}]/u.test(piece.plain ?? unescapeSsmlEntities(piece.ssml ?? ""));
+  return !/[\p{L}\p{N}]/u.test(piece.plain ?? decodeSsmlEntities(piece.ssml ?? ""));
 }
 
 // The language a run of pieces is spoken in, `null` if they disagree. In SSML, catalog entries
