@@ -33,8 +33,8 @@ export function joinPieceTexts(
     // none at all — never adds a second one next to whitespace the pieces already carry.
     const spaced =
       spacing[i] === "spaced" ||
-      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain.replace(/(?:<[^>]*>)+$/, ""), plainPart.replace(/^(?:<[^>]*>)+/, "")));
-    if (plain && spaced && !/\s(?:<[^>]*>)*$/.test(plain) && !/^(?:<[^>]*>)*\s/.test(plainPart)) {
+      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain, plainPart));
+    if (plain && spaced && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
       joined += " ";
       plain += " ";
     }
@@ -161,7 +161,7 @@ export function mergeUtterances(
   const language = runLanguage(usedPieces, ctx);
   if (language === null) return undefined;
   const texts = ctx.format === "ssml" ? withEnclosingTags(usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)), usedPieces) : parts;
-  const { joined } = joinPieceTexts(texts, texts, pieceSpacing(usedPieces, ctx));
+  const { joined } = joinPieceTexts(texts, usedPieces.map((piece) => pieceText(piece, ctx)), pieceSpacing(usedPieces, ctx));
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
