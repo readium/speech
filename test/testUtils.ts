@@ -68,6 +68,13 @@ export function loadFixture(entry: FixtureManifestEntry): LoadedFixture {
 }
 
 /**
+ * Test-only helper to read a fixture's input markup from @readium/guided-navigation
+ */
+export function loadFixtureInput(entry: FixtureManifestEntry): string {
+  return readFileSync(join(gndFixturesDir, entry.dir, entry.files.input), "utf-8");
+}
+
+/**
  * Test-only helper listing the fixture ids that have a local utterances.json
  */
 export function localFixtureIds(): string[] {
