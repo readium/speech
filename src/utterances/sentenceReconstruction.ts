@@ -1,6 +1,6 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
-import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { keepUnrepeatableWhole, splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
@@ -12,8 +12,9 @@ import {
   segmentAliasText,
   segmentAroundAliases,
 } from "./abbreviationAlias.js";
-import { buildMergeOffsets, joinPieceTexts, pieceIndexAt, pieceText, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
-import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
+import { joinPieceTexts, pieceIndexAt, pieceText, plainOf, substitutedBareLocate, pieceSpacing } from "./mergeUtterances.js";
+import { joinedSpans, setSpans, sliceSpans, spansOf, type SourceSpan } from "./sourceSpans.js";
+import { preciseLocateFor, resolveNodeLocate, spanLocate } from "./locate.js";
 import { callerSuppressions, segmentSentences, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { mergeBoundaries } from "./sentenceBoundaryMerge.js";
 import { blockOf, edgeNode } from "./blocks.js";
@@ -163,23 +164,16 @@ async function pushSplitSingle(
   const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
   const nodeOwnSubstitutedLocate = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
   const edges = ctx.edgeSubstitutedLocate.get(utterance);
-  const ownStart = ctx.pendingRange.get(utterance)?.start ?? 0;
-  fragments.forEach(({ text: fragment, start: localStart, end: localEnd }, k) => {
-    const [start, end] = [ownStart + localStart, ownStart + localEnd];
+  const spans = spansOf(utterance, ctx);
+  fragments.forEach(({ text: fragment, start, end }, k) => {
     const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
+    if (nodeRef) delete split.locate;
+    setSpans(split, sliceSpans(spans, start, end), ctx);
     const substitutedLocate =
       (k === 0 ? edges?.leading : undefined) ??
       (k === fragments.length - 1 ? edges?.trailing : undefined) ??
       nodeOwnSubstitutedLocate;
-    if (substitutedLocate && nodeRef) {
-      split.locate = substitutedLocate;
-      split.offsets = [{ start, end, locate: substitutedLocate }];
-    } else if (nodeRef) {
-      const quoteText = ctx.format === "ssml" ? plainOf(fragment, ctx.format) : fragment;
-      const locate = subLocateFor(nodeRef.ref, quoteText);
-      split.locate = locate;
-      split.offsets = [{ start, end, locate }];
-    }
+    if (substitutedLocate && nodeRef) split.locate = substitutedLocate;
     if (wasBlockStart && k === 0) ctx.blockStarts.add(split);
     newOut.push(split);
     newSources.push(source);
@@ -247,42 +241,17 @@ function keepInsertionsWhole(
   return mergeBoundaries(text, boundaries, (boundary, next) => insertedAt(boundary.contentEnd - 1) || insertedAt(next.start));
 }
 
-// `start`/`end` are positions in each contributing node's own source text.
-// Always quote-scoped, so a consumer can relocate a piece within spoken text by content.
-function buildJoinedOffsets(
+// The spans of the pieces `startIdx`..`endIdx` a sentence part reads, positioned in its own text.
+function partSpans(
   pieces: ReadiumSpeechUtterance[],
-  pieceSources: GuidedNavigationObject[],
   ranges: { start: number; end: number }[],
-  boundary: { start: number; end: number; contentEnd: number },
+  boundary: { start: number; contentEnd: number },
   startIdx: number,
   endIdx: number,
   ctx: WalkContext,
-): UtteranceOffset[] {
-  const offsets: UtteranceOffset[] = [];
-  for (let k = startIdx; k <= endIdx; k++) {
-    // Never cut (see `keepInsertionsWhole()`), so its own offsets still hold.
-    if (isInserted(pieces[k], ctx) || isAlias(pieces[k], ctx)) {
-      offsets.push(...buildMergeOffsets([pieces[k]], [pieceSources[k]], ctx));
-      continue;
-    }
-    const nodeRef = resolveNodeLocate(pieceSources[k], ctx.ancestorChains);
-    if (!nodeRef) continue;
-    const pieceRange = ranges[k];
-    const substitutedLocate = isAriaSubstituted(pieceSources[k]) ? substitutedBareLocate(pieceSources[k], ctx) : undefined;
-    const contribStart = Math.max(pieceRange.start, boundary.start);
-    // Only the last piece a sentence touches can carry its trailing separator; trim there only.
-    const contribEnd = Math.min(pieceRange.end, k === endIdx ? boundary.contentEnd : boundary.end);
-    if (contribEnd <= contribStart) continue;
-    const localStart = contribStart - pieceRange.start;
-    const localEnd = contribEnd - pieceRange.start;
-    const text = pieceText(pieces[k], ctx);
-    const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
-    if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
-    if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
-    const ownStart = ctx.pendingRange.get(pieces[k])?.start ?? 0;
-    offsets.push({ start: ownStart + localStart, end: ownStart + localEnd, locate });
-  }
-  return offsets;
+): SourceSpan[] {
+  const spans = joinedSpans(pieces.slice(startIdx, endIdx + 1), ranges.slice(startIdx, endIdx + 1), ctx);
+  return sliceSpans(spans, boundary.start, boundary.contentEnd);
 }
 
 // The language a group is segmented in: its shared one, else its first own piece's.
@@ -404,8 +373,7 @@ async function pushJoinedGroup(
     if (mergedLanguage) merged.language = mergedLanguage;
     const claimed = pieces.slice(startIdx, endIdx + 1).filter((piece) => unclaimedBlockStarts.delete(piece));
     if (claimed.length > 0) ctx.blockStarts.add(merged);
-    const offsets = buildJoinedOffsets(pieces, pieceSources, ranges, boundary, startIdx, endIdx, ctx);
-    if (offsets.length > 0) merged.offsets = offsets;
+    setSpans(merged, partSpans(pieces, ranges, boundary, startIdx, endIdx, ctx), ctx);
 
     // Top-level `locate` is the whole first/last span, a convenience anchor
     // for consumers that don't need the per-element breakdown in `offsets`.

@@ -4,6 +4,7 @@ import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 import { plainOf, substitutedBareLocate } from "./mergeUtterances.js";
+import { buildOffsets } from "./sourceSpans.js";
 
 // Anchors just `quoteText` within the node via a text-quote, since a
 // character-offset domRange would need its internal text-node layout.
@@ -53,22 +54,18 @@ export function spanLocate(
   return spanned ?? fallback;
 }
 
-// Skips utterances already given `locate`/`offsets` by sentence splitting;
-// resolves the rest, adding a trivial whole-text `offsets` for real content.
+// Builds each utterance's `offsets` from its spans, and resolves `locate` for those not given one:
+// a single offset's own, else the source node's, quoted to the utterance's text when it covers only part of it.
 export function attachLocate(
   utterances: ReadiumSpeechUtterance[],
   sources: SourceTrace,
   ctx: WalkContext,
 ): ReadiumSpeechUtterance[] {
   const { ancestorChains } = ctx;
-  // Several utterances can share one node (e.g. a language-split fragment)
-  // — bare-reusing its locate for any of them would anchor the whole node.
-  const nodeUseCount = new Map<GuidedNavigationObject, number>();
-  for (const source of sources) {
-    if (source && !Array.isArray(source)) nodeUseCount.set(source, (nodeUseCount.get(source) ?? 0) + 1);
-  }
   return utterances.map((u, i) => {
-    if (u.offsets) return u;
+    const offsets = buildOffsets(u, ctx);
+    const result: ReadiumSpeechUtterance = offsets.length > 0 ? { ...u, offsets } : u;
+    if (u.locate) return result;
     const source = sources[i];
     const text = u.plain ?? plainOf(u.ssml ?? "", "ssml");
     if (Array.isArray(source)) {
@@ -76,19 +73,14 @@ export function attachLocate(
       const firstRef = resolveNodeLocate(first, ancestorChains);
       const lastRef = resolveNodeLocate(last, ancestorChains);
       const ref = spanLocate(firstRef, lastRef, preciseLocateFor(firstRef, text));
-      return ref ? { ...u, locate: ref } : u;
+      return ref ? { ...result, locate: ref } : result;
     }
-    const node = source;
-    const resolved = node ? resolveNodeLocate(node, ancestorChains) : undefined;
-    if (!resolved) return u;
-    const result: ReadiumSpeechUtterance = { ...u, locate: resolved.ref };
-    if (!ctx.synthetic.has(u)) {
-      const range = ctx.pendingRange.get(u);
-      const shared = range !== undefined || (node && (nodeUseCount.get(node) ?? 0) > 1);
-      const substituted = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
-      result.locate = substituted ?? (resolved.own && !shared ? resolved.ref : subLocateFor(resolved.ref, text));
-      result.offsets = [{ start: range?.start ?? 0, end: range?.end ?? text.length, locate: result.locate }];
-    }
-    return result;
+    const resolved = source ? resolveNodeLocate(source, ancestorChains) : undefined;
+    if (!resolved) return result;
+    if (ctx.synthetic.has(u)) return { ...result, locate: resolved.ref };
+    if (offsets.length === 1) return { ...result, locate: offsets[0].locate };
+    const substituted = source && isAriaSubstituted(source) ? substitutedBareLocate(source, ctx) : undefined;
+    const quoted = offsets.length > 0 ? subLocateFor(resolved.ref, text) : preciseLocateFor(resolved, text);
+    return { ...result, locate: substituted ?? quoted };
   });
 }

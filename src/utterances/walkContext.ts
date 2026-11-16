@@ -4,6 +4,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
+import type { SourceSpan } from "./sourceSpans.js";
 import { nodeRoles } from "./nodeFields.js";
 import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
@@ -61,9 +62,8 @@ export interface WalkContext {
   synthetic: Set<ReadiumSpeechUtterance>;
   // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
   ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
-  // A language-split or placeholder-split utterance's position in its source node's own text
-  // (see `applyFormat`, `emitWithPlaceholders`) — read back for its offsets, same identity-keyed pattern.
-  pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
+  // Where each utterance's text comes from in its nodes' own text, built into `offsets` once (see sourceSpans.ts).
+  spans: WeakMap<ReadiumSpeechUtterance, SourceSpan[]>;
   // Set for a merge whose leading/trailing piece is aria-substituted (see
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
   // text never quote-searchable.
@@ -190,7 +190,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     tableCellHeaders: new Map(),
     synthetic: new Set(),
     ancestorChains: buildAncestorChains(nodes),
-    pendingRange: new Map(),
+    spans: new WeakMap(),
     edgeSubstitutedLocate: new WeakMap(),
     aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),

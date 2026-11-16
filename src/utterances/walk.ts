@@ -24,9 +24,10 @@ import {
   resolveEntryText,
   scopeToQuote,
 } from "./contextualization.js";
-import { applyFormat, mergeUtterances, nodeOwnText, pieceText } from "./mergeUtterances.js";
+import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
+import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { markNonQuotable, recordAliasOffset } from "./boundaryLocate.js";
+import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
@@ -66,7 +67,7 @@ function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): Re
     const text = resolveEntryText(ctx, "pagebreak.number", undefined, { number: label.trim() });
     if (text !== undefined) return [formatEntryText(text, ctx)];
   }
-  return applyFormat(resolved, ctx.format, ctx.language, ctx);
+  return applyFormat(node, resolved, ctx.format, ctx.language, ctx);
 }
 
 function appendPeriod(utterance: ReadiumSpeechUtterance): void {
@@ -96,7 +97,7 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
 // A reference's own text, as read in place in its sentence.
 function textReferenceText(ref: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(spokenText(ref));
-  return resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : [];
+  return resolved ? applyFormat(ref, resolved, ctx.format, ctx.language, ctx) : [];
 }
 
 const termMarker = "\u0001";
@@ -192,10 +193,8 @@ function locateOnAbbreviation(
   const locate = markNonQuotable(subLocateFor(nodeRef.ref, abbreviation));
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
-    const offset = { ...range, locate };
     piece.locate = locate;
-    piece.offsets = [offset];
-    recordAliasOffset(offset, pieceText(piece, ctx).length);
+    setAliasSpan(piece, node, range, locate, ctx);
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
   }
 }
@@ -224,28 +223,25 @@ function emitWithPlaceholders(
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
-  const ownText = nodeOwnText(resolveNodeText(spokenText(node)), ctx.format);
-  let ownCursor = 0;
-  let abbreviationFrom = 0;
-  const findInOwnText = (text: string, from: number) => {
-    const start = text ? ownText.indexOf(text, from) : -1;
-    if (start === -1) return undefined;
-    ownCursor = Math.max(ownCursor, start + text.length);
-    return { start, end: start + text.length };
-  };
-  const placeInOwnText = (before: number) => {
-    for (const piece of pieces.slice(before)) {
-      const range = findInOwnText(pieceText(piece, ctx), ownCursor);
-      if (range) ctx.pendingRange.set(piece, range);
-    }
+  const place = ownTextAligner(node);
+  // Where the last abbreviation read as its own text was placed, for its alias read after it.
+  let abbreviationRange: { start: number; end: number } | undefined;
+  const placeInOwnText = (segment: SsmlSegment, before: number) => {
+    if (segment.abbreviation === "alias") return;
+    const spans = pieces.slice(before).map((piece) => {
+      const span = place(pieceText(piece, ctx));
+      if (span) setSpans(piece, [span], ctx);
+      return span;
+    });
+    if (segment.abbreviation === "text") abbreviationRange = ownRange(spans);
   };
   // An alias's pieces, pushed since `before`, stay whole in their sentence.
   const placeAlias = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
     const abbreviationText = stripSsmlTags(segment.abbreviationText!);
-    const range = findInOwnText(abbreviationText, abbreviationFrom) ?? { start: 0, end: abbreviationText.length };
-    locateOnAbbreviation(aliasPieces, abbreviationText, range, node, ctx);
+    const range = abbreviationInline ? ownRange([place(abbreviationText)]) : abbreviationRange;
+    if (range) locateOnAbbreviation(aliasPieces, abbreviationText, range, node, ctx);
     const abbreviation = abbreviationInline ? abbreviationText : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
@@ -290,7 +286,6 @@ function emitWithPlaceholders(
   const slices: SliceScope = {};
   let sliceIndex = 0;
   for (let segment of splitOnPlaceholders(ssml)) {
-    if (segment.abbreviation === "text") abbreviationFrom = ownCursor;
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
     if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
     if (segment.placeholderId !== undefined) {
@@ -371,7 +366,7 @@ function emitWithPlaceholders(
         pieces.push(utterance);
         pieceSources.push(node);
       }
-      if (segment.abbreviation !== "alias") placeInOwnText(before);
+      placeInOwnText(segment, before);
       meetPending(before);
       placeAlias(segment, before);
       markTouching(segment, before);
@@ -385,7 +380,7 @@ function emitWithPlaceholders(
     } else utterance.plain = stripSsmlTags(readable);
     pieces.push(utterance);
     pieceSources.push(node);
-    if (segment.abbreviation !== "alias") placeInOwnText(before);
+    placeInOwnText(segment, before);
     meetPending(before);
     placeAlias(segment, before);
     markTouching(segment, before);
@@ -543,7 +538,7 @@ function walkNode(
     } else {
       const resolved = foldsValue ? undefined : resolveNodeText(spokenText(node));
       if (resolved) {
-        push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language, ctx));
+        push(out, sources, node, applyFormat(node, resolved, ctx.format, ctx.language, ctx));
       }
       if (node.children && !skipsTarget) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);

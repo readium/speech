@@ -34,10 +34,6 @@ export function recordAliasOffset(offset: UtteranceOffset, spokenLength: number)
   aliasSpokenLengths.set(offset, spokenLength);
 }
 
-export function aliasSpokenLength(offset: UtteranceOffset): number | undefined {
-  return aliasSpokenLengths.get(offset);
-}
-
 // charIndex is the engine's own runtime position, unknowable when `offsets`
 // was built — resolved by scanning pieces in order from where the last ended.
 // charIndex is always plain-text space (see ssmlIndexToPlainIndex), so SSML

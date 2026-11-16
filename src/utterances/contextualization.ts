@@ -7,6 +7,7 @@ import { languageFor } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionLanguageOf, descriptionOf, nodeText } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
+import { setQuotedSpan } from "./sourceSpans.js";
 import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
@@ -44,9 +45,8 @@ export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, qu
   if (!text.includes(quoteText)) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
-  const quoteLocate = subLocateFor(resolved.ref, quoteText);
-  utterance.offsets = [{ start: 0, end: quoteText.length, locate: quoteLocate }];
-  utterance.locate = resolved.own ? resolved.ref : quoteLocate;
+  setQuotedSpan(utterance, node, quoteText, text.indexOf(quoteText), ctx);
+  utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
 }
 
 // `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
