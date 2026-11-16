@@ -90,58 +90,77 @@ const isSpace = (char: string) => /\s/.test(char);
 const isDroppable = (char: string) => /[\p{Ps}\p{Pe}\p{Pi}\p{Pf}"']/u.test(char);
 
 // Places, in order, the texts read out of `node`'s own text, skipping whitespace and the brackets it drops.
-// Text the node holds but doesn't speak itself (e.g. a link's words, spoken as the link's) may lie between them.
-export function ownTextAligner(node: GuidedNavigationObject): (text: string) => TextSpan | undefined {
+// Between them, only an embedded child's own text may be skipped, where the node's text holds it (e.g. a link's words).
+export interface OwnTextAligner {
+  place(text: string): TextSpan | undefined;
+  embed(childText: string): void;
+}
+
+export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   const ownText = plainTextOf(node);
   let cursor = 0;
-  const matchFrom = (text: string, anchor: number, position: number): number[] | undefined => {
+  let embedded: string[] = [];
+  const matchFrom = (text: string, from: number): { map: number[]; end: number } | undefined => {
     const map = new Array<number>(text.length);
-    let j = position;
-    for (let i = anchor; i < text.length; i++) {
-      if (isSpace(text[i])) map[i] = SPACE;
-      else {
-        while (j < ownText.length && isSpace(ownText[j])) j++;
-        if (ownText[j] === text[i]) map[i] = j++;
-        else if (isDroppable(text[i])) map[i] = DROPPED;
-        else return undefined;
-      }
-    }
-    // Punctuation before the first word is the node's own where its text has it right before that word.
-    let k = position - 1;
-    for (let i = anchor - 1; i >= 0; i--) {
+    let j = from;
+    let end = -1;
+    for (let i = 0; i < text.length; i++) {
       if (isSpace(text[i])) {
         map[i] = SPACE;
         continue;
       }
-      while (k >= cursor && isSpace(ownText[k])) k--;
-      map[i] = k >= cursor && ownText[k] === text[i] ? k-- : DROPPED;
+      while (j < ownText.length && isSpace(ownText[j])) j++;
+      if (ownText[j] === text[i]) {
+        map[i] = j;
+        end = ++j;
+      } else if (isDroppable(text[i])) map[i] = DROPPED;
+      else return undefined;
     }
-    return map;
+    return end === -1 ? undefined : { map, end };
   };
-  return (text) => {
-    const anchor = text.split("").findIndex((char) => !isSpace(char) && !isDroppable(char));
-    if (anchor === -1) return undefined;
-    for (let position = ownText.indexOf(text[anchor], cursor); position !== -1; position = ownText.indexOf(text[anchor], position + 1)) {
-      const map = matchFrom(text, anchor, position);
-      if (!map) continue;
-      cursor = Math.max(...map) + 1;
-      return { node, ownText, at: 0, map };
-    }
-    return undefined;
+  return {
+    embed(childText) {
+      embedded.push(childText);
+    },
+    place(text) {
+      // Right after the children's text the node holds, else before it, in case a child's text isn't there but reads the same.
+      const starts = [cursor];
+      for (const childText of embedded) {
+        const skipped = matchFrom(childText, starts[starts.length - 1]);
+        if (skipped) starts.push(skipped.end);
+      }
+      embedded = [];
+      for (let k = starts.length - 1; k >= 0; k--) {
+        const match = matchFrom(text, starts[k]);
+        if (!match) continue;
+        cursor = match.end;
+        return { node, ownText, at: 0, map: match.map };
+      }
+      return undefined;
+    },
   };
 }
 
 // The stretch of own text that `spans` were placed on, if any.
 export function ownRange(spans: (SourceSpan | undefined)[]): { start: number; end: number } | undefined {
-  const positions = spans.flatMap((span) => (span && isText(span) ? span.map.filter((position) => position >= 0) : []));
-  return positions.length > 0 ? { start: Math.min(...positions), end: Math.max(...positions) + 1 } : undefined;
+  let start = Infinity;
+  let end = -1;
+  for (const span of spans) {
+    if (!span || !isText(span)) continue;
+    for (const position of span.map) {
+      if (position < 0) continue;
+      if (position < start) start = position;
+      if (position + 1 > end) end = position + 1;
+    }
+  }
+  return end === -1 ? undefined : { start, end };
 }
 
 // Places each of `pieces`, read in order out of `node`'s own text.
 export function placeInOwnText(pieces: ReadiumSpeechUtterance[], node: GuidedNavigationObject, ctx: WalkContext): void {
-  const place = ownTextAligner(node);
+  const aligner = ownTextAligner(node);
   for (const piece of pieces) {
-    const span = place(pieceText(piece, ctx));
+    const span = aligner.place(pieceText(piece, ctx));
     if (span) setSpans(piece, [span], ctx);
   }
 }

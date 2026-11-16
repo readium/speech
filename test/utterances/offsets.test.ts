@@ -243,3 +243,23 @@ test("an offset next to synthesized text quotes its own, so the synthesized word
   t.is(resolveBoundaryLocate(cell, 0, 4), undefined);
   t.is(resolveBoundaryLocate(cell, 6, 3)?.locate.text?.highlight, "Ada");
 });
+
+test("a node too long to spread into a call still gets its offsets", async (t) => {
+  const text = `${"word ".repeat(200000)}end.`;
+  const [utterance] = await extractUtterances(parseMarkup(`<p>${text}</p>`, undefined, { textrefs: true }), { format: "plain" });
+  t.deepEqual(utterance.offsets?.map(({ start, end }) => [start, end]), [[0, text.length]]);
+});
+
+test("text of nothing but punctuation is real content, with its offsets", async (t) => {
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(parseMarkup("<p>«»</p>", undefined, { textrefs: true }), { format });
+    t.deepEqual(utterance.offsets?.map(({ start, end }) => [start, end]), [[0, 2]], format);
+  }
+});
+
+test("text after a link is placed past the link's words, even where it repeats them", async (t) => {
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(parseMarkup('<p>end <a href="x.html">end</a> end</p>', undefined, { textrefs: true }), { format });
+    t.deepEqual(quoted(utterance), [["end", 0, 3], ["end", 0, 3], ["end", 8, 11]], format);
+  }
+});

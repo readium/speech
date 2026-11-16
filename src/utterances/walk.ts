@@ -29,6 +29,7 @@ import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
+import { plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
 import { nestEnclosingTags, setEnclosingTags, type SliceScope } from "./enclosingTags.js";
@@ -223,13 +224,13 @@ function emitWithPlaceholders(
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
-  const place = ownTextAligner(node);
+  const aligner = ownTextAligner(node);
   // Where the last abbreviation read as its own text was placed, for its alias read after it.
   let abbreviationRange: { start: number; end: number } | undefined;
   const placeInOwnText = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation === "alias") return;
     const spans = pieces.slice(before).map((piece) => {
-      const span = place(pieceText(piece, ctx));
+      const span = aligner.place(pieceText(piece, ctx));
       if (span) setSpans(piece, [span], ctx);
       return span;
     });
@@ -240,7 +241,7 @@ function emitWithPlaceholders(
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
     const abbreviationText = stripSsmlTags(segment.abbreviationText!);
-    const range = abbreviationInline ? ownRange([place(abbreviationText)]) : abbreviationRange;
+    const range = abbreviationInline ? ownRange([aligner.place(abbreviationText)]) : abbreviationRange;
     if (range) locateOnAbbreviation(aliasPieces, abbreviationText, range, node, ctx);
     const abbreviation = abbreviationInline ? abbreviationText : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
@@ -291,6 +292,7 @@ function emitWithPlaceholders(
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
+      aligner.embed(plainTextOf(child));
       if (isDropped(segment.placeholderId)) {
         pending = { spaceAcross: spaced.has(segment.placeholderId) };
       } else {
