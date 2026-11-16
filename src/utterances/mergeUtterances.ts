@@ -1,61 +1,16 @@
-import { ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
+import { ssmlTextEscape } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, type ResolvedNodeText } from "./text.js";
 import { stripSsmlTags, stripSsmlTagsKeepSpacing } from "./plainText.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
-import { endsWithOpeningPunct, isSinglePunctuationChar, joinsWithoutSpace } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate } from "./locate.js";
 import { joinedSpans, placeInOwnText, setSpans } from "./sourceSpans.js";
 import { markNonQuotable } from "./boundaryLocate.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
-import { balancedSsml, withEnclosingTags } from "./enclosingTags.js";
-import { ssmlMarkup } from "./ssml.js";
-
-// Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
-// on `plainParts` (their plain text, for SSML `parts`), unless `spacing[i]` says how part i meets the previous one. `ranges[i]` is where `parts[i]` landed in `joined`.
-export function joinPieceTexts(
-  parts: string[],
-  plainParts: string[] = parts,
-  spacing: PieceSpacing[] = [],
-): { joined: string; ranges: { start: number; end: number }[] } {
-  let joined = "";
-  let plain = "";
-  const ranges: { start: number; end: number }[] = [];
-  parts.forEach((part, i) => {
-    const plainPart = plainParts[i];
-    // Redundant punctuation: an SSML part keeps its tags, without its text.
-    const markup = plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart) ? (part === plainPart ? "" : ssmlMarkup(part)) : undefined;
-    if (markup !== undefined) {
-      ranges.push({ start: joined.length, end: joined.length });
-      joined += markup;
-      return;
-    }
-    // Only synthesizes a joining space when the join would otherwise have
-    // none at all — never adds a second one next to whitespace the pieces already carry.
-    const spaced =
-      spacing[i] === "spaced" ||
-      (spacing[i] === undefined && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !joinsWithoutSpace(plain, plainPart));
-    if (plain && spaced && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
-      joined += " ";
-      plain += " ";
-    }
-    const start = joined.length;
-    joined += part;
-    plain += plainPart;
-    ranges.push({ start, end: joined.length });
-  });
-  return { joined, ranges };
-}
-
-export type PieceSpacing = "touching" | "spaced" | undefined;
-
-export function pieceSpacing(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): PieceSpacing[] {
-  return pieces.map((piece) => (ctx.touchingPieces.has(piece) ? "touching" : ctx.spacedPieces.has(piece) ? "spaced" : undefined));
-}
+import type { WalkContext } from "./walkContext.js";
+import { balancedSsml, joinPieceSsml, joinPieceTexts, type Piece } from "./piece.js";
 
 // Which piece index a position in a joined string falls in — a position
 // exactly on a piece boundary (the separator) attributes to the earlier piece.
@@ -80,24 +35,19 @@ export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkCon
 
 // Recurses through a piece that's itself a prior merge, since its edge locate
 // was already recorded when it was built — undefined means real, quotable text.
-function substitutedLocateAt(
-  piece: ReadiumSpeechUtterance,
-  source: SourceTrace[number],
-  edge: "leading" | "trailing",
-  ctx: WalkContext,
-): LocatorOptions | undefined {
-  const recorded = ctx.edgeSubstitutedLocate.get(piece);
-  if (recorded) return recorded[edge];
+function substitutedLocateAt(piece: Piece, edge: "leading" | "trailing", ctx: WalkContext): LocatorOptions | undefined {
+  if (piece.edgeLocates) return piece.edgeLocates[edge];
+  const { source } = piece;
   if (!source || Array.isArray(source) || !isAriaSubstituted(source)) return undefined;
   return substitutedBareLocate(source, ctx);
 }
 
 // Top-level `locate` anchor for a merge: the span from its first to last contributing piece.
-function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): LocatorOptions | undefined {
-  const locates: (LocatorOptions | undefined)[] = pieces.map((piece, i) => {
+function buildMergeLocate(pieces: Piece[], ctx: WalkContext): LocatorOptions | undefined {
+  const locates: (LocatorOptions | undefined)[] = pieces.map((piece) => {
     if (piece.locate) return piece.locate;
-    if (ctx.synthetic.has(piece)) return undefined;
-    const source = pieceSources[i];
+    if (piece.synthetic) return undefined;
+    const { source } = piece;
     if (!source || Array.isArray(source)) return undefined;
     const text = pieceText(piece, ctx);
     if (!text) return undefined;
@@ -109,8 +59,8 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
   let lastIndex = locates.length - 1;
   while (locates[lastIndex] === undefined) lastIndex--;
   if (firstIndex === lastIndex) return locates[firstIndex];
-  const firstSource = pieceSources[firstIndex];
-  const lastSource = pieceSources[lastIndex];
+  const firstSource = pieces[firstIndex].source;
+  const lastSource = pieces[lastIndex].source;
   if (firstSource && lastSource && !Array.isArray(firstSource) && !Array.isArray(lastSource)) {
     const firstRef = resolveNodeLocate(firstSource, ctx.ancestorChains);
     const lastRef = resolveNodeLocate(lastSource, ctx.ancestorChains);
@@ -122,38 +72,23 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
 // Joins pieces read as one continuous occurrence into a single utterance.
 // Bails (`undefined`) on disagreeing `language` (see `runLanguage()`); still marked synthesized if
 // any piece was, but real sourced pieces still get their own offsets/locate.
-export function mergeUtterances(
-  pieces: ReadiumSpeechUtterance[],
-  pieceSources: SourceTrace,
-  ctx: WalkContext,
-): ReadiumSpeechUtterance | undefined {
-  const parts: string[] = [];
-  const usedPieces: ReadiumSpeechUtterance[] = [];
-  const usedSources: SourceTrace = [];
-  for (let i = 0; i < pieces.length; i++) {
-    const piece = pieces[i];
-    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
-    if (!text) continue;
-    parts.push(text);
-    usedPieces.push(piece);
-    usedSources.push(pieceSources[i]);
-  }
-  if (parts.length === 0) return undefined;
-  const language = runLanguage(usedPieces, ctx);
+export function mergeUtterances(pieces: Piece[], ctx: WalkContext): Piece | undefined {
+  const used = pieces.filter((piece) => (ctx.format === "ssml" ? piece.ssml : piece.plain));
+  if (used.length === 0) return undefined;
+  const language = runLanguage(used, ctx);
   if (language === null) return undefined;
-  const texts = ctx.format === "ssml" ? withEnclosingTags(usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)), usedPieces) : parts;
-  const plainParts = usedPieces.map((piece) => pieceText(piece, ctx));
-  const spacing = pieceSpacing(usedPieces, ctx);
-  const { joined } = joinPieceTexts(texts, plainParts, spacing);
-  const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
+  const plainParts = used.map((piece) => pieceText(piece, ctx));
+  const { joined: plain, ranges } = joinPieceTexts(plainParts, used.map((piece) => piece.spacing));
+  const joined = ctx.format === "ssml" ? joinPieceSsml(used, used.map((piece) => ssmlInLanguage(piece, language, ctx)), plainParts, ranges) : plain;
+  const merged: Piece = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
-  if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
-  setSpans(merged, joinedSpans(usedPieces, joinPieceTexts(plainParts, plainParts, spacing).ranges, ctx), ctx);
-  const locate = buildMergeLocate(usedPieces, usedSources, ctx);
+  if (pieces.some((piece) => piece.synthetic)) merged.synthetic = true;
+  setSpans(merged, joinedSpans(used, ranges, ctx));
+  const locate = buildMergeLocate(used, ctx);
   if (locate) merged.locate = locate;
-  const leading = substitutedLocateAt(usedPieces[0], usedSources[0], "leading", ctx);
-  const trailing = substitutedLocateAt(usedPieces[usedPieces.length - 1], usedSources[usedPieces.length - 1], "trailing", ctx);
-  if (leading || trailing) ctx.edgeSubstitutedLocate.set(merged, { leading, trailing });
+  const leading = substitutedLocateAt(used[0], "leading", ctx);
+  const trailing = substitutedLocateAt(used[used.length - 1], "trailing", ctx);
+  if (leading || trailing) merged.edgeLocates = { leading, trailing };
   return merged;
 }
 
@@ -176,10 +111,10 @@ export function applyFormat(
   format: ExtractionFormat,
   language: LanguageMode | undefined,
   ctx: WalkContext,
-): ReadiumSpeechUtterance[] {
+): Piece[] {
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     const segments = splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
-      const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
+      const utterance: Piece = { plain: segment.plain };
       const segmentLanguage = languageFor(segment.language, ctx);
       if (segmentLanguage) utterance.language = segmentLanguage;
       return utterance;
@@ -188,7 +123,7 @@ export function applyFormat(
     return segments;
   }
 
-  const utterance: ReadiumSpeechUtterance = {};
+  const utterance: Piece = {};
   const resolvedLanguage = languageFor(resolved.language, ctx);
   if (resolvedLanguage) utterance.language = resolvedLanguage;
   if (format === "ssml") {
@@ -210,6 +145,6 @@ export function plainOf(text: string, format: ExtractionFormat): string {
 }
 
 // A piece's text as offsets measure it, an SSML slice read with the tags it leaves open around it.
-export function pieceText(piece: ReadiumSpeechUtterance, ctx: WalkContext): string {
+export function pieceText(piece: Piece, ctx: WalkContext): string {
   return plainOf(ctx.format === "ssml" ? balancedSsml(piece) : (piece.plain ?? ""), ctx.format);
 }

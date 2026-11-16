@@ -258,6 +258,27 @@ test("an inline page label inside a span in another language keeps the catalog's
   }
 });
 
+test("an inline page announcement ending a sentence in another language follows the span that sentence closes", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: '<p xml:lang="fr"><s>Un deux. <readium:pagebreak id="pb"/></s><s>Trois quatre.</s></p>' },
+      children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+    })!,
+  ];
+  const options = {
+    format: "ssml" as const,
+    language: "always" as const,
+    segmentation: { mode: "sentence" as const },
+    interruptions: { pagebreak: "inline" as const },
+    contextualize: ["pagebreak" as const],
+  };
+  t.deepEqual(
+    (await extractUtterances(gnd, options)).map((u) => u.ssml),
+    ['<lang xml:lang="fr">Un deux.</lang> <lang xml:lang="en">Pagebreak. Page 5.</lang>', '<lang xml:lang="fr">Trois quatre.</lang>'],
+  );
+});
+
 test("sentence segmentation keeps an audio element whole, also in a sentence joined across paragraphs", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({ role: ["paragraph"], text: { ssml: 'Start <audio src="clip.wav">one. Two</audio>' } })!,

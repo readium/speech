@@ -185,6 +185,16 @@ export function closeTag(element: SsmlElement): string {
   return element.selfClosing ? "" : `</${element.name}>`;
 }
 
+// The opening tags of `elements`, outermost first.
+export function openTags(elements: SsmlElement[]): string {
+  return elements.map((element) => element.openTag).join("");
+}
+
+// The closing tags of `elements`, innermost first.
+export function closeTags(elements: SsmlElement[]): string {
+  return elements.map(closeTag).reverse().join("");
+}
+
 export function serializeSsml(nodes: SsmlNode[]): string {
   let out = "";
   for (const node of nodes) {

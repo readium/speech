@@ -1,77 +1,57 @@
 import { ssmlTextEscape } from "@readium/helpers";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 import { languageFor, languageRuns } from "./language.js";
 import { mergeUtterances } from "./mergeUtterances.js";
 import { descriptionLanguageOf } from "./nodeFields.js";
-import { encloseOwnTags } from "./enclosingTags.js";
+import { encloseOwnTags, type Piece } from "./piece.js";
 
 // Contextualization/label text is always plain (no markup) — formats it
 // per the requested `format`, same as any other utterance.
-export function formatPlain(text: string, ctx: WalkContext): ReadiumSpeechUtterance {
-  const utterance: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: ssmlTextEscape(text) } : { plain: text };
-  ctx.synthetic.add(utterance);
-  return utterance;
+export function formatPlain(text: string, ctx: WalkContext): Piece {
+  const piece: Piece = ctx.format === "ssml" ? { ssml: ssmlTextEscape(text) } : { plain: text };
+  piece.synthetic = true;
+  return piece;
 }
 
 // A catalog entry's text, in the catalog's language.
-export function formatEntryText(text: string, ctx: WalkContext): ReadiumSpeechUtterance {
-  const utterance = formatPlain(text, ctx);
+export function formatEntryText(text: string, ctx: WalkContext): Piece {
+  const piece = formatPlain(text, ctx);
   const language = ctx.language === "none" ? languageFor(undefined, ctx) : ctx.contextualizationLanguage;
-  if (language) utterance.language = language;
-  return utterance;
+  if (language) piece.language = language;
+  return piece;
 }
 
 // A node's description, in the language it's declared in.
-export function formatDescription(text: string, node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance {
-  const utterance = formatPlain(text, ctx);
+export function formatDescription(text: string, node: GuidedNavigationObject, ctx: WalkContext): Piece {
+  const piece = formatPlain(text, ctx);
   const language = languageFor(descriptionLanguageOf(node), ctx);
-  if (language) utterance.language = language;
-  return utterance;
+  if (language) piece.language = language;
+  return piece;
 }
 
-export function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: SourceTrace[number], items: ReadiumSpeechUtterance[]): void {
+// Pushes `items` to `out`, produced by `node`.
+export function push(out: Piece[], node: SourceTrace[number], items: Piece[]): void {
+  for (const item of items) item.source = node;
   out.push(...items);
-  for (let i = 0; i < items.length; i++) sources.push(node);
 }
 
-// Pushes `pieces` (or their `merged` replacement, if provided) to `out`.
-// `mergeUtterances()` returns a new object rather than one of `pieces` —
-// this carries a block-start marker over from any input piece that had
-// one, so merging never silently drops it.
-export function pushPiecesOrMerged(
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
-  ctx: WalkContext,
-  node: GuidedNavigationObject,
-  pieces: ReadiumSpeechUtterance[],
-  pieceSources: SourceTrace,
-  merged: ReadiumSpeechUtterance | undefined,
-): void {
+// Pushes `pieces`, or their `merged` replacement carrying a block start over from any of them.
+export function pushPiecesOrMerged(out: Piece[], node: GuidedNavigationObject, pieces: Piece[], merged: Piece | undefined): void {
   if (merged) {
-    if (pieces.some((piece) => ctx.blockStarts.has(piece))) ctx.blockStarts.add(merged);
-    push(out, sources, pieceSources[0] ?? node, [merged]);
+    if (pieces.some((piece) => piece.blockStart)) merged.blockStart = true;
+    push(out, pieces[0]?.source ?? node, [merged]);
   } else {
     out.push(...pieces);
-    sources.push(...pieceSources);
   }
 }
 
 // Merges `pieces` into one utterance per language run.
-export function pushMergedRuns(
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
-  ctx: WalkContext,
-  node: GuidedNavigationObject,
-  pieces: ReadiumSpeechUtterance[],
-  pieceSources: SourceTrace,
-): void {
+export function pushMergedRuns(out: Piece[], ctx: WalkContext, node: GuidedNavigationObject, pieces: Piece[]): void {
   for (const [start, end] of languageRuns(pieces, ctx)) {
     const run = pieces.slice(start, end);
-    const runSources = pieceSources.slice(start, end);
-    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
+    const merged = run.length > 1 ? mergeUtterances(run, ctx) : undefined;
     if (!merged) run.forEach(encloseOwnTags);
-    pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
+    pushPiecesOrMerged(out, node, run, merged);
   }
 }

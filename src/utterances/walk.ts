@@ -1,8 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageFor, overrideLangTags, setEnclosingLanguage, stripLangTags } from "./language.js";
+import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
@@ -16,6 +15,7 @@ import {
   type SsmlSegment,
 } from "./text.js";
 import { stripSsmlTags } from "./plainText.js";
+import { closeTags, openTags } from "./ssml.js";
 import {
   contextualizationParamsFor,
   isDroppedByAnotherRole,
@@ -32,7 +32,7 @@ import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
-import { nestEnclosingTags, setEnclosingTags, type SliceScope } from "./enclosingTags.js";
+import { nestTags, type Piece } from "./piece.js";
 import { isBlockNode } from "./blocks.js";
 import {
   contentlessRoleSet,
@@ -40,7 +40,6 @@ import {
   interruptionRoleSet,
   textReferenceRoleSet,
   valueFoldingRoleSet,
-  type SourceTrace,
   type WalkContext,
 } from "./walkContext.js";
 
@@ -60,7 +59,7 @@ function interruptionOf(roles: GndRole[], ctx: WalkContext): Interruption | unde
 }
 
 // A bare page-number label is always spoken as "Page N", contextualized or not.
-function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): Piece[] {
   const resolved = resolveNodeText(nodeText(node.text));
   if (!resolved) return [];
   const label = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
@@ -71,14 +70,14 @@ function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): Re
   return applyFormat(node, resolved, ctx.format, ctx.language, ctx);
 }
 
-function appendPeriod(utterance: ReadiumSpeechUtterance): void {
+function appendPeriod(utterance: Piece): void {
   if (utterance.plain !== undefined) utterance.plain += ".";
   if (utterance.ssml !== undefined) utterance.ssml += ".";
 }
 
 // A pagebreak's label merges into its "Pagebreak." contextualization as one
 // utterance, with a synthesized trailing period, kept when the label can't merge (e.g. in another language).
-function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext): Piece[] {
   const own = buildPagebreakLabel(node, ctx);
   if (!ctx.contextualize.has("pagebreak")) return own;
   const base = ctx.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline";
@@ -86,7 +85,8 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
   if (text === undefined) return own;
   const contextualization = formatEntryText(text, ctx);
   if (own.length === 0) return [contextualization];
-  const merged = mergeUtterances([contextualization, ...own], [undefined, ...own.map(() => node)], ctx);
+  for (const piece of own) piece.source = node;
+  const merged = mergeUtterances([contextualization, ...own], ctx);
   if (!merged) {
     appendPeriod(own[own.length - 1]);
     return [contextualization, ...own];
@@ -96,7 +96,7 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
 }
 
 // A reference's own text, as read in place in its sentence.
-function textReferenceText(ref: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+function textReferenceText(ref: GuidedNavigationObject, ctx: WalkContext): Piece[] {
   const resolved = resolveNodeText(spokenText(ref));
   return resolved ? applyFormat(ref, resolved, ctx.format, ctx.language, ctx) : [];
 }
@@ -122,8 +122,7 @@ function termPath(node: GuidedNavigationObject): GuidedNavigationObject[] {
 function pushTextReferenceTargets(
   ref: GuidedNavigationObject,
   targets: GuidedNavigationObject[],
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
+  out: Piece[],
   ctx: WalkContext,
   suppress: boolean,
   deferred: boolean,
@@ -137,42 +136,35 @@ function pushTextReferenceTargets(
     role && deferred && term ? resolveEntryText(ctx, `${role}.term`, undefined, { term: termMarker, value: valueMarker }) : undefined;
   const walked = deferred ? targets : values;
   if (contextualization === undefined && !template) {
-    walk(walked, out, sources, ctx, suppress);
+    walk(walked, out, ctx, suppress);
     return;
   }
   const eligible = isBlockNode(walked[0], ctx) && !suppress;
-  const pieces: ReadiumSpeechUtterance[] = [];
-  const pieceSources: SourceTrace = [];
-  if (contextualization !== undefined) {
-    pieces.push(formatEntryText(contextualization, ctx));
-    pieceSources.push(ref);
-  }
+  const pieces: Piece[] = [];
+  if (contextualization !== undefined) push(pieces, ref, [formatEntryText(contextualization, ctx)]);
   // Their own walk would otherwise claim the block boundary instead of this utterance's start.
   const walkSuppress = suppress || eligible;
   const announced = [...walked, ...(term ? termPath(term) : [])];
   announced.forEach((node) => announcedTargets.add(node));
   for (const part of (template ?? valueMarker).split(new RegExp(`(${termMarker}|${valueMarker})`))) {
-    if (part === termMarker) walk([term!], pieces, pieceSources, ctx, walkSuppress);
-    else if (part === valueMarker) walk(values, pieces, pieceSources, ctx, walkSuppress);
-    else if (part) {
-      pieces.push(formatEntryText(part, ctx));
-      pieceSources.push(ref);
-    }
+    if (part === termMarker) walk([term!], pieces, ctx, walkSuppress);
+    else if (part === valueMarker) walk(values, pieces, ctx, walkSuppress);
+    else if (part) push(pieces, ref, [formatEntryText(part, ctx)]);
   }
   announced.forEach((node) => announcedTargets.delete(node));
-  if (eligible && pieces.length > 0) ctx.blockStarts.add(pieces[0]);
-  pushMergedRuns(out, sources, ctx, ref, pieces, pieceSources);
+  if (eligible && pieces.length > 0) pieces[0].blockStart = true;
+  pushMergedRuns(out, ctx, ref, pieces);
 }
 
 // A deferred interruption: a node, or a text reference's targets.
 type Deferred = { node: GuidedNavigationObject } | { ref: GuidedNavigationObject; targets: GuidedNavigationObject[] };
 
 // Walks deferred interruptions like `walk()` walks siblings.
-function walkDeferred(deferred: Deferred[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+function walkDeferred(deferred: Deferred[], out: Piece[], ctx: WalkContext, suppress: boolean): void {
   deferred.forEach((entry, index) => {
     const own = index === 0 ? suppress : false;
-    if ("ref" in entry) pushTextReferenceTargets(entry.ref, entry.targets, out, sources, ctx, own, true);
-    else walkNode(entry.node, out, sources, ctx, own);
+    if ("ref" in entry) pushTextReferenceTargets(entry.ref, entry.targets, out, ctx, own, true);
+    else walkNode(entry.node, out, ctx, own);
   });
 }
 
@@ -183,7 +175,7 @@ function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
 
 // An alias isn't on the page, so it's located on its abbreviation instead, at `range` in the node's own text.
 function locateOnAbbreviation(
-  aliasPieces: ReadiumSpeechUtterance[],
+  aliasPieces: Piece[],
   abbreviation: string,
   range: { start: number; end: number },
   node: GuidedNavigationObject,
@@ -195,8 +187,8 @@ function locateOnAbbreviation(
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
     piece.locate = locate;
-    setAliasSpan(piece, node, range, locate, ctx);
-    ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
+    setAliasSpan(piece, node, range, locate);
+    piece.edgeLocates = { leading: locate, trailing: locate };
   }
 }
 
@@ -205,8 +197,7 @@ function locateOnAbbreviation(
 function emitWithPlaceholders(
   node: GuidedNavigationObject,
   rawSsml: string,
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
+  out: Piece[],
   ctx: WalkContext,
   suppress: boolean,
   isBlockRole: boolean,
@@ -214,13 +205,12 @@ function emitWithPlaceholders(
   const declaredLanguage = nodeText(node.text)?.language;
   const language = languageFor(declaredLanguage, ctx);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
-  const pieces: ReadiumSpeechUtterance[] = [];
-  const pieceSources: SourceTrace = [];
+  const pieces: Piece[] = [];
   const deferred: Deferred[] = [];
-  const inserted = new Set<ReadiumSpeechUtterance>();
-  const placedAfter = new Set<ReadiumSpeechUtterance>();
-  const aliases = new Map<ReadiumSpeechUtterance, string | undefined>();
-  const nested = new Set<ReadiumSpeechUtterance>();
+  const inserted = new Set<Piece>();
+  const placedAfter = new Set<Piece>();
+  const aliases = new Map<Piece, string | undefined>();
+  const nested = new Set<Piece>();
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
@@ -231,7 +221,7 @@ function emitWithPlaceholders(
     if (segment.abbreviation === "alias") return;
     const spans = pieces.slice(before).map((piece) => {
       const span = aligner.place(pieceText(piece, ctx));
-      if (span) setSpans(piece, [span], ctx);
+      if (span) setSpans(piece, [span]);
       return span;
     });
     if (segment.abbreviation === "text") abbreviationRange = ownRange(spans);
@@ -249,21 +239,25 @@ function emitWithPlaceholders(
   // Text touching an abbreviation doesn't touch the parenthesized expansion read after it.
   const markTouching = (segment: SsmlSegment, before: number) => {
     const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]);
-    if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) ctx.touchingPieces.add(pieces[before]);
+    if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) pieces[before].spacing = "touching";
+  };
+  // Spacing the source puts before a piece never overrides a touching join already set on it.
+  const markSpaced = (piece: Piece) => {
+    if (piece.spacing !== "touching") piece.spacing = "spaced";
   };
   // Inline interruptions, walked up front for `isDropped` to know which read nothing in place.
-  const insertedById = new Map<string, { pieces: ReadiumSpeechUtterance[]; sources: SourceTrace }>();
+  const insertedById = new Map<string, Piece[]>();
   for (const { placeholderId } of splitOnPlaceholders(rawSsml)) {
     const child = placeholderId === undefined ? undefined : childrenById.get(placeholderId);
     if (!child || isDeferred(child, ctx) || !nodeRoles(child).some((role) => interruptionRoleSet.has(role))) continue;
-    const walked = { pieces: [] as ReadiumSpeechUtterance[], sources: [] as SourceTrace };
-    walkNode(child, walked.pieces, walked.sources, ctx, suppress);
+    const walked: Piece[] = [];
+    walkNode(child, walked, ctx, suppress);
     insertedById.set(placeholderId!, walked);
   }
   // A placeholder read neither in place nor as its own words leaves no brackets or quotes around nothing.
   const isDropped = (id: string) => {
     const child = childrenById.get(id);
-    if (insertedById.get(id)?.pieces.length === 0) return true;
+    if (insertedById.get(id)?.length === 0) return true;
     return child !== undefined && isDeferred(child, ctx) && !nodeRoles(child).some((role) => textReferenceRoleSet.has(role));
   };
   // How the next text meets what precedes it across placeholders: spaced where the source spaces a dropped one, else touching if set.
@@ -271,8 +265,8 @@ function emitWithPlaceholders(
   const meetPending = (before: number) => {
     const piece = pieces[before];
     if (!pending || !piece) return;
-    if (pending.spaceAcross) ctx.spacedPieces.add(piece);
-    else if (pending.touching) ctx.touchingPieces.add(piece);
+    if (pending.spaceAcross) markSpaced(piece);
+    else if (pending.touching) piece.spacing = "touching";
     pending = undefined;
   };
   const removed = removeEmptiedPairs(rawSsml, isDropped, declaredLanguage);
@@ -284,8 +278,6 @@ function emitWithPlaceholders(
     if (ctx.language === "block-level" || ctx.language === "none") ssml = stripLangTags(ssml);
   }
   const enclosedIds = enclosedPlaceholders(ssml, declaredLanguage);
-  const slices: SliceScope = {};
-  let sliceIndex = 0;
   for (let segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
     if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml, touchesPrevious: false };
@@ -302,28 +294,26 @@ function emitWithPlaceholders(
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
         if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
-          const walked = insertedById.get(segment.placeholderId)!;
-          pieces.push(...walked.pieces);
-          pieceSources.push(...walked.sources);
+          pieces.push(...insertedById.get(segment.placeholderId)!);
           pieces.slice(before).forEach((piece) => inserted.add(piece));
-          if (segment.language) pieces.slice(before).forEach((piece) => setEnclosingLanguage(piece, segment.language!));
-          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
+          if (segment.language) pieces.slice(before).forEach((piece) => (piece.enclosingLanguage = segment.language));
+          nestTags(pieces.slice(before), segment.open!);
           // Inserted text keeps the source's spacing inside a pair enclosing just it; a quote closing a word before it is spaced from it.
           if (pieces.length > before) {
             const enclosed = enclosedIds.has(segment.placeholderId);
-            if (/\s$/.test(segment.textBefore!) || (!enclosed && /\S\p{Pi}$/u.test(segment.textBefore!))) ctx.spacedPieces.add(pieces[before]);
-            else if (enclosed) ctx.touchingPieces.add(pieces[before]);
+            if (/\s$/.test(segment.textBefore!) || (!enclosed && /\S\p{Pi}$/u.test(segment.textBefore!))) markSpaced(pieces[before]);
+            else if (enclosed) pieces[before].spacing = "touching";
             const spaceAfter = /^\s/.test(segment.textAfter!) && keepsSpaceBefore(segment.textAfter!.trimStart(), declaredLanguage);
             pending = { spaceAcross: spaceAfter, touching: enclosed };
           }
         } else {
           // Interruptions inside an inline child (e.g. a link) are placed relative to this sentence.
-          walkNode(child, pieces, pieceSources, ctx, suppress, deferred);
-          nestEnclosingTags(pieces.slice(before), slices, sliceIndex - 1);
-          pieces.slice(before).forEach((piece) => ctx.placeholderPieces.has(piece) && nested.add(piece));
+          walkNode(child, pieces, ctx, suppress, deferred);
+          nestTags(pieces.slice(before), segment.open!);
+          pieces.slice(before).forEach((piece) => piece.placement && nested.add(piece));
           // Its text keeps the source's spacing, which joining wouldn't add in text written without spaces.
           if (pieces.length > before) {
-            if (/\s$/.test(segment.textBefore!)) ctx.spacedPieces.add(pieces[before]);
+            if (/\s$/.test(segment.textBefore!)) markSpaced(pieces[before]);
             pending = { spaceAcross: /^\s/.test(segment.textAfter!) };
           }
         }
@@ -331,10 +321,7 @@ function emitWithPlaceholders(
         const childRoles = nodeRoles(child);
         const isTextReference = childRoles.some((role) => textReferenceRoleSet.has(role));
         if (isTextReference) {
-          for (const piece of textReferenceText(child, ctx)) {
-            pieces.push(piece);
-            pieceSources.push(child);
-          }
+          push(pieces, child, textReferenceText(child, ctx));
         }
         const targets: Deferred[] = !isTextReference
           ? [{ node: child }]
@@ -346,7 +333,7 @@ function emitWithPlaceholders(
           // Walked in place for sentence segmentation to move after its sentence, same suppress as walkDeferred()
           if (isSentence) {
             const before = pieces.length;
-            walkDeferred([entry], pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
+            walkDeferred([entry], pieces, ctx, deferred.length === 1 && (suppress || isBlockRole));
             pieces.slice(before).forEach((piece) => placedAfter.add(piece));
           }
         }
@@ -355,7 +342,7 @@ function emitWithPlaceholders(
     }
     if (!segment.ssml) continue;
     const before = pieces.length;
-    const readable = `${segment.openTags ?? ""}${segment.ssml}${segment.closeTags ?? ""}`;
+    const readable = openTags(segment.open ?? []) + segment.ssml + closeTags(segment.close ?? []);
     if (
       ctx.format === "plain" &&
       ctx.language !== "block-level" &&
@@ -363,11 +350,10 @@ function emitWithPlaceholders(
       hasLangTag(readable)
     ) {
       for (const langSegment of splitOnLangTags(readable, declaredLanguage)) {
-        const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
+        const piece: Piece = { plain: langSegment.plain };
         const segmentLanguage = languageFor(langSegment.language, ctx);
-        if (segmentLanguage) utterance.language = segmentLanguage;
-        pieces.push(utterance);
-        pieceSources.push(node);
+        if (segmentLanguage) piece.language = segmentLanguage;
+        push(pieces, node, [piece]);
       }
       placeInOwnText(segment, before);
       meetPending(before);
@@ -375,14 +361,13 @@ function emitWithPlaceholders(
       markTouching(segment, before);
       continue;
     }
-    const utterance: ReadiumSpeechUtterance = {};
-    if (language) utterance.language = language;
+    const piece: Piece = {};
+    if (language) piece.language = language;
     if (ctx.format === "ssml") {
-      utterance.ssml = segment.ssml;
-      setEnclosingTags(utterance, { open: segment.openTags ?? "", close: segment.closeTags ?? "", scope: slices, index: sliceIndex++ });
-    } else utterance.plain = stripSsmlTags(readable);
-    pieces.push(utterance);
-    pieceSources.push(node);
+      piece.ssml = segment.ssml;
+      if (segment.open?.length || segment.close?.length) piece.tags = { open: segment.open!, close: segment.close!, around: [] };
+    } else piece.plain = stripSsmlTags(readable);
+    push(pieces, node, [piece]);
     placeInOwnText(segment, before);
     meetPending(before);
     placeAlias(segment, before);
@@ -393,20 +378,20 @@ function emitWithPlaceholders(
   if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {
     pieces.forEach((piece) => {
       const own = inserted.has(piece)
-        ? { placement: "inline" as const }
+        ? { kind: "inline" as const }
         : placedAfter.has(piece)
-          ? { placement: "after" as const }
+          ? { kind: "after" as const }
           : aliases.has(piece)
-            ? { placement: "alias" as const, abbreviation: aliases.get(piece) }
+            ? { kind: "alias" as const, abbreviation: aliases.get(piece) }
             : nested.has(piece)
-              ? ctx.placeholderPieces.get(piece)
+              ? piece.placement
               : undefined;
-      ctx.placeholderPieces.set(piece, { ...own, node });
+      piece.placement = { ...own, node };
     });
-    pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
+    pushPiecesOrMerged(out, node, pieces, undefined);
     return isSentence ? [] : deferred;
   }
-  pushMergedRuns(out, sources, ctx, node, pieces, pieceSources);
+  pushMergedRuns(out, ctx, node, pieces);
   return deferred;
 }
 
@@ -414,8 +399,7 @@ function emitWithPlaceholders(
 // With `ownTextInValue`, its own text was already spoken in an ancestor's folded value: only what it embeds is.
 function walkNode(
   node: GuidedNavigationObject,
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
+  out: Piece[],
   ctx: WalkContext,
   suppress: boolean,
   hoisted?: Deferred[],
@@ -461,7 +445,7 @@ function walkNode(
   if (isTableCaption) {
     const utterance = formatDescription(description!, node, ctx);
     scopeToQuote(utterance, 0, description!, node, ctx);
-    push(out, sources, node, [utterance]);
+    push(out, node, [utterance]);
   }
 
   // Every role this node carries gets looked up in the contextualization
@@ -473,7 +457,7 @@ function walkNode(
     // (its content still speaks normally) — the only role with this rule.
     if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
-    pushRoleContextualization(out, sources, node, ctx, role, "before", variantKey, params);
+    pushRoleContextualization(out, node, ctx, role, "before", variantKey, params);
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
@@ -492,31 +476,22 @@ function walkNode(
           isBlockNode(child, ctx) && !suppress && ctx.interruptions.noteref !== "inline";
         const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
         const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
-        const pieces: ReadiumSpeechUtterance[] = [];
-        const pieceSources: SourceTrace = [];
-        if (startText !== undefined) {
-          pieces.push(formatEntryText(startText, ctx));
-          pieceSources.push(child);
-        }
-        const inner: ReadiumSpeechUtterance[] = [];
-        const innerSources: SourceTrace = [];
+        const pieces: Piece[] = [];
+        if (startText !== undefined) push(pieces, child, [formatEntryText(startText, ctx)]);
+        const inner: Piece[] = [];
         // The child's own walk() would otherwise claim this same boundary on its first
         // content utterance instead of the start text pushed above.
-        walk([child], inner, innerSources, ctx, suppress || childEligible);
-        if (childEligible && inner.length > 0) ctx.blockStarts.add(inner[0]);
+        walk([child], inner, ctx, suppress || childEligible);
+        if (childEligible && inner.length > 0) inner[0].blockStart = true;
         pieces.push(...inner);
-        pieceSources.push(...innerSources);
         if (hasEntry && footnoteBlock) {
           const endText = resolveEntryText(ctx, "footnote.block.end");
-          if (endText !== undefined) {
-            pieces.push(formatEntryText(endText, ctx));
-            pieceSources.push(child);
-          }
+          if (endText !== undefined) push(pieces, child, [formatEntryText(endText, ctx)]);
         }
-        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
-        pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
+        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx) : undefined;
+        pushPiecesOrMerged(out, child, pieces, merged);
       } else {
-        walk([child], out, sources, ctx, suppress);
+        walk([child], out, ctx, suppress);
       }
     }
   } else if (roles.some((role) => contentlessRoleSet.has(role))) {
@@ -525,28 +500,28 @@ function walkNode(
     const rawSsml = spokenText(node)?.ssml;
     const foldsValue = ownTextInValue || roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
     if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
-      const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
+      const deferred = emitWithPlaceholders(node, rawSsml, out, ctx, suppress, isBlockRole);
       if (hoisted) {
         hoisted.push(...deferred);
       } else if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
-        walkDeferred(deferred, out, sources, ctx, childSuppress);
+        walkDeferred(deferred, out, ctx, childSuppress);
       }
     } else if (roles.includes("pagebreak")) {
-      push(out, sources, node, buildPagebreakUtterance(node, ctx));
+      push(out, node, buildPagebreakUtterance(node, ctx));
       if (node.children) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
-        walk(node.children, out, sources, ctx, childSuppress);
+        walk(node.children, out, ctx, childSuppress);
       }
     } else {
       const resolved = foldsValue ? undefined : resolveNodeText(spokenText(node));
       if (resolved) {
-        push(out, sources, node, applyFormat(node, resolved, ctx.format, ctx.language, ctx));
+        push(out, node, applyFormat(node, resolved, ctx.format, ctx.language, ctx));
       }
       if (node.children && !skipsTarget) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         if (roles.some((role) => textReferenceRoleSet.has(role))) {
-          pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, isDeferred(node, ctx));
+          pushTextReferenceTargets(node, node.children, out, ctx, childSuppress, isDeferred(node, ctx));
         } else if (foldsValue && rawSsml && hasPlaceholder(rawSsml)) {
           // A value's plain text holds the words of the links and text references its placeholders embed.
           const embedded = new Set(splitOnPlaceholders(rawSsml).flatMap((segment) => segment.placeholderId ?? []));
@@ -556,30 +531,30 @@ function walkNode(
               child.id !== undefined &&
               embedded.has(child.id) &&
               (childRoles.length === 0 || childRoles.some((role) => textReferenceRoleSet.has(role)));
-            walkNode(child, out, sources, ctx, index === 0 ? childSuppress : false, undefined, inValue);
+            walkNode(child, out, ctx, index === 0 ? childSuppress : false, undefined, inValue);
           });
         } else {
-          walk(node.children, out, sources, ctx, childSuppress);
+          walk(node.children, out, ctx, childSuppress);
         }
       }
     }
   }
 
   if (eligible && out.length > beforeLength) {
-    ctx.blockStarts.add(out[beforeLength]);
+    out[beforeLength].blockStart = true;
   }
 
   if (description !== undefined && !foldsDescription && !isTableCaption) {
     const utterance = formatDescription(description, node, ctx);
     // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
     if (roles.includes("figure")) scopeToQuote(utterance, 0, description, node, ctx);
-    push(out, sources, node, [utterance]);
+    push(out, node, [utterance]);
   }
 
   for (const role of contextualizedRoles) {
     if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
-    pushRoleContextualization(out, sources, node, ctx, role, "after", variantKey, params);
+    pushRoleContextualization(out, node, ctx, role, "after", variantKey, params);
   }
 }
 
@@ -587,6 +562,6 @@ function walkNode(
 // sibling, whatever a prior sibling's subtree spoke has already broken any
 // "nothing in between" chain, so each subsequent sibling is free to open
 // its own boundary.
-export function walk(nodes: GuidedNavigationObject[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
-  nodes.forEach((node, index) => walkNode(node, out, sources, ctx, index === 0 ? suppress : false));
+export function walk(nodes: GuidedNavigationObject[], out: Piece[], ctx: WalkContext, suppress: boolean): void {
+  nodes.forEach((node, index) => walkNode(node, out, ctx, index === 0 ? suppress : false));
 }

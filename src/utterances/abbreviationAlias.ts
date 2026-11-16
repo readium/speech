@@ -1,19 +1,19 @@
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { sharedLanguage } from "./language.js";
-import { joinPieceTexts, pieceIndexAt, pieceSpacing, pieceText } from "./mergeUtterances.js";
+import { pieceIndexAt, pieceText } from "./mergeUtterances.js";
+import { joinPieceTexts, type Piece } from "./piece.js";
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
 import { blockOf } from "./blocks.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
+import type { WalkContext } from "./walkContext.js";
 
-export function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
-  return ctx.placeholderPieces.get(piece)?.placement === "alias";
+export function isAlias(piece: Piece): boolean {
+  return piece.placement?.kind === "alias";
 }
 
 // Segments the pieces' `joined` text as if each alias were its abbreviation (left out after it,
 // replaced inline), mapping boundaries back so an alias stays in its abbreviation's sentence.
 export async function segmentAroundAliases(
-  pieces: ReadiumSpeechUtterance[],
+  pieces: Piece[],
   plainParts: string[],
   joined: string,
   ranges: { start: number; end: number }[],
@@ -28,7 +28,7 @@ export type AliasSegmentation = { boundaries: SentenceBoundary[]; textRanges: { 
 
 // Alias texts don't take part, so the result stays valid for the pieces once their aliases are punctuated.
 export async function segmentAliasText(
-  pieces: ReadiumSpeechUtterance[],
+  pieces: Piece[],
   plainParts: string[],
   language: string,
   suppressions: string[] | undefined,
@@ -37,18 +37,18 @@ export async function segmentAliasText(
   const included: number[] = [];
   const parts: string[] = [];
   plainParts.forEach((part, k) => {
-    const text = isAlias(pieces[k], ctx) ? ctx.placeholderPieces.get(pieces[k])!.abbreviation : part;
+    const text = isAlias(pieces[k]) ? pieces[k].placement!.abbreviation : part;
     if (!text) return;
     included.push(k);
     parts.push(text);
   });
-  const { joined: text, ranges: textRanges } = joinPieceTexts(parts, parts, pieceSpacing(included.map((k) => pieces[k]), ctx));
+  const { joined: text, ranges: textRanges } = joinPieceTexts(parts, included.map((k) => pieces[k].spacing));
   return { boundaries: await ctx.segmenter(language, text, suppressions), textRanges, included };
 }
 
 export function mapAliasBoundaries(
   { boundaries: textBoundaries, textRanges, included }: AliasSegmentation,
-  pieces: ReadiumSpeechUtterance[],
+  pieces: Piece[],
   joined: string,
   ranges: { start: number; end: number }[],
   ctx: WalkContext,
@@ -60,7 +60,7 @@ export function mapAliasBoundaries(
     const k = included[i];
     const local = pos - textRanges[i].start;
     const length = textRanges[i].end - textRanges[i].start;
-    if (local === 0 || (local < length && !isAlias(pieces[k], ctx))) return ranges[k].start + local;
+    if (local === 0 || (local < length && !isAlias(pieces[k]))) return ranges[k].start + local;
     if (local > length && !isContentEnd) return i + 1 < included.length ? ranges[included[i + 1]].start : joined.length;
     let last = k;
     while (last + 1 < pieces.length && !included.includes(last + 1)) last++;
@@ -69,7 +69,7 @@ export function mapAliasBoundaries(
   const isInsideAlias = (pos: number): boolean => {
     const i = pieceIndexAt(textRanges, pos);
     const local = pos - textRanges[i].start;
-    return isAlias(pieces[included[i]], ctx) && local > 0 && local < textRanges[i].end - textRanges[i].start;
+    return isAlias(pieces[included[i]]) && local > 0 && local < textRanges[i].end - textRanges[i].start;
   };
   const boundaries: SentenceBoundary[] = [];
   for (const boundary of textBoundaries) {
@@ -97,7 +97,7 @@ export function endsWithSentenceTerminator(text: string): boolean {
 
 // An inline alias ending a sentence keeps its abbreviation's final sentence terminator (e.g. "W.H.O."), which also ended the sentence.
 export function punctuateSentenceEndingAliases(
-  pieces: ReadiumSpeechUtterance[],
+  pieces: Piece[],
   joined: string,
   ranges: { start: number; end: number }[],
   boundaries: SentenceBoundary[],
@@ -105,8 +105,8 @@ export function punctuateSentenceEndingAliases(
 ): boolean {
   let punctuated = false;
   pieces.forEach((piece, k) => {
-    if (!isAlias(piece, ctx)) return;
-    const terminal = ctx.placeholderPieces.get(piece)!.abbreviation?.match(sentenceTerminal)?.[0];
+    if (!isAlias(piece)) return;
+    const terminal = piece.placement!.abbreviation?.match(sentenceTerminal)?.[0];
     if (!terminal) return;
     const { start, end } = ranges[k];
     if (!boundaries.some((boundary) => boundary.start < end && boundary.contentEnd >= end && sentenceClosing.test(joined.slice(end, boundary.contentEnd)))) return;
@@ -119,44 +119,37 @@ export function punctuateSentenceEndingAliases(
 }
 
 // An inline alias read as its own sentence ends it with its abbreviation's final terminator.
-export function punctuateLoneAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): void {
+export function punctuateLoneAlias(piece: Piece, ctx: WalkContext): void {
   const text = pieceText(piece, ctx);
   const range = { start: 0, end: text.length };
   punctuateSentenceEndingAliases([piece], text, [range], [{ text, ...range, contentEnd: text.length }], ctx);
 }
 
 // Without sentence segmentation, merges each node's pieces the walk left unmerged, once its inline aliases are punctuated.
-export async function mergeAliasPieces(
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
-  ctx: WalkContext,
-): Promise<{ out: ReadiumSpeechUtterance[]; sources: SourceTrace }> {
-  const newOut: ReadiumSpeechUtterance[] = [];
-  const newSources: SourceTrace = [];
+export async function mergeAliasPieces(out: Piece[], ctx: WalkContext): Promise<Piece[]> {
+  const newOut: Piece[] = [];
   let i = 0;
   while (i < out.length) {
-    const node = ctx.placeholderPieces.get(out[i])?.node;
+    const node = out[i].placement?.node;
     if (!node) {
       newOut.push(out[i]);
-      newSources.push(sources[i]);
       i++;
       continue;
     }
     let j = i;
-    while (j + 1 < out.length && ctx.placeholderPieces.get(out[j + 1])?.node === node) j++;
+    while (j + 1 < out.length && out[j + 1].placement?.node === node) j++;
     const pieces = out.slice(i, j + 1);
-    const pieceSources = sources.slice(i, j + 1);
     const shared = sharedLanguage(pieces, ctx);
     const language = (shared === null ? pieces[0].language : shared) ?? "en";
     // The text following the node in its block tells whether a sentence ending the node's own text goes on past it.
     const block = blockOf(node, "trailing", ctx);
-    const segmented = j + 1 < out.length && block && blockOf(sources[j + 1], "leading", ctx) === block ? [...pieces, out[j + 1]] : pieces;
+    const segmented = j + 1 < out.length && block && blockOf(out[j + 1].source, "leading", ctx) === block ? [...pieces, out[j + 1]] : pieces;
     const plainParts = segmented.map((piece) => pieceText(piece, ctx));
-    const { joined, ranges } = joinPieceTexts(plainParts, plainParts, pieceSpacing(segmented, ctx));
+    const { joined, ranges } = joinPieceTexts(plainParts, segmented.map((piece) => piece.spacing));
     const boundaries = await segmentAroundAliases(segmented, plainParts, joined, ranges, language, callerSuppressions(language, ctx), ctx);
     punctuateSentenceEndingAliases(pieces, joined, ranges, boundaries, ctx);
-    pushMergedRuns(newOut, newSources, ctx, node, pieces, pieceSources);
+    pushMergedRuns(newOut, ctx, node, pieces);
     i = j + 1;
   }
-  return { out: newOut, sources: newSources };
+  return newOut;
 }

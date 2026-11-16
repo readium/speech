@@ -441,9 +441,9 @@ export interface SsmlSegment {
   // placeholders. Mutually exclusive with `placeholderId`. A text run is a slice of
   // the source, so its tags may open or close in another segment: the segments joined give back the source.
   ssml?: string;
-  // The tags of the elements open around `ssml` in the source, to read it on its own; never output.
-  openTags?: string;
-  closeTags?: string;
+  // The elements open around `ssml`'s start and end in the source (around the mark, for a placeholder), to read it on its own.
+  open?: SsmlElement[];
+  close?: SsmlElement[];
   // The `id` of a `<readium:TAG id="...">` placeholder at this position,
   // linking to the sibling/child `GuidedNavigationObject` carrying that `id`.
   placeholderId?: string;
@@ -613,10 +613,7 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const elements = [...ssmlElements(nodes)].filter((element) => !element.selfClosing);
   // The elements open at `offset` in the source, outermost first.
   const openAt = (offset: number) => elements.filter((element) => element.start < offset && offset <= element.closeStart);
-  const context = (from: number, to: number) => ({
-    openTags: openAt(from).map((element) => element.openTag).join(""),
-    closeTags: openAt(to).map(closeTag).reverse().join(""),
-  });
+  const context = (from: number, to: number) => ({ open: openAt(from), close: openAt(to) });
 
   const segments: SsmlSegment[] = [];
   let lastIndex = 0;
@@ -634,9 +631,11 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
     const following = ssml.slice(mark.end, marks[k + 1]?.start ?? ssml.length);
     if (mark.placeholderId !== undefined) {
       pushText(lastIndex, mark.start);
-      const language = openAt(mark.start).map(declaredLanguage).filter((declared) => declared !== undefined).pop();
+      const open = openAt(mark.start);
+      const language = open.map(declaredLanguage).filter((declared) => declared !== undefined).pop();
       segments.push({
         placeholderId: mark.placeholderId,
+        open,
         textBefore: textIn(lastIndex, mark.start),
         textAfter: textIn(mark.end, marks[k + 1]?.start ?? ssml.length),
         ...(language && { language }),

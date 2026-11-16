@@ -1,7 +1,8 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
-import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import type { UtteranceOffset } from "../utterance.js";
+import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordAliasOffset } from "./boundaryLocate.js";
@@ -39,24 +40,24 @@ interface AliasSpan {
 const isText = (span: SourceSpan): span is TextSpan => "map" in span;
 
 // An utterance's spans, an alias's sized to the text it's on.
-export function spansOf(utterance: ReadiumSpeechUtterance, ctx: WalkContext): SourceSpan[] {
-  const spans = ctx.spans.get(utterance) ?? [];
+export function spansOf(utterance: Piece, ctx: WalkContext): SourceSpan[] {
+  const spans = utterance.spans ?? [];
   return spans.map((span) => (isText(span) || span.length !== undefined ? span : { ...span, length: pieceText(utterance, ctx).length }));
 }
 
-export function setSpans(utterance: ReadiumSpeechUtterance, spans: SourceSpan[], ctx: WalkContext): void {
-  if (spans.length > 0) ctx.spans.set(utterance, spans);
+export function setSpans(utterance: Piece, spans: SourceSpan[]): void {
+  if (spans.length > 0) utterance.spans = spans;
 }
 
-export function setAliasSpan(piece: ReadiumSpeechUtterance, node: GuidedNavigationObject, range: { start: number; end: number }, alias: LocatorOptions, ctx: WalkContext): void {
-  setSpans(piece, [{ node, at: 0, alias, ...range }], ctx);
+export function setAliasSpan(piece: Piece, node: GuidedNavigationObject, range: { start: number; end: number }, alias: LocatorOptions): void {
+  setSpans(piece, [{ node, at: 0, alias, ...range }]);
 }
 
 // `ownText` spoken whole from `at` in the utterance: e.g. a cell's value in its header's announcement.
-export function setQuotedSpan(utterance: ReadiumSpeechUtterance, node: GuidedNavigationObject, ownText: string, at: number, ctx: WalkContext): void {
+export function setQuotedSpan(utterance: Piece, node: GuidedNavigationObject, ownText: string, at: number): void {
   const span: TextSpan = { node, ownText, at, map: Array.from({ length: ownText.length }, (_, k) => k) };
   if (ownText !== plainTextOf(node)) span.quotedOnly = true;
-  setSpans(utterance, [span], ctx);
+  setSpans(utterance, [span]);
 }
 
 const lengthOf = (span: SourceSpan) => (isText(span) ? span.map.length : span.length!);
@@ -79,7 +80,7 @@ export function sliceSpans(spans: SourceSpan[], from: number, to: number): Sourc
 }
 
 // The spans of `pieces` joined into one text, each piece at `ranges[k]` of it.
-export function joinedSpans(pieces: ReadiumSpeechUtterance[], ranges: { start: number; end: number }[], ctx: WalkContext): SourceSpan[] {
+export function joinedSpans(pieces: Piece[], ranges: { start: number; end: number }[], ctx: WalkContext): SourceSpan[] {
   return pieces.flatMap((piece, k) =>
     sliceSpans(spansOf(piece, ctx), 0, ranges[k].end - ranges[k].start).map((span) => ({ ...span, at: span.at + ranges[k].start })),
   );
@@ -156,11 +157,11 @@ export function ownRange(spans: (SourceSpan | undefined)[]): { start: number; en
 }
 
 // Places each of `pieces`, read in order out of `node`'s own text.
-export function placeInOwnText(pieces: ReadiumSpeechUtterance[], node: GuidedNavigationObject, ctx: WalkContext): void {
+export function placeInOwnText(pieces: Piece[], node: GuidedNavigationObject, ctx: WalkContext): void {
   const aligner = ownTextAligner(node);
   for (const piece of pieces) {
     const span = aligner.place(pieceText(piece, ctx));
-    if (span) setSpans(piece, [span], ctx);
+    if (span) setSpans(piece, [span]);
   }
 }
 
@@ -191,7 +192,7 @@ function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNulla
 }
 
 // An utterance's `offsets`: one per stretch of a node's own text it speaks.
-export function buildOffsets(utterance: ReadiumSpeechUtterance, ctx: WalkContext): UtteranceOffset[] {
+export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffset[] {
   type Located = { span: SourceSpan; nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>; start: number; end: number };
   const located = spansOf(utterance, ctx).flatMap((span): Located[] => {
     const nodeRef = resolveNodeLocate(span.node, ctx.ancestorChains);
