@@ -288,3 +288,9 @@ test("a page break's label, not in its node's text, doesn't take the place of th
     t.deepEqual(quoted(utterance), [["5", 0, 1], ["5", 2, 3]], format);
   }
 });
+
+test("each word of page text spaced otherwise than the speech resolves", async (t) => {
+  const gnd = parseMarkup('<p>Hi <span lang="fr">un&#160;chat</span> end.</p>', undefined, { textrefs: true });
+  const utterance = (await extractUtterances(gnd, { format: "plain", language: "always" })).find((u) => u.plain === "un chat")!;
+  t.deepEqual([resolveBoundaryLocate(utterance, 0, 2)?.word, resolveBoundaryLocate(utterance, 3, 4)?.word], ["un", "chat"]);
+});
