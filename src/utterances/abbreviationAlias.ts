@@ -4,7 +4,6 @@ import { joinPieceTexts, pieceIndexAt, pieceSpacing, pieceText } from "./mergeUt
 import { callerSuppressions, type SentenceBoundary } from "./sentenceSegmenter.js";
 import { pushMergedRuns } from "./utteranceOutput.js";
 import { blockOf } from "./blocks.js";
-import { aliasSpokenLength, recordAliasOffset } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 export function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
@@ -114,10 +113,6 @@ export function punctuateSentenceEndingAliases(
     if (sentenceTerminal.test(joined.slice(start, end))) return;
     if (piece.plain !== undefined) piece.plain += terminal;
     if (piece.ssml !== undefined) piece.ssml += terminal;
-    for (const offset of piece.offsets ?? []) {
-      const spokenLength = aliasSpokenLength(offset);
-      if (spokenLength !== undefined) recordAliasOffset(offset, spokenLength + terminal.length);
-    }
     punctuated = true;
   });
   return punctuated;

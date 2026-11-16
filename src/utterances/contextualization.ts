@@ -7,6 +7,7 @@ import { languageFor } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionLanguageOf, descriptionOf, nodeText } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
+import { setQuotedSpan } from "./sourceSpans.js";
 import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
@@ -38,19 +39,25 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
   });
 }
 
-// Narrows utterance's offsets/locate to quoteText, when text speaks it.
+// Narrows utterance's offsets/locate to quoteText, spoken at `at` of its text, if it is.
 // Leaves ctx.synthetic alone — that also gates sentence-splitting/merging.
-export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
-  if (!text.includes(quoteText)) return;
+export function scopeToQuote(utterance: ReadiumSpeechUtterance, at: number | undefined, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
+  if (at === undefined || at < 0) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
-  const quoteLocate = subLocateFor(resolved.ref, quoteText);
-  utterance.offsets = [{ start: 0, end: quoteText.length, locate: quoteLocate }];
-  utterance.locate = resolved.own ? resolved.ref : quoteLocate;
+  setQuotedSpan(utterance, node, quoteText, at, ctx);
+  utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
 }
 
 // `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
-function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GuidedNavigationObject, ctx: WalkContext, role: string, params?: Record<string, string>): void {
+function scopeToOwnValue(
+  utterance: ReadiumSpeechUtterance,
+  entry: { base: string; variantKey?: string },
+  node: GuidedNavigationObject,
+  ctx: WalkContext,
+  role: string,
+  params?: Record<string, string>,
+): void {
   const value = params?.value;
   if (value !== undefined && value === plainTextOf(node)) {
     // Language reflects the node's own real text regardless of whether a
@@ -58,12 +65,12 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
     const language = languageFor(nodeText(node.text)?.language, ctx);
     if (language) utterance.language = language;
     ctx.synthetic.delete(utterance);
-    scopeToQuote(utterance, text, value, node, ctx);
+    scopeToQuote(utterance, paramAt(ctx, entry, params, "value"), value, node, ctx);
     return;
   }
   const description = params?.description;
   if (description !== undefined && description === descriptionOf(node) && (role === "figure" || role === "table")) {
-    scopeToQuote(utterance, text, description, node, ctx);
+    scopeToQuote(utterance, paramAt(ctx, entry, params, "description"), description, node, ctx);
   }
 }
 
@@ -94,7 +101,13 @@ export function pushRoleContextualization(
   }
 }
 
-const descriptionMarker = "\u0000";
+const paramMarker = "\u0000";
+
+// Where `name`'s value lands in the entry's text: where a marker interpolated in its place does.
+function paramAt(ctx: WalkContext, entry: { base: string; variantKey?: string }, params: Record<string, string> | undefined, name: string): number | undefined {
+  const at = resolveEntryText(ctx, entry.base, entry.variantKey, { ...params, [name]: paramMarker })?.indexOf(paramMarker);
+  return at === undefined || at === -1 ? undefined : at;
+}
 
 // An entry holding the node's description in another primary language than the catalog's wraps it in a `<lang>`
 // in SSML, and is split around it in plain text; in the same one, it's a single utterance in the description's tag.
@@ -113,16 +126,16 @@ function entryUtterances(
     ctx.language !== "none" && description !== undefined && description === descriptionOf(node)
       ? languageFor(descriptionLanguageOf(node), ctx)
       : undefined;
-  const parts = language ? resolveEntryText(ctx, base, variantKey, { ...params, description: descriptionMarker })?.split(descriptionMarker) : undefined;
+  const parts = language ? resolveEntryText(ctx, base, variantKey, { ...params, description: paramMarker })?.split(paramMarker) : undefined;
   if (!language || !parts || parts.length < 2) {
     const utterance = formatEntryText(text, ctx);
-    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    scopeToOwnValue(utterance, { base, variantKey }, node, ctx, role, params);
     return [utterance];
   }
   if (extractLangRegionFromBCP47(language)[0] === extractLangRegionFromBCP47(ctx.contextualizationLanguage)[0]) {
     const utterance = formatEntryText(text, ctx);
     utterance.language = language;
-    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    scopeToOwnValue(utterance, { base, variantKey }, node, ctx, role, params);
     return [utterance];
   }
   const wrapped = `<lang xml:lang="${ssmlAttrEscape(language)}">${ssmlTextEscape(description!)}</lang>`;
@@ -130,14 +143,15 @@ function entryUtterances(
   if (ctx.format === "ssml") {
     const utterance = formatEntryText(text, ctx);
     utterance.ssml = ssml;
-    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    scopeToOwnValue(utterance, { base, variantKey }, node, ctx, role, params);
     return [utterance];
   }
   // Split like inline `<lang>` spans in content, punctuation closing the description staying with it.
   return splitOnLangTags(ssml, ctx.contextualizationLanguage).map((segment) => {
     if (segment.language !== language) return formatEntryText(segment.plain, ctx);
     const own = formatDescription(segment.plain, node, ctx);
-    if (role === "figure" || role === "table") scopeToQuote(own, segment.plain, description!, node, ctx);
+    // The segment holds only the description and the punctuation around it moved in from the entry.
+    if (role === "figure" || role === "table") scopeToQuote(own, segment.plain.indexOf(description!), description!, node, ctx);
     return own;
   });
 }
