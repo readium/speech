@@ -263,3 +263,20 @@ test("text after a link is placed past the link's words, even where it repeats t
     t.deepEqual(quoted(utterance), [["end", 0, 3], ["end", 0, 3], ["end", 8, 11]], format);
   }
 });
+
+test("a cell's value is placed where its announcement reads it, even where its header repeats it", async (t) => {
+  const html = "<table><tr><th>Value. Details</th></tr><tr><td>Value.</td></tr></table>";
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, segmentation: { mode: "sentence" } });
+    const [, , header, value] = utterances;
+    t.deepEqual([header.plain ?? header.ssml, header.offsets], ["Value.", undefined], format);
+    t.deepEqual([value.plain ?? value.ssml, quoted(value)], ["Details: Value.", [["Value.", 0, 6]]], format);
+  }
+});
+
+test("a caption read in another language than its announcement keeps its offsets, wherever the announcement's punctuation falls", async (t) => {
+  const gnd = parseMarkup("<figure><img src='a.png' alt=''><figcaption lang='fr'>Un chat</figcaption></figure>", undefined, { textrefs: true });
+  const contextualizations = { figure: { block: { start: { labelled: "Figure: “{{ description }}”." } } } };
+  const utterances = await extractUtterances(gnd, { format: "plain", language: "always", contextualize: ["figure"], contextualization: { contextualizations } });
+  t.deepEqual(utterances.map((u) => [u.plain, quoted(u)]), [["Figure:", undefined], ["“Un chat”.", [["Un chat", 0, 7]]]]);
+});

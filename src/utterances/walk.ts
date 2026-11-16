@@ -459,7 +459,7 @@ function walkNode(
   const isTableCaption = roles.includes("table") && description !== undefined && !foldsDescription;
   if (isTableCaption) {
     const utterance = formatDescription(description!, node, ctx);
-    scopeToQuote(utterance, description!, description!, node, ctx);
+    scopeToQuote(utterance, 0, description!, node, ctx);
     push(out, sources, node, [utterance]);
   }
 
@@ -571,7 +571,7 @@ function walkNode(
   if (description !== undefined && !foldsDescription && !isTableCaption) {
     const utterance = formatDescription(description, node, ctx);
     // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
-    if (roles.includes("figure")) scopeToQuote(utterance, description, description, node, ctx);
+    if (roles.includes("figure")) scopeToQuote(utterance, 0, description, node, ctx);
     push(out, sources, node, [utterance]);
   }
 
