@@ -280,3 +280,11 @@ test("a caption read in another language than its announcement keeps its offsets
   const utterances = await extractUtterances(gnd, { format: "plain", language: "always", contextualize: ["figure"], contextualization: { contextualizations } });
   t.deepEqual(utterances.map((u) => [u.plain, quoted(u)]), [["Figure:", undefined], ["“Un chat”.", [["Un chat", 0, 7]]]]);
 });
+
+test("a page break's label, not in its node's text, doesn't take the place of the same text read after it", async (t) => {
+  const html = '<p><span role="doc-pagebreak" id="p5" aria-label="5"></span>5 <span role="doc-pagebreak" id="p6" aria-label="6"></span>5</p>';
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format });
+    t.deepEqual(quoted(utterance), [["5", 0, 1], ["5", 2, 3]], format);
+  }
+});

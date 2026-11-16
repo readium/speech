@@ -292,7 +292,8 @@ function emitWithPlaceholders(
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
-      aligner.embed(plainTextOf(child));
+      // A noteref's or page break's own text is a marker, not prose in the node's text, unlike a link's or text reference's words.
+      if (!nodeRoles(child).some((role) => interruptionRoleSet.has(role) && !textReferenceRoleSet.has(role))) aligner.embed(plainTextOf(child));
       if (isDropped(segment.placeholderId)) {
         pending = { spaceAcross: spaced.has(segment.placeholderId) };
       } else {
