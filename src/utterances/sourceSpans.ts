@@ -55,7 +55,7 @@ export function setAliasSpan(piece: ReadiumSpeechUtterance, node: GuidedNavigati
 
 // `ownText` spoken whole from `at` in the utterance: e.g. a cell's value in its header's announcement.
 export function setQuotedSpan(utterance: ReadiumSpeechUtterance, node: GuidedNavigationObject, ownText: string, at: number, ctx: WalkContext): void {
-  const span: TextSpan = { node, ownText, at, map: [...ownText].map((_, k) => k) };
+  const span: TextSpan = { node, ownText, at, map: Array.from({ length: ownText.length }, (_, k) => k) };
   if (ownText !== plainTextOf(node)) span.quotedOnly = true;
   setSpans(utterance, [span], ctx);
 }
@@ -110,7 +110,7 @@ export function ownTextAligner(node: GuidedNavigationObject): (text: string) => 
     return map;
   };
   return (text) => {
-    const anchor = [...text].findIndex((char) => !isSpace(char) && !isDroppable(char));
+    const anchor = text.split("").findIndex((char) => !isSpace(char) && !isDroppable(char));
     if (anchor === -1) return undefined;
     for (let position = ownText.indexOf(text[anchor], cursor); position !== -1; position = ownText.indexOf(text[anchor], position + 1)) {
       const map = matchFrom(text, anchor, position);

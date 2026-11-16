@@ -215,3 +215,13 @@ test("a sentence holding an inline link has the same offsets in sentence and str
     t.deepEqual(quoted(sentence), quoted(structure), format);
   }
 });
+
+test("offsets count UTF-16 code units, like the strings they index", async (t) => {
+  const html = "<table><tr><th>Name</th></tr><tr><td>😀Ada. Bob.</td></tr></table>";
+  for (const format of ["plain", "ssml"] as const) {
+    const structure = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format });
+    t.deepEqual(structure.find((u) => (u.plain ?? u.ssml)?.startsWith("Name: "))?.offsets?.map(({ start, end }) => [start, end]), [[0, 11]], format);
+    const sentences = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, segmentation: { mode: "sentence" } });
+    t.deepEqual(quoted(sentences.find((u) => (u.plain ?? u.ssml) === "Bob.")), [["Bob.", 7, 11]], format);
+  }
+});
