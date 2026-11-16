@@ -225,3 +225,12 @@ test("offsets count UTF-16 code units, like the strings they index", async (t) =
     t.deepEqual(quoted(sentences.find((u) => (u.plain ?? u.ssml) === "Bob.")), [["Bob.", 7, 11]], format);
   }
 });
+
+test("punctuation opening a node's text is in its offsets, like the punctuation closing it", async (t) => {
+  for (const format of ["plain", "ssml"] as const) {
+    const sentences = await extractUtterances(parseMarkup("<p>(Hello.) “Bye.”</p>", undefined, { textrefs: true }), { format, segmentation: { mode: "sentence" } });
+    t.deepEqual(sentences.map(quoted), [[["(Hello.)", 0, 8]], [["“Bye.”", 9, 15]]], format);
+  }
+  const split = await extractUtterances(parseMarkup('<p>Hi <span lang="fr">(oui)</span> there.</p>', undefined, { textrefs: true }), { format: "plain", language: "always" });
+  t.deepEqual(quoted(split.find((u) => u.plain === "(oui)")), [["(oui)", 3, 8]]);
+});

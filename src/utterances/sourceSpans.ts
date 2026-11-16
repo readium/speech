@@ -95,17 +95,26 @@ export function ownTextAligner(node: GuidedNavigationObject): (text: string) => 
   const ownText = plainTextOf(node);
   let cursor = 0;
   const matchFrom = (text: string, anchor: number, position: number): number[] | undefined => {
-    const map: number[] = [];
+    const map = new Array<number>(text.length);
     let j = position;
-    for (let i = 0; i < text.length; i++) {
-      if (isSpace(text[i])) map.push(SPACE);
-      else if (i < anchor) map.push(DROPPED);
+    for (let i = anchor; i < text.length; i++) {
+      if (isSpace(text[i])) map[i] = SPACE;
       else {
         while (j < ownText.length && isSpace(ownText[j])) j++;
-        if (ownText[j] === text[i]) map.push(j++);
-        else if (isDroppable(text[i])) map.push(DROPPED);
+        if (ownText[j] === text[i]) map[i] = j++;
+        else if (isDroppable(text[i])) map[i] = DROPPED;
         else return undefined;
       }
+    }
+    // Punctuation before the first word is the node's own where its text has it right before that word.
+    let k = position - 1;
+    for (let i = anchor - 1; i >= 0; i--) {
+      if (isSpace(text[i])) {
+        map[i] = SPACE;
+        continue;
+      }
+      while (k >= cursor && isSpace(ownText[k])) k--;
+      map[i] = k >= cursor && ownText[k] === text[i] ? k-- : DROPPED;
     }
     return map;
   };
