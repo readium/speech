@@ -28,7 +28,6 @@ interface TextSpan {
 // Spoken text that isn't on the page, located on `[start, end)` of the own text, and never cut.
 interface AliasSpan {
   node: GuidedNavigationObject;
-  ownText: string;
   at: number;
   start: number;
   end: number;
@@ -50,7 +49,7 @@ export function setSpans(utterance: ReadiumSpeechUtterance, spans: SourceSpan[],
 }
 
 export function setAliasSpan(piece: ReadiumSpeechUtterance, node: GuidedNavigationObject, range: { start: number; end: number }, alias: LocatorOptions, ctx: WalkContext): void {
-  setSpans(piece, [{ node, ownText: plainTextOf(node), at: 0, alias, ...range }], ctx);
+  setSpans(piece, [{ node, at: 0, alias, ...range }], ctx);
 }
 
 // `ownText` spoken whole from `at` in the utterance: e.g. a cell's value in its header's announcement.
