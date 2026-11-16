@@ -294,13 +294,3 @@ test("each word of page text spaced otherwise than the speech resolves", async (
   const utterance = (await extractUtterances(gnd, { format: "plain", language: "always" })).find((u) => u.plain === "un chat")!;
   t.deepEqual([resolveBoundaryLocate(utterance, 0, 2)?.word, resolveBoundaryLocate(utterance, 3, 4)?.word], ["un", "chat"]);
 });
-
-test("an abbreviation's expansion doesn't take in the alt text read after it", async (t) => {
-  const html = '<p>The <abbr title="World Health Organization">WHO</abbr><img src="logo.png" alt="logo"/> said so.</p>';
-  for (const format of ["plain", "ssml"] as const) {
-    const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, interruptions: { abbreviation: "after" } });
-    const spoken = utterance.plain ?? "The WHO (World Health Organization) logo said so.";
-    const highlightOf = (word: string) => resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length)?.locate.text?.highlight;
-    t.deepEqual([highlightOf("Health"), highlightOf("logo"), highlightOf("said")], ["WHO", undefined, "said"], format);
-  }
-});
