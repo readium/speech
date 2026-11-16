@@ -163,9 +163,9 @@ function ownRuns(span: TextSpan): { start: number; end: number }[] {
   return runs;
 }
 
-// Bare only when `alone`: in a longer utterance, each piece's quote is what places it in the spoken text.
-function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, alone: boolean): LocatorOptions {
-  if (alone && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
+// Bare only when the run is all the utterance speaks: next to other text, its quote is what places it in the spoken text.
+function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean): LocatorOptions {
+  if (speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
   const locate = subLocateFor(nodeRef.ref, span.ownText.slice(start, end));
   if (start > 0) locate.text = { ...locate.text, before: span.ownText.slice(0, start) };
   if (end < span.ownText.length) locate.text = { ...locate.text, after: span.ownText.slice(end) };
@@ -180,6 +180,8 @@ export function buildOffsets(utterance: ReadiumSpeechUtterance, ctx: WalkContext
     if (!nodeRef) return [];
     return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, ...run })) : [{ span, nodeRef, start: span.start, end: span.end }];
   });
+  const only = located.length === 1 ? located[0].span : undefined;
+  const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === pieceText(utterance, ctx).length && !only.map.includes(DROPPED);
   return located.map(({ span, nodeRef, start, end }) => {
     if (!isText(span)) {
       const offset = { start, end, locate: span.alias };
@@ -187,6 +189,6 @@ export function buildOffsets(utterance: ReadiumSpeechUtterance, ctx: WalkContext
       return offset;
     }
     const substituted = isAriaSubstituted(span.node) ? substitutedBareLocate(span.node, ctx) : undefined;
-    return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, located.length === 1) };
+    return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
   });
 }

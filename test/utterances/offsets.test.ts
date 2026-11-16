@@ -5,6 +5,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { plainTextOf } from "../../src/utterances/tableStructure.js";
 import type { ReadiumSpeechUtterance } from "../../src/utterance.js";
+import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 
 test("a plain utterance gets one offset spanning its whole text", async (t) => {
   const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
@@ -233,4 +234,12 @@ test("punctuation opening a node's text is in its offsets, like the punctuation 
   }
   const split = await extractUtterances(parseMarkup('<p>Hi <span lang="fr">(oui)</span> there.</p>', undefined, { textrefs: true }), { format: "plain", language: "always" });
   t.deepEqual(quoted(split.find((u) => u.plain === "(oui)")), [["(oui)", 3, 8]]);
+});
+
+test("an offset next to synthesized text quotes its own, so the synthesized words don't resolve to the page", async (t) => {
+  const gnd = parseMarkup("<table><tr><th>Name</th></tr><tr><td>Ada</td></tr></table>", undefined, { textrefs: true });
+  const cell = (await extractUtterances(gnd, { format: "plain" })).find((u) => u.plain === "Name: Ada")!;
+  t.deepEqual(quoted(cell), [["Ada", 0, 3]]);
+  t.is(resolveBoundaryLocate(cell, 0, 4), undefined);
+  t.is(resolveBoundaryLocate(cell, 6, 3)?.locate.text?.highlight, "Ada");
 });
