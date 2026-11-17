@@ -902,6 +902,31 @@ test("a voice of the content's region wins over the preference's base language, 
   t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Lea-fr-FR", "Thomas-fr-FR"], "an exact tag in the preference wins over the pick");
 });
 
+test("an announcement in a language without a region gets the voice of the content in that language's region, unlike content", async (t) => {
+  const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "custom", contextualize: ["table", "row", "image"] }));
+  await navigator.loadGndContent(gnd([
+    { role: ["table"], children: [{ role: ["row"], children: [{ role: ["cell"], text: { language: "en-GB", plain: "Cell." } }] }] },
+    { role: ["paragraph"], text: { language: "en", plain: "Hello." } },
+    {
+      role: ["paragraph"],
+      text: { language: "en", plain: "A said.", ssml: 'A <readium:image id="i" /> said.' },
+      children: [{ role: ["image"], id: "i", imgref: "dot.png", description: { text: { plain: "dot" } } }],
+    },
+  ]));
+  await settled();
+
+  t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.language, u.voice]), [
+    ["Table. 1 line. 1 column.", "en", "Daniel-en-GB"],
+    ["Row: 1", "en", "Daniel-en-GB"],
+    ["Cell.", "en-GB", "Daniel-en-GB"],
+    ["End of the table.", "en", "Daniel-en-GB"],
+    ["Hello.", "en", "Alba-en-US"],
+    ["A Image with a label: dot said.", "en", "Alba-en-US"],
+  ]);
+});
+
 test("the main language's voice prefers boundary events, the others match its boundary support", async (t) => {
   const engine = new VoicedMockEngine([nora, alba, amelie, lea]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] });

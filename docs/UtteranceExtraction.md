@@ -34,7 +34,7 @@ interface UtteranceOffset {
 }
 ```
 
-Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json). A synthesized label/announcement carries no `offsets` at all — `locate` is still safe for element-scoped highlighting, but there's no real source text to search for.
+Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json). Most announcements carry no `offsets`, since their text isn't on the page; `locate` is still safe for element-scoped highlighting.
 
 ## Options
 

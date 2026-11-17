@@ -38,34 +38,3 @@ test("languageOverrides applies to contentLanguage", async (t) => {
     ["Il était une fois.", "de"],
   ]);
 });
-
-async function announced(html: string, options: Partial<ExtractUtterancesOptions> = {}) {
-  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", contextualize: ["list"], ...options });
-  return utterances.map((u) => [u.plain, u.language]);
-}
-
-test("an announcement takes the region of the content in its catalog's language", async (t) => {
-  t.deepEqual(await announced('<html lang="en-US"><body><ul><li>One</li></ul></body></html>', { contentLanguage: "en" }), [
-    ["Start of the list.", "en-US"],
-    ["One", "en-US"],
-    ["End of the list.", "en-US"],
-  ]);
-});
-
-test("an announcement takes the region of the content after it, else before it", async (t) => {
-  t.deepEqual(await announced('<html lang="en-GB"><body><p>Before</p><ul lang="fr"><li>Un</li></ul><p lang="en-US">After</p></body></html>'), [
-    ["Before", "en-GB"],
-    ["Start of the list.", "en-US"],
-    ["Un", "fr"],
-    ["End of the list.", "en-US"],
-    ["After", "en-US"],
-  ]);
-});
-
-test("an announcement keeps its catalog's language next to content in another language", async (t) => {
-  t.deepEqual(await announced('<html lang="fr-FR"><body><ul><li>Un</li></ul></body></html>'), [
-    ["Start of the list.", "en"],
-    ["Un", "fr-FR"],
-    ["End of the list.", "en"],
-  ]);
-});
