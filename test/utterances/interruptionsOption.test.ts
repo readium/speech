@@ -240,6 +240,39 @@ test("a link's own formatted text stays inside the emphasis around the link", as
   }
 });
 
+// parseMarkup() never repeats a placeholder ID, but GND from another producer may, hence hand-written GND.
+test("a placeholder repeated in one text stays within the elements around each occurrence", async (t) => {
+  const gnd = () => [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      text: { ssml: 'A <emphasis>x <emphasis level="strong">y <readium:link id="n"/></emphasis> z <readium:link id="n"/> w</emphasis> C.' },
+      children: [
+        {
+          id: "n",
+          role: ["noteref"],
+          children: [
+            {
+              role: ["footnote"],
+              text: { ssml: '<prosody rate="slow">The <readium:pagebreak id="pb"/> note</prosody>' },
+              children: [{ id: "pb", role: ["pagebreak"], text: { plain: "5" } }],
+            },
+          ],
+        },
+      ],
+    })!,
+  ];
+  for (const mode of ["structure", "sentence"] as const) {
+    const options = { format: "ssml" as const, segmentation: { mode }, interruptions: { noteref: "inline" as const, pagebreak: "inline" as const } };
+    t.deepEqual(
+      (await extractUtterances(gnd(), options)).map((u) => u.ssml),
+      [
+        'A <emphasis>x <emphasis level="strong">y <prosody rate="slow">The Page 5 note</prosody></emphasis> z <prosody rate="slow">The Page 5 note</prosody> w</emphasis> C.',
+      ],
+      mode,
+    );
+  }
+});
+
 test("an inline page label inside a span in another language keeps the catalog's language", async (t) => {
   const gnd = () => [
     GuidedNavigationObject.deserialize({

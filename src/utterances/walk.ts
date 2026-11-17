@@ -294,7 +294,8 @@ function emitWithPlaceholders(
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
         if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
-          pieces.push(...insertedById.get(segment.placeholderId)!);
+          // Copied, since a placeholder may recur and each occurrence nests the pieces in its own elements.
+          pieces.push(...insertedById.get(segment.placeholderId)!.map((piece) => ({ ...piece, tags: piece.tags && { ...piece.tags } })));
           pieces.slice(before).forEach((piece) => inserted.add(piece));
           if (segment.language) pieces.slice(before).forEach((piece) => (piece.enclosingLanguage = segment.language));
           nestTags(pieces.slice(before), segment.open!);
