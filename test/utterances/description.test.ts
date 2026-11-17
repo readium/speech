@@ -132,3 +132,19 @@ for (const contextualize of [[], ["table"]] as GndRole[][]) {
     t.true(texts.includes("Source note."));
   });
 }
+
+test("a table description reading as a caption with a language change is ignored, the caption read with it", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["table"],
+      description: { text: { plain: "Results finaux" } },
+      children: [
+        { role: ["caption"], text: { ssml: 'Results <lang xml:lang="fr">finaux</lang>', language: "en" } },
+        { role: ["row"], children: [{ role: ["cell"], text: { plain: "A", language: "en" } }] },
+      ],
+    },
+  ])!;
+  const utterances = await extractUtterances(gnd, { format: "ssml", language: "always" });
+  t.true(utterances.some((u) => u.ssml?.includes('<lang xml:lang="fr">finaux</lang>')));
+  t.is(utterances.filter((u) => u.ssml?.includes("Results")).length, 1);
+});

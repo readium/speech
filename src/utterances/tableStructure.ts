@@ -16,14 +16,20 @@ function namingCaptionOf(node: GuidedNavigationObject): GuidedNavigationObject |
   return node.children?.find((child) => nodeRoles(child).includes("caption") && plainTextOf(child) === description);
 }
 
+// Children or markup, e.g. a noteref or a language change, that a plain description can't say.
+function holdsMoreThanText(caption: GuidedNavigationObject): boolean {
+  return !!caption.children?.length || spokenText(caption)?.ssml !== undefined;
+}
+
 // A naming caption holding only its text is skipped, read as the description; one holding more is read instead of it.
 export function redundantCaptionOf(node: GuidedNavigationObject): GuidedNavigationObject | undefined {
   const caption = namingCaptionOf(node);
-  return caption?.children?.length ? undefined : caption;
+  return caption && !holdsMoreThanText(caption) ? caption : undefined;
 }
 
 export function spokenDescriptionOf(node: GuidedNavigationObject): string | undefined {
-  return namingCaptionOf(node)?.children?.length ? undefined : descriptionOf(node);
+  const caption = namingCaptionOf(node);
+  return caption && holdsMoreThanText(caption) ? undefined : descriptionOf(node);
 }
 
 export interface TableStructure {
