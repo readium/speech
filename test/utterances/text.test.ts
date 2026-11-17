@@ -328,6 +328,15 @@ test("removeEmptiedPairs removes every element the removal leaves empty, nested 
   t.is(ssml, 'a <readium:noteref id="n"/> b');
 });
 
+test("removeEmptiedPairs removes the bracket of the emptied pair, not a copy of it in another element", (t) => {
+  const cases = [
+    ['a (<readium:noteref id="n"/>)<emphasis>)</emphasis> b', 'a <readium:noteref id="n"/><emphasis>)</emphasis> b'],
+    ['a <emphasis>(</emphasis><readium:noteref id="n"/>)( b', 'a <readium:noteref id="n"/>( b'],
+    ['a ((<readium:noteref id="n"/>) b', 'a (<readium:noteref id="n"/> b'],
+  ];
+  for (const [input, expected] of cases) t.is(removeEmptiedPairs(input, () => true, "en").ssml, expected, input);
+});
+
 test("resolveNodeText removes a placeholder nested in an element, with the space before binding punctuation", (t) => {
   t.deepEqual(resolveNodeText(GuidedNavigationText.deserialize({ ssml: "<emphasis>word <readium:noteref id='n'/>.</emphasis>" })), { ssml: "<emphasis>word.</emphasis>" });
 });
