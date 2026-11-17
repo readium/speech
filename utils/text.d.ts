@@ -5,4 +5,3 @@ export declare function joinsWithoutSpace(before: string, after: string): boolea
 export declare function meetsUnspaced(before: string, after: string): boolean;
 export declare function isSinglePunctuationChar(s: string): boolean;
 export declare function neutralizeAngleBrackets(text: string): string;
-export declare function decodeResidualHtmlEntities(text: string): string;

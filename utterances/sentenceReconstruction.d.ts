@@ -1,6 +1,3 @@
-import { ReadiumSpeechUtterance } from '../utterance.js';
-import { SourceTrace, WalkContext } from './walkContext.js';
-export declare function splitIntoSentenceUtterances(out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext): Promise<{
-    out: ReadiumSpeechUtterance[];
-    sources: SourceTrace;
-}>;
+import { WalkContext } from './walkContext.js';
+import { Piece } from './piece.js';
+export declare function splitIntoSentenceUtterances(out: Piece[], ctx: WalkContext): Promise<Piece[]>;

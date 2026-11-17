@@ -1,4 +1,4 @@
 import { GuidedNavigationObject } from '@readium/shared';
-import { ReadiumSpeechUtterance } from '../utterance.js';
-import { SourceTrace, WalkContext } from './walkContext.js';
-export declare function walk(nodes: GuidedNavigationObject[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void;
+import { Piece } from './piece.js';
+import { WalkContext } from './walkContext.js';
+export declare function walk(nodes: GuidedNavigationObject[], out: Piece[], ctx: WalkContext, suppress: boolean): void;

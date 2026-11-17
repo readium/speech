@@ -6,7 +6,6 @@ export declare function recordSubstitutionSource(utterance: ReadiumSpeechUtteran
 }): void;
 export declare function markNonQuotable<T extends LocatorOptions>(locate: T): T;
 export declare function recordAliasOffset(offset: UtteranceOffset, spokenLength: number): void;
-export declare function aliasSpokenLength(offset: UtteranceOffset): number | undefined;
 export declare function resolveBoundaryLocate(utterance: ReadiumSpeechUtterance, charIndex: number, charLength: number): {
     locate: LocatorOptions;
     word: string;

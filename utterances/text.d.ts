@@ -1,4 +1,5 @@
 import { GuidedNavigationObject } from '@readium/shared';
+import { SsmlElement } from './ssml.js';
 import { SubstitutionTable } from './types.js';
 export interface ResolvedNodeText {
     plain?: string;
@@ -26,30 +27,11 @@ export interface ResolvedNodeText {
  * language would otherwise be lost.
  */
 export declare function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedNodeText | undefined;
-export declare function stripSsmlTags(ssml: string): string;
-export declare function breakSpaced(before: string, after: string): boolean;
-export declare function separatesWords(markup: string): boolean;
-export declare function stripSsmlTagsKeepSpacing(ssml: string): string;
-export declare function stripSsmlTagsWithMap(ssml: string): {
-    plain: string;
-    map: number[];
-};
-export declare function ssmlIndexToPlainIndex(map: number[], ssmlIndex: number): number;
 export declare function substituteWithMap(text: string, table: SubstitutionTable): {
     text: string;
     map: number[];
 };
 export declare function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number;
-export interface SsmlTextAtom {
-    kind: "paired" | "selfClosing" | "text";
-    raw: string;
-    tag?: string;
-    attrs?: string;
-    innerText?: string;
-    text?: string;
-}
-export declare function unescapeSsmlEntities(text: string): string;
-export declare function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[];
 export interface SsmlSubstitutionResult {
     ssml: string;
     plain: string;
@@ -65,17 +47,20 @@ export declare function hasLangTag(ssml: string): boolean;
  * Splits an SSML string into per-language runs of plain text (`format:
  * "plain"` has no `<lang>` markup, so a language shift mid-string becomes
  * separate segments instead). Punctuation touching a `<lang>` boundary —
- * separated by nothing or only whitespace — joins the tagged run rather
+ * separated by nothing or only whitespace — joins the nested run rather
  * than staying with its lexical run: close-punct after `</lang>` joins the
  * run that just closed, open-punct before `<lang>` joins the run about to
- * start.
+ * start. Text in nested elements declaring a language (`<lang>`, or `xml:lang` on `<p>`, `<s>`...) takes the innermost one's.
  */
 export declare function splitOnLangTags(ssml: string, baseLanguage: string | undefined): LangSegment[];
 export interface SsmlSegment {
     ssml?: string;
+    open?: SsmlElement[];
+    close?: SsmlElement[];
     placeholderId?: string;
     textBefore?: string;
     textAfter?: string;
+    language?: string;
     abbreviation?: "text" | "alias";
     abbreviationText?: string;
     parenthesizedSsml?: string;

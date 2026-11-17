@@ -2,7 +2,6 @@ import { i18n } from 'i18next';
 import { GuidedNavigationObject } from '@readium/shared';
 import { GndRole } from '@readium/guided-navigation';
 import { LocatorOptions } from '../decorator/createLocator.js';
-import { ReadiumSpeechUtterance } from '../utterance.js';
 import { SentenceSegmenter } from './sentenceSegmenter.js';
 import { ExtractionFormat, ExtractUtterancesOptions, Interruption, LanguageMode, Segmentation, SubstitutionTable } from './types.js';
 export interface WalkContext {
@@ -22,27 +21,10 @@ export interface WalkContext {
     segmentationSuppressions: Record<string, string[]>;
     segmenter: SentenceSegmenter;
     substitutions: SubstitutionTable;
-    blockStarts: Set<ReadiumSpeechUtterance>;
     tableRowNumbers: Map<GuidedNavigationObject, number>;
     tableCellHeaders: Map<GuidedNavigationObject, string>;
-    synthetic: Set<ReadiumSpeechUtterance>;
     ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
-    pendingRange: Map<ReadiumSpeechUtterance, {
-        start: number;
-        end: number;
-    }>;
-    edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, {
-        leading?: LocatorOptions;
-        trailing?: LocatorOptions;
-    }>;
     aliasLocates: WeakSet<LocatorOptions>;
-    placeholderPieces: Map<ReadiumSpeechUtterance, {
-        node: GuidedNavigationObject;
-        placement?: "inline" | "after" | "alias";
-        abbreviation?: string;
-    }>;
-    touchingPieces: WeakSet<ReadiumSpeechUtterance>;
-    spacedPieces: WeakSet<ReadiumSpeechUtterance>;
     blockTerms: WeakSet<GuidedNavigationObject>;
 }
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];

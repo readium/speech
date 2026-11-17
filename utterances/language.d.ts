@@ -1,11 +1,11 @@
-import { ReadiumSpeechUtterance } from '../utterance.js';
 import { WalkContext } from './walkContext.js';
+import { Piece } from './piece.js';
 export declare function stripLangTags(ssml: string): string;
 export declare function overriddenLanguage(language: string | undefined, languageOverrides: Record<string, string>): string | undefined;
 export declare function languageFor(declared: string | undefined, ctx: WalkContext): string | undefined;
 export declare function sameLanguage(a: string | undefined, b: string | undefined): boolean;
-export declare function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null;
-export declare function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null;
-export declare function ssmlInLanguage(piece: ReadiumSpeechUtterance, language: string | undefined, ctx: WalkContext): string;
-export declare function languageRuns(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): [number, number][];
+export declare function sharedLanguage(pieces: Piece[], ctx: WalkContext): string | undefined | null;
+export declare function runLanguage(pieces: Piece[], ctx: WalkContext): string | undefined | null;
+export declare function ssmlInLanguage(piece: Piece, runLanguage: string | undefined, ctx: WalkContext): string;
+export declare function languageRuns(pieces: Piece[], ctx: WalkContext): [number, number][];
 export declare function overrideLangTags(ssml: string, languageOverrides: Record<string, string>): string;
