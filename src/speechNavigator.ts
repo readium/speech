@@ -88,10 +88,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Parallel to `contentQueue`: whether each utterance begins a new
   // block-level element. loadContent() content has no boundaries of its own.
   private contentBlockStarts: boolean[] = [];
-  // Per utterance, whether it's an announcement; loadContent() content has none.
-  private contentAnnouncements: boolean[] = [];
-  // An announcement language without a region, e.g. the catalog's "en", to the content's of that base it shares a voice with, e.g. "en-GB".
-  private announcementLanguages = new Map<string, string>();
 
   // Set by setContentQueue() when a reload should resume mid-queue rather
   // than at the start; consumed once by the engine's "ready" handler.
@@ -275,14 +271,27 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return voice && getVoiceId(voice);
   }
 
-  // The voice picked for each spoken and loaded language.
+  // The voice picked for each spoken and loaded language, but a region's that a chosen voice of it for its base language speaks.
   private pickedVoiceRecord(): Record<string, string> | null {
     const voices: Record<string, string> = {};
+    const chosen = this.availableVoice(this._settings.voice);
     for (const language of new Set([...this.spokenLanguages(), ...this.loadedLanguages])) {
       const picked = this.pickedVoice(language);
-      if (picked) voices[this.pickedVoiceKey(language, picked)] ??= getVoiceId(picked);
+      if (!picked) continue;
+      const key = this.pickedVoiceKey(language, picked);
+      if (!this.chosenForRegion(key, chosen)) voices[key] ??= getVoiceId(picked);
     }
     return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // Whether `chosen` has a voice of `tag`'s region under its base language, e.g. an en-US voice for "en".
+  private chosenForRegion(tag: string, chosen: VoicePreference | null): boolean {
+    const base = voiceBaseLanguage(tag);
+    if (!chosen || typeof chosen === "string" || normalizeLanguageCode(tag) === base) return false;
+    return Object.entries(chosen).some(([key, id]) => {
+      const voice = normalizeLanguageCode(key) === base && this.voices.find((voice) => getVoiceId(voice) === id);
+      return !!voice && normalizeLanguageCode(voice.language) === normalizeLanguageCode(tag);
+    });
   }
 
   // A pick is for the language's region only when the voice is of it, else for its base language.
@@ -458,13 +467,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     // Content in a language without a picked voice waits for it rather than starting with another language's
     const generation = ++this.loadGeneration;
-    const utterances = this.loadedQueue.map((utterance) => this.withLanguage(utterance));
-    this.announcementLanguages = this.matchAnnouncementLanguages(utterances);
-    const unvoiced = utterances.flatMap((utterance, index) => {
-      const language = this.voiceLanguageAt(utterance, index);
-      return !utterance.voice && language ? [language] : [];
-    });
-    this.loadedLanguages = [...new Set(unvoiced)];
+    const unvoiced = this.loadedQueue.map((utterance) => this.withLanguage(utterance)).filter((utterance) => !utterance.voice && utterance.language);
+    this.loadedLanguages = this.withoutRegionalized([...new Set(unvoiced.map((utterance) => utterance.language!))]);
     const unpicked = this.loadedLanguages.filter((language) => this.pickedVoice(language) === undefined);
     if (unpicked.length > 0) {
       await this.pickVoices(unpicked).catch(() => {});
@@ -481,29 +485,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   private stamped(): ReadiumSpeechUtterance[] {
     const voice = this.settings.voice;
-    return this.loadedQueue.map((utterance, index) => this.withVoice(this.withLanguage(utterance), voice, index));
+    return this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance), voice));
   }
 
-  private matchAnnouncementLanguages(utterances: ReadiumSpeechUtterance[]): Map<string, string> {
-    const contentLanguages = [
-      ...this.spokenLanguages(),
-      ...utterances.flatMap((utterance, index) => (!this.contentAnnouncements[index] && utterance.language ? [utterance.language] : [])),
-    ];
-    const matches = new Map<string, string>();
-    utterances.forEach((utterance, index) => {
-      const language = utterance.language;
-      if (!this.contentAnnouncements[index] || !language || matches.has(language) || extractLangRegionFromBCP47(language)[1]) return;
-      const base = voiceBaseLanguage(language);
-      const match = contentLanguages.find((other) => extractLangRegionFromBCP47(other)[1] && voiceBaseLanguage(other) === base);
-      if (match) matches.set(language, match);
-    });
-    return matches;
-  }
-
-  // The language whose voice speaks the utterance at `index`.
-  private voiceLanguageAt(utterance: ReadiumSpeechUtterance, index: number): string | undefined {
-    const language = utterance.language;
-    return language && this.contentAnnouncements[index] ? this.announcementLanguages.get(language) ?? language : language;
+  // No pick for a language without a region, e.g. "en", next to one of it, e.g. "en-GB": it's spoken with that one's voice.
+  private withoutRegionalized(languages: string[]): string[] {
+    const all = [...this.spokenLanguages(), ...languages];
+    const hasRegion = (language: string) => normalizeLanguageCode(language) !== voiceBaseLanguage(language);
+    return languages.filter((language) => hasRegion(language) || !all.some((other) => hasRegion(other) && voiceBaseLanguage(other) === voiceBaseLanguage(language)));
   }
 
   // Once per language, for content in a language the engine has no voice for, spoken with the engine's own.
@@ -524,10 +513,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return { ...utterance, language: this.contentLanguage };
   }
 
-  // The utterance's own voice, else the spoken voice for its language, an announcement's that of the content in its language.
-  private withVoice(utterance: ReadiumSpeechUtterance, spokenVoice: VoicePreference | null, index: number): ReadiumSpeechUtterance {
+  // The utterance's own voice, else the spoken voice for its language.
+  private withVoice(utterance: ReadiumSpeechUtterance, spokenVoice: VoicePreference | null): ReadiumSpeechUtterance {
     if (utterance.voice) return utterance;
-    const voice = this.voiceIdFor(spokenVoice, this.voiceLanguageAt(utterance, index));
+    const voice = this.voiceIdFor(spokenVoice, utterance.language);
     return voice ? { ...utterance, voice } : utterance;
   }
 
@@ -537,7 +526,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const { index: oldIndex, state: resumeState } = this.resumeTarget();
     const oldSources = this.contentSources;
 
-    const { utterances, sources, blockStarts, announcements } = await extractUtterancesWithSources(this.source, {
+    const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       interruptions: this._settings.interruptions,
       skip: this._settings.skip,
@@ -559,7 +548,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
-    this.contentAnnouncements = announcements;
 
     const resumeIndex = resumeState && oldIndex !== null ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
     await this.setContentQueue(utterances, resumeIndex, resumeState);

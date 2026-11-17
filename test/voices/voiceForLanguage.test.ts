@@ -16,3 +16,9 @@ test("voiceForLanguage() matches Chinese variants as voice languages, keeping th
   t.is(voiceForLanguage({ yue: "Sinji" }, "zh-TW"), undefined, "Cantonese isn't Mandarin's");
   t.is(voiceForLanguage({ "zh-HK": "Sinji", zh: "Tingting" }, "zh-CN"), "Tingting");
 });
+
+test("voiceForLanguage() matches content without a region to the first key of a region of it, not regional content to another region", (t) => {
+  t.is(voiceForLanguage({ fr: "Thomas", "en-GB": "Daniel", "en-US": "Alba" }, "en"), "Daniel");
+  t.is(voiceForLanguage({ "en-GB": "Daniel", en: "Alba" }, "en"), "Alba", "its own key wins");
+  t.is(voiceForLanguage({ "en-GB": "Daniel" }, "en-AU"), undefined);
+});

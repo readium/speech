@@ -8,8 +8,6 @@ import { mergeAliasPieces } from "./abbreviationAlias.js";
 import { attachLocate } from "./locate.js";
 import { applySubstitutions } from "./applySubstitutions.js";
 import type { Piece } from "./piece.js";
-import { isCatalogEntry } from "./language.js";
-import { speaksOwnText } from "./sourceSpans.js";
 
 export type { SourceTrace } from "./walkContext.js";
 
@@ -30,13 +28,12 @@ export async function extractUtterances(
 
 /**
  * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
- * `blockStarts[i]`: whether `utterances[i]` begins a new block-level element,
- * and `announcements[i]`: whether `utterances[i]` is an announcement from the contextualization catalog.
+ * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
 export async function extractUtterancesWithSources(
   nodes: GuidedNavigationObject[],
   options: ExtractUtterancesOptions = {},
-): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[]; announcements: boolean[] }> {
+): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
   const pieces: Piece[] = [];
   const ctx = await makeWalkContext(nodes, options);
   walk(nodes, pieces, ctx, false);
@@ -46,7 +43,5 @@ export async function extractUtterancesWithSources(
     utterances: applySubstitutions(attachLocate(split, ctx), ctx),
     sources: split.map((piece) => piece.source),
     blockStarts: split.map((piece) => !!piece.blockStart),
-    // A sentence an inline announcement is merged into is content.
-    announcements: split.map((piece) => isCatalogEntry(piece, ctx) && !speaksOwnText(piece)),
   };
 }

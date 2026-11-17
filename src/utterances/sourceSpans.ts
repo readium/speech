@@ -45,11 +45,6 @@ export function spansOf(utterance: Piece, ctx: WalkContext): SourceSpan[] {
   return spans.map((span) => (isText(span) || span.length !== undefined ? span : { ...span, length: pieceText(utterance, ctx).length }));
 }
 
-// Whether the utterance speaks a node's own text, not only text quoted from elsewhere, e.g. a description.
-export function speaksOwnText(utterance: Piece): boolean {
-  return (utterance.spans ?? []).some((span) => !isText(span) || !span.quotedOnly);
-}
-
 export function setSpans(utterance: Piece, spans: SourceSpan[]): void {
   if (spans.length > 0) utterance.spans = spans;
 }

@@ -902,7 +902,7 @@ test("a voice of the content's region wins over the preference's base language, 
   t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Lea-fr-FR", "Thomas-fr-FR"], "an exact tag in the preference wins over the pick");
 });
 
-test("an announcement in a language without a region gets the voice of the content in that language's region, unlike content", async (t) => {
+test("an utterance in a language without a region gets the voice of the content in that language's region", async (t) => {
   const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
   const navigator = new ReadiumSpeechNavigator(engine);
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "custom", contextualize: ["table", "row", "image"] }));
@@ -922,8 +922,59 @@ test("an announcement in a language without a region gets the voice of the conte
     ["Row: 1", "en", "Daniel-en-GB"],
     ["Cell.", "en-GB", "Daniel-en-GB"],
     ["End of the table.", "en", "Daniel-en-GB"],
-    ["Hello.", "en", "Alba-en-US"],
-    ["A Image with a label: dot said.", "en", "Alba-en-US"],
+    ["Hello.", "en", "Daniel-en-GB"],
+    ["A Image with a label: dot said.", "en", "Daniel-en-GB"],
+  ]);
+});
+
+test("a main language without a region keeps its own voice next to content in a region of it", async (t) => {
+  const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
+  await navigator.loadGndContent(gnd([
+    { role: ["paragraph"], text: { language: "en-GB", plain: "Colour." } },
+    { role: ["paragraph"], text: { language: "en", plain: "Hello." } },
+  ]));
+  await settled();
+
+  t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.voice]), [
+    ["Colour.", "Daniel-en-GB"],
+    ["Hello.", "Alba-en-US"],
+  ]);
+});
+
+test("a voice chosen for a language speaks its region's content over the pick for that region, not another region's", async (t) => {
+  const samantha = listedVoice("Samantha", "en-US");
+  const engine = new VoicedMockEngine([alba, samantha, listedVoice("Daniel", "en-GB")]);
+  const navigator = new ReadiumSpeechNavigator(engine, {
+    languages: ["en"],
+    preferences: { verbosity: "custom", contextualize: ["list"], voice: { en: "Samantha-en-US" } },
+  });
+  await navigator.loadGndContent(gnd([
+    { role: ["list"], children: [{ role: ["listItem"], text: { language: "en-US", plain: "One." } }] },
+    { role: ["paragraph"], text: { language: "en-GB", plain: "Colour." } },
+  ]), { language: "en" });
+  await settled();
+
+  t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.voice]), [
+    ["Start of the list.", "Samantha-en-US"],
+    ["One.", "Samantha-en-US"],
+    ["End of the list.", "Samantha-en-US"],
+    ["Colour.", "Daniel-en-GB"],
+  ]);
+});
+
+test("a voice chosen for a language of another region leaves its region's content the pick for it", async (t) => {
+  const engine = new VoicedMockEngine([lea, chantal]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["fr"], preferences: { voice: { fr: "Lea-fr-FR" } } });
+  await navigator.loadGndContent(gnd([
+    { role: ["paragraph"], text: { language: "fr-CA", plain: "Bonjour." } },
+    { role: ["paragraph"], text: { language: "fr", plain: "Salut." } },
+  ]), { language: "fr" });
+  await settled();
+
+  t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.voice]), [
+    ["Bonjour.", "Chantal-fr-CA"],
+    ["Salut.", "Lea-fr-FR"],
   ]);
 });
 

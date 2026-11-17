@@ -87,7 +87,7 @@ export function sharedLanguage(pieces: Piece[], ctx: WalkContext): string | unde
   return commonLanguage(pieces, ctx, false);
 }
 
-export function isCatalogEntry(piece: Piece, ctx: WalkContext): boolean {
+function isCatalogEntry(piece: Piece, ctx: WalkContext): boolean {
   return !!piece.synthetic && sameLanguage(piece.language, ctx.contextualizationLanguage);
 }
 
