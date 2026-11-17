@@ -8,6 +8,7 @@ import { mergeAliasPieces } from "./abbreviationAlias.js";
 import { attachLocate } from "./locate.js";
 import { applySubstitutions } from "./applySubstitutions.js";
 import type { Piece } from "./piece.js";
+import { alignEntryLanguages } from "./language.js";
 
 export type { SourceTrace } from "./walkContext.js";
 
@@ -39,6 +40,7 @@ export async function extractUtterancesWithSources(
   walk(nodes, pieces, ctx, false);
   const walked = ctx.segmentation === "sentence" ? pieces : await mergeAliasPieces(pieces, ctx);
   const split = await splitIntoSentenceUtterances(walked, ctx);
+  alignEntryLanguages(split, ctx);
   return {
     utterances: applySubstitutions(attachLocate(split, ctx), ctx),
     sources: split.map((piece) => piece.source),

@@ -128,6 +128,20 @@ export function languageRuns(pieces: Piece[], ctx: WalkContext): [number, number
   return runs;
 }
 
+// An announcement in the catalog's language takes the tag of the nearest content in the same primary language,
+// after it else before it, e.g. "en-US" for an "en" catalog, so both are spoken with the same voice.
+export function alignEntryLanguages(utterances: Piece[], ctx: WalkContext): void {
+  if (ctx.language === "none") return;
+  const isEntry = (piece: Piece) => !!piece.synthetic && sameLanguage(piece.language, ctx.contextualizationLanguage);
+  const matches = (piece: Piece) => !isEntry(piece) && piece.language !== undefined && samePrimaryLanguage(piece.language, ctx.contextualizationLanguage);
+  const content = utterances.map((piece) => (matches(piece) ? piece.language : undefined));
+  utterances.forEach((piece, i) => {
+    if (!isEntry(piece)) return;
+    const language = content.slice(i + 1).find(Boolean) ?? content.slice(0, i).reverse().find(Boolean);
+    if (language) piece.language = language;
+  });
+}
+
 export function overrideLangTags(ssml: string, languageOverrides: Record<string, string>): string {
   const nodes = parseSsml(ssml);
   let changed = false;
