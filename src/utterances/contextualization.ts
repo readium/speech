@@ -1,7 +1,6 @@
 import { ssmlAttrEscape, ssmlTextEscape } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { languageFor } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
@@ -11,7 +10,8 @@ import { setQuotedSpan } from "./sourceSpans.js";
 import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
-import { valueFoldingRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
+import { valueFoldingRoleSet, type WalkContext } from "./walkContext.js";
+import type { Piece } from "./piece.js";
 
 // `variantKey`, when given, picks a nested named-variant leaf (e.g.
 // `audio.inline.labelled`); falls back to `base` itself when that specific
@@ -40,18 +40,18 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
 }
 
 // Narrows utterance's offsets/locate to quoteText, spoken at `at` of its text, if it is.
-// Leaves ctx.synthetic alone — that also gates sentence-splitting/merging.
-export function scopeToQuote(utterance: ReadiumSpeechUtterance, at: number | undefined, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
+// Leaves `synthetic` alone — that also gates sentence-splitting/merging.
+export function scopeToQuote(utterance: Piece, at: number | undefined, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
   if (at === undefined || at < 0) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
-  setQuotedSpan(utterance, node, quoteText, at, ctx);
+  setQuotedSpan(utterance, node, quoteText, at);
   utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
 }
 
 // `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
 function scopeToOwnValue(
-  utterance: ReadiumSpeechUtterance,
+  utterance: Piece,
   entry: { base: string; variantKey?: string },
   node: GuidedNavigationObject,
   ctx: WalkContext,
@@ -64,7 +64,7 @@ function scopeToOwnValue(
     // locate can be computed — a node with no textref still lost its language otherwise.
     const language = languageFor(nodeText(node.text)?.language, ctx);
     if (language) utterance.language = language;
-    ctx.synthetic.delete(utterance);
+    delete utterance.synthetic;
     scopeToQuote(utterance, paramAt(ctx, entry, params, "value"), value, node, ctx);
     return;
   }
@@ -80,8 +80,7 @@ function scopeToOwnValue(
 // here, in which case it reads the same `inline` entry any inline-only
 // role uses, not `block.start`.
 export function pushRoleContextualization(
-  out: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
+  out: Piece[],
   node: GuidedNavigationObject,
   ctx: WalkContext,
   role: string,
@@ -93,11 +92,11 @@ export function pushRoleContextualization(
   const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
-    push(out, sources, node, entryUtterances(base, variantKey, params, node, role, ctx));
+    push(out, node, entryUtterances(base, variantKey, params, node, role, ctx));
     return;
   }
   if (phase === "before") {
-    push(out, sources, node, entryUtterances(`${role}.inline`, variantKey, params, node, role, ctx));
+    push(out, node, entryUtterances(`${role}.inline`, variantKey, params, node, role, ctx));
   }
 }
 
@@ -118,7 +117,7 @@ function entryUtterances(
   node: GuidedNavigationObject,
   role: string,
   ctx: WalkContext,
-): ReadiumSpeechUtterance[] {
+): Piece[] {
   const text = resolveEntryText(ctx, base, variantKey, params);
   if (!text) return [];
   const description = params?.description;

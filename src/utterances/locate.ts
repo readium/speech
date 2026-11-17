@@ -2,7 +2,8 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { combineDomRangeTextrefs, decodeTextref, isAriaSubstituted, type DecodedTextref } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
+import type { WalkContext } from "./walkContext.js";
+import { toUtterance, type Piece } from "./piece.js";
 import { plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { buildOffsets } from "./sourceSpans.js";
 
@@ -56,17 +57,14 @@ export function spanLocate(
 
 // Builds each utterance's `offsets` from its spans, and resolves `locate` for those not given one:
 // a single offset's own, else the source node's, quoted to the utterance's text when it covers only part of it.
-export function attachLocate(
-  utterances: ReadiumSpeechUtterance[],
-  sources: SourceTrace,
-  ctx: WalkContext,
-): ReadiumSpeechUtterance[] {
+export function attachLocate(pieces: Piece[], ctx: WalkContext): ReadiumSpeechUtterance[] {
   const { ancestorChains } = ctx;
-  return utterances.map((u, i) => {
+  return pieces.map((u) => {
     const offsets = buildOffsets(u, ctx);
-    const result: ReadiumSpeechUtterance = offsets.length > 0 ? { ...u, offsets } : u;
+    const result = toUtterance(u);
+    if (offsets.length > 0) result.offsets = offsets;
     if (u.locate) return result;
-    const source = sources[i];
+    const { source } = u;
     const text = u.plain ?? plainOf(u.ssml ?? "", "ssml");
     if (Array.isArray(source)) {
       const [first, last] = source;
@@ -77,7 +75,7 @@ export function attachLocate(
     }
     const resolved = source ? resolveNodeLocate(source, ancestorChains) : undefined;
     if (!resolved) return result;
-    if (ctx.synthetic.has(u)) return { ...result, locate: resolved.ref };
+    if (u.synthetic) return { ...result, locate: resolved.ref };
     if (offsets.length === 1) return { ...result, locate: offsets[0].locate };
     const substituted = source && isAriaSubstituted(source) ? substitutedBareLocate(source, ctx) : undefined;
     const quoted = offsets.length > 0 ? subLocateFor(resolved.ref, text) : preciseLocateFor(resolved, text);

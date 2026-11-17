@@ -7,6 +7,7 @@ import { splitIntoSentenceUtterances } from "./sentenceReconstruction.js";
 import { mergeAliasPieces } from "./abbreviationAlias.js";
 import { attachLocate } from "./locate.js";
 import { applySubstitutions } from "./applySubstitutions.js";
+import type { Piece } from "./piece.js";
 
 export type { SourceTrace } from "./walkContext.js";
 
@@ -33,13 +34,14 @@ export async function extractUtterancesWithSources(
   nodes: GuidedNavigationObject[],
   options: ExtractUtterancesOptions = {},
 ): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
-  const utterances: ReadiumSpeechUtterance[] = [];
-  const sources: SourceTrace = [];
+  const pieces: Piece[] = [];
   const ctx = await makeWalkContext(nodes, options);
-  walk(nodes, utterances, sources, ctx, false);
-  const walked = ctx.segmentation === "sentence" ? { out: utterances, sources } : await mergeAliasPieces(utterances, sources, ctx);
-  const split = await splitIntoSentenceUtterances(walked.out, walked.sources, ctx);
-  const blockStarts = split.out.map((utterance) => ctx.blockStarts.has(utterance));
-  const located = attachLocate(split.out, split.sources, ctx);
-  return { utterances: applySubstitutions(located, ctx), sources: split.sources, blockStarts };
+  walk(nodes, pieces, ctx, false);
+  const walked = ctx.segmentation === "sentence" ? pieces : await mergeAliasPieces(pieces, ctx);
+  const split = await splitIntoSentenceUtterances(walked, ctx);
+  return {
+    utterances: applySubstitutions(attachLocate(split, ctx), ctx),
+    sources: split.map((piece) => piece.source),
+    blockStarts: split.map((piece) => !!piece.blockStart),
+  };
 }

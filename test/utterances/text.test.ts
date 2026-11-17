@@ -12,6 +12,7 @@ import {
   substituteWithMap,
 } from "../../src/utterances/text.js";
 import { ssmlIndexToPlainIndex, stripSsmlTags, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap } from "../../src/utterances/plainText.js";
+import { closeTags, openTags } from "../../src/utterances/ssml.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
@@ -302,14 +303,14 @@ test("splitOnPlaceholders cuts the source where a placeholder is, leaving each e
 
 test("splitOnPlaceholders gives a segment the elements open around it, to read it on its own", (t) => {
   const [before, , after] = splitOnPlaceholders('<lang xml:lang="fr"><p>a <readium:noteref id="n"/> b</p></lang>');
-  t.like(before, { ssml: '<lang xml:lang="fr"><p>a', openTags: "", closeTags: "</p></lang>" });
-  t.like(after, { ssml: "b</p></lang>", openTags: '<lang xml:lang="fr"><p>', closeTags: "" });
+  t.deepEqual([before.ssml, openTags(before.open!), closeTags(before.close!)], ['<lang xml:lang="fr"><p>a', "", "</p></lang>"]);
+  t.deepEqual([after.ssml, openTags(after.open!), closeTags(after.close!)], ["b</p></lang>", '<lang xml:lang="fr"><p>', ""]);
 });
 
 test("splitOnPlaceholders keeps a paragraph around a sub once, in the text around it", (t) => {
   const segments = splitOnPlaceholders('<p>The <sub alias="World Health Organization">WHO</sub> said</p>');
   t.deepEqual(segments.map((segment) => segment.ssml), ["<p>The", "WHO", "World Health Organization", "said</p>"]);
-  t.like(segments[1], { openTags: "<p>", closeTags: "</p>" });
+  t.deepEqual([openTags(segments[1].open!), closeTags(segments[1].close!)], ["<p>", "</p>"]);
 });
 
 test("splitOnPlaceholders keeps formatting wrapping just a sub on the abbreviation and its alias, with its attached text", (t) => {
