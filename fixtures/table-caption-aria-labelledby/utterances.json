@@ -11,9 +11,6 @@
           "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Ada",
           "language": "en"
         }
@@ -70,9 +67,6 @@
         }
       ],
       "utterances": [
-        {
-          "plain": "Team roster"
-        },
         {
           "plain": "Team roster"
         },
@@ -261,9 +255,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Ada",
           "language": "en"
         },
@@ -338,9 +329,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Ada"
@@ -620,9 +608,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Ada",
           "language": "en"
         }
@@ -723,9 +708,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Ada"
@@ -911,9 +893,6 @@
           "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Row: 1",
           "language": "en"
         },
@@ -986,9 +965,6 @@
         }
       ],
       "utterances": [
-        {
-          "plain": "Team roster"
-        },
         {
           "plain": "Team roster"
         },
@@ -1198,9 +1174,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Row: 1",
           "language": "en"
         },
@@ -1285,9 +1258,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Row: 1"
@@ -1588,9 +1558,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Row: 1",
           "language": "en"
         },
@@ -1701,9 +1668,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Row: 1"
@@ -3133,9 +3097,6 @@
       "utterances": [
         {
           "plain": "Team roster"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -4345,9 +4306,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "End of the table.",
           "language": "en"
         }
@@ -4768,9 +4726,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "End of the table."
@@ -6431,9 +6386,6 @@
         {
           "plain": "Table: Team roster. 1 line. 1 column.",
           "language": "en"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -7002,9 +6954,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -7237,9 +7186,6 @@
         }
       ],
       "utterances": [
-        {
-          "plain": "Team roster"
-        },
         {
           "plain": "Team roster"
         },
@@ -7330,9 +7276,6 @@
         }
       ],
       "utterances": [
-        {
-          "plain": "Team roster"
-        },
         {
           "plain": "Team roster"
         },
@@ -7593,9 +7536,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Row: 1",
           "language": "en"
         },
@@ -7694,9 +7634,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Row: 1"
@@ -8048,9 +7985,6 @@
           "language": "en"
         },
         {
-          "plain": "Team roster"
-        },
-        {
           "plain": "Row: 1",
           "language": "en"
         }
@@ -8175,9 +8109,6 @@
       "utterances": [
         {
           "plain": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "plain": "Team roster"
         },
         {
           "plain": "Row: 1"
@@ -13320,9 +13251,6 @@
           "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Ada",
           "language": "en"
         }
@@ -13379,9 +13307,6 @@
         }
       ],
       "utterances": [
-        {
-          "ssml": "Team roster"
-        },
         {
           "ssml": "Team roster"
         },
@@ -13570,9 +13495,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Ada",
           "language": "en"
         },
@@ -13647,9 +13569,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Ada"
@@ -13929,9 +13848,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Ada",
           "language": "en"
         }
@@ -14032,9 +13948,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Ada"
@@ -14220,9 +14133,6 @@
           "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Row: 1",
           "language": "en"
         },
@@ -14295,9 +14205,6 @@
         }
       ],
       "utterances": [
-        {
-          "ssml": "Team roster"
-        },
         {
           "ssml": "Team roster"
         },
@@ -14507,9 +14414,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Row: 1",
           "language": "en"
         },
@@ -14594,9 +14498,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Row: 1"
@@ -14897,9 +14798,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Row: 1",
           "language": "en"
         },
@@ -15010,9 +14908,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Row: 1"
@@ -16442,9 +16337,6 @@
       "utterances": [
         {
           "ssml": "Team roster"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -17654,9 +17546,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "End of the table.",
           "language": "en"
         }
@@ -18077,9 +17966,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "End of the table."
@@ -19740,9 +19626,6 @@
         {
           "ssml": "Table: Team roster. 1 line. 1 column.",
           "language": "en"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -20311,9 +20194,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -20546,9 +20426,6 @@
         }
       ],
       "utterances": [
-        {
-          "ssml": "Team roster"
-        },
         {
           "ssml": "Team roster"
         },
@@ -20639,9 +20516,6 @@
         }
       ],
       "utterances": [
-        {
-          "ssml": "Team roster"
-        },
         {
           "ssml": "Team roster"
         },
@@ -20902,9 +20776,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Row: 1",
           "language": "en"
         },
@@ -21003,9 +20874,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Row: 1"
@@ -21357,9 +21225,6 @@
           "language": "en"
         },
         {
-          "ssml": "Team roster"
-        },
-        {
           "ssml": "Row: 1",
           "language": "en"
         }
@@ -21484,9 +21349,6 @@
       "utterances": [
         {
           "ssml": "Table: Team roster. 1 line. 1 column."
-        },
-        {
-          "ssml": "Team roster"
         },
         {
           "ssml": "Row: 1"

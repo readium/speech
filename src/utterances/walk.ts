@@ -531,7 +531,8 @@ function walkNode(
             walkNode(child, out, ctx, index === 0 ? childSuppress : false, undefined, inValue);
           });
         } else {
-          walk(node.children, out, ctx, childSuppress);
+          const children = roles.includes("table") ? node.children.filter((child) => !isTableName(child, description)) : node.children;
+          walk(children, out, ctx, childSuppress);
         }
       }
     }
@@ -552,6 +553,11 @@ function walkNode(
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "after", variantKey, params);
   }
+}
+
+// A caption reading as its table's name, e.g. the one its aria-labelledby points to, is already spoken as that name.
+function isTableName(child: GuidedNavigationObject, description: string | undefined): boolean {
+  return description !== undefined && nodeRoles(child).includes("caption") && plainTextOf(child) === description;
 }
 
 // `suppress` only carries forward to the first node — once we move on to a
