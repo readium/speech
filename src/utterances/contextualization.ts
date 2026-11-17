@@ -49,7 +49,7 @@ export function scopeToQuote(utterance: Piece, at: number | undefined, quoteText
   utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
 }
 
-// `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
+// `value` is always real DOM text, scoped to the node's own content. `description` is scoped as a quote within the node only for figure/table.
 function scopeToOwnValue(
   utterance: Piece,
   entry: { base: string; variantKey?: string },

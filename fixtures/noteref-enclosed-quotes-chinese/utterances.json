@@ -2655,16 +2655,16 @@
       ],
       "utterances": [
         {
-          "language": "zh",
-          "plain": "前“"
+          "plain": "前“",
+          "language": "zh"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "zh",
-          "plain": "”后"
+          "plain": "”后",
+          "language": "zh"
         },
         {
           "plain": "Note."

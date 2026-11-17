@@ -17,6 +17,140 @@
         {
           "format": "plain",
           "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
             "image"
           ]
         },
@@ -87,96 +221,6 @@
         {
           "format": "plain",
           "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
             "image"
           ],
           "language": "block-level",
@@ -222,7 +266,120 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ]
         },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Image with a label: A bar chart showing sales growth",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -256,6 +413,9 @@
         }
       ],
       "utterances": [
+        {
+          "plain": "Figure."
+        },
         {
           "plain": "Image with a label: A bar chart showing sales growth"
         }
@@ -934,151 +1094,6 @@
             "image"
           ],
           "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "image"
           ]
         },
@@ -1210,163 +1225,6 @@
             "image"
           ],
           "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
             "image"
           ],
           "language": "none",
@@ -1985,10 +1843,465 @@
     {
       "options": [
         {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
           "format": "ssml"
         }
       ],
       "utterances": [
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
         {
           "ssml": "A bar chart showing sales growth"
         }
@@ -2076,7 +2389,54 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: A bar chart showing sales growth",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
         },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -2170,6 +2530,10 @@
       ],
       "utterances": [
         {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
           "ssml": "Image with a label: A bar chart showing sales growth",
           "language": "en"
         }
@@ -2177,34 +2541,6 @@
     },
     {
       "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
         {
           "format": "ssml",
           "contextualize": [
@@ -2238,6 +2574,9 @@
         }
       ],
       "utterances": [
+        {
+          "ssml": "Figure."
+        },
         {
           "ssml": "Image with a label: A bar chart showing sales growth"
         }
@@ -2916,151 +3255,6 @@
             "image"
           ],
           "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "image"
           ]
         },
@@ -3192,163 +3386,6 @@
             "image"
           ],
           "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
             "image"
           ],
           "language": "none",
@@ -3963,6 +4000,327 @@
         }
       ],
       "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        }
+      ]
     }
   ]
 }

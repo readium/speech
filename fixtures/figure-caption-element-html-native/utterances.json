@@ -8,7 +8,60 @@
       ],
       "utterances": [
         {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
           "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face"
         }
       ]
     },
@@ -34,16 +87,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -54,17 +97,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -83,6 +115,43 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "plain",
@@ -98,7 +167,11 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: ASCII Art of a cat face",
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face",
           "language": "en"
         }
       ]
@@ -121,7 +194,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
         },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -136,7 +224,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: ASCII Art of a cat face"
+          "plain": "Figure."
+        },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face"
         }
       ]
     },
@@ -407,7 +498,60 @@
       ],
       "utterances": [
         {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
           "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face"
         }
       ]
     },
@@ -433,16 +577,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -453,17 +587,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -482,6 +605,43 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "ssml",
@@ -497,7 +657,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: ASCII Art of a cat face",
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face",
           "language": "en"
         }
       ]
@@ -520,7 +684,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
         },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -535,7 +714,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: ASCII Art of a cat face"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^ ASCII Art of a cat face"
         }
       ]
     },

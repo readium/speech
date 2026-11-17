@@ -437,8 +437,7 @@ function walkNode(
 
   // A description is supplementary/elaborating content (e.g. an extended
   // audio description) for most roles, spoken after the primary content —
-  // but a table's description is its caption, which precedes the table in
-  // the source and is announced before its rows to match. Either way this
+  // but a table's is its label, spoken before its rows. Either way this
   // is suppressed when a role that's actually firing already folded it
   // into its own announcement (e.g. "Table: Team roster. 3 lines...").
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
@@ -454,9 +453,6 @@ function walkNode(
   // is (see `pushRoleContextualization` and `contextualizations.ts`) — a
   // no-op for the vast majority of roles, which have no entry at all.
   for (const role of contextualizedRoles) {
-    // An unlabelled figure has nothing to say and doesn't announce at all
-    // (its content still speaks normally) — the only role with this rule.
-    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "before", variantKey, params);
   }
@@ -547,13 +543,12 @@ function walkNode(
 
   if (description !== undefined && !foldsDescription && !isTableCaption) {
     const utterance = formatDescription(description, node, ctx);
-    // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
+    // Only a figure's description is located, as a quote within the figure.
     if (roles.includes("figure")) scopeToQuote(utterance, 0, description, node, ctx);
     push(out, node, [utterance]);
   }
 
   for (const role of contextualizedRoles) {
-    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "after", variantKey, params);
   }

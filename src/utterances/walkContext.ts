@@ -110,9 +110,8 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
 
 // Every node's own ancestors (nearest first), keyed by object identity —
 // used by attachLocate() to fall back to an enclosing node's textref
-// when the utterance's own source has none of its own (e.g. its text lives
-// on an unroled child wrapping a link, whose own textref is that link's
-// href, not a DOM locator — see @readium/guided-navigation's decodeTextref()).
+// when the utterance's own source has none of its own (e.g. a link
+// without a role, which gets no textref).
 function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavigationObject[] = [], out = new Map<GuidedNavigationObject, GuidedNavigationObject[]>()): Map<GuidedNavigationObject, GuidedNavigationObject[]> {
   for (const node of nodes) {
     out.set(node, chain);

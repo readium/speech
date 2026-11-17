@@ -11,10 +11,66 @@
           "plain": "A metal-edged case with a red textured front panel."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -40,16 +96,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -60,17 +106,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -89,6 +124,46 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "plain",
@@ -104,14 +179,15 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
         },
         {
           "plain": "A metal-edged case with a red textured front panel."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -133,7 +209,25 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
         },
+        {
+          "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -148,13 +242,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
         },
         {
           "plain": "A metal-edged case with a red textured front panel."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -180,16 +274,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -207,17 +291,6 @@
           "contextualize": [
             "image"
           ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -228,6 +301,43 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: A metal-edged case with a red textured front panel.",
+          "language": "en"
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -248,10 +358,8 @@
           "language": "en"
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -273,7 +381,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: A metal-edged case with a red textured front panel."
         },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -291,10 +414,7 @@
           "plain": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -323,17 +443,6 @@
             "figure",
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -345,18 +454,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -377,6 +474,49 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Image with a label: A metal-edged case with a red textured front panel.",
+          "language": "en"
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "plain",
@@ -393,7 +533,7 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -401,7 +541,8 @@
           "language": "en"
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -425,7 +566,25 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
         },
+        {
+          "plain": "Image with a label: A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -441,13 +600,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -538,6 +697,9 @@
       "utterances": [
         {
           "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit.",
@@ -545,9 +707,6 @@
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -585,15 +744,15 @@
       "utterances": [
         {
           "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit."
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -692,11 +851,14 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
         },
         {
           "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit.",
@@ -743,10 +905,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
         },
         {
           "plain": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit."
@@ -855,14 +1020,14 @@
           "language": "en"
         },
         {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "plain": "Credit.",
           "language": "en"
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -905,13 +1070,13 @@
           "plain": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "plain": "Credit."
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -1019,12 +1184,15 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
         },
         {
           "plain": "Image with a label: A metal-edged case with a red textured front panel.",
           "language": "en"
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit.",
@@ -1074,10 +1242,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: A metal-edged case with a red textured front panel."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit."
@@ -3578,16 +3749,6 @@
           "skip": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -3598,17 +3759,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -3633,17 +3783,6 @@
           "skip": [
             "image"
           ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
           "language": "none"
         },
         {
@@ -3654,17 +3793,6 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -3696,19 +3824,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -3722,20 +3837,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -3769,6 +3870,59 @@
           "contextualize": [
             "image"
           ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
           "language": "block-level",
           "segmentation": {
             "mode": "sentence",
@@ -3783,7 +3937,10 @@
           "contextualize": [
             "image"
           ],
-          "language": "none"
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "plain",
@@ -3793,9 +3950,45 @@
           "contextualize": [
             "image"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
           "language": "none",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3815,10 +4008,7 @@
       ],
       "utterances": [
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -3853,19 +4043,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -3889,20 +4066,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -3916,20 +4079,6 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -3964,20 +4113,6 @@
             "figure",
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -3992,21 +4127,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -4033,30 +4153,117 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
         }
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
         },
         {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -4091,20 +4298,6 @@
             "image"
           ],
           "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "figure",
             "image"
           ],
@@ -4122,6 +4315,35 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4142,10 +4364,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
         },
         {
-          "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -4378,15 +4600,15 @@
         }
       ],
       "utterances": [
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
         {
           "plain": "Credit.",
           "language": "en"
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -4471,14 +4693,14 @@
         }
       ],
       "utterances": [
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
         {
           "plain": "Credit."
         },
         {
           "plain": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -4730,8 +4952,11 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "plain": "Figure.",
           "language": "en"
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit.",
@@ -4830,7 +5055,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "plain": "Figure."
+        },
+        {
+          "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "plain": "Credit."
@@ -4851,10 +5079,66 @@
           "ssml": "A metal-edged case with a red textured front panel."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -4880,16 +5164,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -4900,17 +5174,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -4929,6 +5192,46 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "ssml",
@@ -4944,14 +5247,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "A metal-edged case with a red textured front panel."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -4973,7 +5277,25 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
         },
+        {
+          "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4988,13 +5310,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
         },
         {
           "ssml": "A metal-edged case with a red textured front panel."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -5020,16 +5342,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -5047,17 +5359,6 @@
           "contextualize": [
             "image"
           ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -5068,6 +5369,43 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: A metal-edged case with a red textured front panel.",
+          "language": "en"
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5088,10 +5426,8 @@
           "language": "en"
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -5113,7 +5449,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: A metal-edged case with a red textured front panel."
         },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5131,10 +5482,7 @@
           "ssml": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -5163,17 +5511,6 @@
             "figure",
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -5185,18 +5522,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -5217,6 +5542,49 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Image with a label: A metal-edged case with a red textured front panel.",
+          "language": "en"
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "ssml",
@@ -5233,7 +5601,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
@@ -5241,7 +5609,8 @@
           "language": "en"
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -5265,7 +5634,25 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
         },
+        {
+          "ssml": "Image with a label: A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5281,13 +5668,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -5378,6 +5765,9 @@
       "utterances": [
         {
           "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit.",
@@ -5385,9 +5775,6 @@
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -5425,15 +5812,15 @@
       "utterances": [
         {
           "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit."
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -5532,11 +5919,14 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit.",
@@ -5583,10 +5973,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
         },
         {
           "ssml": "A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit."
@@ -5695,14 +6088,14 @@
           "language": "en"
         },
         {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "ssml": "Credit.",
           "language": "en"
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -5745,13 +6138,13 @@
           "ssml": "Image with a label: A metal-edged case with a red textured front panel."
         },
         {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "ssml": "Credit."
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -5859,12 +6252,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "Image with a label: A metal-edged case with a red textured front panel.",
           "language": "en"
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit.",
@@ -5914,10 +6310,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: A metal-edged case with a red textured front panel."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit."
@@ -8418,16 +8817,6 @@
           "skip": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -8438,17 +8827,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -8473,17 +8851,6 @@
           "skip": [
             "image"
           ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
           "language": "none"
         },
         {
@@ -8494,17 +8861,6 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -8536,19 +8892,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -8562,20 +8905,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -8609,6 +8938,59 @@
           "contextualize": [
             "image"
           ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
           "language": "block-level",
           "segmentation": {
             "mode": "sentence",
@@ -8623,7 +9005,10 @@
           "contextualize": [
             "image"
           ],
-          "language": "none"
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         },
         {
           "format": "ssml",
@@ -8633,9 +9018,45 @@
           "contextualize": [
             "image"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
           "language": "none",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -8655,10 +9076,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -8693,19 +9111,6 @@
           "contextualize": [
             "figure"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "always"
         },
         {
@@ -8729,20 +9134,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -8756,20 +9147,6 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -8804,20 +9181,6 @@
             "figure",
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "always"
         },
         {
@@ -8832,21 +9195,6 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
           }
         },
         {
@@ -8873,30 +9221,117 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
         }
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0.",
+          "language": "en"
         }
       ]
     },
@@ -8931,20 +9366,6 @@
             "image"
           ],
           "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "figure",
             "image"
           ],
@@ -8962,6 +9383,35 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
+        {
+          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -8982,10 +9432,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
         },
         {
-          "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999 Photo: Science Museum London, CC BY-SA 2.0."
         }
       ]
     },
@@ -9218,15 +9668,15 @@
         }
       ],
       "utterances": [
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
         {
           "ssml": "Credit.",
           "language": "en"
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -9311,14 +9761,14 @@
         }
       ],
       "utterances": [
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+        },
         {
           "ssml": "Credit."
         },
         {
           "ssml": "Photo: Science Museum London, CC BY-SA 2.0."
-        },
-        {
-          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         }
       ]
     },
@@ -9570,8 +10020,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999",
+          "ssml": "Figure.",
           "language": "en"
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit.",
@@ -9670,7 +10123,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
         },
         {
           "ssml": "Credit."

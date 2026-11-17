@@ -12,7 +12,49 @@
           "language": "fr"
         },
         {
-          "plain": "Le cat dort"
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
         }
       ]
     },
@@ -79,34 +121,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -133,11 +147,69 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort",
+          "plain": "Figure.",
           "language": "en"
         },
         {
           "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
           "language": "fr"
         }
       ]
@@ -175,10 +247,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort"
+          "plain": "Figure."
         },
         {
           "plain": "x"
+        },
+        {
+          "plain": "Le cat dort"
         }
       ]
     },
@@ -204,34 +279,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -276,7 +323,62 @@
           "language": "fr"
         },
         {
-          "plain": "Le cat dort"
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
         }
       ]
     },
@@ -356,37 +458,6 @@
             "figure",
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -415,7 +486,7 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -424,6 +495,71 @@
         },
         {
           "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
           "language": "fr"
         }
       ]
@@ -464,10 +600,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: x"
+        },
+        {
+          "plain": "Le cat dort"
         }
       ]
     },
@@ -1668,34 +1807,6 @@
           "skip": [
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -1714,34 +1825,6 @@
             "image"
           ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -1789,6 +1872,81 @@
           "contextualize": [
             "image"
           ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
           "language": "always"
         },
         {
@@ -1817,26 +1975,38 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
         },
         {
           "format": "plain",
           "skip": [
             "image"
           ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
+          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1846,10 +2016,7 @@
           "skip": [
             "image"
           ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
+          "language": "none",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -1943,43 +2110,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -2055,46 +2185,6 @@
             "figure",
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -2129,8 +2219,111 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort",
+          "plain": "Figure.",
           "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
         }
       ]
     },
@@ -2216,7 +2409,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Le cat dort"
+          "plain": "Figure."
+        },
+        {
+          "plain": "Le cat dort"
         }
       ]
     },
@@ -2232,7 +2428,41 @@
           "language": "fr"
         },
         {
-          "ssml": "Le cat dort"
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
         }
       ]
     },
@@ -2299,34 +2529,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -2353,11 +2555,61 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
           "language": "fr"
         }
       ]
@@ -2395,10 +2647,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort"
+          "ssml": "Figure."
         },
         {
           "ssml": "x"
+        },
+        {
+          "ssml": "Le cat dort"
         }
       ]
     },
@@ -2424,34 +2679,6 @@
           "contextualize": [
             "image"
           ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -2492,7 +2719,50 @@
           "language": "en"
         },
         {
-          "ssml": "Le cat dort"
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
         }
       ]
     },
@@ -2572,37 +2842,6 @@
             "figure",
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -2631,12 +2870,65 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
           "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
         }
       ]
     },
@@ -2676,10 +2968,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "Le cat dort"
         }
       ]
     },
@@ -3880,34 +4175,6 @@
           "skip": [
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -3926,34 +4193,6 @@
             "image"
           ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -4001,6 +4240,81 @@
           "contextualize": [
             "image"
           ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
           "language": "always"
         },
         {
@@ -4029,26 +4343,30 @@
             "mode": "sentence",
             "reconstruct": true
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
         },
         {
           "format": "ssml",
           "skip": [
             "image"
           ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
+          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }
@@ -4058,10 +4376,7 @@
           "skip": [
             "image"
           ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
+          "language": "none",
           "segmentation": {
             "mode": "sentence",
             "reconstruct": true
@@ -4155,43 +4470,6 @@
           "contextualize": [
             "figure"
           ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
           "language": "block-level"
         },
         {
@@ -4267,46 +4545,6 @@
             "figure",
             "image"
           ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
           "language": "block-level"
         },
         {
@@ -4341,8 +4579,103 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort",
+          "ssml": "Figure.",
           "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
         }
       ]
     },
@@ -4428,7 +4761,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Le cat dort"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Le cat dort"
         }
       ]
     }

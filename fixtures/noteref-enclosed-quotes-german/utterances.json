@@ -7069,48 +7069,48 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Das Wort „"
+          "plain": "Das Wort „",
+          "language": "de"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "de",
-          "plain": "“ hier, »"
+          "plain": "“ hier, »",
+          "language": "de"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "de",
-          "plain": "« dort."
+          "plain": "« dort.",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Er sagt «Hallo»"
-        },
-        {
-          "plain": "Start of the footnote. Note. End of the footnote.",
-          "language": "en"
-        },
-        {
-          "language": "de",
-          "plain": "«Welt»."
-        },
-        {
-          "language": "de",
-          "plain": "Er sagt »Hallo«"
+          "plain": "Er sagt «Hallo»",
+          "language": "de"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "de",
-          "plain": "»Welt«."
+          "plain": "«Welt».",
+          "language": "de"
+        },
+        {
+          "plain": "Er sagt »Hallo«",
+          "language": "de"
+        },
+        {
+          "plain": "Start of the footnote. Note. End of the footnote.",
+          "language": "en"
+        },
+        {
+          "plain": "»Welt«.",
+          "language": "de"
         }
       ]
     },

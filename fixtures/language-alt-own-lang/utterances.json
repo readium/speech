@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         },
         {
           "plain": "A cat",
@@ -134,8 +134,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         },
         {
           "plain": "Image with a label: A cat",
@@ -377,8 +377,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         }
       ]
     },
@@ -464,8 +464,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         },
         {
           "ssml": "A cat",
@@ -590,8 +590,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         },
         {
           "ssml": "Image with a label: A cat",
@@ -833,8 +833,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         }
       ]
     },

@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Bonjour, comment allez-vous ?"
+          "plain": "Bonjour, comment allez-vous ?",
+          "language": "fr"
         }
       ]
     },
@@ -49,8 +49,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Bonjour, comment allez-vous ?"
+          "ssml": "Bonjour, comment allez-vous ?",
+          "language": "fr"
         }
       ]
     },

@@ -12,12 +12,12 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
           "plain": "Un chat",
           "language": "fr"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -26,7 +26,22 @@
         {
           "format": "plain",
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "x"
         },
+        {
+          "plain": "Un chat"
+        },
+        {
+          "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "language": "none",
@@ -48,10 +63,7 @@
           "plain": "x"
         },
         {
-          "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat"
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -141,20 +153,20 @@
       ],
       "utterances": [
         {
-          "plain": "Figure:",
+          "plain": "Figure.",
           "language": "en"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
         },
         {
           "plain": "x",
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -166,7 +178,25 @@
             "figure"
           ],
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
         },
+        {
+          "plain": "x"
+        },
+        {
+          "plain": "Un chat"
+        },
+        {
+          "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -191,13 +221,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Un chat"
+          "plain": "Figure."
         },
         {
           "plain": "x"
         },
         {
-          "plain": "Photo: Jane"
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -295,12 +325,12 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
           "plain": "Un chat",
           "language": "fr"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -312,7 +342,22 @@
             "image"
           ],
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: x"
         },
+        {
+          "plain": "Un chat"
+        },
+        {
+          "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -340,10 +385,7 @@
           "plain": "Image with a label: x"
         },
         {
-          "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat"
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -442,12 +484,8 @@
       ],
       "utterances": [
         {
-          "plain": "Figure:",
+          "plain": "Figure.",
           "language": "en"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
         },
         {
           "plain": "Image with a label:",
@@ -458,8 +496,12 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -472,40 +514,58 @@
             "image"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
         }
       ],
       "utterances": [
         {
-          "plain": "Figure: Un chat"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: x"
         },
         {
+          "plain": "Un chat"
+        },
+        {
           "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "Image with a label: x"
+        },
+        {
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -599,16 +659,16 @@
           "language": "fr"
         },
         {
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
           "plain": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -646,174 +706,9 @@
       "utterances": [
         {
           "plain": "x"
-        },
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Photo: Jane"
         },
         {
           "plain": "Un chat"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ]
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "Figure:",
-          "language": "en"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
-        },
-        {
-          "plain": "x",
-          "language": "fr"
-        },
-        {
-          "plain": "Credit.",
-          "language": "en"
-        },
-        {
-          "language": "en",
-          "plain": "Photo: Jane"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "Figure: Un chat"
-        },
-        {
-          "plain": "x"
         },
         {
           "plain": "Credit."
@@ -828,14 +723,14 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ]
         },
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "segmentation": {
@@ -845,7 +740,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "segmentation": {
@@ -856,7 +751,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always"
@@ -864,7 +759,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always",
@@ -875,7 +770,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always",
@@ -887,7 +782,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level"
@@ -895,7 +790,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level",
@@ -906,7 +801,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level",
@@ -918,7 +813,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label:",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -926,16 +821,16 @@
           "language": "fr"
         },
         {
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
           "plain": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -944,7 +839,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none"
@@ -952,7 +847,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none",
@@ -963,7 +858,7 @@
         {
           "format": "plain",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none",
@@ -975,16 +870,184 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: x"
+          "plain": "Figure."
+        },
+        {
+          "plain": "x"
+        },
+        {
+          "plain": "Un chat"
         },
         {
           "plain": "Credit."
         },
         {
           "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: x"
         },
         {
           "plain": "Un chat"
+        },
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Photo: Jane"
         }
       ]
     },
@@ -1092,12 +1155,8 @@
       ],
       "utterances": [
         {
-          "plain": "Figure:",
+          "plain": "Figure.",
           "language": "en"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
         },
         {
           "plain": "Image with a label:",
@@ -1108,12 +1167,16 @@
           "language": "fr"
         },
         {
+          "plain": "Un chat",
+          "language": "fr"
+        },
+        {
           "plain": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -1156,10 +1219,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Un chat"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: x"
+        },
+        {
+          "plain": "Un chat"
         },
         {
           "plain": "Credit."
@@ -3832,12 +3898,12 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
           "plain": "Un chat",
           "language": "fr"
+        },
+        {
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -3855,66 +3921,75 @@
           "skip": [
             "image"
           ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
           "contextualize": [
             "image"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
         }
       ],
       "utterances": [
-        {
-          "plain": "Photo: Jane"
-        },
         {
           "plain": "Un chat"
+        },
+        {
+          "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -4148,7 +4223,7 @@
       ],
       "utterances": [
         {
-          "plain": "Figure:",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -4156,8 +4231,8 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -4173,6 +4248,32 @@
           ],
           "language": "none"
         },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "Un chat"
+        },
+        {
+          "plain": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "skip": [
@@ -4199,17 +4300,6 @@
             "mode": "sentence",
             "reconstruct": true
           }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
         },
         {
           "format": "plain",
@@ -4243,10 +4333,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Un chat"
+          "plain": "Figure."
         },
         {
-          "plain": "Photo: Jane"
+          "plain": "Un chat Photo: Jane"
         }
       ]
     },
@@ -4479,17 +4569,17 @@
         }
       ],
       "utterances": [
+        {
+          "plain": "Un chat",
+          "language": "fr"
+        },
         {
           "plain": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat",
-          "language": "fr"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -4574,14 +4664,14 @@
         }
       ],
       "utterances": [
+        {
+          "plain": "Un chat"
+        },
         {
           "plain": "Credit."
         },
         {
           "plain": "Photo: Jane"
-        },
-        {
-          "plain": "Un chat"
         }
       ]
     },
@@ -4833,7 +4923,7 @@
       ],
       "utterances": [
         {
-          "plain": "Figure:",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -4845,8 +4935,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Photo: Jane"
+          "plain": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -4938,7 +5028,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: Un chat"
+          "plain": "Figure."
+        },
+        {
+          "plain": "Un chat"
         },
         {
           "plain": "Credit."
@@ -4960,12 +5053,12 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
-        },
-        {
           "ssml": "Un chat",
           "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -4974,7 +5067,22 @@
         {
           "format": "ssml",
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "x"
         },
+        {
+          "ssml": "Un chat"
+        },
+        {
+          "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "language": "none",
@@ -4996,10 +5104,7 @@
           "ssml": "x"
         },
         {
-          "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat"
+          "ssml": "Un chat Photo: Jane"
         }
       ]
     },
@@ -5089,7 +5194,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
@@ -5097,8 +5202,12 @@
           "language": "fr"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
+          "ssml": "Un chat",
+          "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -5110,7 +5219,25 @@
             "figure"
           ],
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
         },
+        {
+          "ssml": "x"
+        },
+        {
+          "ssml": "Un chat"
+        },
+        {
+          "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5135,13 +5262,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Un chat"
+          "ssml": "Figure."
         },
         {
           "ssml": "x"
         },
         {
-          "ssml": "Photo: Jane"
+          "ssml": "Un chat Photo: Jane"
         }
       ]
     },
@@ -5235,12 +5362,12 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
-        },
-        {
           "ssml": "Un chat",
           "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -5252,7 +5379,22 @@
             "image"
           ],
           "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: x"
         },
+        {
+          "ssml": "Un chat"
+        },
+        {
+          "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5280,10 +5422,7 @@
           "ssml": "Image with a label: x"
         },
         {
-          "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat"
+          "ssml": "Un chat Photo: Jane"
         }
       ]
     },
@@ -5382,7 +5521,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
@@ -5390,8 +5529,12 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
+          "ssml": "Un chat",
+          "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -5404,40 +5547,58 @@
             "image"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
         }
       ],
       "utterances": [
         {
-          "ssml": "Figure: Un chat"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: x"
         },
         {
+          "ssml": "Un chat"
+        },
+        {
           "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "Un chat Photo: Jane"
         }
       ]
     },
@@ -5529,176 +5690,18 @@
         {
           "ssml": "x",
           "language": "fr"
-        },
-        {
-          "ssml": "Credit.",
-          "language": "en"
-        },
-        {
-          "language": "en",
-          "ssml": "Photo: Jane"
         },
         {
           "ssml": "Un chat",
           "language": "fr"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "x"
-        },
-        {
-          "ssml": "Credit."
-        },
-        {
-          "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ]
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "figure",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
-          "language": "en"
-        },
-        {
-          "ssml": "x",
-          "language": "fr"
         },
         {
           "ssml": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -5707,7 +5710,6 @@
         {
           "format": "ssml",
           "contextualize": [
-            "figure",
             "credit"
           ],
           "language": "none"
@@ -5715,7 +5717,6 @@
         {
           "format": "ssml",
           "contextualize": [
-            "figure",
             "credit"
           ],
           "language": "none",
@@ -5726,7 +5727,6 @@
         {
           "format": "ssml",
           "contextualize": [
-            "figure",
             "credit"
           ],
           "language": "none",
@@ -5738,10 +5738,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Un chat"
+          "ssml": "x"
         },
         {
-          "ssml": "x"
+          "ssml": "Un chat"
         },
         {
           "ssml": "Credit."
@@ -5756,14 +5756,14 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ]
         },
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "segmentation": {
@@ -5773,7 +5773,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "segmentation": {
@@ -5784,7 +5784,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always"
@@ -5792,7 +5792,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always",
@@ -5803,7 +5803,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "always",
@@ -5815,7 +5815,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level"
@@ -5823,7 +5823,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level",
@@ -5834,7 +5834,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "block-level",
@@ -5846,20 +5846,24 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "ssml": "Figure.",
           "language": "en"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Un chat",
+          "language": "fr"
         },
         {
           "ssml": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat",
-          "language": "fr"
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -5868,7 +5872,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none"
@@ -5876,7 +5880,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none",
@@ -5887,7 +5891,7 @@
         {
           "format": "ssml",
           "contextualize": [
-            "image",
+            "figure",
             "credit"
           ],
           "language": "none",
@@ -5899,16 +5903,180 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: x"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "x"
+        },
+        {
+          "ssml": "Un chat"
         },
         {
           "ssml": "Credit."
         },
         {
           "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Un chat",
+          "language": "fr"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: x"
         },
         {
           "ssml": "Un chat"
+        },
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Photo: Jane"
         }
       ]
     },
@@ -6016,7 +6184,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
@@ -6024,12 +6192,16 @@
           "language": "en"
         },
         {
+          "ssml": "Un chat",
+          "language": "fr"
+        },
+        {
           "ssml": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -6072,10 +6244,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Un chat"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "Un chat"
         },
         {
           "ssml": "Credit."
@@ -8748,12 +8923,341 @@
       ],
       "utterances": [
         {
-          "language": "en",
+          "ssml": "Un chat",
+          "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Un chat"
+        },
+        {
           "ssml": "Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Un chat Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
         },
         {
           "ssml": "Un chat",
           "language": "fr"
+        },
+        {
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -8764,36 +9268,8 @@
           "skip": [
             "image"
           ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
           "contextualize": [
-            "image"
+            "figure"
           ],
           "language": "none"
         },
@@ -8803,359 +9279,18 @@
             "image"
           ],
           "contextualize": [
+            "figure",
             "image"
           ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
+          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Photo: Jane"
+          "ssml": "Figure."
         },
         {
           "ssml": "Un chat"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
-          "language": "en"
-        },
-        {
-          "language": "en",
-          "ssml": "Photo: Jane"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence",
-            "reconstruct": true
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Figure: Un chat"
         },
         {
           "ssml": "Photo: Jane"
@@ -9170,6 +9305,74 @@
             "image"
           ],
           "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Un chat Photo: Jane"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
             "credit"
           ]
         },
@@ -9391,17 +9594,17 @@
         }
       ],
       "utterances": [
+        {
+          "ssml": "Un chat",
+          "language": "fr"
+        },
         {
           "ssml": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat",
-          "language": "fr"
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -9486,14 +9689,14 @@
         }
       ],
       "utterances": [
+        {
+          "ssml": "Un chat"
+        },
         {
           "ssml": "Credit."
         },
         {
           "ssml": "Photo: Jane"
-        },
-        {
-          "ssml": "Un chat"
         }
       ]
     },
@@ -9745,16 +9948,20 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: <lang xml:lang=\"fr\">Un chat</lang>",
+          "ssml": "Figure.",
           "language": "en"
+        },
+        {
+          "ssml": "Un chat",
+          "language": "fr"
         },
         {
           "ssml": "Credit.",
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Photo: Jane"
+          "ssml": "Photo: Jane",
+          "language": "en"
         }
       ]
     },
@@ -9846,7 +10053,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: Un chat"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Un chat"
         },
         {
           "ssml": "Credit."

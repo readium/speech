@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Hello bonjour."
+          "plain": "Hello bonjour.",
+          "language": "en"
         }
       ]
     },
@@ -82,8 +82,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Hello bonjour."
+          "ssml": "Hello bonjour.",
+          "language": "en"
         }
       ]
     },
@@ -111,8 +111,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>."
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>.",
+          "language": "en"
         }
       ]
     },

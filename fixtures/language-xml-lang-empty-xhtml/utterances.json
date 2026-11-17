@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         },
         {
           "plain": "Unknown"
@@ -133,8 +133,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         },
         {
           "plain": "Image with a label: Unknown",
@@ -376,8 +376,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         }
       ]
     },
@@ -463,8 +463,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         },
         {
           "ssml": "Unknown"
@@ -588,8 +588,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         },
         {
           "ssml": "Image with a label: Unknown",
@@ -831,8 +831,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         }
       ]
     },

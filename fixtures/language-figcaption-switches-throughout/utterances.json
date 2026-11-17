@@ -134,12 +134,16 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog",
+          "plain": "Figure.",
           "language": "en"
         },
         {
           "plain": "x",
           "language": "fr"
+        },
+        {
+          "plain": "A dog",
+          "language": "en"
         }
       ]
     },
@@ -176,10 +180,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog"
+          "plain": "Figure."
         },
         {
           "plain": "x"
+        },
+        {
+          "plain": "A dog"
         }
       ]
     },
@@ -417,7 +424,7 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog",
+          "plain": "Figure.",
           "language": "en"
         },
         {
@@ -427,6 +434,10 @@
         {
           "plain": "x",
           "language": "fr"
+        },
+        {
+          "plain": "A dog",
+          "language": "en"
         }
       ]
     },
@@ -466,10 +477,13 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog"
+          "plain": "Figure."
         },
         {
           "plain": "Image with a label: x"
+        },
+        {
+          "plain": "A dog"
         }
       ]
     },
@@ -2141,7 +2155,11 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog",
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "A dog",
           "language": "en"
         }
       ]
@@ -2228,7 +2246,10 @@
       ],
       "utterances": [
         {
-          "plain": "Figure: A dog"
+          "plain": "Figure."
+        },
+        {
+          "plain": "A dog"
         }
       ]
     },
@@ -2366,12 +2387,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "x",
           "language": "fr"
+        },
+        {
+          "ssml": "A dog",
+          "language": "en"
         }
       ]
     },
@@ -2408,10 +2433,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog"
+          "ssml": "Figure."
         },
         {
           "ssml": "x"
+        },
+        {
+          "ssml": "A dog"
         }
       ]
     },
@@ -2645,11 +2673,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog",
+          "ssml": "Figure.",
           "language": "en"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "A dog",
           "language": "en"
         }
       ]
@@ -2690,10 +2722,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog"
+          "ssml": "Figure."
         },
         {
           "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "A dog"
         }
       ]
     },
@@ -4365,7 +4400,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog",
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "A dog",
           "language": "en"
         }
       ]
@@ -4452,7 +4491,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure: A dog"
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "A dog"
         }
       ]
     }

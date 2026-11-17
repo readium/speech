@@ -8,12 +8,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un chat"
+          "plain": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "and a dog"
+          "plain": "and a dog",
+          "language": "en"
         },
         {
           "plain": "Un chat and a dog"
@@ -152,12 +152,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un chat"
+          "plain": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "and a dog"
+          "plain": "and a dog",
+          "language": "en"
         },
         {
           "plain": "Image with a label: Un chat and a dog",
@@ -414,12 +414,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un chat"
+          "plain": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "and a dog"
+          "plain": "and a dog",
+          "language": "en"
         }
       ]
     },
@@ -517,12 +517,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un chat"
+          "ssml": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "ssml": "and a dog"
+          "ssml": "and a dog",
+          "language": "en"
         },
         {
           "ssml": "Un chat and a dog"
@@ -661,12 +661,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un chat"
+          "ssml": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "ssml": "and a dog"
+          "ssml": "and a dog",
+          "language": "en"
         },
         {
           "ssml": "Image with a label: Un chat and a dog",
@@ -923,12 +923,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un chat"
+          "ssml": "Un chat",
+          "language": "fr"
         },
         {
-          "language": "en",
-          "ssml": "and a dog"
+          "ssml": "and a dog",
+          "language": "en"
         }
       ]
     },

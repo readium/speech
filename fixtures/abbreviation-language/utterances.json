@@ -163,16 +163,16 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "The"
+          "plain": "The",
+          "language": "en"
         },
         {
           "plain": "OMS (Organisation mondiale de la santé)",
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "said."
+          "plain": "said.",
+          "language": "en"
         }
       ]
     },
@@ -209,16 +209,16 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "The"
+          "plain": "The",
+          "language": "en"
         },
         {
           "plain": "OMS",
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "said."
+          "plain": "said.",
+          "language": "en"
         }
       ]
     },
@@ -255,16 +255,16 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "The"
+          "plain": "The",
+          "language": "en"
         },
         {
           "plain": "Organisation mondiale de la santé",
           "language": "fr"
         },
         {
-          "language": "en",
-          "plain": "said."
+          "plain": "said.",
+          "language": "en"
         }
       ]
     },
