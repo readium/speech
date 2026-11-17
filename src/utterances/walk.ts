@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
-import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
+import { nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
   hasLangTag,
@@ -29,7 +29,7 @@ import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
-import { plainTextOf } from "./tableStructure.js";
+import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
 import { nestTags, type Piece } from "./piece.js";
@@ -407,7 +407,7 @@ function walkNode(
   ownTextInValue = false,
 ): void {
   const roles = nodeRoles(node);
-  const description = descriptionOf(node);
+  const description = spokenDescriptionOf(node);
   // A text reference read "never" keeps its own text, without its embedded target.
   const never = interruptionOf(roles, ctx) === "never";
   const skipsTarget = never && roles.some((role) => textReferenceRoleSet.has(role));
@@ -531,8 +531,8 @@ function walkNode(
             walkNode(child, out, ctx, index === 0 ? childSuppress : false, undefined, inValue);
           });
         } else {
-          const children = roles.includes("table") ? node.children.filter((child) => !isTableName(child, description)) : node.children;
-          walk(children, out, ctx, childSuppress);
+          const caption = redundantCaptionOf(node);
+          walk(caption ? node.children.filter((child) => child !== caption) : node.children, out, ctx, childSuppress);
         }
       }
     }
@@ -553,11 +553,6 @@ function walkNode(
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "after", variantKey, params);
   }
-}
-
-// A caption reading as its table's name, e.g. the one its aria-labelledby points to, is already spoken as that name.
-function isTableName(child: GuidedNavigationObject, description: string | undefined): boolean {
-  return description !== undefined && nodeRoles(child).includes("caption") && plainTextOf(child) === description;
 }
 
 // `suppress` only carries forward to the first node — once we move on to a

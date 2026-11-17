@@ -8,7 +8,7 @@ import { descriptionLanguageOf, descriptionOf, nodeText } from "./nodeFields.js"
 import { roleDropOverrides } from "./roles.js";
 import { setQuotedSpan } from "./sourceSpans.js";
 import { splitOnLangTags } from "./text.js";
-import { computeTableStructure, plainTextOf } from "./tableStructure.js";
+import { computeTableStructure, plainTextOf, spokenDescriptionOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type WalkContext } from "./walkContext.js";
 import type { Piece } from "./piece.js";
@@ -167,7 +167,7 @@ type ContextualizationParamsProvider = (node: GuidedNavigationObject, ctx: WalkC
 // Any node with a `description` gets `{{ description }}` interpolated,
 // whatever its role, plus a labelled/unlabelled variant a catalog entry can opt into.
 function genericDescriptionParams(node: GuidedNavigationObject): ContextualizationParams {
-  const description = descriptionOf(node);
+  const description = spokenDescriptionOf(node);
   if (description === undefined) return { variantKey: "unlabelled" };
   return { variantKey: "labelled", params: { description } };
 }

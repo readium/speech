@@ -1,5 +1,5 @@
 import type { GuidedNavigationObject } from "@readium/shared";
-import { spokenText } from "./nodeFields.js";
+import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import { resolveNodeText } from "./text.js";
 import { stripSsmlTags } from "./plainText.js";
 
@@ -7,6 +7,23 @@ export function plainTextOf(node: GuidedNavigationObject): string {
   const resolved = resolveNodeText(spokenText(node));
   if (!resolved) return "";
   return resolved.plain ?? (resolved.ssml ? stripSsmlTags(resolved.ssml) : "");
+}
+
+// A table's caption with the same text as its description, e.g. the one its aria-labelledby points to.
+function namingCaptionOf(node: GuidedNavigationObject): GuidedNavigationObject | undefined {
+  const description = descriptionOf(node);
+  if (description === undefined || !nodeRoles(node).includes("table")) return undefined;
+  return node.children?.find((child) => nodeRoles(child).includes("caption") && plainTextOf(child) === description);
+}
+
+// A naming caption holding only its text is skipped, read as the description; one holding more is read instead of it.
+export function redundantCaptionOf(node: GuidedNavigationObject): GuidedNavigationObject | undefined {
+  const caption = namingCaptionOf(node);
+  return caption?.children?.length ? undefined : caption;
+}
+
+export function spokenDescriptionOf(node: GuidedNavigationObject): string | undefined {
+  return namingCaptionOf(node)?.children?.length ? undefined : descriptionOf(node);
 }
 
 export interface TableStructure {
