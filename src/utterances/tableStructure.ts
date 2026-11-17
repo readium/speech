@@ -1,6 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { spokenText } from "./nodeFields.js";
-import { resolveNodeText, stripSsmlTags } from "./text.js";
+import { resolveNodeText } from "./text.js";
+import { stripSsmlTags } from "./plainText.js";
 
 export function plainTextOf(node: GuidedNavigationObject): string {
   const resolved = resolveNodeText(spokenText(node));

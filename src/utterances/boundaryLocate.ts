@@ -1,6 +1,7 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { stripSsmlTags, substitutedIndexToSourceIndex } from "./text.js";
+import { substitutedIndexToSourceIndex } from "./text.js";
+import { stripSsmlTags } from "./plainText.js";
 
 // Boundary events for one utterance arrive in increasing charIndex order
 // (word by word) — remembering the last matched piece lets a call resume
@@ -33,9 +34,8 @@ export function recordAliasOffset(offset: UtteranceOffset, spokenLength: number)
   aliasSpokenLengths.set(offset, spokenLength);
 }
 
-export function aliasSpokenLength(offset: UtteranceOffset): number | undefined {
-  return aliasSpokenLengths.get(offset);
-}
+// Quotes are page text, which may space words otherwise than speech (e.g. a no-break space); one for one, so positions hold.
+const spaced = (text: string) => text.replace(/\s/g, " ");
 
 // charIndex is the engine's own runtime position, unknowable when `offsets`
 // was built — resolved by scanning pieces in order from where the last ended.
@@ -57,7 +57,7 @@ export function resolveBoundaryLocate(
 
   const offsets = utterance.offsets;
   const isSsml = !utterance.plain && !!utterance.ssml;
-  const outputText = sub?.plain ?? utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : "");
+  const outputText = spaced(sub?.plain ?? utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : ""));
   if (!offsets?.length || !outputText) return undefined;
 
   // Only resumable when charIndex hasn't moved backward past the cached
@@ -68,7 +68,7 @@ export function resolveBoundaryLocate(
 
   const quoteOf = (offset: UtteranceOffset): string | undefined => {
     const raw = offset.locate.text?.highlight;
-    return raw && (isSsml ? stripSsmlTags(raw) : raw);
+    return raw && spaced(isSsml ? stripSsmlTags(raw) : raw);
   };
 
   for (let i = resumable ? cached.pieceIndex : 0; i < offsets.length; i++) {

@@ -122,3 +122,10 @@ test("chunkSsmlText emits a single atomic tag span exceeding maxLength as one ov
   t.true(tagChunk!.text.length > 15, "the tag span chunk is allowed to exceed the budget rather than being corrupted");
   t.regex(tagChunk!.text, /^<lang[^>]*>.*<\/lang>$/, "the tag span is emitted whole, unsplit");
 });
+
+test("chunkSsmlText keeps an element with the same element nested in it whole", (t) => {
+  const text = "<emphasis>aa <emphasis>bb</emphasis> cc</emphasis> dd. ee ff.";
+  const chunks = chunkSsmlText(text, 20);
+  t.is(reconstruct(chunks), text);
+  t.is(chunks[0].text, "<emphasis>aa <emphasis>bb</emphasis> cc</emphasis>");
+});

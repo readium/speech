@@ -108,6 +108,8 @@ Quick reference:
 
 Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GuidedNavigationObject` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
 
+A node's `<p>` and `<s>` are not kept in `ssml`: paragraphs come from GND roles, and sentences from [`segmentation`](#segmentation). One declaring `xml:lang` becomes a `<lang>`. A root `<speak>` is unwrapped too, its `xml:lang` giving the text its language when it declares none.
+
 ### `skip`
 
 Drops a role and its whole subtree — content and announcement both — from the output. The exported [`skippableRoles`](#role-sets) lists the roles meant to be skipped. `skip` ignores the roles [`interruptions`](#interruptions) controls.
@@ -331,7 +333,7 @@ await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence"
 // [{ plain: "This sentence continues across two paragraphs." }]
 ```
 
-Each utterance's `offsets` (see above) says which source element(s) it was built from — up to one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
+Each utterance's `offsets` (see above) says which source element(s) it was built from — one entry per stretch of each contributing node's own text, so a sentence reconstructed across two elements gets at least two entries, each with its own `locate`.
 
 `suppressions` lists, per language, abbreviations (with trailing period, e.g. `"d."`) that shouldn't be mistaken for sentence endings:
 

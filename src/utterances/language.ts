@@ -1,17 +1,31 @@
 import { ssmlAttrEscape } from "@readium/helpers";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
-import { unescapeSsmlEntities } from "./text.js";
+import {
+  bindNamespacesInward,
+  declaredLanguage,
+  decodeSsmlEntities,
+  parseSsml,
+  serializeSsml,
+  setSsmlAttribute,
+  ssmlElements,
+  unwrapSsmlElements,
+  type SsmlElement,
+} from "./ssml.js";
 import type { WalkContext } from "./walkContext.js";
+import type { Piece } from "./piece.js";
 
 // Removes `<lang xml:lang="...">...</lang>` wrapping from an SSML string,
-// keeping the inner text merged into the surrounding flow — for the
+// keeping the inner text merged into the surrounding flow, and the `xml:lang` of
+// any other element (keeping the element) — for the
 // `language: "block-level"` (the default) and `"none"` extraction options, which
 // ignore a node's own inline language spans (only `"always"` honors them).
-const LANG_TAG_RE = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
-
 export function stripLangTags(ssml: string): string {
-  return ssml.replace(LANG_TAG_RE, "$1");
+  const nodes = parseSsml(bindNamespacesInward(ssml, (element) => element.name === "lang" && declaredLanguage(element) !== undefined));
+  const declaring = [...ssmlElements(nodes)].filter((element) => declaredLanguage(element) !== undefined);
+  if (declaring.length === 0) return ssml;
+  const isLang = (element: SsmlElement) => declaring.includes(element) && element.name === "lang";
+  for (const element of declaring) if (!isLang(element)) setSsmlAttribute(element, "xml:lang", undefined);
+  return serializeSsml(unwrapSsmlElements(nodes, isLang));
 }
 
 // The language content declared in `language` is spoken in, per `languageOverrides`.
@@ -42,7 +56,7 @@ function samePrimaryLanguage(a: string, b: string): boolean {
 
 // Adds `piece` to `run`, `false` when its language disagrees. A catalog entry's language yields to
 // content in the same primary language, e.g. "en" to "en-US"; `wrapsEntries` ignores it otherwise.
-function joinsRun(run: RunLanguages, piece: ReadiumSpeechUtterance, ctx: WalkContext, wrapsEntries: boolean): boolean {
+function joinsRun(run: RunLanguages, piece: Piece, ctx: WalkContext, wrapsEntries: boolean): boolean {
   const { language } = piece;
   if (language === undefined) return true;
   if (isCatalogEntry(piece, ctx)) {
@@ -60,7 +74,7 @@ function joinsRun(run: RunLanguages, piece: ReadiumSpeechUtterance, ctx: WalkCon
   return true;
 }
 
-function commonLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext, wrapsEntries: boolean): string | undefined | null {
+function commonLanguage(pieces: Piece[], ctx: WalkContext, wrapsEntries: boolean): string | undefined | null {
   const run: RunLanguages = {};
   for (const piece of pieces) {
     if (!joinsRun(run, piece, ctx, wrapsEntries)) return null;
@@ -69,35 +83,36 @@ function commonLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext, wrap
 }
 
 // The language `pieces` are spoken in together, `null` if they disagree.
-export function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
+export function sharedLanguage(pieces: Piece[], ctx: WalkContext): string | undefined | null {
   return commonLanguage(pieces, ctx, false);
 }
 
-function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
-  return ctx.synthetic.has(piece) && sameLanguage(piece.language, ctx.contextualizationLanguage);
+function isCatalogEntry(piece: Piece, ctx: WalkContext): boolean {
+  return !!piece.synthetic && sameLanguage(piece.language, ctx.contextualizationLanguage);
 }
 
 // A catalog entry with no words (e.g. a template's ": ") takes the language of the content around it.
-function isWordless(piece: ReadiumSpeechUtterance): boolean {
-  return !/[\p{L}\p{N}]/u.test(piece.plain ?? unescapeSsmlEntities(piece.ssml ?? ""));
+function isWordless(piece: Piece): boolean {
+  return !/[\p{L}\p{N}]/u.test(piece.plain ?? decodeSsmlEntities(piece.ssml ?? ""));
 }
 
 // The language a run of pieces is spoken in, `null` if they disagree. In SSML, catalog entries
 // in another language don't count, being wrapped in a `<lang>` (see `ssmlInLanguage()`).
-export function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
+export function runLanguage(pieces: Piece[], ctx: WalkContext): string | undefined | null {
   return commonLanguage(pieces, ctx, ctx.format === "ssml");
 }
 
-// A piece's SSML, a catalog entry in another primary language than `language` wrapped in a `<lang>`.
-export function ssmlInLanguage(piece: ReadiumSpeechUtterance, language: string | undefined, ctx: WalkContext): string {
+// A piece's SSML, a catalog entry in another primary language than `language` (or the span it's inserted in) wrapped in a `<lang>`.
+export function ssmlInLanguage(piece: Piece, runLanguage: string | undefined, ctx: WalkContext): string {
   const ssml = piece.ssml ?? "";
+  const language = piece.enclosingLanguage ?? runLanguage;
   if (!language || !piece.language || !isCatalogEntry(piece, ctx) || isWordless(piece)) return ssml;
   if (samePrimaryLanguage(piece.language, language)) return ssml;
   return `<lang xml:lang="${ssmlAttrEscape(piece.language)}">${ssml}</lang>`;
 }
 
 // Splits `pieces` into consecutive `[start, end)` runs that each have a `runLanguage()`.
-export function languageRuns(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): [number, number][] {
+export function languageRuns(pieces: Piece[], ctx: WalkContext): [number, number][] {
   const wrapsEntries = ctx.format === "ssml";
   const runs: [number, number][] = [];
   let start = 0;
@@ -114,8 +129,14 @@ export function languageRuns(pieces: ReadiumSpeechUtterance[], ctx: WalkContext)
 }
 
 export function overrideLangTags(ssml: string, languageOverrides: Record<string, string>): string {
-  return ssml.replace(/<lang xml:lang="([^"]*)">/g, (tag, language: string) => {
+  const nodes = parseSsml(ssml);
+  let changed = false;
+  for (const element of ssmlElements(nodes)) {
+    const language = declaredLanguage(element);
     const overridden = overriddenLanguage(language, languageOverrides);
-    return overridden === language ? tag : `<lang xml:lang="${overridden}">`;
-  });
+    if (overridden === undefined || overridden === language) continue;
+    setSsmlAttribute(element, "xml:lang", overridden);
+    changed = true;
+  }
+  return changed ? serializeSsml(nodes) : ssml;
 }

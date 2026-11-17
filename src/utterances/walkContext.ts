@@ -2,7 +2,6 @@ import i18next, { type i18n } from "i18next";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
 import { nodeRoles } from "./nodeFields.js";
 import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
@@ -48,44 +47,19 @@ export interface WalkContext {
   segmenter: SentenceSegmenter;
   // See `ExtractUtterancesOptions.substitutions`.
   substitutions: SubstitutionTable;
-  // Tracked by object identity rather than threaded as a parallel array,
-  // since utterances get merged/reordered across several local `out` arrays
-  // (pieces, inner, ...) before reaching the caller's own `out`.
-  blockStarts: Set<ReadiumSpeechUtterance>;
   // Populated from a table node the moment it's reached, then read back as
-  // its rows/cells are walked — same identity-keyed, single-call-scoped
-  // pattern as `blockStarts`.
+  // its rows/cells are walked.
   tableRowNumbers: Map<GuidedNavigationObject, number>;
   tableCellHeaders: Map<GuidedNavigationObject, string>;
-  // Identity-keyed synthesized-label tracking, same reason as `blockStarts`.
-  synthetic: Set<ReadiumSpeechUtterance>;
   // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
   ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
-  // A language-split or placeholder-split utterance's position in its source node's own text
-  // (see `applyFormat`, `emitWithPlaceholders`) — read back for its offsets, same identity-keyed pattern.
-  pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
-  // Set for a merge whose leading/trailing piece is aria-substituted (see
-  // @readium/guided-navigation's object.ts) to that piece's own bare locate —
-  // text never quote-searchable.
-  edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
   // An abbreviation's alias locates: substituted like an aria label's, but prose that joins its sentence.
   aliasLocates: WeakSet<LocatorOptions>;
-  // A sentence's pieces around its footnotes, pagebreaks or abbreviation aliases, left unmerged for sentence segmentation to place:
-  // `inline` ones inside the sentence holding them, `after` ones right after it, `alias` ones where they fall, never cut.
-  // `abbreviation` is the plain text an inline alias replaces, segmented in its place.
-  placeholderPieces: Map<
-    ReadiumSpeechUtterance,
-    { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias"; abbreviation?: string }
-  >;
-  // Pieces whose text touches the previous piece's in the source, at an abbreviation's edge: joined without a space.
-  touchingPieces: WeakSet<ReadiumSpeechUtterance>;
-  // Pieces spaced from the previous piece as the source spaces them around a placeholder, whatever punctuation meets there.
-  spacedPieces: WeakSet<ReadiumSpeechUtterance>;
   // `term`s that start a block, like `<dt>`: a `definition` follows them among their siblings, unlike an inline `<dfn>`.
   blockTerms: WeakSet<GuidedNavigationObject>;
 }
 
-// Parallel to `out`: which node produced each utterance. A sentence
+// Which node produced each utterance. A sentence
 // reconstructed across sibling nodes carries a `[first, last]` tuple instead.
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
@@ -185,17 +159,10 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     segmenter: options.segmentation?.segmenter ?? segmentSentences,
     // Per-key override, not an additive union — each key holds one whole rule.
     substitutions: { ...builtInSubstitutions, ...options.substitutions },
-    blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
-    synthetic: new Set(),
     ancestorChains: buildAncestorChains(nodes),
-    pendingRange: new Map(),
-    edgeSubstitutedLocate: new WeakMap(),
     aliasLocates: new WeakSet(),
-    placeholderPieces: new Map(),
-    touchingPieces: new WeakSet(),
-    spacedPieces: new WeakSet(),
     blockTerms: findBlockTerms(nodes),
   };
 }

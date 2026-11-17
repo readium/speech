@@ -1,4 +1,5 @@
 import { BINDING_PUNCT_CLASS } from "@readium/helpers";
+import { parseSsml } from "../utterances/ssml.js";
 
 export interface TextChunk {
   text: string;
@@ -116,24 +117,21 @@ export function chunkPlainText(text: string, maxLength: number): TextChunk[] {
   return packAtoms(atoms, maxLength);
 }
 
-// Matches a complete `<tag>...</tag>` span (SSML fragments here are always flat, never
-// nested) or a self-closing `<tag/>` as one atomic unit; everything else is plain text.
-const SSML_TOKEN_RE = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-
+// Each top-level element, nested content included, is one atomic unit; the text between them splits by sentence.
 export function chunkSsmlText(text: string, maxLength: number): TextChunk[] {
   if (text.length <= maxLength) {
     return [{ text, offset: 0 }];
   }
 
   const atoms: Atom[] = [];
-  for (const match of text.matchAll(SSML_TOKEN_RE)) {
-    const isTag = match[0][0] === "<";
-    if (isTag) {
-      atoms.push({ text: match[0], offset: match.index, atomic: true });
-    } else {
-      atoms.push(...tokenize(match[0], match.index, SENTENCE_RE));
-    }
+  let last = 0;
+  for (const node of parseSsml(text)) {
+    if (node.kind !== "element") continue;
+    atoms.push(...tokenize(text.slice(last, node.start), last, SENTENCE_RE));
+    atoms.push({ text: text.slice(node.start, node.end), offset: node.start, atomic: true });
+    last = node.end;
   }
+  atoms.push(...tokenize(text.slice(last), last, SENTENCE_RE));
 
   const expanded = atoms.flatMap(atom => expandOverLongAtom(atom, maxLength));
   return packAtoms(expanded, maxLength);

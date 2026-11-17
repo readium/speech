@@ -356,6 +356,21 @@ test("segmentation: sentence reconstructs a sentence split across two sibling pa
   );
 });
 
+test("segmentation: joining pieces reads angle brackets in plain text as text, not markup", async (t) => {
+  const reconstructed = await extractUtterances(parseMarkup("<p>Use &lt;T&gt;</p><p>here. Next.</p>"), {
+    format: "plain",
+    segmentation: { mode: "sentence", reconstruct: true },
+  });
+  t.deepEqual(
+    reconstructed.map((u) => u.plain),
+    ["Use <T> here.", "Next."]
+  );
+  for (const mode of ["structure", "sentence"] as const) {
+    const merged = await extractUtterances(parseMarkup('<p>Use &lt;T&gt; <a href="#x">here</a> now.</p>'), { format: "plain", segmentation: { mode } });
+    t.deepEqual(merged.map((u) => u.plain), ["Use <T> here now."], mode);
+  }
+});
+
 test("segmentation: sentence keeps a sentence split across two sibling paragraphs apart by default", async (t) => {
   const doc = new DOMParser().parseFromString("<body><div><p>This sentence continues</p><p>across two paragraphs.</p></div></body>", "text/html");
   const gnd = parseMarkup(doc.querySelector("div")!, undefined, { textrefs: { roles: true, domRange: true } });
