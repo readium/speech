@@ -1,6 +1,6 @@
 import type { ReadiumSpeechVoice } from "./types.js";
 import { TQuality } from "./types.js";
-import { voiceBaseLanguage } from "./voiceForLanguage.js";
+import { voiceBaseLanguage } from "./languageCode.js";
 import noveltyFilterData from "@json/filters/novelty.json" with { type: "json" };
 import veryLowQualityFilterData from "@json/filters/veryLowQuality.json" with { type: "json" };
 

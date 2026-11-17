@@ -927,6 +927,20 @@ test("an utterance in a language without a region gets the voice of the content 
   ]);
 });
 
+test("a language without a region gets the voice of the content's region, whatever the voice preference's key order", async (t) => {
+  const daniel = listedVoice("Daniel", "en-GB");
+  for (const voice of [{ "en-GB": "Daniel-en-GB", "en-US": "Alba-en-US" }, { "en-US": "Alba-en-US", "en-GB": "Daniel-en-GB" }]) {
+    const engine = new VoicedMockEngine([alba, daniel]);
+    const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice } });
+    await navigator.loadGndContent(gnd([
+      { role: ["paragraph"], text: { language: "en-GB", plain: "Colour." } },
+      { role: ["paragraph"], text: { language: "en", plain: "Hello." } },
+    ]));
+    await settled();
+    t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Daniel-en-GB", "Daniel-en-GB"], JSON.stringify(voice));
+  }
+});
+
 test("a main language without a region keeps its own voice next to content in a region of it", async (t) => {
   const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
@@ -1021,6 +1035,16 @@ test("languagefallback fires once for a language the engine has no voice for", a
   await settled();
   t.deepEqual(fallbacks, [{ language: "de", reason: "no-matching-voice" }]);
   t.is(engine.loadedUtterances[0].voice, undefined);
+});
+
+test("languagefallback fires for a language without a region read with the voice of a region of it the engine lacks", async (t) => {
+  const engine = new VoicedMockEngine([lea]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["fr"] });
+  const fallbacks: unknown[] = [];
+  navigator.on("languagefallback", (event) => fallbacks.push(event.detail));
+  navigator.loadContent([{ plain: "Colour.", language: "en-GB" }, { plain: "Hello.", language: "en" }]);
+  await settled();
+  t.deepEqual(fallbacks, [{ language: "en-GB", reason: "no-matching-voice" }, { language: "en", reason: "no-matching-voice" }]);
 });
 
 test("play() while the content's voices are picked plays once the engine is ready", async (t) => {
