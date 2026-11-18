@@ -27,6 +27,7 @@
             },
             "biblioref": { "inline": "Bibliographic reference." },
             "blockquote": { "inline": "Blockquote." },
+            "caption": { "inline": "Caption." },
             "cell": {
                 "inline": {
                     "withHeader": "{{ header }}: {{ value }}",

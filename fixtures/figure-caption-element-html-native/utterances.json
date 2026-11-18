@@ -235,6 +235,305 @@
       "options": [
         {
           "format": "plain",
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
           "skip": [
             "figure"
           ]
@@ -480,6 +779,308 @@
           ],
           "contextualize": [
             "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
           ],
           "language": "none",
           "segmentation": {
@@ -725,6 +1326,305 @@
       "options": [
         {
           "format": "ssml",
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "/\\_/\\ ( o.o ) ^"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
           "skip": [
             "figure"
           ]
@@ -970,6 +1870,308 @@
           ],
           "contextualize": [
             "figure"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
           ],
           "language": "none",
           "segmentation": {

@@ -5,7 +5,7 @@ import type { VerbosityPreset } from "./SpeechPreferences.js";
 // tables are monotonic, but each level's set is listed explicitly rather
 // than derived from a threshold, for direct auditability.
 
-const few: readonly GndRole[] = ["audio", "figure", "image", "math", "table", "video"];
+const few: readonly GndRole[] = ["audio", "caption", "figure", "image", "math", "table", "video"];
 
 const some: readonly GndRole[] = [
   ...few,

@@ -614,6 +614,764 @@
       "options": [
         {
           "format": "plain",
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "x"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "x"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: x"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Image with a label:",
+          "language": "en"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "Image with a label: x"
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
           "skip": [
             "figure"
           ]
@@ -1171,6 +1929,634 @@
         {
           "format": "plain",
           "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "figure",
             "image"
           ]
@@ -1765,6 +3151,682 @@
           "contextualize": [
             "figure",
             "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
           ],
           "language": "none",
           "segmentation": {
@@ -2419,6 +4481,741 @@
     {
       "options": [
         {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure.",
+          "language": "en"
+        },
+        {
+          "plain": "Caption.",
+          "language": "en"
+        },
+        {
+          "plain": "Le",
+          "language": "fr"
+        },
+        {
+          "plain": "cat",
+          "language": "en"
+        },
+        {
+          "plain": "dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure."
+        },
+        {
+          "plain": "Caption."
+        },
+        {
+          "plain": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
           "format": "ssml"
         }
       ],
@@ -2982,6 +5779,716 @@
       "options": [
         {
           "format": "ssml",
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "x"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "x"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Image with a label: x"
+        },
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
           "skip": [
             "figure"
           ]
@@ -3539,6 +7046,634 @@
         {
           "format": "ssml",
           "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "figure",
             "image"
           ]
@@ -4133,6 +8268,682 @@
           "contextualize": [
             "figure",
             "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
           ],
           "language": "none",
           "segmentation": {
@@ -4762,6 +9573,725 @@
       "utterances": [
         {
           "ssml": "Figure."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Caption."
+        },
+        {
+          "ssml": "Le cat dort"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le cat dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Caption.",
+          "language": "en"
+        },
+        {
+          "ssml": "Le <lang xml:lang=\"en\">cat</lang> dort",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image",
+            "caption"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure."
+        },
+        {
+          "ssml": "Caption."
         },
         {
           "ssml": "Le cat dort"
