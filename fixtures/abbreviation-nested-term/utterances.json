@@ -94,8 +94,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "WHO"
+          "plain": "WHO",
+          "language": "en"
         },
         {
           "plain": "said."
@@ -198,8 +198,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "World Health Organization"
+          "plain": "World Health Organization",
+          "language": "en"
         },
         {
           "plain": "said."
@@ -565,8 +565,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "WHO"
+          "plain": "WHO",
+          "language": "en"
         },
         {
           "plain": "said."
@@ -704,8 +704,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "World Health Organization"
+          "plain": "World Health Organization",
+          "language": "en"
         },
         {
           "plain": "said."
@@ -1082,8 +1082,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "WHO"
+          "ssml": "WHO",
+          "language": "en"
         },
         {
           "ssml": "said."
@@ -1186,8 +1186,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "World Health Organization"
+          "ssml": "World Health Organization",
+          "language": "en"
         },
         {
           "ssml": "said."
@@ -1553,8 +1553,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "WHO"
+          "ssml": "WHO",
+          "language": "en"
         },
         {
           "ssml": "said."
@@ -1692,8 +1692,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "World Health Organization"
+          "ssml": "World Health Organization",
+          "language": "en"
         },
         {
           "ssml": "said."

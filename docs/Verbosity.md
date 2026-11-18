@@ -51,6 +51,7 @@ A contextualized role gets an announcement from the [contextualization catalog](
 | `bibliography` | block |  |  | ✓ |
 | `biblioref` | inline |  |  | ✓ |
 | `blockquote` | inline |  | ✓ | ✓ |
+| `caption` | inline | ✓ | ✓ | ✓ |
 | `chapter` | block |  | ✓ | ✓ |
 | `colophon` | inline |  |  | ✓ |
 | `complementary` | block |  |  | ✓ |

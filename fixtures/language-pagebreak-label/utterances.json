@@ -302,16 +302,16 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Avant"
+          "plain": "Avant",
+          "language": "fr"
         },
         {
           "plain": "Page 5",
           "language": "en"
         },
         {
-          "language": "fr",
-          "plain": "après."
+          "plain": "après.",
+          "language": "fr"
         }
       ]
     },
@@ -665,16 +665,16 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Avant"
+          "plain": "Avant",
+          "language": "fr"
         },
         {
           "plain": "Pagebreak. Page 5.",
           "language": "en"
         },
         {
-          "language": "fr",
-          "plain": "après."
+          "plain": "après.",
+          "language": "fr"
         }
       ]
     },

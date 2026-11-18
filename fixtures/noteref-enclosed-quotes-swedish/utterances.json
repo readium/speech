@@ -7024,28 +7024,28 @@
       ],
       "utterances": [
         {
-          "language": "sv",
-          "plain": "Ordet ”"
+          "plain": "Ordet ”",
+          "language": "sv"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "sv",
-          "plain": "” här."
+          "plain": "” här.",
+          "language": "sv"
         },
         {
-          "language": "sv",
-          "plain": "Han sa ”hej”"
+          "plain": "Han sa ”hej”",
+          "language": "sv"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "sv",
-          "plain": "”nästa”."
+          "plain": "”nästa”.",
+          "language": "sv"
         }
       ]
     },

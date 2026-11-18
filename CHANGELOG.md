@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.20.0] - 2026-11-18
 
 ### Added
 
@@ -14,8 +14,13 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
 - **Breaking:** With `onFailure: "fallbackAndRecover"`, `FallbackSpeechEngine` swaps back only to a primary whose provider implements `isAvailable()`, once it returns `true`, instead of once the provider's `getVoices(true)` succeeds.
+- **Breaking:** A `<figcaption>` or table `<caption>` is no longer its figure's or table's `{{ description }}`: it's read as content, in its own utterances, after the announcement. `<figure><img alt=""><figcaption>A cat</figcaption></figure>` with `contextualize: ["figure"]` reads "Figure." then "A cat", not "Figure: A cat". The `{{ description }}` comes only from `aria-label`, `aria-labelledby` or `aria-describedby`. A table's caption with the same text as its description, e.g. the one its `aria-labelledby` points to, is read once, as that description; if it holds more than its text, e.g. a noteref, emphasis or a language change, it's read as content and the description is ignored.
+- A missing `offsets` doesn't identify an announcement, contrary to what 0.10.0 stated: content without a textref has none either, and an announcement quoting a description, e.g. "Figure: A cat face", has some.
+- `ReadiumSpeechNavigator` speaks an utterance in a language without a region, e.g. `en`, announcements included, with the voice of the content in that language's region, e.g. `en-GB`, instead of picking one for `en`. The utterance keeps its `language`. A `voice` for `en` itself, preferred or picked for the main language, still wins. A preferred `voice` for `en` of a region, e.g. an `en-US` voice, speaks `en-US` content too, instead of the voice picked for `en-US`.
+- A contextualized figure is announced even without a label: "Figure.". The `figure` entry of the contextualization catalog has a `labelled` and an `unlabelled` variant, like `table`.
+- A caption read as content is announced before it when `caption` is contextualized, from `verbosity: "few"`: "Figure." then "Caption." then "A cat". A table's caption read as its description isn't.
 - `FallbackSpeechEngine.getAvailableVoices()` lists only the voices it can reach on the primary too, not only once fallen back: offline, those with `offlineAvailability`.
-- `@readium/guided-navigation` is `^1.3.0`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.2`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
+- `@readium/guided-navigation` is `^1.4.0`, `@readium/shared` `^2.9.0`, `@readium/helpers` `^1.3.0` and `@readium/decorator` `^1.4.3`. A link's content is read like any other text: an image's alt, language switches, emphasis in SSML, and a page break inside it, which follows its `interruptions` setting like one outside a link, e.g. read after the sentence holding the link.
 
 ### Removed
 
@@ -24,9 +29,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- Objects without an `id`, e.g. in Guided Navigation documents generated on a server, get a `locate` from their `#id` textref: `chapter.xhtml#p1` locates `{ href: "chapter.xhtml", cssSelector: "#p1" }`.
 - A footnote reference read after its sentence or not at all no longer leaves the brackets or quotes around it, empty, in the text: `前（<a role="doc-noteref">1</a>）後` reads "前後", in plain text and SSML. Right after a closing quote, it no longer glues the quote to the next word: `„Wort“<a role="doc-noteref">1</a> dann` reads "„Wort“ dann", or "„Wort“ Note. dann" with `interruptions: { noteref: "inline" }`. Read inline between quotes, the note keeps the source's spacing: `”<a role="doc-noteref">1</a>”` reads "”Note.”", not "” Note.”".
 - With `format: "ssml"`, an utterance's `locate` and `offsets` quote its text without SSML markup, so they match the page: `東京<em>大学</em>` is quoted as "東京大学", not `東京<emphasis>大学</emphasis>`, and its offset spans 4 characters.
-- A table cell read with its header, or a figure or table caption read in its contextualization, has its `offsets` in its own text, like every other offset: "Name: Ada" has `start: 0, end: 3`, not `start: 6, end: 9`.
+- A table cell read with its header has its `offsets` in its own text, like every other offset: "Name: Ada" has `start: 0, end: 3`, not `start: 6, end: 9`.
 - Text split around a footnote reference, page break, abbreviation or language change has its `offsets` in its node's own text too: in `She joined<a role="doc-noteref">1</a> and then left.`, "and then left." has `start: 11, end: 25`, not `start: 0, end: 14`, and in `Hello <span lang="fr">Bonjour</span> world.`, "Bonjour" has `start: 6, end: 13`, not `start: 5, end: 12`, also once split into sentences. An abbreviation's expansion has the abbreviation's: "W.H.O." in "She joined the W.H.O. and then left." has `start: 15, end: 21`.
 - A footnote reference read with `interruptions: { noteref: "inline" }` between brackets or quotes, which its node's own text doesn't have, no longer puts the text around it at the start of that text: in `Text (<a role="doc-noteref">1</a>) after. Next.`, "after." has `start: 5, end: 11` and quotes "after.", not `start: 0, end: 8` quoting ") after.", and with `segmentation: { mode: "sentence" }` "Next." has `start: 12, end: 17`, not `start: 9, end: 14`.
 - With `segmentation: { mode: "sentence" }`, the sentences of a cell read with its header have their `offsets` in the cell's own text: in "Name: Ada one. Ada two.", "Ada one." has `start: 0, end: 8` and quotes "Ada one.", not `start: 0, end: 14` quoting "Name: Ada one.", and "Ada two." has `start: 9, end: 17`, not `start: 15, end: 23`. A link's words in such a sentence have their own entry, in the link's text, as without sentence segmentation.

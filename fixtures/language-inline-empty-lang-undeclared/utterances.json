@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Hello xyz end."
+          "plain": "Hello xyz end.",
+          "language": "en"
         }
       ]
     },
@@ -70,8 +70,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Hello xyz end."
+          "ssml": "Hello xyz end.",
+          "language": "en"
         }
       ]
     },
@@ -99,8 +99,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Hello <lang xml:lang=\"\">xyz</lang> end."
+          "ssml": "Hello <lang xml:lang=\"\">xyz</lang> end.",
+          "language": "en"
         }
       ]
     },

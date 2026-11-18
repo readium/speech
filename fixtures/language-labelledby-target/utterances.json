@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine Katze"
+          "plain": "Eine Katze",
+          "language": "de"
         },
         {
           "plain": "Eine Katze",
@@ -134,8 +134,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine Katze"
+          "plain": "Eine Katze",
+          "language": "de"
         },
         {
           "plain": "Image with a label:",
@@ -381,8 +381,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine Katze"
+          "plain": "Eine Katze",
+          "language": "de"
         }
       ]
     },
@@ -468,8 +468,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine Katze"
+          "ssml": "Eine Katze",
+          "language": "de"
         },
         {
           "ssml": "Eine Katze",
@@ -594,8 +594,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine Katze"
+          "ssml": "Eine Katze",
+          "language": "de"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"de\">Eine Katze</lang>",
@@ -837,8 +837,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine Katze"
+          "ssml": "Eine Katze",
+          "language": "de"
         }
       ]
     },

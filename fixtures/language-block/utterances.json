@@ -8,12 +8,12 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Hello."
+          "plain": "Hello.",
+          "language": "en"
         },
         {
-          "language": "fr",
-          "plain": "Bonjour."
+          "plain": "Bonjour.",
+          "language": "fr"
         }
       ]
     },
@@ -56,12 +56,12 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Hello."
+          "ssml": "Hello.",
+          "language": "en"
         },
         {
-          "language": "fr",
-          "ssml": "Bonjour."
+          "ssml": "Bonjour.",
+          "language": "fr"
         }
       ]
     },

@@ -12,8 +12,8 @@
           "language": "ja"
         },
         {
-          "language": "ja",
-          "plain": "注"
+          "plain": "注",
+          "language": "ja"
         }
       ]
     },
@@ -6480,8 +6480,8 @@
           "language": "en"
         },
         {
-          "language": "ja",
-          "plain": "注"
+          "plain": "注",
+          "language": "ja"
         },
         {
           "plain": "End of the footnote.",
@@ -6634,24 +6634,24 @@
       ],
       "utterances": [
         {
-          "language": "ja",
-          "plain": "前（"
+          "plain": "前（",
+          "language": "ja"
         },
         {
           "plain": "Start of the footnote.",
           "language": "en"
         },
         {
-          "language": "ja",
-          "plain": "注"
+          "plain": "注",
+          "language": "ja"
         },
         {
           "plain": "End of the footnote.",
           "language": "en"
         },
         {
-          "language": "ja",
-          "plain": "）後"
+          "plain": "）後",
+          "language": "ja"
         }
       ]
     },
@@ -7032,8 +7032,8 @@
           "language": "en"
         },
         {
-          "language": "ja",
-          "plain": "注"
+          "plain": "注",
+          "language": "ja"
         },
         {
           "plain": "End of the footnote.",
@@ -7402,8 +7402,8 @@
           "language": "ja"
         },
         {
-          "language": "ja",
-          "ssml": "注"
+          "ssml": "注",
+          "language": "ja"
         }
       ]
     },

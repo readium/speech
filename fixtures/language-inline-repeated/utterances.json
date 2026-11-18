@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "One deux three quatre five."
+          "plain": "One deux three quatre five.",
+          "language": "en"
         }
       ]
     },
@@ -94,8 +94,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "One deux three quatre five."
+          "ssml": "One deux three quatre five.",
+          "language": "en"
         }
       ]
     },
@@ -123,8 +123,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
+          "language": "en"
         }
       ]
     },
