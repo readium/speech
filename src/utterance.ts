@@ -22,7 +22,7 @@ export interface ReadiumSpeechUtterance {
   // textStart...textEnd range, which highlight can't express). Spread
   // directly into createLocator()/decorate() for DOM highlighting.
   locate?: LocatorOptions;
-  // Ranges backed by real source text. Absent (or gaps within) for a
-  // synthesized label — `locate` is still safe there, just not text-searchable.
+  // Ranges backed by source text that can be located. Absent (or gaps within) for text not on the page, e.g. a
+  // synthesized label, and for content without a textref; it doesn't tell an announcement from content.
   offsets?: UtteranceOffset[];
 }

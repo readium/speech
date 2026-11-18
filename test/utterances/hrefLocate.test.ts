@@ -54,7 +54,7 @@ test("href-qualified #css() textrefs from a deserialized document carry their hr
   t.is(word?.locate.cssSelector, "body > p");
 });
 
-test("an href-qualified #id without a matching node id gives no locate", async (t) => {
+test("an href-qualified #id textref on an object without an id locates that id", async (t) => {
   const gnd = [
     GuidedNavigationObject.deserialize({
       role: ["body"],
@@ -63,6 +63,5 @@ test("an href-qualified #id without a matching node id gives no locate", async (
     })!,
   ];
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
-  t.is(utterance.locate, undefined);
-  t.is(utterance.offsets, undefined);
+  t.deepEqual(utterance.locate, { href: "chapter.xhtml", cssSelector: "#p1" });
 });

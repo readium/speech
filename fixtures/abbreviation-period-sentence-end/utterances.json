@@ -65,8 +65,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Then she left."
+          "plain": "Then she left.",
+          "language": "en"
         }
       ]
     },
@@ -275,8 +275,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Then she left."
+          "plain": "Then she left.",
+          "language": "en"
         }
       ]
     },
@@ -483,8 +483,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Then she left."
+          "ssml": "Then she left.",
+          "language": "en"
         }
       ]
     },
@@ -693,8 +693,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Then she left."
+          "ssml": "Then she left.",
+          "language": "en"
         }
       ]
     },

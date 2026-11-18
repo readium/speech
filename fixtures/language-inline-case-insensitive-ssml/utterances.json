@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "en-us",
-          "plain": "Hello world end."
+          "plain": "Hello world end.",
+          "language": "en-us"
         }
       ]
     },
@@ -49,8 +49,8 @@
       ],
       "utterances": [
         {
-          "language": "en-us",
-          "ssml": "Hello world <emphasis>end</emphasis>."
+          "ssml": "Hello world <emphasis>end</emphasis>.",
+          "language": "en-us"
         }
       ]
     },

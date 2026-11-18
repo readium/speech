@@ -8,12 +8,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un"
+          "plain": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "plain": "chat"
+          "plain": "chat",
+          "language": "FR"
         },
         {
           "plain": "Un chat",
@@ -158,12 +158,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un"
+          "plain": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "plain": "chat"
+          "plain": "chat",
+          "language": "FR"
         },
         {
           "plain": "Image with a label:",
@@ -401,12 +401,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un"
+          "plain": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "plain": "chat"
+          "plain": "chat",
+          "language": "FR"
         }
       ]
     },
@@ -587,12 +587,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un"
+          "ssml": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "ssml": "chat"
+          "ssml": "chat",
+          "language": "FR"
         },
         {
           "ssml": "Un chat",
@@ -737,12 +737,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un"
+          "ssml": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "ssml": "chat"
+          "ssml": "chat",
+          "language": "FR"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"fr\">Un chat</lang>",
@@ -972,12 +972,12 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un"
+          "ssml": "Un",
+          "language": "fr"
         },
         {
-          "language": "FR",
-          "ssml": "chat"
+          "ssml": "chat",
+          "language": "FR"
         }
       ]
     },

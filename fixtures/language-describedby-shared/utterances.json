@@ -8,12 +8,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "x",
@@ -172,12 +172,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "Figure:",
@@ -362,12 +362,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "Image with a label:",
@@ -558,12 +558,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "Figure:",
@@ -1249,12 +1249,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         }
       ]
     },
@@ -2034,12 +2034,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "Eine Katze",
@@ -2371,12 +2371,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Eine"
+          "plain": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "plain": "Katze"
+          "plain": "Katze",
+          "language": "de"
         },
         {
           "plain": "Figure:",
@@ -2603,12 +2603,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "x",
@@ -2767,12 +2767,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "Figure: <lang xml:lang=\"de\">Eine Katze</lang>",
@@ -2949,12 +2949,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
@@ -3137,12 +3137,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "Figure: <lang xml:lang=\"de\">Eine Katze</lang>",
@@ -3812,12 +3812,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         }
       ]
     },
@@ -4597,12 +4597,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "Eine Katze",
@@ -4934,12 +4934,12 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Eine"
+          "ssml": "Eine",
+          "language": "de"
         },
         {
-          "language": "de",
-          "ssml": "Katze"
+          "ssml": "Katze",
+          "language": "de"
         },
         {
           "ssml": "Figure: <lang xml:lang=\"de\">Eine Katze</lang>",

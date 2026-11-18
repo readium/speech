@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "x"
+          "plain": "x",
+          "language": "de"
         },
         {
           "plain": "Eine Katze",
@@ -141,8 +141,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "x"
+          "plain": "x",
+          "language": "de"
         },
         {
           "plain": "Eine Katze",
@@ -395,8 +395,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "x"
+          "plain": "x",
+          "language": "de"
         },
         {
           "plain": "Eine Katze",
@@ -489,8 +489,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "x"
+          "ssml": "x",
+          "language": "de"
         },
         {
           "ssml": "Eine Katze",
@@ -622,8 +622,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "x"
+          "ssml": "x",
+          "language": "de"
         },
         {
           "ssml": "Eine Katze",
@@ -872,8 +872,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "x"
+          "ssml": "x",
+          "language": "de"
         },
         {
           "ssml": "Eine Katze",

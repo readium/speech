@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { Interruption } from "./types.js";
 import { languageFor, overrideLangTags, stripLangTags } from "./language.js";
-import { descriptionOf, nodeRoles, nodeText, spokenText } from "./nodeFields.js";
+import { nodeRoles, nodeText, spokenText } from "./nodeFields.js";
 import {
   enclosedPlaceholders,
   hasLangTag,
@@ -29,7 +29,7 @@ import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
-import { plainTextOf } from "./tableStructure.js";
+import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
 import { endsWithSentenceTerminator } from "./abbreviationAlias.js";
 import { nestTags, type Piece } from "./piece.js";
@@ -407,7 +407,7 @@ function walkNode(
   ownTextInValue = false,
 ): void {
   const roles = nodeRoles(node);
-  const description = descriptionOf(node);
+  const description = spokenDescriptionOf(node);
   // A text reference read "never" keeps its own text, without its embedded target.
   const never = interruptionOf(roles, ctx) === "never";
   const skipsTarget = never && roles.some((role) => textReferenceRoleSet.has(role));
@@ -437,8 +437,7 @@ function walkNode(
 
   // A description is supplementary/elaborating content (e.g. an extended
   // audio description) for most roles, spoken after the primary content —
-  // but a table's description is its caption, which precedes the table in
-  // the source and is announced before its rows to match. Either way this
+  // but a table's is its label, spoken before its rows. Either way this
   // is suppressed when a role that's actually firing already folded it
   // into its own announcement (e.g. "Table: Team roster. 3 lines...").
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
@@ -454,9 +453,6 @@ function walkNode(
   // is (see `pushRoleContextualization` and `contextualizations.ts`) — a
   // no-op for the vast majority of roles, which have no entry at all.
   for (const role of contextualizedRoles) {
-    // An unlabelled figure has nothing to say and doesn't announce at all
-    // (its content still speaks normally) — the only role with this rule.
-    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "before", variantKey, params);
   }
@@ -535,7 +531,8 @@ function walkNode(
             walkNode(child, out, ctx, index === 0 ? childSuppress : false, undefined, inValue);
           });
         } else {
-          walk(node.children, out, ctx, childSuppress);
+          const caption = redundantCaptionOf(node);
+          walk(caption ? node.children.filter((child) => child !== caption) : node.children, out, ctx, childSuppress);
         }
       }
     }
@@ -547,13 +544,12 @@ function walkNode(
 
   if (description !== undefined && !foldsDescription && !isTableCaption) {
     const utterance = formatDescription(description, node, ctx);
-    // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
+    // Only a figure's description is located, as a quote within the figure.
     if (roles.includes("figure")) scopeToQuote(utterance, 0, description, node, ctx);
     push(out, node, [utterance]);
   }
 
   for (const role of contextualizedRoles) {
-    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "after", variantKey, params);
   }

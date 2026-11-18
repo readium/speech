@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Start middle nested end after."
+          "plain": "Start middle nested end after.",
+          "language": "en"
         }
       ]
     },
@@ -94,8 +94,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Start middle nested end after."
+          "ssml": "Start middle nested end after.",
+          "language": "en"
         }
       ]
     },
@@ -123,8 +123,8 @@
       ],
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+          "language": "en"
         }
       ]
     },

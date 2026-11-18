@@ -22,7 +22,7 @@ interface TextSpan {
   at: number;
   // The own-text position of each character spoken from `at`, or SPACE/DROPPED.
   map: number[];
-  // Taken from text other than the node's own (a caption's description), so never located bare.
+  // Taken from text other than the node's own (a figure's or table's description), so never located bare.
   quotedOnly?: boolean;
 }
 

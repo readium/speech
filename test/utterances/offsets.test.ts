@@ -274,11 +274,13 @@ test("a cell's value is placed where its announcement reads it, even where its h
   }
 });
 
-test("a caption read in another language than its announcement keeps its offsets, wherever the announcement's punctuation falls", async (t) => {
+test("a caption in another language than the figure announcement before it keeps its offsets", async (t) => {
   const gnd = parseMarkup("<figure><img src='a.png' alt=''><figcaption lang='fr'>Un chat</figcaption></figure>", undefined, { textrefs: true });
-  const contextualizations = { figure: { block: { start: { labelled: "Figure: “{{ description }}”." } } } };
-  const utterances = await extractUtterances(gnd, { format: "plain", language: "always", contextualize: ["figure"], contextualization: { contextualizations } });
-  t.deepEqual(utterances.map((u) => [u.plain, quoted(u)]), [["Figure:", undefined], ["“Un chat”.", [["Un chat", 0, 7]]]]);
+  const utterances = await extractUtterances(gnd, { format: "plain", language: "always", contextualize: ["figure"] });
+  t.deepEqual(
+    utterances.map((u) => [u.plain, u.language, u.offsets?.map(({ start, end }) => ({ start, end }))]),
+    [["Figure.", "en", undefined], ["Un chat", "fr", [{ start: 0, end: 7 }]]],
+  );
 });
 
 test("a page break's label, not in its node's text, doesn't take the place of the same text read after it", async (t) => {

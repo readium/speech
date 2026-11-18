@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         },
         {
           "plain": "Katze",
@@ -134,8 +134,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         },
         {
           "plain": "Image with a label:",
@@ -381,8 +381,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Texte."
+          "plain": "Texte.",
+          "language": "fr"
         }
       ]
     },
@@ -468,8 +468,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         },
         {
           "ssml": "Katze",
@@ -594,8 +594,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"de\">Katze</lang>",
@@ -837,8 +837,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Texte."
+          "ssml": "Texte.",
+          "language": "fr"
         }
       ]
     },

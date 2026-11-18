@@ -162,7 +162,7 @@ function highlightUtterance(utterance, segmentation) {
 - With `segmentation: "structure"` (default): always the utterance's own `locate` — one whole structural element, regardless of how many `offsets` it happens to carry (e.g. a footnote's start/content/end merged into one utterance still decorates as one piece, not as separate sentences).
 - With `segmentation: "sentence"`: one `LocatorOptions` per contributing source element — a sentence reconstructed across multiple elements decorates as multiple pieces, not one box spanning the gap between them.
 
-A synthesized announcement (contextualization text, alt/caption description...) carries no `offsets` in either mode but still returns its own `locate` — handle that separately if you don't want it highlighted, since it has no real source text to scope a piece-level decoration to.
+Text not on the page, like most announcements or an alt description, carries no `offsets` in either mode but may still have its own `locate`: handle that separately if you don't want it highlighted. Content without a textref has no `offsets` either, and an announcement quoting a description (e.g. "Figure: A cat face") has some, so a missing `offsets` doesn't identify an announcement.
 
 #### Word-level
 

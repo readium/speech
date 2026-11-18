@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un cat"
+          "plain": "Un cat",
+          "language": "fr"
         },
         {
           "plain": "Un cat"
@@ -141,8 +141,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un cat"
+          "plain": "Un cat",
+          "language": "fr"
         },
         {
           "plain": "Image with a label: Un cat",
@@ -365,8 +365,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Un cat"
+          "plain": "Un cat",
+          "language": "fr"
         }
       ]
     },
@@ -531,8 +531,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un cat"
+          "ssml": "Un cat",
+          "language": "fr"
         },
         {
           "ssml": "Un cat"
@@ -563,8 +563,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un <lang xml:lang=\"en\">cat</lang>"
+          "ssml": "Un <lang xml:lang=\"en\">cat</lang>",
+          "language": "fr"
         },
         {
           "ssml": "Un cat"
@@ -660,8 +660,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un cat"
+          "ssml": "Un cat",
+          "language": "fr"
         },
         {
           "ssml": "Image with a label: Un cat",
@@ -702,8 +702,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un <lang xml:lang=\"en\">cat</lang>"
+          "ssml": "Un <lang xml:lang=\"en\">cat</lang>",
+          "language": "fr"
         },
         {
           "ssml": "Image with a label: Un cat",
@@ -880,8 +880,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un cat"
+          "ssml": "Un cat",
+          "language": "fr"
         }
       ]
     },
@@ -955,8 +955,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Un <lang xml:lang=\"en\">cat</lang>"
+          "ssml": "Un <lang xml:lang=\"en\">cat</lang>",
+          "language": "fr"
         }
       ]
     },

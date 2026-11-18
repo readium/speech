@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         },
         {
           "plain": "Un chat",
@@ -134,8 +134,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         },
         {
           "plain": "Image with a label:",
@@ -381,8 +381,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "plain": "Text."
+          "plain": "Text.",
+          "language": "de"
         }
       ]
     },
@@ -468,8 +468,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         },
         {
           "ssml": "Un chat",
@@ -594,8 +594,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         },
         {
           "ssml": "Image with a label: <lang xml:lang=\"fr\">Un chat</lang>",
@@ -837,8 +837,8 @@
       ],
       "utterances": [
         {
-          "language": "de",
-          "ssml": "Text."
+          "ssml": "Text.",
+          "language": "de"
         }
       ]
     },

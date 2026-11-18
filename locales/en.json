@@ -27,6 +27,7 @@
             },
             "biblioref": { "inline": "Bibliographic reference." },
             "blockquote": { "inline": "Blockquote." },
+            "caption": { "inline": "Caption." },
             "cell": {
                 "inline": {
                     "withHeader": "{{ header }}: {{ value }}",
@@ -71,7 +72,12 @@
             "example": {
                 "block": { "start": "Start of the example.", "end": "End of the example." }
             },
-            "figure": { "inline": "Figure: {{ description }}" },
+            "figure": {
+                "inline": {
+                    "labelled": "Figure: {{ description }}",
+                    "unlabelled": "Figure."
+                }
+            },
             "footnote": {
                 "block": { "start": "Start of the footnote.", "end": "End of the footnote." }
             },

@@ -8,7 +8,7 @@ import { descriptionLanguageOf, descriptionOf, nodeText } from "./nodeFields.js"
 import { roleDropOverrides } from "./roles.js";
 import { setQuotedSpan } from "./sourceSpans.js";
 import { splitOnLangTags } from "./text.js";
-import { computeTableStructure, plainTextOf } from "./tableStructure.js";
+import { computeTableStructure, plainTextOf, spokenDescriptionOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type WalkContext } from "./walkContext.js";
 import type { Piece } from "./piece.js";
@@ -49,7 +49,7 @@ export function scopeToQuote(utterance: Piece, at: number | undefined, quoteText
   utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
 }
 
-// `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
+// `value` is always real DOM text, scoped to the node's own content. `description` is scoped as a quote within the node only for figure/table.
 function scopeToOwnValue(
   utterance: Piece,
   entry: { base: string; variantKey?: string },
@@ -167,7 +167,7 @@ type ContextualizationParamsProvider = (node: GuidedNavigationObject, ctx: WalkC
 // Any node with a `description` gets `{{ description }}` interpolated,
 // whatever its role, plus a labelled/unlabelled variant a catalog entry can opt into.
 function genericDescriptionParams(node: GuidedNavigationObject): ContextualizationParams {
-  const description = descriptionOf(node);
+  const description = spokenDescriptionOf(node);
   if (description === undefined) return { variantKey: "unlabelled" };
   return { variantKey: "labelled", params: { description } };
 }

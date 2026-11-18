@@ -8,8 +8,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Bonjour xyz fin."
+          "plain": "Bonjour xyz fin.",
+          "language": "fr"
         }
       ]
     },
@@ -85,8 +85,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Bonjour xyz fin."
+          "ssml": "Bonjour xyz fin.",
+          "language": "fr"
         }
       ]
     },
@@ -114,8 +114,8 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "ssml": "Bonjour <lang xml:lang=\"\">xyz</lang> fin."
+          "ssml": "Bonjour <lang xml:lang=\"\">xyz</lang> fin.",
+          "language": "fr"
         }
       ]
     },

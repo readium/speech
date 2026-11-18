@@ -36,3 +36,6 @@ export const normalizeLanguageCode = (lang: string): string => {
   const withoutScript = formatted(lowercased.split("-").filter((subtag, index) => index === 0 || !/^[a-z]{4}$/.test(subtag)).join("-"));
   return chineseVariantMap[normalized] || chineseVariantMap[withoutScript] || normalized;
 };
+
+// The base language of a voice language: Chinese variants stay apart, e.g. yue for zh-HK, cmn for zh-TW.
+export const voiceBaseLanguage = (language: string): string => normalizeLanguageCode(language).split("-")[0];

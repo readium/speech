@@ -99,3 +99,67 @@ test("content declared in languages differing only in case is one language", asy
   ])!;
   t.deepEqual(spoken(await extractUtterances(gnd, { interruptions: { pagebreak: "inline" } })), [["Avant cinq après.", "fr"]]);
 });
+
+function tableNamedByNotedCaption(): GuidedNavigationObject[] {
+  return GuidedNavigationObject.deserializeArray([
+    {
+      role: ["table"],
+      description: { text: { plain: "Results", language: "en" } },
+      children: [
+        {
+          id: "c",
+          role: ["caption"],
+          text: { plain: "Results", ssml: 'Results<readium:noteref id="n1" />', language: "en" },
+          children: [
+            {
+              id: "n1",
+              role: ["noteref"],
+              text: { plain: "1", language: "en" },
+              children: [{ role: ["aside", "footnote"], children: [{ role: ["paragraph"], text: { plain: "Source note.", language: "en" } }] }],
+            },
+          ],
+        },
+        { role: ["row"], children: [{ role: ["cell"], text: { plain: "A", language: "en" } }] },
+      ],
+    },
+  ])!;
+}
+
+for (const contextualize of [[], ["table"]] as GndRole[][]) {
+  test(`a table description reading as its caption is ignored, the caption read with its note (contextualize: [${contextualize}])`, async (t) => {
+    const texts = (await extractUtterances(tableNamedByNotedCaption(), { contextualize })).map((u) => u.plain);
+    t.is(texts.filter((text) => text === "Results").length, 1);
+    t.true(texts.includes("Source note."));
+  });
+}
+
+test("a table description reading as its caption but for whitespace is read once", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["table"],
+      description: { text: { plain: "Team roster", language: "en" } },
+      children: [
+        { role: ["caption"], text: { plain: "\n  Team   roster\n", language: "en" } },
+        { role: ["row"], children: [{ role: ["cell"], text: { plain: "Ann", language: "en" } }] },
+      ],
+    },
+  ])!;
+  const texts = (await extractUtterances(gnd)).map((u) => u.plain?.replace(/\s+/g, " ").trim());
+  t.is(texts.filter((text) => text === "Team roster").length, 1);
+});
+
+test("a table description reading as a caption with a language change is ignored, the caption read with it", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["table"],
+      description: { text: { plain: "Results finaux" } },
+      children: [
+        { role: ["caption"], text: { ssml: 'Results <lang xml:lang="fr">finaux</lang>', language: "en" } },
+        { role: ["row"], children: [{ role: ["cell"], text: { plain: "A", language: "en" } }] },
+      ],
+    },
+  ])!;
+  const utterances = await extractUtterances(gnd, { format: "ssml", language: "always" });
+  t.true(utterances.some((u) => u.ssml?.includes('<lang xml:lang="fr">finaux</lang>')));
+  t.is(utterances.filter((u) => u.ssml?.includes("Results")).length, 1);
+});

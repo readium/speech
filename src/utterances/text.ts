@@ -1,6 +1,6 @@
 import { BINDING_PUNCT_CLASS, ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
-import { DROPPED, removeDropped } from "@readium/guided-navigation";
+import { DROPPED, droppedMask, removeDropped } from "@readium/guided-navigation";
 import {
   closeTag,
   commonAncestors,
@@ -556,10 +556,7 @@ function dropInText(nodes: SsmlNode[], isDropped: (id: string) => boolean, langu
     const id = placeholderIdOf(node);
     if (id !== undefined || isAbbreviation(node)) chars.push({ char: id !== undefined && isDropped(id) ? DROPPED : "\uFFFC", id });
   }
-  const kept = removeDropped(chars.map(({ char }) => char).join(""), language);
-  // removeDropped() only takes characters out, so the ones it keeps are found in order.
-  let j = 0;
-  const removed = chars.map(({ char }) => (j < kept.length && char === kept[j] ? (j++, false) : true));
+  const removed = droppedMask(chars.map(({ char }) => char).join(""), language);
   return { chars, removed };
 }
 

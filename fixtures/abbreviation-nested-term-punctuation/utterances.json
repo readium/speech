@@ -100,8 +100,8 @@
           "plain": "Ask"
         },
         {
-          "language": "en",
-          "plain": "Dr."
+          "plain": "Dr.",
+          "language": "en"
         },
         {
           "plain": "Watson."
@@ -207,8 +207,8 @@
           "plain": "Ask"
         },
         {
-          "language": "en",
-          "plain": "Doctor"
+          "plain": "Doctor",
+          "language": "en"
         },
         {
           "plain": "Watson."
@@ -592,8 +592,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Dr."
+          "plain": "Dr.",
+          "language": "en"
         },
         {
           "plain": "Watson."
@@ -737,8 +737,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "plain": "Doctor"
+          "plain": "Doctor",
+          "language": "en"
         },
         {
           "plain": "Watson."
@@ -1142,8 +1142,8 @@
           "ssml": "Ask"
         },
         {
-          "language": "en",
-          "ssml": "Dr."
+          "ssml": "Dr.",
+          "language": "en"
         },
         {
           "ssml": "Watson."
@@ -1249,8 +1249,8 @@
           "ssml": "Ask"
         },
         {
-          "language": "en",
-          "ssml": "Doctor"
+          "ssml": "Doctor",
+          "language": "en"
         },
         {
           "ssml": "Watson."
@@ -1634,8 +1634,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Dr."
+          "ssml": "Dr.",
+          "language": "en"
         },
         {
           "ssml": "Watson."
@@ -1779,8 +1779,8 @@
           "language": "en"
         },
         {
-          "language": "en",
-          "ssml": "Doctor"
+          "ssml": "Doctor",
+          "language": "en"
         },
         {
           "ssml": "Watson."

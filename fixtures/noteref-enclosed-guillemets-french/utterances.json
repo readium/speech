@@ -7059,40 +7059,40 @@
       ],
       "utterances": [
         {
-          "language": "fr",
-          "plain": "Le mot «"
+          "plain": "Le mot «",
+          "language": "fr"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "fr",
-          "plain": "» ici."
+          "plain": "» ici.",
+          "language": "fr"
         },
         {
-          "language": "fr",
-          "plain": "Il dit « bonjour »"
-        },
-        {
-          "plain": "Start of the footnote. Note. End of the footnote.",
-          "language": "en"
-        },
-        {
-          "language": "fr",
-          "plain": "« suite »."
-        },
-        {
-          "language": "fr",
-          "plain": "Il dit « bonjour"
+          "plain": "Il dit « bonjour »",
+          "language": "fr"
         },
         {
           "plain": "Start of the footnote. Note. End of the footnote.",
           "language": "en"
         },
         {
-          "language": "fr",
-          "plain": "» et part."
+          "plain": "« suite ».",
+          "language": "fr"
+        },
+        {
+          "plain": "Il dit « bonjour",
+          "language": "fr"
+        },
+        {
+          "plain": "Start of the footnote. Note. End of the footnote.",
+          "language": "en"
+        },
+        {
+          "plain": "» et part.",
+          "language": "fr"
         }
       ]
     },
