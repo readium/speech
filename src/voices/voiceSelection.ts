@@ -35,7 +35,7 @@ export class VoiceSelection {
    * `en` if it's an `en-US` voice; for `en` that isn't a main language, that of the content's first `en-*`;
    * else the picked one for its tag, then the preferred and picked ones for its base language.
    */
-  voiceFor(language: string | undefined, picked: Record<string, string> = this.pickedRecord() ?? {}): string | undefined {
+  voiceFor(language: string | undefined, picked: Record<string, string> = this.picks()): string | undefined {
     const preference = this.availablePreference();
     if (typeof preference === "string") return preference;
     if (!language) return undefined;
@@ -56,14 +56,21 @@ export class VoiceSelection {
     return voiceUnder(picked, tag) ?? voiceUnder(preferred, base) ?? voiceUnder(picked, base);
   }
 
-  // The voice picked for each main and content language.
+  // The picks content in their tag is read with, e.g. not an en-US pick when an en-US voice is preferred for en.
   pickedRecord(): Record<string, string> | null {
+    const picks = this.picks();
+    const voices = Object.fromEntries(Object.entries(picks).filter(([tag, id]) => this.voiceFor(tag, picks) === id));
+    return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // The voice picked for each main and content language.
+  private picks(): Record<string, string> {
     const voices: Record<string, string> = {};
     for (const language of new Set([...this.mainLanguages(), ...this.contentLanguages])) {
       const picked = this.pickedVoice(language);
       if (picked) voices[this.pickedVoiceKey(language, picked)] ??= getVoiceId(picked);
     }
-    return Object.keys(voices).length > 0 ? voices : null;
+    return voices;
   }
 
   // The preference's voices the engine has, by their ids; an engine listing no voice can't tell, so it's trusted with them.

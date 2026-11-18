@@ -975,6 +975,19 @@ test("a voice chosen for a language speaks its region's content over the pick fo
     ["End of the list.", "Samantha-en-US"],
     ["Colour.", "Daniel-en-GB"],
   ]);
+  t.deepEqual(navigator.settings.voice, { en: "Samantha-en-US", "en-GB": "Daniel-en-GB" });
+});
+
+test("settings.voice has a language without a region read with its region's voice under that region only", async (t) => {
+  const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(gnd([
+    { role: ["paragraph"], text: { language: "en", plain: "Hello." } },
+    { role: ["paragraph"], text: { language: "en-GB", plain: "Colour." } },
+  ]));
+  await settled();
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Daniel-en-GB", "Daniel-en-GB"]);
+  t.deepEqual(navigator.settings.voice, { "en-GB": "Daniel-en-GB" });
 });
 
 test("a voice chosen for a language of another region leaves its region's content the pick for it", async (t) => {
