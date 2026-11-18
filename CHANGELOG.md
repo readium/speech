@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `substitutions` on `ReadiumSpeechNavigatorConfiguration`, forwarded to extraction's [`substitutions`](docs/UtteranceExtraction.md#substitutions) for content loaded via `loadGndContent()`, so merged over `builtInSubstitutions` like it.
+
 ## [0.20.0] - 2026-11-18
 
 ### Added
