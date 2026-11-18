@@ -46,7 +46,8 @@ export type SubstitutionRule =
   | string
   | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
 
-export type SubstitutionTable = Record<string, SubstitutionRule>;
+// `null` removes the rule of that key, e.g. a built-in one.
+export type SubstitutionTable = Record<string, SubstitutionRule | null>;
 
 // See `ExtractUtterancesOptions.segmentation` below.
 export interface SegmentationOptions {
@@ -136,6 +137,6 @@ export interface ExtractUtterancesOptions {
 
   // ASCII imitations of Unicode symbols (e.g. "1/2", "(c)") to rewrite so
   // the engine speaks the symbol, not the literal imitation. Merged by key
-  // on top of `builtInSubstitutions`; flat, unlike `segmentation.suppressions`.
+  // on top of `builtInSubstitutions`, `null` removing a key; flat, unlike `segmentation.suppressions`.
   substitutions?: SubstitutionTable;
 }

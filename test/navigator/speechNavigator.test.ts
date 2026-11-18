@@ -76,7 +76,7 @@ test("submitPreferences re-extracts content loaded via loadGndContent", async (t
 
 test("substitutions from the configuration apply to content loaded via loadGndContent", async (t) => {
   const engine = new MockEngine();
-  const navigator = new ReadiumSpeechNavigator(engine, { substitutions: { "fig.": "figure", "(r)": "(r)" } });
+  const navigator = new ReadiumSpeechNavigator(engine, { substitutions: { "fig.": "figure", "(r)": null } });
   await navigator.loadGndContent(gnd([{ role: ["paragraph"], text: { plain: "See fig. 2 (r) at 1/2 size." } }]));
   t.deepEqual(navigator.getContentQueue().map((u) => u.plain), ["See figure 2 (r) at ½ size."]);
 });

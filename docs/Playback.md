@@ -114,11 +114,11 @@ Also set once at construction, and forwarded to [`substitutions`](UtteranceExtra
 
 ```typescript
 const navigator = new ReadiumSpeechNavigator(engine, {
-  substitutions: { "fig.": "figure", "(r)": "(r)" },
+  substitutions: { "fig.": "figure", "(r)": null },
 });
 ```
 
-Mapping a built-in key to itself, like `"(r)"` here, leaves that text as it is.
+`null` removes a built-in rule, like `"(r)"`'s here.
 
 ### `languages`
 

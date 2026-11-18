@@ -163,7 +163,7 @@ function compileSubstitutionRule(key: string, rule: SubstitutionRule): CompiledS
 function compileSubstitutionTable(table: SubstitutionTable): CompiledSubstitutionRule[] {
   let compiled = compiledSubstitutionTables.get(table);
   if (!compiled) {
-    compiled = Object.entries(table).map(([key, rule]) => compileSubstitutionRule(key, rule));
+    compiled = Object.entries(table).flatMap(([key, rule]) => (rule === null ? [] : [compileSubstitutionRule(key, rule)]));
     compiledSubstitutionTables.set(table, compiled);
   }
   return compiled;

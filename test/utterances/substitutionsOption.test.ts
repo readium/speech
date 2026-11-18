@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
 import { parseMarkup } from "@readium/guided-navigation";
+import { builtInSubstitutions } from "../../src/utterances/builtInSubstitutions.js";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 
 test("substitutions: a built-in substitution applies by default", async (t) => {
@@ -28,6 +29,24 @@ test("substitutions: a caller-supplied key replaces the built-in rule of the sam
     substitutions: { "(c)": "(Copyright)" },
   });
   t.is(utterance.plain, "Copyright (Copyright) 2026 Acme Corp.");
+});
+
+test("substitutions: a null rule removes the built-in rule of its key", async (t) => {
+  const gnd = parseMarkup("<p>Copyright (c) 2026, (r) and (tm).</p>");
+  const [utterance] = await extractUtterances(gnd, {
+    format: "plain",
+    substitutions: { "(c)": null },
+  });
+  t.is(utterance.plain, "Copyright (c) 2026, ® and ™.");
+});
+
+test("substitutions: null for every built-in key leaves all text as it is", async (t) => {
+  const gnd = parseMarkup("<p>Copyright (c) 2026, 1/2 at 100deg.</p>");
+  const [utterance] = await extractUtterances(gnd, {
+    format: "plain",
+    substitutions: Object.fromEntries(Object.keys(builtInSubstitutions).map((key) => [key, null])),
+  });
+  t.is(utterance.plain, "Copyright (c) 2026, 1/2 at 100deg.");
 });
 
 test("substitutions: a same-value override disables a built-in rule", async (t) => {

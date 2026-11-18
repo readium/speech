@@ -7,6 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Added
 
 - `substitutions` on `ReadiumSpeechNavigatorConfiguration`, forwarded to extraction's [`substitutions`](docs/UtteranceExtraction.md#substitutions) for content loaded via `loadGndContent()`, so merged over `builtInSubstitutions` like it.
+- A `null` rule in `substitutions` removes the rule of its key, e.g. a built-in one: `{ "(c)": null }` leaves "(c)" as it is. `SubstitutionTable`'s values are `SubstitutionRule | null`.
 
 ## [0.20.0] - 2026-11-18
 
