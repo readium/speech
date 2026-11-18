@@ -15,7 +15,7 @@ export class VoiceSelection {
   // The engine's voices, as last listed.
   voices: ReadiumSpeechVoice[] = [];
   // The loaded content's languages, in reading order.
-  contentLanguages: string[] = [];
+  private contentLanguages: string[] = [];
 
   private voiceIds: Set<string> = new Set();
   // Keyed by `${language}:${needsBoundary}`: the voice picked for content in a language, null when it has none.
@@ -44,14 +44,12 @@ export class VoiceSelection {
     const base = voiceBaseLanguage(language);
     const own = voiceUnder(preferred, tag);
     if (own) return own;
-    const mainLanguages = this.mainLanguages();
+    const regional = this.regionalOf(language);
+    if (regional) return this.voiceFor(regional, picked);
     if (tag !== base) {
       const forBase = voiceUnder(preferred, base);
       const voice = forBase && this.voices.find((voice) => getVoiceId(voice) === forBase);
       if (voice && normalizeLanguageCode(voice.language) === tag) return forBase;
-    } else if (!mainLanguages.some((main) => normalizeLanguageCode(main) === tag)) {
-      const regional = [...mainLanguages, ...this.contentLanguages].find((other) => voiceBaseLanguage(other) === base && normalizeLanguageCode(other) !== base);
-      if (regional) return this.voiceFor(regional, picked);
     }
     return voiceUnder(picked, tag) ?? voiceUnder(preferred, base) ?? voiceUnder(picked, base);
   }
@@ -85,15 +83,19 @@ export class VoiceSelection {
     return Object.keys(voices).length > 0 ? voices : null;
   }
 
-  // Of `languages`, those without a voice picked yet.
-  unpicked(languages: string[]): string[] {
-    return languages.filter((language) => this.pickedVoice(language) === undefined);
+  setContentLanguages(languages: string[]): void {
+    this.contentLanguages = languages;
   }
 
-  // Lists the engine's voices for the main languages and `languages`, and picks one for each, the main language first.
-  async pick(languages: string[] = []): Promise<void> {
+  // The content's languages still waiting for a voice to be picked.
+  unpicked(): string[] {
+    return this.contentLanguages.filter((language) => !this.regionalOf(language) && this.pickedVoice(language) === undefined);
+  }
+
+  // Lists the engine's voices for the main and content languages, and picks one for each, the main language first.
+  async pick(): Promise<void> {
     const main = this.mainLanguages();
-    const all = [...new Set([...main, ...languages].map(language => normalizeLanguageCode(language)).filter(Boolean))];
+    const all = [...new Set([...main, ...this.contentLanguages].map(language => normalizeLanguageCode(language)).filter(Boolean))];
     let listing = this.engine.getAvailableVoices(all, this.preferredVoiceIds());
     this.listing = listing;
     let voices = await listing;
@@ -108,7 +110,16 @@ export class VoiceSelection {
       this.picking.clear();
     }
     if (main[0]) await this.pickVoice(main[0]);
-    await Promise.all(all.map(language => this.pickVoice(language)));
+    await Promise.all(all.filter(language => !this.regionalOf(language)).map(language => this.pickVoice(language)));
+  }
+
+  // The content's region a bare language that isn't a main one is read as, e.g. `en-GB` for `en`; it gets no pick of its own.
+  private regionalOf(language: string): string | undefined {
+    const tag = normalizeLanguageCode(language);
+    const base = voiceBaseLanguage(language);
+    const mainLanguages = this.mainLanguages();
+    if (tag !== base || mainLanguages.some((main) => normalizeLanguageCode(main) === tag)) return undefined;
+    return [...mainLanguages, ...this.contentLanguages].find((other) => voiceBaseLanguage(other) === base && normalizeLanguageCode(other) !== base);
   }
 
   // The main language's voice prefers boundary events; the others match its boundary support.

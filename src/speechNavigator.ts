@@ -139,7 +139,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
   private async refreshVoices(): Promise<void> {
-    await this.voiceSelection.pick(this.voiceSelection.contentLanguages);
+    await this.voiceSelection.pick();
     if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
@@ -153,7 +153,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const next = this.pendingAdvanceTimeout !== null ? this.getCurrentUtteranceIndex() + 1 : null;
     this.clearPendingAdvance();
     this.engine.pause();
-    await this.voiceSelection.pick(this.voiceSelection.contentLanguages);
+    await this.voiceSelection.pick();
     if (this.loadedQueue.length > 0) {
       const { index, state } = this.resumeTarget();
       const resumeIndex = state && next !== null && this.getCurrentUtteranceIndex() === next - 1 ? next : index;
@@ -339,10 +339,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // Content in a language without a picked voice waits for it rather than starting with another language's
     const generation = ++this.loadGeneration;
     const unvoiced = this.loadedQueue.map((utterance) => this.withLanguage(utterance)).filter((utterance) => !utterance.voice && utterance.language);
-    this.voiceSelection.contentLanguages = [...new Set(unvoiced.map((utterance) => utterance.language!))];
-    const unpicked = this.voiceSelection.unpicked(this.voiceSelection.contentLanguages);
-    if (unpicked.length > 0) {
-      await this.voiceSelection.pick(unpicked).catch(() => {});
+    this.voiceSelection.setContentLanguages([...new Set(unvoiced.map((utterance) => utterance.language!))]);
+    if (this.voiceSelection.unpicked().length > 0) {
+      await this.voiceSelection.pick().catch(() => {});
       if (generation !== this.loadGeneration) return;
     }
 
@@ -355,7 +354,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   private stamped(): ReadiumSpeechUtterance[] {
-    return this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance)));
+    const voices = new Map<string | undefined, string | undefined>();
+    return this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance), voices));
   }
 
   // Once per language, for content in a language the engine has no voice for, spoken with the engine's own.
@@ -376,10 +376,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return { ...utterance, language: this.contentLanguage };
   }
 
-  // The utterance's own voice, else the one for its language.
-  private withVoice(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
+  // The utterance's own voice, else the one for its language, looked up once per language into `voices`.
+  private withVoice(utterance: ReadiumSpeechUtterance, voices: Map<string | undefined, string | undefined>): ReadiumSpeechUtterance {
     if (utterance.voice) return utterance;
-    const voice = this.voiceSelection.voiceFor(utterance.language);
+    if (!voices.has(utterance.language)) voices.set(utterance.language, this.voiceSelection.voiceFor(utterance.language));
+    const voice = voices.get(utterance.language);
     return voice ? { ...utterance, voice } : utterance;
   }
 
