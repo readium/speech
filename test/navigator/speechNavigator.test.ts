@@ -941,6 +941,21 @@ test("a language without a region gets the voice of the content's region, whatev
   }
 });
 
+test("content in a language without a region waits for the voice of the main language's region of it", async (t) => {
+  const engine = new VoicedMockEngine([listedVoice("Daniel", "en-GB"), alba]);
+  const loads: (string | undefined)[][] = [];
+  const loadUtterances = engine.loadUtterances.bind(engine);
+  engine.loadUtterances = (contents, startIndex) => {
+    loads.push(contents.map((u) => u.voice));
+    loadUtterances(contents, startIndex);
+  };
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en-GB"] });
+  navigator.loadContent([{ plain: "Hello.", language: "en" }]);
+  await settled();
+
+  t.deepEqual(loads, [["Daniel-en-GB"]]);
+});
+
 test("a main language without a region keeps its own voice next to content in a region of it", async (t) => {
   const engine = new VoicedMockEngine([alba, listedVoice("Daniel", "en-GB")]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });

@@ -87,9 +87,9 @@ export class VoiceSelection {
     this.contentLanguages = languages;
   }
 
-  // The content's languages still waiting for a voice to be picked.
+  // The content's languages whose voice is still waiting to be picked.
   unpicked(): string[] {
-    return this.contentLanguages.filter((language) => !this.regionalOf(language) && this.pickedVoice(language) === undefined);
+    return this.contentLanguages.filter((language) => this.pickedVoice(this.regionalOf(language) ?? language) === undefined);
   }
 
   // Lists the engine's voices for the main and content languages, and picks one for each, the main language first.
