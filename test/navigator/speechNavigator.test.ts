@@ -1050,6 +1050,27 @@ test("languagefallback fires once for a language the engine has no voice for", a
   t.is(engine.loadedUtterances[0].voice, undefined);
 });
 
+test("languagefallback waits for the language's voice to be picked", async (t) => {
+  const engine = new VoicedMockEngine([alba]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
+  const fallbacks: unknown[] = [];
+  navigator.on("languagefallback", (event) => fallbacks.push(event.detail));
+  await settled();
+
+  const getAvailableVoices = engine.getAvailableVoices;
+  engine.getAvailableVoices = () => Promise.reject(new Error("unavailable"));
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  t.deepEqual(fallbacks, [], "not while the pick for fr failed");
+
+  engine.getAvailableVoices = getAvailableVoices;
+  engine.listed = [alba, lea];
+  engine.emit({ type: "voiceschanged" } as any);
+  await settled();
+  t.is(engine.loadedUtterances[0].voice, "Lea-fr-FR");
+  t.deepEqual(fallbacks, []);
+});
+
 test("languagefallback fires for a language without a region read with the voice of a region of it the engine lacks", async (t) => {
   const engine = new VoicedMockEngine([lea]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["fr"] });

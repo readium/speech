@@ -360,7 +360,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Once per language, for content in a language the engine has no voice for, spoken with the engine's own.
   private reportLanguageFallbacks(contents: ReadiumSpeechUtterance[]): void {
-    if (this.voiceSelection.voices.length === 0) return;
+    if (this.voiceSelection.voices.length === 0 || this.voiceSelection.unpicked().length > 0) return;
     for (const utterance of contents) {
       if (utterance.voice || !utterance.language) continue;
       const language = normalizeLanguageCode(utterance.language);
