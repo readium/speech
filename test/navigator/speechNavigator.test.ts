@@ -1204,6 +1204,41 @@ test("a voice preference keyed by a Chinese variant's alias applies to it", asyn
   t.deepEqual(navigator.settings.voice, { "yue-HK": "Aasing-yue-HK" }, "the pick under the same tag gives way");
 });
 
+test("a voice preference's keys match content tags case-insensitively", async (t) => {
+  const engine = new VoicedMockEngine([listedVoice("Daniel", "en-GB"), listedVoice("Kate", "en-GB")]);
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { "en-gb": "Daniel-en-GB" } } });
+  navigator.loadContent([{ plain: "Colour.", language: "en-GB" }]);
+  await settled();
+
+  t.is(engine.loadedUtterances[0].voice, "Daniel-en-GB");
+});
+
+test("a voice preference keyed by a Chinese variant applies to content tagged with its alias", async (t) => {
+  const voices = [listedVoice("Sinji", "yue-HK"), listedVoice("Aasing", "yue-HK")];
+  for (const [key, language] of [["zh-HK", "yue-HK"], ["yue", "zh-HK"]]) {
+    const engine = new VoicedMockEngine(voices);
+    const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { [key]: "Aasing-yue-HK" } } });
+    navigator.loadContent([{ plain: "a", language }]);
+    await settled();
+    t.is(engine.loadedUtterances[0].voice, "Aasing-yue-HK", `${key} for ${language}`);
+  }
+});
+
+test("a voice preference for Cantonese doesn't apply to Mandarin", async (t) => {
+  const voices = [listedVoice("Tingting", "cmn-CN"), listedVoice("Yushu", "cmn-CN"), listedVoice("Sinji", "yue-HK")];
+  const engine = new VoicedMockEngine(voices);
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { yue: "Sinji-yue-HK" } } });
+  navigator.loadContent([{ plain: "a", language: "zh-TW" }]);
+  await settled();
+  t.is(engine.loadedUtterances[0].voice, "Tingting-cmn-CN");
+
+  const both = new VoicedMockEngine(voices);
+  const bothNavigator = new ReadiumSpeechNavigator(both, { preferences: { voice: { "zh-HK": "Sinji-yue-HK", zh: "Yushu-cmn-CN" } } });
+  bothNavigator.loadContent([{ plain: "a", language: "zh-CN" }]);
+  await settled();
+  t.is(both.loadedUtterances[0].voice, "Yushu-cmn-CN");
+});
+
 test("voices listed later are picked for content whose language is only on its utterances", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);
