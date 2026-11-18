@@ -133,6 +133,21 @@ for (const contextualize of [[], ["table"]] as GndRole[][]) {
   });
 }
 
+test("a table description reading as its caption but for whitespace is read once", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["table"],
+      description: { text: { plain: "Team roster", language: "en" } },
+      children: [
+        { role: ["caption"], text: { plain: "\n  Team   roster\n", language: "en" } },
+        { role: ["row"], children: [{ role: ["cell"], text: { plain: "Ann", language: "en" } }] },
+      ],
+    },
+  ])!;
+  const texts = (await extractUtterances(gnd)).map((u) => u.plain?.replace(/\s+/g, " ").trim());
+  t.is(texts.filter((text) => text === "Team roster").length, 1);
+});
+
 test("a table description reading as a caption with a language change is ignored, the caption read with it", async (t) => {
   const gnd = GuidedNavigationObject.deserializeArray([
     {

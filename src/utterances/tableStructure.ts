@@ -9,11 +9,13 @@ export function plainTextOf(node: GuidedNavigationObject): string {
   return resolved.plain ?? (resolved.ssml ? stripSsmlTags(resolved.ssml) : "");
 }
 
+const collapsed = (text: string): string => text.replace(/\s+/g, " ").trim();
+
 // A table's caption with the same text as its description, e.g. the one its aria-labelledby points to.
 function namingCaptionOf(node: GuidedNavigationObject): GuidedNavigationObject | undefined {
   const description = descriptionOf(node);
   if (description === undefined || !nodeRoles(node).includes("table")) return undefined;
-  return node.children?.find((child) => nodeRoles(child).includes("caption") && plainTextOf(child) === description);
+  return node.children?.find((child) => nodeRoles(child).includes("caption") && collapsed(plainTextOf(child)) === collapsed(description));
 }
 
 // Children or markup, e.g. a noteref or a language change, that a plain description can't say.
