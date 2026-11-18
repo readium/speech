@@ -7,3 +7,4 @@ export declare const chineseVariantMap: {
  * @returns Normalized language code
  */
 export declare const normalizeLanguageCode: (lang: string) => string;
+export declare const voiceBaseLanguage: (language: string) => string;
