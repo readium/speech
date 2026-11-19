@@ -91,7 +91,7 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
   const positions: number[] = [];
   for (const piece of layout.pieces) {
     if (piece.kind === "separator") positions.push(piece.position);
-    else if (piece.kind === "text") for (const position of piece.positions) positions.push(position);
+    else if (piece.kind === "text") for (let i = 0; i < piece.text.length; i++) positions.push(piece.positions[i]);
   }
   const { text, kept } = collapseSpaces(layout.plain);
   return { plain: text, map: kept.map((i) => positions[i]) };
