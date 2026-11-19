@@ -2,8 +2,8 @@ import { DecorationController as Ki, DirectCommsChannel as Wi, Decorator as Qi }
 export * from "@readium/decorator";
 import { LocatorText as Ji, LocatorLocations as Zi, Locator as Xi, GuidedNavigationText as Yi } from "@readium/shared";
 import { Locator as $l, LocatorLocations as Gl, LocatorText as ql } from "@readium/shared";
-import { ssmlTextEscape as le, ssmlAttrEscape as Me, startsWithBindingPunct as ut, BINDING_PUNCT_CLASS as Ae } from "@readium/helpers";
-import { DROPPED as Xt, removeDropped as ea, droppedMask as ta, isAriaSubstituted as ue, substitutedOwnSelector as na, decodeTextref as An, combineDomRangeTextrefs as sa } from "@readium/guided-navigation";
+import { ssmlTextEscape as ce, ssmlAttrEscape as Me, startsWithBindingPunct as ut, BINDING_PUNCT_CLASS as Ae } from "@readium/helpers";
+import { DROPPED as Xt, removeDropped as ea, droppedMask as ta, isAriaSubstituted as he, substitutedOwnSelector as na, decodeTextref as An, combineDomRangeTextrefs as sa } from "@readium/guided-navigation";
 import ia from "i18next";
 import { DomRange as aa, DomRangePoint as xn } from "@readium/shared/html";
 const O = (n) => {
@@ -55,7 +55,7 @@ const O = (n) => {
     return `${r}-${o.toUpperCase()}`;
   }, t = n.toLowerCase().replace(/_/g, "-"), s = e(t), i = e(t.split("-").filter((a, r) => r === 0 || !/^[a-z]{4}$/.test(a)).join("-"));
   return me[s] || me[i] || s;
-}, se = (n) => V(n).split("-")[0], W = {
+}, ie = (n) => V(n).split("-")[0], Q = {
   ar: {
     defaultRegion: "SA",
     availableRegions: [
@@ -505,36 +505,36 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
 }, Ln = (n) => {
   if (!n) return "";
   try {
-    const e = V(n), t = W[e];
+    const e = V(n), t = Q[e];
     if (t?.testUtterance)
       return t.testUtterance;
     if (e in me) {
       const i = me[e];
-      if (i && W[i]?.testUtterance)
-        return W[i].testUtterance;
+      if (i && Q[i]?.testUtterance)
+        return Q[i].testUtterance;
     }
     const [s] = O(e);
-    return s !== e && W[s]?.testUtterance ? W[s].testUtterance : "";
+    return s !== e && Q[s]?.testUtterance ? Q[s].testUtterance : "";
   } catch (e) {
     return console.error(`Error in getTestUtterance for ${n}:`, e), "";
   }
 }, ht = (n) => {
   if (!n) return "";
   try {
-    const e = V(n), t = W[e];
+    const e = V(n), t = Q[e];
     if (t?.defaultRegion)
       return `${e}-${t.defaultRegion}`;
     if (e in me) {
       const i = me[e];
       if (i) {
-        const a = W[i];
+        const a = Q[i];
         if (a?.defaultRegion)
           return `${i}-${a.defaultRegion}`;
       }
     }
     const [s] = O(e);
     if (s !== e) {
-      const i = W[s];
+      const i = Q[s];
       if (i?.defaultRegion)
         return `${s}-${i.defaultRegion}`;
     }
@@ -552,7 +552,7 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
   }
   return Array.from(t.entries()).map(([i, a]) => {
     const r = new Set(
-      W[i]?.availableRegions || []
+      Q[i]?.availableRegions || []
     ), o = Array.from(a), l = Array.from(e).filter(
       (u) => r.has(u) && !o.includes(u)
     ), c = Array.from(/* @__PURE__ */ new Set([...o, ...l])).sort((u, h) => {
@@ -596,7 +596,7 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
   normal: 3,
   high: 4,
   veryHigh: 5
-}, Je = (n) => n ? da[n] ?? 0 : 0, ie = (n, e, t, s) => {
+}, Je = (n) => n ? da[n] ?? 0 : 0, ae = (n, e, t, s) => {
   const i = Je(n.quality), a = Je(e.quality);
   if (t && s && n.source === "json" && e.source === "json") {
     const r = t.get(s);
@@ -618,7 +618,7 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
   const [, i] = O(n.language), [, a] = O(e.language), r = i && t.regions.includes(i), o = a && t.regions.includes(a);
   if (r && o) {
     const d = t.regions.indexOf(i), g = t.regions.indexOf(a);
-    return d === g ? ie(n, e, s, t.baseLang) : d - g;
+    return d === g ? ae(n, e, s, t.baseLang) : d - g;
   }
   if (r) return -1;
   if (o) return 1;
@@ -627,9 +627,9 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
   if (!u && h) return 1;
   if (i && a) {
     const d = i.localeCompare(a);
-    return d !== 0 ? d : ie(n, e, s, t.baseLang);
+    return d !== 0 ? d : ae(n, e, s, t.baseLang);
   }
-  return i ? -1 : a ? 1 : ie(n, e, s, t.baseLang);
+  return i ? -1 : a ? 1 : ae(n, e, s, t.baseLang);
 }, ga = async (n, e, t) => {
   const s = t ?? await ve(n);
   n.sort((i, a) => ps(i, a, e, s));
@@ -646,9 +646,9 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
       if (g !== 0)
         return g;
     }
-    return c && !u ? -1 : !c && u ? 1 : ie(n, e, t, s);
+    return c && !u ? -1 : !c && u ? 1 : ae(n, e, t, s);
   }
-  return ie(n, e, t, s);
+  return ae(n, e, t, s);
 }, Vt = async (n, e) => {
   const t = e ?? await ve(n);
   n.sort((s, i) => ms(s, i, t));
@@ -676,8 +676,8 @@ const ca = ["veryLow", "low", "normal", "high", "veryHigh"], ua = ["android", "a
 ), Ut = (n, e) => Sa.voices.some(
   (t) => n.includes(t.name)
 ) || e === "veryLow", Nt = (n) => n?.length ? n.filter((e) => !(e.isNovelty || Tt(e.name, e.voiceURI))) : [], zt = (n) => n?.length ? n.filter((e) => !Ut(e.name, e.quality)) : [], ba = (n, e) => {
-  const t = (Array.isArray(e) ? e : [e]).map(se);
-  return n.filter((s) => [s.language, s.altLanguage].some((i) => !!i && t.includes(se(i))));
+  const t = (Array.isArray(e) ? e : [e]).map(ie);
+  return n.filter((s) => [s.language, s.altLanguage].some((i) => !!i && t.includes(ie(i))));
 }, wa = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, ka = {
   quality: wa
 }, Mt = {
@@ -747,7 +747,7 @@ const bs = () => {
     isLinux: i()
   };
 };
-class P {
+class A {
   static instance;
   static initializationPromise = null;
   systemLocale;
@@ -776,20 +776,20 @@ class P {
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
   static async initialize(e) {
-    if (P.instance?.isInitialized) {
-      const t = P.instance;
+    if (A.instance?.isInitialized) {
+      const t = A.instance;
       return e?.languages && e.languages.length > 0 && await t.broadenLanguages(e.languages), t;
     }
-    return P.initializationPromise || (P.initializationPromise = (async () => {
+    return A.initializationPromise || (A.initializationPromise = (async () => {
       try {
-        const t = new P();
-        P.instance = t, t.browserVoices = await t.getBrowserVoices(e?.maxTimeout, e?.interval), t.updateSystemLocale(t.browserVoices);
+        const t = new A();
+        A.instance = t, t.browserVoices = await t.getBrowserVoices(e?.maxTimeout, e?.interval), t.updateSystemLocale(t.browserVoices);
         let s = t.browserVoices;
-        return e?.languages && e.languages.length > 0 ? (s = t.filterBrowserVoicesByLanguages(t.browserVoices, e.languages), t.scopedLanguages = P.toBaseLangSet(e.languages)) : t.scopedLanguages = null, t.voices = await t.parseToReadiumSpeechVoices(s), t.isInitialized = !0, t;
+        return e?.languages && e.languages.length > 0 ? (s = t.filterBrowserVoicesByLanguages(t.browserVoices, e.languages), t.scopedLanguages = A.toBaseLangSet(e.languages)) : t.scopedLanguages = null, t.voices = await t.parseToReadiumSpeechVoices(s), t.isInitialized = !0, t;
       } catch (t) {
-        throw P.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", t), t;
+        throw A.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", t), t;
       }
-    })()), P.initializationPromise;
+    })()), A.initializationPromise;
   }
   /**
    * Filter browser voices based on preferred languages
@@ -797,10 +797,10 @@ class P {
    */
   filterBrowserVoicesByLanguages(e, t) {
     if (!t?.length) return e;
-    const s = P.toBaseLangSet(t);
+    const s = A.toBaseLangSet(t);
     return e.filter((i) => {
       if (!i?.lang) return !1;
-      const a = V(i.lang), [r] = P.extractLangRegionFromBCP47(a);
+      const a = V(i.lang), [r] = A.extractLangRegionFromBCP47(a);
       return s.has(r);
     });
   }
@@ -811,7 +811,7 @@ class P {
   static toBaseLangSet(e) {
     return new Set(
       e.map((t) => {
-        const s = V(t), [i] = P.extractLangRegionFromBCP47(s);
+        const s = V(t), [i] = A.extractLangRegionFromBCP47(s);
         return i;
       })
     );
@@ -824,7 +824,7 @@ class P {
    */
   async broadenLanguages(e) {
     if (this.scopedLanguages === null) return;
-    const s = [...P.toBaseLangSet(e)].filter((o) => !this.scopedLanguages.has(o));
+    const s = [...A.toBaseLangSet(e)].filter((o) => !this.scopedLanguages.has(o));
     if (s.length === 0) return;
     const i = s.filter((o) => this.broadenPromises.has(o)), a = s.filter((o) => !this.broadenPromises.has(o));
     let r;
@@ -952,7 +952,7 @@ class P {
     if (!e) return "";
     const t = Ln(e);
     if (t) return t;
-    const [s] = P.extractLangRegionFromBCP47(e);
+    const [s] = A.extractLangRegionFromBCP47(e);
     if (s && s !== e) {
       const i = Ln(s);
       if (i) return i;
@@ -1011,11 +1011,11 @@ class P {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     const i = s ?? this.voices, a = t ? this.filterVoices(t, i) : i, r = [], o = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Map();
     for (const c of a) {
-      const [, u] = P.extractLangRegionFromBCP47(c.language);
+      const [, u] = A.extractLangRegionFromBCP47(c.language);
       u && l.set(u, (l.get(u) || 0) + 1);
     }
     for (const c of a) {
-      const [, u] = P.extractLangRegionFromBCP47(c.language);
+      const [, u] = A.extractLangRegionFromBCP47(c.language);
       if (u && !o.has(u)) {
         let h = c.language;
         try {
@@ -1078,7 +1078,7 @@ class P {
     const t = this.countVoiceDuplicates(e);
     return await Promise.all(
       e.filter((i) => i?.name && i?.lang).map(async (i) => {
-        const a = V(i.lang), [r] = P.extractLangRegionFromBCP47(a), o = this.normalizeVoiceName(i.name), l = `${i.lang.toLowerCase()}_${o}`, c = t.get(l) || 1;
+        const a = V(i.lang), [r] = A.extractLangRegionFromBCP47(a), o = this.normalizeVoiceName(i.name), l = `${i.lang.toLowerCase()}_${o}`, c = t.get(l) || 1;
         let u = await Ot(a);
         (!u || u.length === 0) && (u = await Ot(r));
         const h = this.findMatchingJsonVoice(u, o), d = this.inferVoiceQuality(i, h, c), g = this.isAndroid || !h ? { ...h?.controls, boundary: !1 } : h?.controls;
@@ -1169,7 +1169,7 @@ class P {
     const t = e || this.voices;
     if (!t?.length) return [];
     const s = await ve(t);
-    return [...t].sort((i, a) => ie(i, a, s));
+    return [...t].sort((i, a) => ae(i, a, s));
   }
   /**
    * Sort regions by default then alphabetically, sort voices by quality
@@ -1177,8 +1177,8 @@ class P {
   static async sortByDefaultRegion(e, t) {
     const s = await ve(e), i = ht(t);
     e.sort((a, r) => {
-      const [, o] = P.extractLangRegionFromBCP47(a.language), [, l] = P.extractLangRegionFromBCP47(r.language), c = i && o === i.split("-")[1], u = i && l === i.split("-")[1];
-      return c && !u ? -1 : !c && u ? 1 : ie(a, r, s, t);
+      const [, o] = A.extractLangRegionFromBCP47(a.language), [, l] = A.extractLangRegionFromBCP47(r.language), c = i && o === i.split("-")[1], u = i && l === i.split("-")[1];
+      return c && !u ? -1 : !c && u ? 1 : ae(a, r, s, t);
     });
   }
   /**
@@ -1197,7 +1197,7 @@ class P {
     const i = dt(e), { voicesByLang: a, otherLangVoices: r } = gt(s, i), o = [];
     for (const l of i) {
       const c = a.get(l.baseLang);
-      c && (await P.sortByDefaultRegion(c, l.baseLang), o.push(...c));
+      c && (await A.sortByDefaultRegion(c, l.baseLang), o.push(...c));
     }
     return await Vt(r), o.push(...r), o;
   }
@@ -1222,7 +1222,7 @@ class P {
       let r = "Unknown";
       switch (e) {
         case "languages":
-          r = P.extractLangRegionFromBCP47(a.language)[0];
+          r = A.extractLangRegionFromBCP47(a.language)[0];
           break;
         case "gender":
           r = a.gender || "unknown";
@@ -1231,7 +1231,7 @@ class P {
           r = a.quality || "unknown";
           break;
         case "region":
-          const [, o] = P.extractLangRegionFromBCP47(a.language);
+          const [, o] = A.extractLangRegionFromBCP47(a.language);
           r = o || "unknown";
           break;
       }
@@ -1304,7 +1304,7 @@ class ft {
   }
 }
 const Ke = (n, e) => Math.min(Math.max(n, 0), Math.max(e - 1, 0));
-function ae(n, e, t, s) {
+function re(n, e, t, s) {
   return Number.isFinite(n) ? Math.max(e, Math.min(t, n)) : s;
 }
 const Ze = "\\p{Ps}\\p{Pi}¿¡", Ua = new RegExp(`^[${Ze}]`, "u"), Na = new RegExp(`[${Ze}]$`, "u"), za = new RegExp("^\\p{P}$", "u");
@@ -1427,7 +1427,7 @@ function Wa(n) {
     return;
   }
 }
-function B(n) {
+function D(n) {
   try {
     return Ka(n);
   } catch {
@@ -1446,7 +1446,7 @@ function Ye(n) {
 function Se(n) {
   let e = "";
   for (const t of n)
-    t.kind === "text" ? e += le(t.text) : e += t.openTag + (t.selfClosing ? "" : Se(t.children) + pt(t));
+    t.kind === "text" ? e += ce(t.text) : e += t.openTag + (t.selfClosing ? "" : Se(t.children) + pt(t));
   return e;
 }
 function mt(n, e) {
@@ -1464,7 +1464,7 @@ class tn {
       this.out += s.openTag, this.open.push(s);
   }
   text(e, t) {
-    t && (this.moveTo(e), this.out += le(t));
+    t && (this.moveTo(e), this.out += ce(t));
   }
   node(e, t) {
     this.moveTo(e), this.out += Se([t]);
@@ -1481,12 +1481,12 @@ function Vs(n) {
   return Qa.has(n.name);
 }
 const Ja = /* @__PURE__ */ new Set(["lang", "p", "s", "voice", "token", "w"]);
-function te(n) {
+function ne(n) {
   return Ja.has(n.name) ? n.attrs.get("xml:lang") : void 0;
 }
-function* he(n) {
+function* de(n) {
   for (const e of n)
-    e.kind === "element" && (yield e, yield* he(e.children));
+    e.kind === "element" && (yield e, yield* de(e.children));
 }
 function Ts(n, e, t) {
   t === void 0 ? n.attrs.delete(e) : n.attrs.set(e, t);
@@ -1510,7 +1510,7 @@ function nn(n, e) {
       s(l.children, /* @__PURE__ */ new Map());
     }
   };
-  s(B(n), /* @__PURE__ */ new Map());
+  s(D(n), /* @__PURE__ */ new Map());
   let i = "", a = 0;
   for (const r of t)
     i += n.slice(a, r.at) + r.text, a = r.at;
@@ -1536,10 +1536,10 @@ const Za = /* @__PURE__ */ new Set(["speak", "p", "s", "voice", "audio", "desc",
 function Tn(n) {
   return /^<[^>]*\/>/.test(n) || Za.has(/^<\/?([^\s/>]+)/.exec(n)?.[1] ?? "");
 }
-function de(n) {
+function ge(n) {
   let e = "", t = !1, s = [];
   const i = [];
-  for (const { node: a, ancestors: r } of be(B(n))) {
+  for (const { node: a, ancestors: r } of be(D(n))) {
     const o = mt(s, r).length;
     if ([...s.slice(o), ...r.slice(o)].some((l) => Tn(l.openTag)) && (t = !0), s = r, a.kind === "element") {
       i.push({ kind: "element", node: a, chain: r }), Tn(a.openTag) && (t = !0);
@@ -1560,14 +1560,14 @@ function zs(n) {
   return (s, i) => e.slice(et(t, s), et(t, i));
 }
 function Ms(n) {
-  return de(n).plain;
+  return ge(n).plain;
 }
 function js(n) {
   let e = "";
   const t = [], s = (r, o) => {
     r === " " && e.endsWith(" ") || (e += r, t.push(o));
   };
-  for (const r of de(n).pieces)
+  for (const r of ge(n).pieces)
     if (r.kind === "separator") s(" ", r.position);
     else if (r.kind === "text") for (let o = 0; o < r.text.length; o++) s(r.text[o], r.positions[o]);
   let i = 0;
@@ -1655,7 +1655,7 @@ class Un {
     const { languages: t, maxTimeout: s, interval: i, maxLengthExceeded: a = "warn" } = e;
     this.maxLengthExceeded = a;
     try {
-      return this.voiceManager = await P.initialize({
+      return this.voiceManager = await A.initialize({
         languages: t,
         maxTimeout: s,
         interval: i
@@ -1700,7 +1700,7 @@ class Un {
   // The utterance's own voice, loading its language first when needed, else the current voice.
   async voiceForUtterance(e) {
     const t = this.unloadedOwnVoiceLanguage(e);
-    return t && (await P.initialize({ languages: [t] }), this.loadedOwnVoiceLanguages.add(t)), this.ownVoice(e) ?? this.getCurrentVoice();
+    return t && (await A.initialize({ languages: [t] }), this.loadedOwnVoiceLanguages.add(t)), this.ownVoice(e) ?? this.getCurrentVoice();
   }
   // The default voice until one is set
   getCurrentVoice() {
@@ -1737,7 +1737,7 @@ class Un {
     try {
       this.voiceManager || await this.initialize();
       const s = [...e ?? [], ...(t ?? []).flatMap((i) => this.browserVoiceLanguage(i) ?? [])];
-      return s.length && await P.initialize({ languages: s }), this.voices;
+      return s.length && await A.initialize({ languages: s }), this.voices;
     } catch {
       return [];
     }
@@ -1874,21 +1874,21 @@ class Un {
   }
   // Playback Parameters
   setRate(e) {
-    const t = ae(e, 0.1, 10, this.rate);
+    const t = re(e, 0.1, 10, this.rate);
     t !== this.rate && (this.rate = t, this.scheduleRestartIfSpeaking());
   }
   getRate() {
     return this.rate;
   }
   setPitch(e) {
-    const t = ae(e, 0, 2, this.pitch);
+    const t = re(e, 0, 2, this.pitch);
     t !== this.pitch && (this.pitch = t, this.scheduleRestartIfSpeaking());
   }
   getPitch() {
     return this.pitch;
   }
   setVolume(e) {
-    const t = ae(e, 0, 1, this.volume);
+    const t = re(e, 0, 1, this.volume);
     t !== this.volume && (this.volume = t, this.scheduleRestartIfSpeaking());
   }
   getVolume() {
@@ -2083,7 +2083,7 @@ function nr(n, e) {
     return [{ text: n, offset: 0 }];
   const t = [];
   let s = 0;
-  for (const a of B(n))
+  for (const a of D(n))
     a.kind === "element" && (t.push(...tt(n.slice(s, a.start), s, Bt)), t.push({ text: n.slice(a.start, a.end), offset: a.start, atomic: !0 }), s = a.end);
   t.push(...tt(n.slice(s), s, Bt));
   const i = t.flatMap((a) => sn(a, e));
@@ -2131,7 +2131,7 @@ function gr(n) {
   return t.buffer;
 }
 function fr(n) {
-  return ae(n, 0.25, 4, 1);
+  return re(n, 0.25, 4, 1);
 }
 function $e(n) {
   return n?.plain ?? n?.ssml ?? void 0;
@@ -2386,22 +2386,22 @@ class pr {
           title: "Payload Too Large"
         }
       );
-    const m = Math.min(u.limits.maxTextLength, this.readyBufferChars), S = i ? nr(r, m) : tr(r, m), f = [];
-    let k = Promise.resolve();
+    const p = Math.min(u.limits.maxTextLength, this.readyBufferChars), S = i ? nr(r, p) : tr(r, p), f = [];
+    let E = Promise.resolve();
     for (let b = 0; b < S.length; b++) {
-      const A = b === 0 ? l : S[b - 1].text, y = b === S.length - 1 ? c : S[b + 1].text, v = S[b], E = new AbortController();
-      (t ? this.activeControllers : this.liveControllers).add(E);
-      const w = k.then(
-        () => this.synthesizeChunk({ content: s, text: v.text, textOffset: v.offset, useSSML: i, ssmlMap: o, language: a, prevText: A, nextText: y, format: h, bitrate: g, controller: E })
+      const R = b === 0 ? l : S[b - 1].text, y = b === S.length - 1 ? c : S[b + 1].text, v = S[b], k = new AbortController();
+      (t ? this.activeControllers : this.liveControllers).add(k);
+      const w = E.then(
+        () => this.synthesizeChunk({ content: s, text: v.text, textOffset: v.offset, useSSML: i, ssmlMap: o, language: a, prevText: R, nextText: y, format: h, bitrate: g, controller: k })
       );
-      f.push({ promise: w, controller: E }), k = w;
+      f.push({ promise: w, controller: k }), E = w;
     }
     return f;
   }
   async synthesizeChunk(e) {
     const { content: t, text: s, textOffset: i, useSSML: a, ssmlMap: r, language: o, prevText: l, nextText: c, format: u, bitrate: h, controller: d } = e;
     try {
-      const g = await this.voiceFor(t), m = await this.fetchNetwork(this.endpoints.synthesize, {
+      const g = await this.voiceFor(t), p = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -2417,16 +2417,16 @@ class pr {
         }),
         signal: d.signal
       });
-      if (!m.ok)
-        throw await xe(m);
-      const S = await m.json(), f = gr(S.audio);
-      let k;
+      if (!p.ok)
+        throw await xe(p);
+      const S = await p.json(), f = gr(S.audio);
+      let E;
       try {
-        k = await this.ensureAudioContext().decodeAudioData(f);
+        E = await this.ensureAudioContext().decodeAudioData(f);
       } catch {
         throw new Fs("Audio playback failed");
       }
-      return { audioBuffer: k, format: S.format, boundaries: S.boundaries, textOffset: i, ssmlMap: r };
+      return { audioBuffer: E, format: S.format, boundaries: S.boundaries, textOffset: i, ssmlMap: r };
     } finally {
       this.activeControllers.delete(d), this.liveControllers.delete(d);
     }
@@ -2473,10 +2473,10 @@ class pr {
     for (let d = 1; d < e.length; d++) {
       let g;
       try {
-        const m = Math.max(0, (c - a.currentTime) * 1e3);
-        g = await this.awaitWithStallDeadline(e[d].promise, e[d].controller, m);
-      } catch (m) {
-        t === this.speakGeneration && this.emitEvent({ type: "error", detail: Nn(m) });
+        const p = Math.max(0, (c - a.currentTime) * 1e3);
+        g = await this.awaitWithStallDeadline(e[d].promise, e[d].controller, p);
+      } catch (p) {
+        t === this.speakGeneration && this.emitEvent({ type: "error", detail: Nn(p) });
         return;
       }
       if (t !== this.speakGeneration)
@@ -2551,21 +2551,21 @@ class pr {
     this.speakGeneration++, this.loadGeneration++, this.stopAudio(), this.abortLiveControllers(), this.clearPrefetchCache(), this.isSpeakingInternal = !1, this.restartOnResume = !1, this.currentUtteranceIndex = 0, this.setState("idle"), this.emitEvent({ type: "stop" });
   }
   setRate(e) {
-    const t = ae(e, 0.1, 10, this.rate);
+    const t = re(e, 0.1, 10, this.rate);
     t !== this.rate && (this.rate = t, this.clearPrefetchCache(), this.scheduleRestartIfSpeaking());
   }
   getRate() {
     return this.rate;
   }
   setPitch(e) {
-    const t = ae(e, 0, 2, this.pitch);
+    const t = re(e, 0, 2, this.pitch);
     t !== this.pitch && (this.pitch = t, this.clearPrefetchCache(), this.scheduleRestartIfSpeaking());
   }
   getPitch() {
     return this.pitch;
   }
   setVolume(e) {
-    const t = ae(e, 0, 1, this.volume);
+    const t = re(e, 0, 1, this.volume);
     t !== this.volume && (this.volume = t, this.masterGain && (this.masterGain.gain.value = this.volume));
   }
   getVolume() {
@@ -3094,7 +3094,7 @@ function un(n) {
 function _(n, e) {
   return n == null || e.includes(n) ? n : void 0;
 }
-function Q(n, e) {
+function J(n, e) {
   if (n == null) return n;
   if (typeof n != "number" || Number.isNaN(n)) return;
   const t = Math.min(...e), s = Math.max(...e);
@@ -3133,7 +3133,7 @@ class Mn {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = _(e.format, on) ?? "plain", this.interruptions = qs(e.interruptions, Gs) ?? {}, this.verbosity = _(e.verbosity, an) ?? "few", this.skip = Ve(e.skip) ?? [], this.contextualize = Ve(e.contextualize) ?? [], this.language = _(e.language, rn) ?? "block-level", this.languageOverrides = hn(e.languageOverrides) ?? {}, this.segmentation = _(e.segmentation, cn) ?? "structure", this.reconstruct = un(e.reconstruct) ?? !1, this.voice = Hs(e.voice) ?? null, this.pauseDuration = Q(e.pauseDuration, nt.range) ?? 300, this.autoPause = _(e.autoPause, ln) ?? "none", this.rate = Q(e.rate, st.range) ?? 1, this.pitch = Q(e.pitch, it.range) ?? 1, this.volume = Q(e.volume, at.range) ?? 1;
+    this.format = _(e.format, on) ?? "plain", this.interruptions = qs(e.interruptions, Gs) ?? {}, this.verbosity = _(e.verbosity, an) ?? "few", this.skip = Ve(e.skip) ?? [], this.contextualize = Ve(e.contextualize) ?? [], this.language = _(e.language, rn) ?? "block-level", this.languageOverrides = hn(e.languageOverrides) ?? {}, this.segmentation = _(e.segmentation, cn) ?? "structure", this.reconstruct = un(e.reconstruct) ?? !1, this.voice = Hs(e.voice) ?? null, this.pauseDuration = J(e.pauseDuration, nt.range) ?? 300, this.autoPause = _(e.autoPause, ln) ?? "none", this.rate = J(e.rate, st.range) ?? 1, this.pitch = J(e.pitch, it.range) ?? 1, this.volume = J(e.volume, at.range) ?? 1;
   }
 }
 class ye {
@@ -3153,7 +3153,7 @@ class ye {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = _(e.format, on), this.interruptions = qs(e.interruptions, Gs), this.verbosity = _(e.verbosity, an), this.skip = Ve(e.skip), this.contextualize = Ve(e.contextualize), this.language = _(e.language, rn), this.languageOverrides = hn(e.languageOverrides), this.segmentation = _(e.segmentation, cn), this.reconstruct = un(e.reconstruct), this.voice = Hs(e.voice), this.pauseDuration = Q(e.pauseDuration, nt.range), this.autoPause = _(e.autoPause, ln), this.rate = Q(e.rate, st.range), this.pitch = Q(e.pitch, it.range), this.volume = Q(e.volume, at.range);
+    this.format = _(e.format, on), this.interruptions = qs(e.interruptions, Gs), this.verbosity = _(e.verbosity, an), this.skip = Ve(e.skip), this.contextualize = Ve(e.contextualize), this.language = _(e.language, rn), this.languageOverrides = hn(e.languageOverrides), this.segmentation = _(e.segmentation, cn), this.reconstruct = un(e.reconstruct), this.voice = Hs(e.voice), this.pauseDuration = J(e.pauseDuration, nt.range), this.autoPause = _(e.autoPause, ln), this.rate = J(e.rate, st.range), this.pitch = J(e.pitch, it.range), this.volume = J(e.volume, at.range);
   }
   merging(e) {
     const t = { ...this };
@@ -3162,7 +3162,7 @@ class ye {
     return new ye(t);
   }
 }
-class re {
+class oe {
   _value;
   _effectiveValue;
   _isEffective;
@@ -3191,7 +3191,7 @@ class re {
     this._value = null, this._onChange(this._value);
   }
 }
-class Ie extends re {
+class Ie extends oe {
   _supportedValues;
   constructor({
     initialValue: e = null,
@@ -3214,7 +3214,7 @@ class Ie extends re {
     return this._supportedValues;
   }
 }
-class Er extends re {
+class Er extends oe {
   set value(e) {
     if (e != null && un(e) === void 0)
       throw new Error(`Value '${String(e)}' is not a boolean.`);
@@ -3224,7 +3224,7 @@ class Er extends re {
     return this._value;
   }
 }
-class jn extends re {
+class jn extends oe {
   set value(e) {
     if (e != null && Ve(e) === void 0)
       throw new Error(`Value '${String(e)}' is not an array of strings.`);
@@ -3234,7 +3234,7 @@ class jn extends re {
     return this._value;
   }
 }
-class Ge extends re {
+class Ge extends oe {
   _supportedRange;
   _step;
   _decimals;
@@ -3249,7 +3249,7 @@ class Ge extends re {
     super({ initialValue: e, effectiveValue: t, isEffective: s, onChange: i }), this._supportedRange = a, this._step = r, this._decimals = this._step.toString().includes(".") ? this._step.toString().split(".")[1].length : 0;
   }
   set value(e) {
-    if (e != null && Q(e, this._supportedRange) === void 0)
+    if (e != null && J(e, this._supportedRange) === void 0)
       throw new Error(`Value '${String(e)}' is out of the supported range for this preference.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3322,7 +3322,7 @@ class Bn {
     });
   }
   get interruptions() {
-    return new re({
+    return new oe({
       initialValue: this.preferences.interruptions,
       effectiveValue: this.settings.interruptions,
       isEffective: this.preferences.interruptions != null,
@@ -3364,7 +3364,7 @@ class Bn {
     });
   }
   get languageOverrides() {
-    return new re({
+    return new oe({
       initialValue: this.preferences.languageOverrides,
       effectiveValue: this.settings.languageOverrides,
       isEffective: this.preferences.languageOverrides != null,
@@ -3389,7 +3389,7 @@ class Bn {
     });
   }
   get voice() {
-    return new re({
+    return new oe({
       initialValue: this.preferences.voice,
       effectiveValue: this.settings.voice,
       isEffective: this.preferences.voice != null,
@@ -3627,7 +3627,7 @@ function Qs(n) {
 }
 const Te = (n) => Qs(n) !== void 0, Or = ({ node: n }) => n.kind === "text" ? n.text : "";
 function Lr(n) {
-  const e = B(n), t = be(e), s = /* @__PURE__ */ new Map();
+  const e = D(n), t = be(e), s = /* @__PURE__ */ new Map();
   if (t.forEach(({ node: a }, r) => {
     if (a.kind !== "element" || yt(a) === void 0) return;
     const o = t.slice(r + 1).map(Or).join("").trimStart();
@@ -3708,7 +3708,7 @@ function Fn(n, e) {
   return n.length ? e <= 0 ? n[0] : e >= n.length ? n[n.length - 1] + 1 : n[e] : e;
 }
 function jr(n, e) {
-  const t = de(n), s = t.plain, i = t.pieces.map(
+  const t = ge(n), s = t.plain, i = t.pieces.map(
     (y) => y.kind === "element" ? y : { start: y.start, end: y.start + (y.kind === "text" ? y.text.length : 1), chain: y.chain }
   ), a = Js(s, e), r = i.filter((y) => "start" in y), o = (y) => r.find((v) => v.start <= y && y < v.end), l = new tn();
   let c = "";
@@ -3716,7 +3716,7 @@ function jr(n, e) {
   let h = 0;
   const d = (y, v) => {
     c += y.replacement;
-    for (let E = 0; E < y.replacement.length; E++) u.push(y.start);
+    for (let k = 0; k < y.replacement.length; k++) u.push(y.start);
     l.text(v, y.replacement);
   };
   for (const y of i) {
@@ -3726,32 +3726,32 @@ function jr(n, e) {
     }
     let v = y.start;
     for (; v < y.end; ) {
-      const E = a[h];
-      if (E && E.start <= v) {
-        E.start === v && d(E, E.end > E.start ? mt(y.chain, o(E.end - 1).chain) : y.chain), v = Math.min(E.end, y.end), E.end <= y.end && h++;
+      const k = a[h];
+      if (k && k.start <= v) {
+        k.start === v && d(k, k.end > k.start ? mt(y.chain, o(k.end - 1).chain) : y.chain), v = Math.min(k.end, y.end), k.end <= y.end && h++;
         continue;
       }
-      const w = E ? Math.min(E.start, y.end) : y.end, I = s.slice(v, w);
-      c += I;
-      for (let z = 0; z < I.length; z++) u.push(v + z);
-      l.text(y.chain, I), v = w;
+      const w = k ? Math.min(k.start, y.end) : y.end, P = s.slice(v, w);
+      c += P;
+      for (let N = 0; N < P.length; N++) u.push(v + N);
+      l.text(y.chain, P), v = w;
     }
   }
   for (const y of a.slice(h)) d(y, r[r.length - 1]?.chain ?? []);
   const g = l.flush();
-  let m = 0;
-  for (; m < s.length && /\s/.test(s[m]); ) m++;
+  let p = 0;
+  for (; p < s.length && /\s/.test(s[p]); ) p++;
   let S = s.length;
-  for (; S > m && /\s/.test(s[S - 1]); ) S--;
+  for (; S > p && /\s/.test(s[S - 1]); ) S--;
   let f = 0;
   for (; f < c.length && /\s/.test(c[f]); ) f++;
-  let k = c.length;
-  for (; k > f && /\s/.test(c[k - 1]); ) k--;
-  const b = s.slice(m, S), A = u.slice(f, k).map((y) => Math.min(Math.max(y - m, 0), Math.max(b.length - 1, 0)));
-  return { ssml: g, plain: b, map: A };
+  let E = c.length;
+  for (; E > f && /\s/.test(c[E - 1]); ) E--;
+  const b = s.slice(p, S), R = u.slice(f, E).map((y) => Math.min(Math.max(y - p, 0), Math.max(b.length - 1, 0)));
+  return { ssml: g, plain: b, map: R };
 }
 function Zs(n) {
-  return [...he(B(n))].some((e) => te(e) !== void 0);
+  return [...de(D(n))].some((e) => ne(e) !== void 0);
 }
 const Br = new RegExp(
   `\\s+|[${Ze}]+|[${Ae}]+|[^\\s${Ze}${Ae}]+`,
@@ -3786,12 +3786,12 @@ function $r(n) {
 }
 function dn(n, e) {
   const t = [];
-  for (const { node: r, ancestors: o } of be(B(n))) {
+  for (const { node: r, ancestors: o } of be(D(n))) {
     let l = o.length - 1;
-    for (; l >= 0 && te(o[l]) === void 0; ) l--;
+    for (; l >= 0 && ne(o[l]) === void 0; ) l--;
     const c = l === -1 ? void 0 : o[l];
     if (t.length === 0 || t[t.length - 1].lang !== c) {
-      const d = o.filter((g) => te(g) !== void 0);
+      const d = o.filter((g) => ne(g) !== void 0);
       t.push({ lang: c, langs: d, writer: new tn() });
     }
     const { writer: u } = t[t.length - 1], h = o.slice(l + 1);
@@ -3799,7 +3799,7 @@ function dn(n, e) {
   }
   const s = t.map(({ lang: r, langs: o, writer: l }) => ({
     tokens: Dr(Ms(l.flush())),
-    language: r ? te(r) : e,
+    language: r ? ne(r) : e,
     langs: o
   })), i = (r, o) => r.langs.length > o.langs.length && o.langs.every((l, c) => r.langs[c] === l);
   for (let r = 0; r < s.length - 1; r++)
@@ -3829,10 +3829,10 @@ function Wr(n, e) {
   return n.slice(Math.min(n.length, t));
 }
 function _n(n) {
-  return [...he(B(n))].some((e) => yt(e) !== void 0 || Te(e));
+  return [...de(D(n))].some((e) => yt(e) !== void 0 || Te(e));
 }
 function Ys(n, e, t) {
-  const s = B(n), { chars: i, removed: a } = ti(s, e, t), r = /* @__PURE__ */ new Set();
+  const s = D(n), { chars: i, removed: a } = ti(s, e, t), r = /* @__PURE__ */ new Set();
   i.forEach(({ char: l, id: c }, u) => {
     if (l === Xt)
       for (const h of [-1, 1])
@@ -3855,7 +3855,7 @@ function ei(n) {
   });
 }
 function Qr(n, e) {
-  const { chars: t, removed: s } = ti(B(n), () => !0, e), i = (r, o) => {
+  const { chars: t, removed: s } = ti(D(n), () => !0, e), i = (r, o) => {
     for (let l = r + o; l >= 0 && l < t.length; l += o) if (t[l].id === void 0 && !/\s/.test(t[l].char)) return l;
     return -1;
   }, a = /* @__PURE__ */ new Set();
@@ -3901,37 +3901,37 @@ function Zr(n, e) {
   return t;
 }
 function Ft(n) {
-  const e = B(n), t = zs(de(n).pieces), s = [...he(e)].filter((h) => !h.selfClosing), i = (h) => s.filter((d) => d.start < h && h <= d.closeStart), a = (h, d) => ({ open: i(h), close: i(d) }), r = [];
+  const e = D(n), t = zs(ge(n).pieces), s = [...de(e)].filter((h) => !h.selfClosing), i = (h) => s.filter((d) => d.start < h && h <= d.closeStart), a = (h, d) => ({ open: i(h), close: i(d) }), r = [];
   let o = 0, l = !1;
   const c = (h, d) => {
-    const g = n.slice(h, d), m = g.trim();
-    if (!m) return;
-    const S = h + g.length - g.trimStart().length, f = { ssml: m, ...a(S, S + m.length) };
+    const g = n.slice(h, d), p = g.trim();
+    if (!p) return;
+    const S = h + g.length - g.trimStart().length, f = { ssml: p, ...a(S, S + p.length) };
     r.push(l && !/^\s/.test(t(h, d)) ? { ...f, touchesPrevious: !0 } : f);
   }, u = Zr(n, e);
   return u.forEach((h, d) => {
     const g = n.slice(h.end, u[d + 1]?.start ?? n.length);
     if (h.placeholderId !== void 0) {
       c(o, h.start);
-      const w = i(h.start), I = w.map(te).filter((z) => z !== void 0).pop();
+      const w = i(h.start), P = w.map(ne).filter((N) => N !== void 0).pop();
       r.push({
         placeholderId: h.placeholderId,
         open: w,
         textBefore: t(o, h.start),
         textAfter: t(h.end, u[d + 1]?.start ?? n.length),
-        ...I && { language: I }
+        ...P && { language: P }
       }), l = !1, o = h.end;
       return;
     }
-    const m = $(h.inner), S = Wr(n.slice(o, h.start).match(Gr)?.[0] ?? "", m), f = Kr(m, g.match(qr)?.[0] ?? ""), k = t(o, h.start - S.length);
+    const p = $(h.inner), S = Wr(n.slice(o, h.start).match(Gr)?.[0] ?? "", p), f = Kr(p, g.match(qr)?.[0] ?? ""), E = t(o, h.start - S.length);
     c(o, h.start - S.length);
-    const b = k.trim() !== "" && !/\s$/.test(k), A = (w) => `${h.wrapOpen}${w}${h.wrapClose}`, y = (w) => A(`${S}${w}${f}`), v = a(h.start, h.end), E = le(h.alias);
+    const b = E.trim() !== "" && !/\s$/.test(E), R = (w) => `${h.wrapOpen}${w}${h.wrapClose}`, y = (w) => R(`${S}${w}${f}`), v = a(h.start, h.end), k = ce(h.alias);
     r.push({ ssml: y(h.inner), ...v, abbreviation: "text", ...b && { touchesPrevious: b } }), r.push({
-      ssml: y(E),
+      ssml: y(k),
       ...v,
       abbreviation: "alias",
       abbreviationText: y(h.inner),
-      parenthesizedSsml: A(`(${E})`),
+      parenthesizedSsml: R(`(${k})`),
       ...b && { touchesPrevious: b }
     }), l = !0, o = h.end + f.length;
   }), c(o, n.length), r;
@@ -3952,45 +3952,48 @@ const Gn = (n) => n.replace(/\s/g, " ");
 function Yr(n, e, t) {
   const s = ni.get(n);
   if (s) {
-    const h = Fn(s.map, e), d = Fn(s.map, e + t);
-    e = h, t = Math.max(0, d - h);
+    const g = Fn(s.map, e), p = Fn(s.map, e + t);
+    e = g, t = Math.max(0, p - g);
   }
-  const i = n.offsets, a = !n.plain && !!n.ssml, r = Gn(s?.plain ?? n.plain ?? (n.ssml ? $(n.ssml) : ""));
-  if (!i?.length || !r) return;
-  const o = Rt.get(n), l = o !== void 0 && e >= o.cursor;
-  let c = l ? o.cursor : 0;
-  const u = (h) => {
-    const d = h.locate.text?.highlight;
-    return d && Gn(a ? $(d) : d);
+  const i = n.offsets, a = !n.plain && !!n.ssml, r = s?.plain ?? n.plain ?? (n.ssml ? $(n.ssml) : ""), o = Gn(r);
+  if (!i?.length || !o) return;
+  const l = Rt.get(n), c = l !== void 0 && e >= l.cursor;
+  let u = c ? l.cursor : 0;
+  const h = (g) => {
+    const p = g.locate.text?.highlight;
+    return p && (a ? $(p) : p);
+  }, d = (g) => {
+    const p = h(g);
+    return p && Gn(p);
   };
-  for (let h = l ? o.pieceIndex : 0; h < i.length; h++) {
-    const d = i[h];
-    if (We.has(d.locate)) {
-      const f = si.get(d), k = i.slice(h + 1).find((I) => !We.has(I.locate) && u(I)), b = k && u(k), A = b ? r.indexOf(b, c + (f ?? d.end - d.start)) : -1, y = b && A === -1 ? r.indexOf(b, c) : A, v = i[h + 1], E = c + /^\s*/.exec(r.slice(c))[0].length, w = f !== void 0 && v && We.has(v.locate) ? E + f : y === -1 ? r.length : y;
-      if (e >= c && e < w)
-        return f === void 0 ? void 0 : (Rt.set(n, { pieceIndex: h, cursor: c }), { locate: d.locate, word: r.substring(e, Math.min(e + t, w)) });
-      c = w;
+  for (let g = c ? l.pieceIndex : 0; g < i.length; g++) {
+    const p = i[g];
+    if (We.has(p.locate)) {
+      const R = si.get(p), y = i.slice(g + 1).find((K) => !We.has(K.locate) && d(K)), v = y && d(y), k = v ? o.indexOf(v, u + (R ?? p.end - p.start)) : -1, w = v && k === -1 ? o.indexOf(v, u) : k, P = i[g + 1], N = u + /^\s*/.exec(o.slice(u))[0].length, z = R !== void 0 && P && We.has(P.locate) ? N + R : w === -1 ? o.length : w;
+      if (e >= u && e < z)
+        return R === void 0 ? void 0 : (Rt.set(n, { pieceIndex: g, cursor: u }), { locate: p.locate, word: r.substring(e, Math.min(e + t, z)) });
+      u = z;
       continue;
     }
-    const g = u(d) ?? r.slice(c);
-    if (!g) continue;
-    const m = r.indexOf(g, c);
-    if (m === -1) continue;
-    const S = m + g.length;
-    if (e >= m && e < S) {
-      Rt.set(n, { pieceIndex: h, cursor: c });
-      const f = e - m, k = g.substring(f, Math.min(f + t, g.length));
+    const S = d(p) ?? o.slice(u), f = h(p) ?? r.slice(u);
+    if (!S) continue;
+    const E = o.indexOf(S, u);
+    if (E === -1) continue;
+    const b = E + S.length;
+    if (e >= E && e < b) {
+      Rt.set(n, { pieceIndex: g, cursor: u });
+      const R = e - E, y = f.substring(R, Math.min(R + t, f.length));
       return { locate: {
-        ...d.locate,
+        ...p.locate,
         domRange: void 0,
         text: {
-          highlight: k,
-          before: g.substring(0, f),
-          after: g.substring(f + k.length)
+          highlight: y,
+          before: f.substring(0, R),
+          after: f.substring(R + y.length)
         }
-      }, word: k };
+      }, word: y };
     }
-    c = S;
+    u = b;
   }
 }
 function eo(n, e) {
@@ -4058,7 +4061,7 @@ function so(n, e) {
 }
 function io(n) {
   const e = nn(n, (r) => r.name === "p" || r.name === "s"), t = [];
-  for (const r of he(B(e))) {
+  for (const r of de(D(e))) {
     if (r.name !== "p" && r.name !== "s") continue;
     const o = r.attrs.get("xml:lang"), l = o === void 0 ? void 0 : `<lang xml:lang="${Me(o)}">`;
     if (r.selfClosing) {
@@ -4069,7 +4072,7 @@ function io(n) {
   }
   if (!t.length) return e;
   t.sort((r, o) => r.start - o.start);
-  const s = zs(de(e).pieces);
+  const s = zs(ge(e).pieces);
   let i = "", a = 0;
   for (let r = 0; r < t.length; ) {
     let o = r + 1;
@@ -4085,7 +4088,7 @@ function we(n) {
   if (!n?.ssml) return n;
   let e = qn.get(n);
   if (!e) {
-    const t = io(n.ssml), s = B(t).filter((r) => r.kind === "element" || r.text.trim() !== ""), i = s.length === 1 && s[0].kind === "element" && s[0].name === "speak" ? s[0] : void 0, a = i ? so(t, i) : t;
+    const t = io(n.ssml), s = D(t).filter((r) => r.kind === "element" || r.text.trim() !== ""), i = s.length === 1 && s[0].kind === "element" && s[0].name === "speak" ? s[0] : void 0, a = i ? so(t, i) : t;
     e = a !== n.ssml ? new Yi({ plain: n.plain, ssml: a, language: n.language ?? i?.attrs.get("xml:lang") }) : n, qn.set(n, e);
   }
   return e;
@@ -4334,7 +4337,7 @@ const Ml = [
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
   epigraph: { drops: ["blockquote"] }
-}, Co = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"], Ro = ["biblioref", "glossref"], Io = ["audio", "video", "image", "figure", "math", "table", "cover"], Po = ["cell", "rowheader"], Ao = ["separator"], Oe = new Set(Co), xo = new Set(Io), ui = new Set(Po), Oo = new Set(Ao), Y = new Set(Ro);
+}, Co = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"], Ro = ["biblioref", "glossref"], Io = ["audio", "video", "image", "figure", "math", "table", "cover"], Po = ["cell", "rowheader"], Ao = ["separator"], Oe = new Set(Co), xo = new Set(Io), ui = new Set(Po), Oo = new Set(Ao), ee = new Set(Ro);
 function Lo(n, e) {
   const t = ia.createInstance();
   return t.init({
@@ -4409,7 +4412,7 @@ async function Uo(n, e) {
   };
 }
 function fi(n) {
-  const e = B(nn(n, (i) => i.name === "lang" && te(i) !== void 0)), t = [...he(e)].filter((i) => te(i) !== void 0);
+  const e = D(nn(n, (i) => i.name === "lang" && ne(i) !== void 0)), t = [...de(e)].filter((i) => ne(i) !== void 0);
   if (t.length === 0) return n;
   const s = (i) => t.includes(i) && i.name === "lang";
   for (const i of t) s(i) || Ts(i, "xml:lang", void 0);
@@ -4418,7 +4421,7 @@ function fi(n) {
 function gn(n, e) {
   return n === void 0 ? void 0 : ra(e, n) ?? n;
 }
-function J(n, e) {
+function Z(n, e) {
   return gn(e.language === "none" ? e.contentLanguage : n ?? e.contentLanguage, e.languageOverrides);
 }
 function fn(n, e) {
@@ -4461,10 +4464,10 @@ function wi(n, e) {
   }), n.length > 0 && s.push([i, n.length]), s;
 }
 function ki(n, e) {
-  const t = B(n);
+  const t = D(n);
   let s = !1;
-  for (const i of he(t)) {
-    const a = te(i), r = gn(a, e);
+  for (const i of de(t)) {
+    const a = ne(i), r = gn(a, e);
     r === void 0 || r === a || (Ts(i, "xml:lang", r), s = !0);
   }
   return s ? Se(t) : n;
@@ -4523,7 +4526,7 @@ function Ht(n, e, t, s) {
     i += Ye(r.slice(g)) + a + en(d.slice(g)) + u, a = "", r = [...d.slice(0, d.length - h.open.length), ...h.close];
   }), i + Ye(r) + a;
 }
-function ge(n) {
+function fe(n) {
   const e = St(Ue(n));
   return e ? e.plain ?? (e.ssml ? $(e.ssml) : "") : "";
 }
@@ -4531,7 +4534,7 @@ const Wn = (n) => n.replace(/\s+/g, " ").trim();
 function Ci(n) {
   const e = bt(n);
   if (!(e === void 0 || !U(n).includes("table")))
-    return n.children?.find((t) => U(t).includes("caption") && Wn(ge(t)) === Wn(e));
+    return n.children?.find((t) => U(t).includes("caption") && Wn(fe(t)) === Wn(e));
 }
 function Ri(n) {
   return !!n.children?.length || Ue(n)?.ssml !== void 0;
@@ -4551,7 +4554,7 @@ function Do(n) {
     e.set(a, r + 1);
     const o = a.children ?? [];
     if (s = Math.max(s, o.length), o.some((l) => l.role?.has("columnheader"))) {
-      i = o.map(ge);
+      i = o.map(fe);
       return;
     }
     i && o.forEach((l, c) => {
@@ -4561,27 +4564,27 @@ function Do(n) {
     });
   }), { lines: n.length, columns: s, rowNumbers: e, cellHeaders: t };
 }
-const Pi = -1, Ai = -2, oe = (n) => "map" in n;
+const Pi = -1, Ai = -2, le = (n) => "map" in n;
 function mn(n, e) {
-  return (n.spans ?? []).map((s) => oe(s) || s.length !== void 0 ? s : { ...s, length: H(n, e).length });
+  return (n.spans ?? []).map((s) => le(s) || s.length !== void 0 ? s : { ...s, length: H(n, e).length });
 }
-function fe(n, e) {
+function pe(n, e) {
   e.length > 0 && (n.spans = e);
 }
 function Fo(n, e, t, s) {
-  fe(n, [{ node: e, at: 0, alias: s, ...t }]);
+  pe(n, [{ node: e, at: 0, alias: s, ...t }]);
 }
 function _o(n, e, t, s) {
   const i = { node: e, ownText: t, at: s, map: Array.from({ length: t.length }, (a, r) => r) };
-  t !== ge(e) && (i.quotedOnly = !0), fe(n, [i]);
+  t !== fe(e) && (i.quotedOnly = !0), pe(n, [i]);
 }
-const $o = (n) => oe(n) ? n.map.length : n.length;
+const $o = (n) => le(n) ? n.map.length : n.length;
 function vn(n, e, t) {
   const s = [];
   for (const i of n) {
     const a = i.at + $o(i);
     if (a <= e || i.at >= t) continue;
-    if (!oe(i)) {
+    if (!le(i)) {
       s.push({ ...i, at: i.at - e });
       continue;
     }
@@ -4597,7 +4600,7 @@ function xi(n, e, t) {
 }
 const Qn = (n) => /\s/.test(n), Go = (n) => /[\p{Ps}\p{Pe}\p{Pi}\p{Pf}"']/u.test(n);
 function Oi(n) {
-  const e = ge(n);
+  const e = fe(n);
   let t = 0, s = [];
   const i = (a, r) => {
     const o = new Array(a.length);
@@ -4637,7 +4640,7 @@ function Oi(n) {
 function Jn(n) {
   let e = 1 / 0, t = -1;
   for (const s of n)
-    if (!(!s || !oe(s)))
+    if (!(!s || !le(s)))
       for (const i of s.map)
         i < 0 || (i < e && (e = i), i + 1 > t && (t = i + 1));
   return t === -1 ? void 0 : { start: e, end: t };
@@ -4646,7 +4649,7 @@ function Zn(n, e, t) {
   const s = Oi(e);
   for (const i of n) {
     const a = s.place(H(i, t));
-    a && fe(i, [a]);
+    a && pe(i, [a]);
   }
 }
 function qo(n) {
@@ -4666,25 +4669,25 @@ function Ho(n, e, t, s, i) {
 }
 function Ko(n, e) {
   const t = mn(n, e).flatMap((a) => {
-    const r = j(a.node, e.ancestorChains);
-    return r ? oe(a) ? qo(a).map((o) => ({ span: a, nodeRef: r, ...o })) : [{ span: a, nodeRef: r, start: a.start, end: a.end }] : [];
-  }), s = t.length === 1 ? t[0].span : void 0, i = !!s && oe(s) && s.at === 0 && s.map.length === H(n, e).length && !s.map.includes(Ai);
+    const r = B(a.node, e.ancestorChains);
+    return r ? le(a) ? qo(a).map((o) => ({ span: a, nodeRef: r, ...o })) : [{ span: a, nodeRef: r, start: a.start, end: a.end }] : [];
+  }), s = t.length === 1 ? t[0].span : void 0, i = !!s && le(s) && s.at === 0 && s.map.length === H(n, e).length && !s.map.includes(Ai);
   return t.map(({ span: a, nodeRef: r, start: o, end: l }) => {
-    if (!oe(a)) {
+    if (!le(a)) {
       const u = { start: o, end: l, locate: a.alias };
       return Xr(u, a.length), u;
     }
-    const c = ue(a.node) ? ke(a.node, e) : void 0;
+    const c = he(a.node) ? ke(a.node, e) : void 0;
     return { start: o, end: l, locate: c ?? Ho(a, o, l, r, i) };
   });
 }
-function ce(n, e) {
+function ue(n, e) {
   let t = 0;
   for (; t < n.length - 1 && n[t + 1].start <= e; ) t++;
   return t;
 }
 function ke(n, e) {
-  const t = na(n), s = j(n, e.ancestorChains)?.ref;
+  const t = na(n), s = B(n, e.ancestorChains)?.ref;
   if (t) {
     const i = { cssSelector: t };
     return s?.href !== void 0 && (i.href = s.href), _t(i);
@@ -4694,7 +4697,7 @@ function ke(n, e) {
 function Xn(n, e, t) {
   if (n.edgeLocates) return n.edgeLocates[e];
   const { source: s } = n;
-  if (!(!s || Array.isArray(s) || !ue(s)))
+  if (!(!s || Array.isArray(s) || !he(s)))
     return ke(s, t);
 }
 function Wo(n, e) {
@@ -4705,7 +4708,7 @@ function Wo(n, e) {
     if (!l || Array.isArray(l)) return;
     const c = H(o, e);
     if (c)
-      return ue(l) ? j(l, e.ancestorChains) && ke(l, e) : rt(j(l, e.ancestorChains), c);
+      return he(l) ? B(l, e.ancestorChains) && ke(l, e) : rt(B(l, e.ancestorChains), c);
   }), s = t.findIndex((o) => o !== void 0);
   if (s === -1) return;
   let i = t.length - 1;
@@ -4713,7 +4716,7 @@ function Wo(n, e) {
   if (s === i) return t[s];
   const a = n[s].source, r = n[i].source;
   if (a && r && !Array.isArray(a) && !Array.isArray(r)) {
-    const o = j(a, e.ancestorChains), l = j(r, e.ancestorChains);
+    const o = B(a, e.ancestorChains), l = B(r, e.ancestorChains);
     return bn(o, l, t[s]);
   }
   return t[s];
@@ -4724,7 +4727,7 @@ function yn(n, e) {
   const s = Si(t, e);
   if (s === null) return;
   const i = t.map((d) => H(d, e)), { joined: a, ranges: r } = je(i, t.map((d) => d.spacing)), o = e.format === "ssml" ? Ht(t, t.map((d) => bi(d, s, e)), i, r) : a, l = e.format === "ssml" ? { ssml: o } : { plain: o };
-  s && (l.language = s), n.some((d) => d.synthetic) && (l.synthetic = !0), fe(l, xi(t, r, e));
+  s && (l.language = s), n.some((d) => d.synthetic) && (l.synthetic = !0), pe(l, xi(t, r, e));
   const c = Wo(t, e);
   c && (l.locate = c);
   const u = Xn(t[0], "leading", e), h = Xn(t[t.length - 1], "trailing", e);
@@ -4733,13 +4736,13 @@ function yn(n, e) {
 function Sn(n, e, t, s, i) {
   if (t === "plain" && s !== "block-level" && s !== "none" && e.ssml && Zs(e.ssml)) {
     const o = dn(e.ssml, e.language).map((l) => {
-      const c = { plain: l.plain }, u = J(l.language, i);
+      const c = { plain: l.plain }, u = Z(l.language, i);
       return u && (c.language = u), c;
     });
     return Zn(o, n, i), o;
   }
-  const a = {}, r = J(e.language, i);
-  return r && (a.language = r), t === "ssml" ? a.ssml = e.ssml ? ki(e.ssml, i.languageOverrides) : le(e.plain ?? "") : a.plain = e.plain ?? $(e.ssml ?? ""), (s === "block-level" || s === "none") && a.ssml && (a.ssml = fi(a.ssml)), Zn([a], n, i), [a];
+  const a = {}, r = Z(e.language, i);
+  return r && (a.language = r), t === "ssml" ? a.ssml = e.ssml ? ki(e.ssml, i.languageOverrides) : ce(e.plain ?? "") : a.plain = e.plain ?? $(e.ssml ?? ""), (s === "block-level" || s === "none") && a.ssml && (a.ssml = fi(a.ssml)), Zn([a], n, i), [a];
 }
 function kt(n, e) {
   return e === "ssml" ? Ms(n) : n;
@@ -4753,7 +4756,7 @@ function Be(n, e) {
   const s = { cssSelector: t, text: { highlight: e } };
   return n.href !== void 0 && (s.href = n.href), s;
 }
-function j(n, e) {
+function B(n, e) {
   const t = An(n);
   if (t) return { own: !0, ref: t };
   for (const s of e.get(n) ?? []) {
@@ -4775,35 +4778,35 @@ function Qo(n, e) {
     if (i.length > 0 && (a.offsets = i), s.locate) return a;
     const { source: r } = s, o = s.plain ?? kt(s.ssml ?? "", "ssml");
     if (Array.isArray(r)) {
-      const [h, d] = r, g = j(h, t), m = j(d, t), S = bn(g, m, rt(g, o));
+      const [h, d] = r, g = B(h, t), p = B(d, t), S = bn(g, p, rt(g, o));
       return S ? { ...a, locate: S } : a;
     }
-    const l = r ? j(r, t) : void 0;
+    const l = r ? B(r, t) : void 0;
     if (!l) return a;
     if (s.synthetic) return { ...a, locate: l.ref };
     if (i.length === 1) return { ...a, locate: i[0].locate };
-    const c = r && ue(r) ? ke(r, e) : void 0, u = i.length > 0 ? Be(l.ref, o) : rt(l, o);
+    const c = r && he(r) ? ke(r, e) : void 0, u = i.length > 0 ? Be(l.ref, o) : rt(l, o);
     return { ...a, locate: c ?? u };
   });
 }
 function Li(n, e) {
-  const t = e.format === "ssml" ? { ssml: le(n) } : { plain: n };
+  const t = e.format === "ssml" ? { ssml: ce(n) } : { plain: n };
   return t.synthetic = !0, t;
 }
 function q(n, e) {
-  const t = Li(n, e), s = e.language === "none" ? J(void 0, e) : e.contextualizationLanguage;
+  const t = Li(n, e), s = e.language === "none" ? Z(void 0, e) : e.contextualizationLanguage;
   return s && (t.language = s), t;
 }
 function Kt(n, e, t) {
-  const s = Li(n, t), i = J(ii(e), t);
+  const s = Li(n, t), i = Z(ii(e), t);
   return i && (s.language = i), s;
 }
-function M(n, e, t) {
+function j(n, e, t) {
   for (const s of t) s.source = e;
   n.push(...t);
 }
 function wn(n, e, t, s) {
-  s ? (t.some((i) => i.blockStart) && (s.blockStart = !0), M(n, t[0]?.source ?? e, [s])) : n.push(...t);
+  s ? (t.some((i) => i.blockStart) && (s.blockStart = !0), j(n, t[0]?.source ?? e, [s])) : n.push(...t);
 }
 function kn(n, e, t, s) {
   for (const [i, a] of wi(s, e)) {
@@ -4811,7 +4814,7 @@ function kn(n, e, t, s) {
     o || r.forEach(pn), wn(n, t, r, o);
   }
 }
-function Z(n, e, t, s) {
+function X(n, e, t, s) {
   const i = t ? `${e}.${t}` : void 0;
   if (i && n.i18n.exists(i)) return n.i18n.t(i, s);
   if (n.i18n.exists(e)) return n.i18n.t(e, s);
@@ -4827,13 +4830,13 @@ function Vi(n, e, t) {
 }
 function Ne(n, e, t, s, i) {
   if (e === void 0 || e < 0) return;
-  const a = j(s, i.ancestorChains);
+  const a = B(s, i.ancestorChains);
   a && (_o(n, s, t, e), n.locate = a.own ? a.ref : Be(a.ref, t));
 }
 function Pt(n, e, t, s, i, a) {
   const r = a?.value;
-  if (r !== void 0 && r === ge(t)) {
-    const l = J(we(t.text)?.language, s);
+  if (r !== void 0 && r === fe(t)) {
+    const l = Z(we(t.text)?.language, s);
     l && (n.language = l), delete n.synthetic, Ne(n, es(s, e, a, "value"), r, t, s);
     return;
   }
@@ -4844,20 +4847,20 @@ function Yn(n, e, t, s, i, a, r) {
   if (!En(s, t)) return;
   if ((t.i18n.exists(`${s}.block.start`) || t.i18n.exists(`${s}.block.end`)) && t.contextualizationShapes[s] !== "inline") {
     const l = i === "before" ? `${s}.block.start` : `${s}.block.end`;
-    M(n, e, ts(l, a, r, e, s, t));
+    j(n, e, ts(l, a, r, e, s, t));
     return;
   }
-  i === "before" && M(n, e, ts(`${s}.inline`, a, r, e, s, t));
+  i === "before" && j(n, e, ts(`${s}.inline`, a, r, e, s, t));
 }
 const ot = "\0";
 function es(n, e, t, s) {
-  const i = Z(n, e.base, e.variantKey, { ...t, [s]: ot })?.indexOf(ot);
+  const i = X(n, e.base, e.variantKey, { ...t, [s]: ot })?.indexOf(ot);
   return i === void 0 || i === -1 ? void 0 : i;
 }
 function ts(n, e, t, s, i, a) {
-  const r = Z(a, n, e, t);
+  const r = X(a, n, e, t);
   if (!r) return [];
-  const o = t?.description, l = a.language !== "none" && o !== void 0 && o === bt(s) ? J(ii(s), a) : void 0, c = l ? Z(a, n, e, { ...t, description: ot })?.split(ot) : void 0;
+  const o = t?.description, l = a.language !== "none" && o !== void 0 && o === bt(s) ? Z(ii(s), a) : void 0, c = l ? X(a, n, e, { ...t, description: ot })?.split(ot) : void 0;
   if (!l || !c || c.length < 2) {
     const d = q(r, a);
     return Pt(d, { base: n, variantKey: e }, s, a, i, t), [d];
@@ -4866,7 +4869,7 @@ function ts(n, e, t, s, i, a) {
     const d = q(r, a);
     return d.language = l, Pt(d, { base: n, variantKey: e }, s, a, i, t), [d];
   }
-  const u = `<lang xml:lang="${Me(l)}">${le(o)}</lang>`, h = c.map((d) => le(d)).join(u);
+  const u = `<lang xml:lang="${Me(l)}">${ce(o)}</lang>`, h = c.map((d) => ce(d)).join(u);
   if (a.format === "ssml") {
     const d = q(r, a);
     return d.ssml = h, Pt(d, { base: n, variantKey: e }, s, a, i, t), [d];
@@ -4889,7 +4892,7 @@ function ss(n, e) {
   const t = e.tableCellHeaders.get(n);
   return {
     variantKey: t !== void 0 ? "withHeader" : "withoutHeader",
-    params: { header: t ?? "", value: ge(n) }
+    params: { header: t ?? "", value: fe(n) }
   };
 }
 const Zo = {
@@ -4944,7 +4947,7 @@ function ct(n, e, t) {
   const s = Ti(n, e);
   return [s, ...t.ancestorChains.get(s) ?? []].find((i) => lt(i, t));
 }
-function ne(n) {
+function se(n) {
   return n.placement?.kind === "alias";
 }
 async function Ui(n, e, t, s, i, a, r) {
@@ -4953,7 +4956,7 @@ async function Ui(n, e, t, s, i, a, r) {
 async function Ni(n, e, t, s, i) {
   const a = [], r = [];
   e.forEach((c, u) => {
-    const h = ne(n[u]) ? n[u].placement.abbreviation : c;
+    const h = se(n[u]) ? n[u].placement.abbreviation : c;
     h && (a.push(u), r.push(h));
   });
   const { joined: o, ranges: l } = je(r, a.map((c) => n[c].spacing));
@@ -4961,21 +4964,21 @@ async function Ni(n, e, t, s, i) {
 }
 function Wt({ boundaries: n, textRanges: e, included: t }, s, i, a, r) {
   const o = (u, h) => {
-    let d = ce(e, u);
+    let d = ue(e, u);
     h && d > 0 && u === e[d].start && d--;
-    const g = t[d], m = u - e[d].start, S = e[d].end - e[d].start;
-    if (m === 0 || m < S && !ne(s[g])) return a[g].start + m;
-    if (m > S && !h) return d + 1 < t.length ? a[t[d + 1]].start : i.length;
+    const g = t[d], p = u - e[d].start, S = e[d].end - e[d].start;
+    if (p === 0 || p < S && !se(s[g])) return a[g].start + p;
+    if (p > S && !h) return d + 1 < t.length ? a[t[d + 1]].start : i.length;
     let f = g;
     for (; f + 1 < s.length && !t.includes(f + 1); ) f++;
     return a[f].end;
   }, l = (u) => {
-    const h = ce(e, u), d = u - e[h].start;
-    return ne(s[t[h]]) && d > 0 && d < e[h].end - e[h].start;
+    const h = ue(e, u), d = u - e[h].start;
+    return se(s[t[h]]) && d > 0 && d < e[h].end - e[h].start;
   }, c = [];
   for (const u of n) {
-    const h = o(u.start, !1), d = Math.max(h, o(u.contentEnd, !0)), g = Math.max(d, o(u.end, !1)), m = c[c.length - 1];
-    m && l(u.start) ? (m.contentEnd = Math.max(m.contentEnd, d), m.end = Math.max(m.end, g), m.text = i.slice(m.start, m.contentEnd)) : c.push({ text: i.slice(h, d), start: h, end: g, contentEnd: d });
+    const h = o(u.start, !1), d = Math.max(h, o(u.contentEnd, !0)), g = Math.max(d, o(u.end, !1)), p = c[c.length - 1];
+    p && l(u.start) ? (p.contentEnd = Math.max(p.contentEnd, d), p.end = Math.max(p.end, g), p.text = i.slice(p.start, p.contentEnd)) : c.push({ text: i.slice(h, d), start: h, end: g, contentEnd: d });
   }
   return c;
 }
@@ -4986,7 +4989,7 @@ function sl(n) {
 function Cn(n, e, t, s, i) {
   let a = !1;
   return n.forEach((r, o) => {
-    if (!ne(r)) return;
+    if (!se(r)) return;
     const l = r.placement.abbreviation?.match(Qt)?.[0];
     if (!l) return;
     const { start: c, end: u } = t[o];
@@ -5008,8 +5011,8 @@ async function al(n, e) {
     }
     let a = s;
     for (; a + 1 < n.length && n[a + 1].placement?.node === i; ) a++;
-    const r = n.slice(s, a + 1), o = mi(r, e), l = (o === null ? r[0].language : o) ?? "en", c = ct(i, "trailing", e), u = a + 1 < n.length && c && ct(n[a + 1].source, "leading", e) === c ? [...r, n[a + 1]] : r, h = u.map((S) => H(S, e)), { joined: d, ranges: g } = je(h, u.map((S) => S.spacing)), m = await Ui(u, h, d, g, l, wt(l, e), e);
-    Cn(r, d, g, m), kn(t, e, i, r), s = a + 1;
+    const r = n.slice(s, a + 1), o = mi(r, e), l = (o === null ? r[0].language : o) ?? "en", c = ct(i, "trailing", e), u = a + 1 < n.length && c && ct(n[a + 1].source, "leading", e) === c ? [...r, n[a + 1]] : r, h = u.map((S) => H(S, e)), { joined: d, ranges: g } = je(h, u.map((S) => S.spacing)), p = await Ui(u, h, d, g, l, wt(l, e), e);
+    Cn(r, d, g, p), kn(t, e, i, r), s = a + 1;
   }
   return t;
 }
@@ -5025,7 +5028,7 @@ function rl(n, e) {
   if (!t) return [];
   const s = t.plain ?? $(t.ssml ?? "");
   if (el(s)) {
-    const i = Z(e, "pagebreak.number", void 0, { number: s.trim() });
+    const i = X(e, "pagebreak.number", void 0, { number: s.trim() });
     if (i !== void 0) return [q(i, e)];
   }
   return Sn(n, t, e.format, e.language, e);
@@ -5036,7 +5039,7 @@ function ls(n) {
 function ol(n, e) {
   const t = rl(n, e);
   if (!e.contextualize.has("pagebreak")) return t;
-  const s = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", i = Z(e, s);
+  const s = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", i = X(e, s);
   if (i === void 0) return t;
   const a = q(i, e);
   if (t.length === 0) return [a];
@@ -5058,17 +5061,17 @@ function zi(n) {
 }
 function Mi(n, e, t, s, i, a) {
   if (e.length === 0) return;
-  const r = U(n).find((f) => Y.has(f)), o = e.length > 1 ? e.find(In) : void 0, l = e.filter((f) => f !== o), c = r && s.contextualize.has(r) ? Z(s, `${r}.inline`) : void 0, u = r && a && o ? Z(s, `${r}.term`, void 0, { term: xt, value: He }) : void 0, h = a ? e : l;
+  const r = U(n).find((f) => ee.has(f)), o = e.length > 1 ? e.find(In) : void 0, l = e.filter((f) => f !== o), c = r && s.contextualize.has(r) ? X(s, `${r}.inline`) : void 0, u = r && a && o ? X(s, `${r}.term`, void 0, { term: xt, value: He }) : void 0, h = a ? e : l;
   if (c === void 0 && !u) {
-    ee(h, t, s, i);
+    te(h, t, s, i);
     return;
   }
   const d = lt(h[0], s) && !i, g = [];
-  c !== void 0 && M(g, n, [q(c, s)]);
-  const m = i || d, S = [...h, ...o ? zi(o) : []];
+  c !== void 0 && j(g, n, [q(c, s)]);
+  const p = i || d, S = [...h, ...o ? zi(o) : []];
   S.forEach((f) => Jt.add(f));
   for (const f of (u ?? He).split(new RegExp(`(${xt}|${He})`)))
-    f === xt ? ee([o], g, s, m) : f === He ? ee(l, g, s, m) : f && M(g, n, [q(f, s)]);
+    f === xt ? te([o], g, s, p) : f === He ? te(l, g, s, p) : f && j(g, n, [q(f, s)]);
   S.forEach((f) => Jt.delete(f)), d && g.length > 0 && (g[0].blockStart = !0), kn(t, s, n, g);
 }
 function ji(n, e, t, s) {
@@ -5082,7 +5085,7 @@ function Qe(n, e) {
   return t !== void 0 && t !== "inline";
 }
 function cl(n, e, t, s, i) {
-  const a = j(s, i.ancestorChains);
+  const a = B(s, i.ancestorChains);
   if (!a) return;
   const r = _t(Be(a.ref, e));
   i.aliasLocates.add(r);
@@ -5090,54 +5093,54 @@ function cl(n, e, t, s, i) {
     o.locate = r, Fo(o, s, t, r), o.edgeLocates = { leading: r, trailing: r };
 }
 function ul(n, e, t, s, i, a) {
-  const r = we(n.text)?.language, o = J(r, s), l = new Map((n.children ?? []).map((p) => [p.id, p])), c = [], u = [], h = /* @__PURE__ */ new Set(), d = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Map(), m = /* @__PURE__ */ new Set(), S = s.segmentation === "sentence", f = s.interruptions.abbreviation === "never", k = s.interruptions.abbreviation === "inline", b = Oi(n);
-  let A;
-  const y = (p, C) => {
-    if (p.abbreviation === "alias") return;
-    const T = c.slice(C).map((N) => {
-      const x = b.place(H(N, s));
-      return x && fe(N, [x]), x;
+  const r = we(n.text)?.language, o = Z(r, s), l = new Map((n.children ?? []).map((m) => [m.id, m])), c = [], u = [], h = /* @__PURE__ */ new Set(), d = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Map(), p = /* @__PURE__ */ new Set(), S = s.segmentation === "sentence", f = s.interruptions.abbreviation === "never", E = s.interruptions.abbreviation === "inline", b = Oi(n);
+  let R;
+  const y = (m, C) => {
+    if (m.abbreviation === "alias") return;
+    const T = c.slice(C).map((M) => {
+      const x = b.place(H(M, s));
+      return x && pe(M, [x]), x;
     });
-    p.abbreviation === "text" && (A = Jn(T));
-  }, v = (p, C) => {
-    if (p.abbreviation !== "alias") return;
-    const T = c.slice(C), N = $(p.abbreviationText), x = k ? Jn([b.place(N)]) : A;
-    x && cl(T, N, x, n, s);
-    const L = k ? N : void 0;
-    T.forEach((R, Fe) => g.set(R, Fe === 0 ? L : void 0));
-  }, E = (p, C) => {
-    const T = !k && g.has(c[C - 1]);
-    p.touchesPrevious && C > 0 && c.length > C && !T && (c[C].spacing = "touching");
-  }, w = (p) => {
-    p.spacing !== "touching" && (p.spacing = "spaced");
-  }, I = /* @__PURE__ */ new Map();
-  for (const { placeholderId: p } of Ft(e)) {
-    const C = p === void 0 ? void 0 : l.get(p);
-    if (!C || Qe(C, s) || !U(C).some((N) => Oe.has(N))) continue;
+    m.abbreviation === "text" && (R = Jn(T));
+  }, v = (m, C) => {
+    if (m.abbreviation !== "alias") return;
+    const T = c.slice(C), M = $(m.abbreviationText), x = E ? Jn([b.place(M)]) : R;
+    x && cl(T, M, x, n, s);
+    const L = E ? M : void 0;
+    T.forEach((I, Fe) => g.set(I, Fe === 0 ? L : void 0));
+  }, k = (m, C) => {
+    const T = !E && g.has(c[C - 1]);
+    m.touchesPrevious && C > 0 && c.length > C && !T && (c[C].spacing = "touching");
+  }, w = (m) => {
+    m.spacing !== "touching" && (m.spacing = "spaced");
+  }, P = /* @__PURE__ */ new Map();
+  for (const { placeholderId: m } of Ft(e)) {
+    const C = m === void 0 ? void 0 : l.get(m);
+    if (!C || Qe(C, s) || !U(C).some((M) => Oe.has(M))) continue;
     const T = [];
-    ze(C, T, s, i), I.set(p, T);
+    ze(C, T, s, i), P.set(m, T);
   }
-  const z = (p) => {
-    const C = l.get(p);
-    return I.get(p)?.length === 0 ? !0 : C !== void 0 && Qe(C, s) && !U(C).some((T) => Y.has(T));
+  const N = (m) => {
+    const C = l.get(m);
+    return P.get(m)?.length === 0 ? !0 : C !== void 0 && Qe(C, s) && !U(C).some((T) => ee.has(T));
   };
-  let D;
-  const pe = (p) => {
-    const C = c[p];
-    !D || !C || (D.spaceAcross ? w(C) : D.touching && (C.spacing = "touching"), D = void 0);
-  }, Ee = Ys(e, z, r), { spaced: X } = Ee;
-  let K = Ee.ssml;
-  s.format === "ssml" && (K = ki(K, s.languageOverrides), (s.language === "block-level" || s.language === "none") && (K = fi(K)));
-  const Pn = Qr(K, r);
-  for (let p of Ft(K)) {
-    if (p.abbreviation && (p.abbreviation === "text" ? k : f)) continue;
-    if (p.abbreviation === "alias" && !k && (p = { ...p, ssml: p.parenthesizedSsml, touchesPrevious: !1 }), p.placeholderId !== void 0) {
-      const x = l.get(p.placeholderId);
+  let z;
+  const K = (m) => {
+    const C = c[m];
+    !z || !C || (z.spaceAcross ? w(C) : z.touching && (C.spacing = "touching"), z = void 0);
+  }, Ee = Ys(e, N, r), { spaced: Y } = Ee;
+  let W = Ee.ssml;
+  s.format === "ssml" && (W = ki(W, s.languageOverrides), (s.language === "block-level" || s.language === "none") && (W = fi(W)));
+  const Pn = Qr(W, r);
+  for (let m of Ft(W)) {
+    if (m.abbreviation && (m.abbreviation === "text" ? E : f)) continue;
+    if (m.abbreviation === "alias" && !E && (m = { ...m, ssml: m.parenthesizedSsml, touchesPrevious: !1 }), m.placeholderId !== void 0) {
+      const x = l.get(m.placeholderId);
       if (!x) continue;
-      if (U(x).some((L) => Oe.has(L) && !Y.has(L)) || b.embed(ge(x)), z(p.placeholderId) ? D = { spaceAcross: X.has(p.placeholderId) } : D = void 0, Qe(x, s)) {
-        const L = U(x), R = L.some((_e) => Y.has(_e));
-        R && M(c, x, ll(x, s));
-        const Fe = R ? Rn(L, s) === "never" || !x.children?.length ? [] : [{ ref: x, targets: x.children }] : [{ node: x }];
+      if (U(x).some((L) => Oe.has(L) && !ee.has(L)) || b.embed(fe(x)), N(m.placeholderId) ? z = { spaceAcross: Y.has(m.placeholderId) } : z = void 0, Qe(x, s)) {
+        const L = U(x), I = L.some((_e) => ee.has(_e));
+        I && j(c, x, ll(x, s));
+        const Fe = I ? Rn(L, s) === "never" || !x.children?.length ? [] : [{ ref: x, targets: x.children }] : [{ node: x }];
         for (const _e of Fe)
           if (u.push(_e), S) {
             const qi = c.length;
@@ -5145,114 +5148,114 @@ function ul(n, e, t, s, i, a) {
           }
       } else {
         const L = c.length;
-        if (U(x).some((R) => Oe.has(R))) {
-          if (c.push(...I.get(p.placeholderId).map((R) => ({ ...R, tags: R.tags && { ...R.tags } }))), c.slice(L).forEach((R) => h.add(R)), p.language && c.slice(L).forEach((R) => R.enclosingLanguage = p.language), Kn(c.slice(L), p.open), c.length > L) {
-            const R = Pn.has(p.placeholderId);
-            /\s$/.test(p.textBefore) || !R && new RegExp("\\S\\p{Pi}$", "u").test(p.textBefore) ? w(c[L]) : R && (c[L].spacing = "touching"), D = { spaceAcross: /^\s/.test(p.textAfter) && Jr(p.textAfter.trimStart(), r), touching: R };
+        if (U(x).some((I) => Oe.has(I))) {
+          if (c.push(...P.get(m.placeholderId).map((I) => ({ ...I, tags: I.tags && { ...I.tags } }))), c.slice(L).forEach((I) => h.add(I)), m.language && c.slice(L).forEach((I) => I.enclosingLanguage = m.language), Kn(c.slice(L), m.open), c.length > L) {
+            const I = Pn.has(m.placeholderId);
+            /\s$/.test(m.textBefore) || !I && new RegExp("\\S\\p{Pi}$", "u").test(m.textBefore) ? w(c[L]) : I && (c[L].spacing = "touching"), z = { spaceAcross: /^\s/.test(m.textAfter) && Jr(m.textAfter.trimStart(), r), touching: I };
           }
         } else
-          ze(x, c, s, i, u), Kn(c.slice(L), p.open), c.slice(L).forEach((R) => R.placement && m.add(R)), c.length > L && (/\s$/.test(p.textBefore) && w(c[L]), D = { spaceAcross: /^\s/.test(p.textAfter) });
+          ze(x, c, s, i, u), Kn(c.slice(L), m.open), c.slice(L).forEach((I) => I.placement && p.add(I)), c.length > L && (/\s$/.test(m.textBefore) && w(c[L]), z = { spaceAcross: /^\s/.test(m.textAfter) });
       }
       continue;
     }
-    if (!p.ssml) continue;
-    const C = c.length, T = en(p.open ?? []) + p.ssml + Ye(p.close ?? []);
+    if (!m.ssml) continue;
+    const C = c.length, T = en(m.open ?? []) + m.ssml + Ye(m.close ?? []);
     if (s.format === "plain" && s.language !== "block-level" && s.language !== "none" && Zs(T)) {
       for (const x of dn(T, r)) {
-        const L = { plain: x.plain }, R = J(x.language, s);
-        R && (L.language = R), M(c, n, [L]);
+        const L = { plain: x.plain }, I = Z(x.language, s);
+        I && (L.language = I), j(c, n, [L]);
       }
-      y(p, C), pe(C), v(p, C), E(p, C);
+      y(m, C), K(C), v(m, C), k(m, C);
       continue;
     }
-    const N = {};
-    o && (N.language = o), s.format === "ssml" ? (N.ssml = p.ssml, (p.open?.length || p.close?.length) && (N.tags = { open: p.open, close: p.close, around: [] })) : N.plain = $(T), M(c, n, [N]), y(p, C), pe(C), v(p, C), E(p, C);
+    const M = {};
+    o && (M.language = o), s.format === "ssml" ? (M.ssml = m.ssml, (m.open?.length || m.close?.length) && (M.tags = { open: m.open, close: m.close, around: [] })) : M.plain = $(T), j(c, n, [M]), y(m, C), K(C), v(m, C), k(m, C);
   }
-  const Ce = !S && (m.size > 0 || c.some((p) => sl(g.get(p) ?? "")));
-  return S && u.length + h.size + g.size + m.size > 0 || Ce ? (c.forEach((p) => {
-    const C = h.has(p) ? { kind: "inline" } : d.has(p) ? { kind: "after" } : g.has(p) ? { kind: "alias", abbreviation: g.get(p) } : m.has(p) ? p.placement : void 0;
-    p.placement = { ...C, node: n };
+  const Ce = !S && (p.size > 0 || c.some((m) => sl(g.get(m) ?? "")));
+  return S && u.length + h.size + g.size + p.size > 0 || Ce ? (c.forEach((m) => {
+    const C = h.has(m) ? { kind: "inline" } : d.has(m) ? { kind: "after" } : g.has(m) ? { kind: "alias", abbreviation: g.get(m) } : p.has(m) ? m.placement : void 0;
+    m.placement = { ...C, node: n };
   }), wn(t, n, c, void 0), S ? [] : u) : (kn(t, s, n, c), u);
 }
 function ze(n, e, t, s, i, a = !1) {
-  const r = U(n), o = Ii(n), l = Rn(r, t) === "never", c = l && r.some((f) => Y.has(f));
+  const r = U(n), o = Ii(n), l = Rn(r, t) === "never", c = l && r.some((f) => ee.has(f));
   if (os(r, t) || l && !c) return;
   const u = lt(n, t), h = u && !s, d = e.length, g = Jt.has(n) ? [] : r.filter(
-    (f) => f !== "footnote" && f !== "pagebreak" && !Y.has(f) && !Vi(f, r, t)
-  ), m = r.some((f) => xo.has(f) && t.contextualize.has(f)), S = r.includes("table") && o !== void 0 && !m;
+    (f) => f !== "footnote" && f !== "pagebreak" && !ee.has(f) && !Vi(f, r, t)
+  ), p = r.some((f) => xo.has(f) && t.contextualize.has(f)), S = r.includes("table") && o !== void 0 && !p;
   if (S) {
     const f = Kt(o, n, t);
-    Ne(f, 0, o, n, t), M(e, n, [f]);
+    Ne(f, 0, o, n, t), j(e, n, [f]);
   }
   for (const f of g) {
-    const { variantKey: k, params: b } = is(f, n, t);
-    Yn(e, n, t, f, "before", k, b);
+    const { variantKey: E, params: b } = is(f, n, t);
+    Yn(e, n, t, f, "before", E, b);
   }
   if (r.includes("noteref"))
     for (const f of n.children ?? []) {
-      const k = U(f);
-      if (!os(k, t))
-        if (k.includes("footnote")) {
-          const b = t.contextualize.has("footnote"), A = t.i18n.exists("footnote.block.start") || t.i18n.exists("footnote.block.end"), y = lt(f, t) && !s && t.interruptions.noteref !== "inline", v = b ? Z(t, A ? "footnote.block.start" : "footnote.inline") : void 0, E = b && (v !== void 0 || A), w = [];
-          v !== void 0 && M(w, f, [q(v, t)]);
-          const I = [];
-          if (ee([f], I, t, s || y), y && I.length > 0 && (I[0].blockStart = !0), w.push(...I), E && A) {
-            const D = Z(t, "footnote.block.end");
-            D !== void 0 && M(w, f, [q(D, t)]);
+      const E = U(f);
+      if (!os(E, t))
+        if (E.includes("footnote")) {
+          const b = t.contextualize.has("footnote"), R = t.i18n.exists("footnote.block.start") || t.i18n.exists("footnote.block.end"), y = lt(f, t) && !s && t.interruptions.noteref !== "inline", v = b ? X(t, R ? "footnote.block.start" : "footnote.inline") : void 0, k = b && (v !== void 0 || R), w = [];
+          v !== void 0 && j(w, f, [q(v, t)]);
+          const P = [];
+          if (te([f], P, t, s || y), y && P.length > 0 && (P[0].blockStart = !0), w.push(...P), k && R) {
+            const z = X(t, "footnote.block.end");
+            z !== void 0 && j(w, f, [q(z, t)]);
           }
-          const z = E && w.length > 1 ? yn(w, t) : void 0;
-          wn(e, f, w, z);
+          const N = k && w.length > 1 ? yn(w, t) : void 0;
+          wn(e, f, w, N);
         } else
-          ee([f], e, t, s);
+          te([f], e, t, s);
     }
   else if (!r.some((f) => Oo.has(f))) {
-    const f = Ue(n)?.ssml, k = a || r.some((b) => ui.has(b) && En(b, t));
-    if (f && _n(f) && !k) {
+    const f = Ue(n)?.ssml, E = a || r.some((b) => ui.has(b) && En(b, t));
+    if (f && _n(f) && !E) {
       const b = ul(n, f, e, t, s, u);
       if (i)
         i.push(...b);
       else if (b.length > 0) {
-        const A = s || u && e.length > d;
-        ji(b, e, t, A);
+        const R = s || u && e.length > d;
+        ji(b, e, t, R);
       }
     } else if (r.includes("pagebreak")) {
-      if (M(e, n, ol(n, t)), n.children) {
+      if (j(e, n, ol(n, t)), n.children) {
         const b = s || u && e.length > d;
-        ee(n.children, e, t, b);
+        te(n.children, e, t, b);
       }
     } else {
-      const b = k ? void 0 : St(Ue(n));
-      if (b && M(e, n, Sn(n, b, t.format, t.language, t)), n.children && !c) {
-        const A = s || u && e.length > d;
-        if (r.some((y) => Y.has(y)))
-          Mi(n, n.children, e, t, A, Qe(n, t));
-        else if (k && f && _n(f)) {
+      const b = E ? void 0 : St(Ue(n));
+      if (b && j(e, n, Sn(n, b, t.format, t.language, t)), n.children && !c) {
+        const R = s || u && e.length > d;
+        if (r.some((y) => ee.has(y)))
+          Mi(n, n.children, e, t, R, Qe(n, t));
+        else if (E && f && _n(f)) {
           const y = new Set(Ft(f).flatMap((v) => v.placeholderId ?? []));
-          n.children.forEach((v, E) => {
-            const w = U(v), I = v.id !== void 0 && y.has(v.id) && (w.length === 0 || w.some((z) => Y.has(z)));
-            ze(v, e, t, E === 0 ? A : !1, void 0, I);
+          n.children.forEach((v, k) => {
+            const w = U(v), P = v.id !== void 0 && y.has(v.id) && (w.length === 0 || w.some((N) => ee.has(N)));
+            ze(v, e, t, k === 0 ? R : !1, void 0, P);
           });
         } else {
           const y = Bo(n);
-          ee(y ? n.children.filter((v) => v !== y) : n.children, e, t, A);
+          te(y ? n.children.filter((v) => v !== y) : n.children, e, t, R);
         }
       }
     }
   }
-  if (h && e.length > d && (e[d].blockStart = !0), o !== void 0 && !m && !S) {
+  if (h && e.length > d && (e[d].blockStart = !0), o !== void 0 && !p && !S) {
     const f = Kt(o, n, t);
-    r.includes("figure") && Ne(f, 0, o, n, t), M(e, n, [f]);
+    r.includes("figure") && Ne(f, 0, o, n, t), j(e, n, [f]);
   }
   for (const f of g) {
-    const { variantKey: k, params: b } = is(f, n, t);
-    Yn(e, n, t, f, "after", k, b);
+    const { variantKey: E, params: b } = is(f, n, t);
+    Yn(e, n, t, f, "after", E, b);
   }
 }
-function ee(n, e, t, s) {
+function te(n, e, t, s) {
   n.forEach((i, a) => ze(i, e, t, a === 0 ? s : !1));
 }
 async function Bi(n, e, t, s) {
-  const { plain: i, pieces: a } = de(n);
+  const { plain: i, pieces: a } = ge(n);
   if (!i) return;
   const r = Di(i, a, await t(e, i, s));
   if (r.length <= 1) return;
@@ -5267,9 +5270,9 @@ async function Bi(n, e, t, s) {
     let d = h.start;
     const g = h.start + h.text.length;
     for (; d < g; ) {
-      const m = r[c], S = Math.min(g, m.end), f = S >= m.end && c < r.length - 1;
-      let k = h.text.slice(d - h.start, S - h.start);
-      f && (k = k.replace(/[ \t\r\n]+$/, "")), l.text(h.chain, k), d = S, f && (o.push(l.flush()), c++);
+      const p = r[c], S = Math.min(g, p.end), f = S >= p.end && c < r.length - 1;
+      let E = h.text.slice(d - h.start, S - h.start);
+      f && (E = E.replace(/[ \t\r\n]+$/, "")), l.text(h.chain, E), d = S, f && (o.push(l.flush()), c++);
     }
   }
   const u = l.flush().replace(/[ \t\r\n]+$/, "");
@@ -5287,7 +5290,7 @@ function Di(n, e, t) {
   return s.size ? oi(n, t, (i, a) => [...s.values()].some((r) => r.start < i.contentEnd && r.end > a.start)) : t;
 }
 function Fi(n, e) {
-  const { plain: t, pieces: s } = de(n);
+  const { plain: t, pieces: s } = ge(n);
   return Di(t, s, e);
 }
 async function hl(n, e) {
@@ -5329,7 +5332,7 @@ function ds(n, e, t) {
   const s = n.edgeLocates?.[e];
   if (s && !t.aliasLocates.has(s)) return !0;
   const { source: i } = n;
-  return !!i && !Array.isArray(i) && ue(i);
+  return !!i && !Array.isArray(i) && he(i);
 }
 function De(n) {
   return n.placement?.kind === "inline";
@@ -5354,26 +5357,26 @@ function fl(n, e, t) {
 }
 async function gs(n, e, t) {
   pn(n);
-  const s = n.synthetic || ne(n) ? void 0 : await hl(n, e);
+  const s = n.synthetic || se(n) ? void 0 : await hl(n, e);
   if (!s) {
-    ne(n) && il(n, e), t.push(n);
+    se(n) && il(n, e), t.push(n);
     return;
   }
-  const { source: i } = n, a = Array.isArray(i) ? void 0 : i, r = a ? j(a, e.ancestorChains) : void 0, o = a && ue(a) ? ke(a, e) : void 0, l = n.edgeLocates, c = mn(n, e);
+  const { source: i } = n, a = Array.isArray(i) ? void 0 : i, r = a ? B(a, e.ancestorChains) : void 0, o = a && he(a) ? ke(a, e) : void 0, l = n.edgeLocates, c = mn(n, e);
   s.forEach(({ text: u, start: h, end: d }, g) => {
-    const m = { [e.format]: u, source: i };
-    n.language !== void 0 && (m.language = n.language), n.locate && !r && (m.locate = n.locate), fe(m, vn(c, h, d));
+    const p = { [e.format]: u, source: i };
+    n.language !== void 0 && (p.language = n.language), n.locate && !r && (p.locate = n.locate), pe(p, vn(c, h, d));
     const S = (g === 0 ? l?.leading : void 0) ?? (g === s.length - 1 ? l?.trailing : void 0) ?? o;
-    S && r && (m.locate = S), n.blockStart && g === 0 && (m.blockStart = !0), t.push(m);
+    S && r && (p.locate = S), n.blockStart && g === 0 && (p.blockStart = !0), t.push(p);
   });
 }
 async function pl(n, e, t, s, i, a, r) {
-  return n.some(ne) ? Ui(n, e, t, s, i, a, r) : r.segmenter(i, t, a);
+  return n.some(se) ? Ui(n, e, t, s, i, a, r) : r.segmenter(i, t, a);
 }
 async function ml(n, e, t, s) {
   const i = n.map((c) => H(c, e)), { joined: a, ranges: r } = je(i, n.map((c) => c.spacing)), o = await pl(n, i, a, r, t, s, e), l = new Array(n.length - 1).fill(!1);
   for (const c of o) {
-    const u = ce(r, c.start), h = c.end > c.start ? ce(r, c.end - 1) : u;
+    const u = ue(r, c.start), h = c.end > c.start ? ue(r, c.end - 1) : u;
     for (let d = u; d < h; d++) l[d] = !0;
   }
   return l;
@@ -5387,7 +5390,7 @@ function vl(n, e) {
   }), t;
 }
 function yl(n, e, t, s) {
-  const i = (a) => De(t[ce(s, a)]);
+  const i = (a) => De(t[ue(s, a)]);
   return oi(n, e, (a, r) => i(a.contentEnd - 1) || i(r.start));
 }
 function Sl(n, e, t, s, i, a) {
@@ -5399,46 +5402,46 @@ function $i(n, e) {
   return t !== null ? t ?? "en" : n.find((s) => !De(s))?.language ?? n[0].language ?? "en";
 }
 function bl(n, e, t, s, i) {
-  const a = ce(t, n.start), r = n.end > n.start ? ce(t, n.end - 1) : a, o = wi(e.slice(a, r + 1), i);
+  const a = ue(t, n.start), r = n.end > n.start ? ue(t, n.end - 1) : a, o = wi(e.slice(a, r + 1), i);
   return o.map(([l, c], u) => {
-    const h = a + l, d = a + c - 1, g = u === o.length - 1, m = u === 0 ? n.start : t[h].start, S = g ? n.contentEnd : t[d].end, f = g ? n.end : t[d + 1].start, k = Si(e.slice(h, d + 1), i) ?? void 0, b = { text: s.slice(m, S), start: m, end: f, contentEnd: S }, A = o.length > 1 && h === d && De(e[h]);
-    return { boundary: b, startIdx: h, endIdx: d, language: k, sentenceEnd: g ? n.end : void 0, isolated: A };
+    const h = a + l, d = a + c - 1, g = u === o.length - 1, p = u === 0 ? n.start : t[h].start, S = g ? n.contentEnd : t[d].end, f = g ? n.end : t[d + 1].start, E = Si(e.slice(h, d + 1), i) ?? void 0, b = { text: s.slice(p, S), start: p, end: f, contentEnd: S }, R = o.length > 1 && h === d && De(e[h]);
+    return { boundary: b, startIdx: h, endIdx: d, language: E, sentenceEnd: g ? n.end : void 0, isolated: R };
   });
 }
 async function wl(n, e, t, s) {
   const i = n.map((v) => v.source), a = n.map((v) => v.spacing), r = $i(n, e), o = wt(r, e), l = () => {
-    const v = n.map((E) => H(E, e));
+    const v = n.map((k) => H(k, e));
     return { plainParts: v, ...je(v, a) };
   };
   let { plainParts: c, joined: u, ranges: h } = l(), d;
-  if (!n.some(ne)) d = await e.segmenter(r, u, o);
+  if (!n.some(se)) d = await e.segmenter(r, u, o);
   else {
     const v = await Ni(n, c, r, o, e);
     d = Wt(v, n, u, h), Cn(n, u, h, d) && ({ plainParts: c, joined: u, ranges: h } = l(), d = Wt(v, n, u, h));
   }
-  const g = yl(u, d, n, h), m = e.format === "ssml" ? Fi(Ht(n, n.map((v) => v.ssml ?? ""), c, h), g) : g, f = (m.length > 0 ? m : [{ text: u, start: 0, end: u.length, contentEnd: u.length }]).flatMap((v) => bl(v, n, h, u, e));
-  let k, b;
+  const g = yl(u, d, n, h), p = e.format === "ssml" ? Fi(Ht(n, n.map((v) => v.ssml ?? ""), c, h), g) : g, f = (p.length > 0 ? p : [{ text: u, start: 0, end: u.length, contentEnd: u.length }]).flatMap((v) => bl(v, n, h, u, e));
+  let E, b;
   if (e.format === "ssml") {
     const v = /* @__PURE__ */ new Map();
-    for (const w of f) for (let I = w.startIdx; I <= w.endIdx; I++) v.set(I, w.language);
-    b = Ht(n, n.map((w, I) => bi(w, v.get(I), e)), c, h);
-    const E = f.map((w) => w.boundary);
-    k = f.length > 1 ? await Bi(b, r, async () => E, o) : void 0;
+    for (const w of f) for (let P = w.startIdx; P <= w.endIdx; P++) v.set(P, w.language);
+    b = Ht(n, n.map((w, P) => bi(w, v.get(P), e)), c, h);
+    const k = f.map((w) => w.boundary);
+    E = f.length > 1 ? await Bi(b, r, async () => k, o) : void 0;
   }
-  const A = new Set(n.filter((v) => v.blockStart)), y = (v, E) => {
+  const R = new Set(n.filter((v) => v.blockStart)), y = (v, k) => {
     if (v !== void 0)
       for (let w = 0; w < n.length; w++)
-        (h[w].end <= v || E === f.length - 1) && _i(s, w, t);
+        (h[w].end <= v || k === f.length - 1) && _i(s, w, t);
   };
-  f.forEach(({ boundary: v, startIdx: E, endIdx: w, language: I, sentenceEnd: z, isolated: D }, pe) => {
-    if (D) {
-      pn(n[E]), t.push(n[E]), y(z, pe);
+  f.forEach(({ boundary: v, startIdx: k, endIdx: w, language: P, sentenceEnd: N, isolated: z }, K) => {
+    if (z) {
+      pn(n[k]), t.push(n[k]), y(N, K);
       return;
     }
-    const Ee = e.format === "ssml" ? k ? k[pe] : b : v.text, X = { [e.format]: Ee }, K = e.language === "none" ? J(void 0, e) : I ?? "en";
-    K && (X.language = K), n.slice(E, w + 1).filter((R) => A.delete(R)).length > 0 && (X.blockStart = !0), fe(X, Sl(n, h, v, E, w, e));
-    const Ce = [...Array(w - E + 1).keys()].map((R) => E + R).filter((R) => !De(n[R])), p = Ce[0] ?? E, C = Ce[Ce.length - 1] ?? w, T = j(i[p], e.ancestorChains), N = i[p], x = (ue(N) ? ke(N, e) : void 0) ?? rt(T, kt(Ee, e.format)), L = p !== C ? bn(T, j(i[C], e.ancestorChains), x) : x;
-    L && (X.locate = L), X.source = p === C ? i[p] : [i[p], i[C]], t.push(X), y(z, pe);
+    const Ee = e.format === "ssml" ? E ? E[K] : b : v.text, Y = { [e.format]: Ee }, W = e.language === "none" ? Z(void 0, e) : P ?? "en";
+    W && (Y.language = W), n.slice(k, w + 1).filter((I) => R.delete(I)).length > 0 && (Y.blockStart = !0), pe(Y, Sl(n, h, v, k, w, e));
+    const Ce = [...Array(w - k + 1).keys()].map((I) => k + I).filter((I) => !De(n[I])), m = Ce[0] ?? k, C = Ce[Ce.length - 1] ?? w, T = B(i[m], e.ancestorChains), M = i[m], x = (he(M) ? ke(M, e) : void 0) ?? rt(T, kt(Ee, e.format)), L = m !== C ? bn(T, B(i[C], e.ancestorChains), x) : x;
+    L && (Y.locate = L), Y.source = m === C ? i[m] : [i[m], i[C]], t.push(Y), y(N, K);
   });
 }
 async function kl(n, e) {
@@ -5504,7 +5507,7 @@ async function jl(n, e = {}) {
 }
 async function Gi(n, e = {}) {
   const t = [], s = await Uo(n, e);
-  ee(n, t, s, !1);
+  te(n, t, s, !1);
   const i = s.segmentation === "sentence" ? t : await al(t, s), a = await kl(i, s);
   return {
     utterances: El(Qo(a, s), s),
@@ -5539,7 +5542,7 @@ class Cl {
     const s = this.availablePreference();
     if (typeof s == "string") return s;
     if (!e) return;
-    const i = s ?? {}, a = V(e), r = se(e), o = Pe(i, a);
+    const i = s ?? {}, a = V(e), r = ie(e), o = Pe(i, a);
     if (o) return o;
     const l = this.regionalOf(e);
     if (l) return this.voiceFor(l, t);
@@ -5593,9 +5596,9 @@ class Cl {
   }
   // The content's region a bare language that isn't a main one is read as, e.g. `en-GB` for `en`; it gets no pick of its own.
   regionalOf(e) {
-    const t = V(e), s = se(e), i = this.mainLanguages();
+    const t = V(e), s = ie(e), i = this.mainLanguages();
     if (!(t !== s || i.some((a) => V(a) === t)))
-      return [...i, ...this.contentLanguages].find((a) => se(a) === s && V(a) !== s);
+      return [...i, ...this.contentLanguages].find((a) => ie(a) === s && V(a) !== s);
   }
   // The main language's voice prefers boundary events; the others match its boundary support.
   needsBoundary(e) {
@@ -5637,7 +5640,7 @@ class Cl {
   // A pick is for the language's region only when the voice is of it, else for its base language.
   pickedVoiceKey(e, t) {
     const [s, i] = O(e);
-    return i && O(t.language)[1] === i ? e : se(s) === se(e) ? s : e;
+    return i && O(t.language)[1] === i ? e : ie(s) === ie(e) ? s : e;
   }
 }
 class Bl {
@@ -6034,7 +6037,7 @@ export {
   $l as Locator,
   Gl as LocatorLocations,
   ql as LocatorText,
-  re as Preference,
+  oe as Preference,
   Ge as RangePreference,
   kr as ReadiumSpeechDecorationController,
   Bl as ReadiumSpeechNavigator,
@@ -6052,7 +6055,7 @@ export {
   jn as StringArrayPreference,
   Un as WebSpeechEngine,
   Ll as WebSpeechEngineProvider,
-  P as WebSpeechVoiceManager,
+  A as WebSpeechVoiceManager,
   ln as autoPauseScopes,
   ko as blockLevelRoles,
   no as builtInSubstitutions,
@@ -6098,7 +6101,7 @@ export {
   Rr as skippedAtVerbosity,
   Vt as sortAlphabetically,
   ga as sortByPreferredRegion,
-  ie as sortByQuality,
+  ae as sortByQuality,
   vs as sortVoicesByRegions,
   ra as valueForLanguage,
   an as verbosityPresets,
