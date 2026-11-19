@@ -56,6 +56,7 @@ test("resolveUtteranceSourceText gives the page text an utterance reads, in ever
         { markup: '<p>The <abbr title="World Health Organization">WHO</abbr>.</p>', texts: ["The WHO."] },
         { markup: '<p>Ask the <abbr title="World Health Organization">WHO</abbr>, then wait.</p>', texts: ["Ask the WHO, then wait."] },
         { markup: '<p><abbr title="World Health Organization">WHO</abbr></p>', texts: ["WHO"] },
+        { markup: '<p>(<abbr title="World Health Organization">WHO</abbr>)</p>', texts: ["(WHO)"] },
         {
           markup: '<p>The <abbr title="World Health Organization">WHO</abbr> and the <abbr title="United Nations">UN</abbr> met.</p>',
           texts: ["The WHO and the UN met."],

@@ -478,6 +478,31 @@ test("text attached to an abbreviation is never cut at a combining mark, and nev
   }
 });
 
+test("punctuation set against an abbreviation stays against its expansion, and an em dash never attaches to it", async (t) => {
+  const abbr = '<abbr title="World Health Organization">WHO</abbr>';
+  const cases = [
+    { html: `<p>(${abbr})</p>`, after: "(WHO (World Health Organization))", inline: "(World Health Organization)", never: "(WHO)" },
+    { html: `<p>"${abbr}"</p>`, after: '"WHO (World Health Organization)"', inline: '"World Health Organization"', never: '"WHO"' },
+    { html: `<p>See "the ${abbr}" now.</p>`, after: 'See "the WHO (World Health Organization)" now.', inline: 'See "the World Health Organization" now.', never: 'See "the WHO" now.' },
+    { html: `<p>See the ${abbr}'s plan.</p>`, after: "See the WHO (World Health Organization)'s plan.", inline: "See the World Health Organization's plan.", never: "See the WHO's plan." },
+    { html: `<p>See the ${abbr}/UN plan.</p>`, after: "See the WHO (World Health Organization)/UN plan.", inline: "See the World Health Organization/UN plan.", never: "See the WHO/UN plan." },
+    { html: `<p>See the ${abbr}—and more.</p>`, after: "See the WHO (World Health Organization)—and more.", inline: "See the World Health Organization—and more.", never: "See the WHO—and more." },
+    { html: `<p>Rich and—${abbr} now.</p>`, after: "Rich and—WHO (World Health Organization) now.", inline: "Rich and—World Health Organization now.", never: "Rich and—WHO now." },
+    { html: `<p>The ${abbr}–UN talks.</p>`, after: "The WHO–UN (World Health Organization) talks.", inline: "The World Health Organization–UN talks.", never: "The WHO–UN talks." },
+    { html: `<p>See ((the ${abbr})) now.</p>`, after: "See ((the WHO (World Health Organization))) now.", inline: "See ((the World Health Organization)) now.", never: "See ((the WHO)) now." },
+  ];
+  for (const { html, ...expected } of cases) {
+    for (const abbreviation of ["after", "inline", "never"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const format of ["plain", "ssml"] as const) {
+          const utterances = await extractUtterances(parseMarkup(html), { format, segmentation: { mode }, interruptions: { abbreviation } });
+          t.deepEqual(utterances.map((u) => u.plain ?? u.ssml), [expected[abbreviation]], `${abbreviation}, ${mode}, ${format}: ${html}`);
+        }
+      }
+    }
+  }
+});
+
 test("a note reference read after its sentence or not at all leaves no brackets or quotes around nothing", async (t) => {
   const note = '<aside id="n" role="doc-footnote">Note.</aside>';
   const cases = [

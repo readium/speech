@@ -467,8 +467,12 @@ export interface SsmlSegment {
   touchesPrevious?: boolean;
 }
 
-const ATTACHED_END_RE = /[\p{L}\p{M}\p{N}\p{Pd}]+$/u;
-const ATTACHED_START_RE = /^[\p{L}\p{M}\p{N}\p{Pd}]+/u;
+// Dashes joining words (hyphens, en dash), not the em dash family setting clauses apart.
+const JOINING_DASH = "(?![\\u2014\\u2015\\u2E3A\\u2E3B])\\p{Pd}";
+const ATTACHED_END_RE = new RegExp(`(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+$`, "u");
+const ATTACHED_START_RE = new RegExp(`^(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+`, "u");
+const STARTS_WITH_JOINING_DASH = new RegExp(`^${JOINING_DASH}`, "u");
+const ENDS_WITH_JOINING_DASH = new RegExp(`${JOINING_DASH}$`, "u");
 
 // Word boundaries at an abbreviation's edge come from the scripts meeting there, not the locale.
 let wordSegmenter: Intl.Segmenter | undefined;
@@ -476,7 +480,7 @@ const wordsOf = (text: string) => (wordSegmenter ??= new Intl.Segmenter("und", {
 
 // How much of `candidate`, the text right after `word`, is in the same word: all of it past a hyphen.
 function attachedAfter(word: string, candidate: string): string {
-  if (!word || !candidate || /^\p{Pd}/u.test(candidate)) return candidate;
+  if (!word || !candidate || STARTS_WITH_JOINING_DASH.test(candidate)) return candidate;
   if (meetsUnspaced(word, candidate)) return "";
   if (typeof Intl.Segmenter !== "function") return candidate;
   const { index, segment } = wordsOf(word + candidate).containing(word.length - 1)!;
@@ -485,7 +489,7 @@ function attachedAfter(word: string, candidate: string): string {
 
 // How much of `candidate`, the text right before `word`, is in the same word: all of it before a hyphen.
 function attachedBefore(candidate: string, word: string): string {
-  if (!word || !candidate || /\p{Pd}$/u.test(candidate)) return candidate;
+  if (!word || !candidate || ENDS_WITH_JOINING_DASH.test(candidate)) return candidate;
   if (meetsUnspaced(candidate, word)) return "";
   if (typeof Intl.Segmenter !== "function") return candidate;
   const { index } = wordsOf(candidate + word).containing(candidate.length)!;
