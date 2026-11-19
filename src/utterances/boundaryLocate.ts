@@ -85,15 +85,16 @@ export function resolveBoundaryLocate(
     const offset = offsets[i];
     // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found past its own length.
     if (nonQuotableLocates.has(offset.locate)) {
-      const spokenLength = aliasSpokenLengths.get(offset);
+      // An alias's offset spans its abbreviation, so its spoken length is recorded; a label's offset spans the label it reads.
+      const spokenLength = aliasSpokenLengths.get(offset) ?? offset.end - offset.start;
       const nextQuote = offsets.slice(i + 1).find((next) => !nonQuotableLocates.has(next.locate) && quoteOf(next));
       const quote = nextQuote && quoteOf(nextQuote)!;
-      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + (spokenLength ?? offset.end - offset.start)) : -1;
+      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + spokenLength) : -1;
       const nextStart = quote && pastOwnLength === -1 ? outputText.indexOf(quote, cursor) : pastOwnLength;
-      // An alias right before another non-quotable piece ends at its own length, as no quote separates them.
+      // Right before another non-quotable piece, it ends at its own length, as no quote separates them.
       const next = offsets[i + 1];
       const ownStart = cursor + /^\s*/.exec(outputText.slice(cursor))![0].length;
-      const end = spokenLength !== undefined && next && nonQuotableLocates.has(next.locate)
+      const end = next && nonQuotableLocates.has(next.locate)
         ? ownStart + spokenLength
         : nextStart === -1 ? outputText.length : nextStart;
       if (charIndex >= cursor && charIndex < end) {

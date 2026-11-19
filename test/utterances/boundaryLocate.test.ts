@@ -98,6 +98,34 @@ test("resolveBoundaryLocate never quote-searches an aria-substituted utterance f
   }
 });
 
+test("each word of consecutive labels resolves to its own labelled element", async (t) => {
+  const link = (id: string, label: string) => `<a href="#${id}" id="${id}" aria-label="${label}">${id}</a>`;
+  const abbr = '<abbr title="World Health Organization">WHO</abbr>';
+  const cases = [
+    { markup: `<p>See ${link("a", "First")} ${link("b", "Second")} now.</p>`, words: { First: "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")}${link("b", "Second")} now.</p>`, words: { First: "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")} ${link("b", "Second")} ${link("c", "Third")}</p>`, words: { First: "#a", Second: "#b", Third: "#c" } },
+    { markup: `<p>See ${link("a", "Half 1/2")} ${link("b", "Second")} now.</p>`, words: { Half: "#a", "½": "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")} ${abbr} now.</p>`, words: { First: "#a" } },
+    { markup: `<p>See ${abbr} ${link("a", "First")} now.</p>`, words: { First: "#a" } },
+  ];
+  for (const { markup, words } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const abbreviation of ["after", "inline"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const format of ["plain", "ssml"] as const) {
+          const [utterance] = await extractUtterances(gnd, { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+          for (const [word, selector] of Object.entries(words)) {
+            const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+            t.is(resolved?.locate.cssSelector, selector, `${abbreviation}, ${mode}, ${format}: ${markup} "${word}"`);
+          }
+        }
+      }
+    }
+  }
+});
+
 test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", (t) => {
   const utterance = {
     plain: "Speech Synthesis",
