@@ -488,6 +488,8 @@ test("punctuation set against an abbreviation stays against its expansion, and a
     { html: `<p>See the ${abbr}/UN plan.</p>`, after: "See the WHO (World Health Organization)/UN plan.", inline: "See the World Health Organization/UN plan.", never: "See the WHO/UN plan." },
     { html: `<p>See the ${abbr}—and more.</p>`, after: "See the WHO (World Health Organization)—and more.", inline: "See the World Health Organization—and more.", never: "See the WHO—and more." },
     { html: `<p>Rich and—${abbr} now.</p>`, after: "Rich and—WHO (World Health Organization) now.", inline: "Rich and—World Health Organization now.", never: "Rich and—WHO now." },
+    { html: `<p>See the ${abbr}﹘and more.</p>`, after: "See the WHO (World Health Organization)﹘and more.", inline: "See the World Health Organization﹘and more.", never: "See the WHO﹘and more." },
+    { html: `<p>See the ${abbr}︱and more.</p>`, after: "See the WHO (World Health Organization)︱and more.", inline: "See the World Health Organization︱and more.", never: "See the WHO︱and more." },
     { html: `<p>The ${abbr}–UN talks.</p>`, after: "The WHO–UN (World Health Organization) talks.", inline: "The World Health Organization–UN talks.", never: "The WHO–UN talks." },
     { html: `<p>See ((the ${abbr})) now.</p>`, after: "See ((the WHO (World Health Organization))) now.", inline: "See ((the World Health Organization)) now.", never: "See ((the WHO)) now." },
   ];

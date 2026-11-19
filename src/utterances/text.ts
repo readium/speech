@@ -468,7 +468,7 @@ export interface SsmlSegment {
 }
 
 // Dashes joining words (hyphens, en dash), not the em dash family setting clauses apart.
-const JOINING_DASH = "(?![\\u2014\\u2015\\u2E3A\\u2E3B])\\p{Pd}";
+const JOINING_DASH = "(?![\\u2014\\u2015\\u2E3A\\u2E3B\\uFE31\\uFE58])\\p{Pd}";
 const ATTACHED_END_RE = new RegExp(`(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+$`, "u");
 const ATTACHED_START_RE = new RegExp(`^(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+`, "u");
 const STARTS_WITH_JOINING_DASH = new RegExp(`^${JOINING_DASH}`, "u");
