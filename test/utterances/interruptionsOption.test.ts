@@ -491,6 +491,7 @@ test("punctuation set against an abbreviation stays against its expansion, and a
     { html: `<p>See the ${abbr}﹘and more.</p>`, after: "See the WHO (World Health Organization)﹘and more.", inline: "See the World Health Organization﹘and more.", never: "See the WHO﹘and more." },
     { html: `<p>See the ${abbr}︱and more.</p>`, after: "See the WHO (World Health Organization)︱and more.", inline: "See the World Health Organization︱and more.", never: "See the WHO︱and more." },
     { html: `<p>The ${abbr}–UN talks.</p>`, after: "The WHO–UN (World Health Organization) talks.", inline: "The World Health Organization–UN talks.", never: "The WHO–UN talks." },
+    { html: `<p lang="ja">${abbr}（1948年）の計画。</p>`, after: "WHO (World Health Organization) （1948年）の計画。", inline: "World Health Organization（1948年）の計画。", never: "WHO（1948年）の計画。" },
     { html: `<p>See ((the ${abbr})) now.</p>`, after: "See ((the WHO (World Health Organization))) now.", inline: "See ((the World Health Organization)) now.", never: "See ((the WHO)) now." },
   ];
   for (const { html, ...expected } of cases) {

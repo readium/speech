@@ -236,9 +236,9 @@ function emitWithPlaceholders(
     const abbreviation = abbreviationInline ? abbreviationText : undefined;
     aliasPieces.forEach((piece, k) => aliases.set(piece, k === 0 ? abbreviation : undefined));
   };
-  // Words touching an abbreviation don't touch the parenthesized expansion read after it; punctuation does.
+  // Words and opening brackets touching an abbreviation don't touch the parenthesized expansion read after it; other punctuation does.
   const markTouching = (segment: SsmlSegment, before: number) => {
-    const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]) && !/^\p{P}/u.test(stripSsmlTags(segment.ssml ?? ""));
+    const followsExpansion = !abbreviationInline && aliases.has(pieces[before - 1]) && !/^(?!\p{Ps})\p{P}/u.test(stripSsmlTags(segment.ssml ?? ""));
     if (segment.touchesPrevious && before > 0 && pieces.length > before && !followsExpansion) pieces[before].spacing = "touching";
   };
   // Spacing the source puts before a piece never overrides a touching join already set on it.
