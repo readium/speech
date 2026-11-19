@@ -12,6 +12,11 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - A `"word"` boundary in an aria label read in place of its element (e.g. `<a aria-label="Source: Wikipedia">[source]</a>`) resolves to the element's own `locate`, as an alias's words resolve to its abbreviation, instead of `undefined`.
 
+### Fixed
+
+- A `"word"` boundary in substituted text resolves to the whole text it replaces: with `{ CO2: "carbon dioxide" }`, "carbon" and "dioxide" both resolve to "CO2", instead of an empty word then "CO2". A replacement ending an utterance (a "1/2" table cell) resolves to all of its source, not part of it.
+- In SSML, a substitution leaving two spaces in a row (e.g. `{ "[sic]": "" }`) no longer shifts every later `"word"` boundary by one character.
+
 ## [0.21.1] - 2026-11-19
 
 ### Fixed
