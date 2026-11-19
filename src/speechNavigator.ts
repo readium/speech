@@ -11,7 +11,7 @@ import { ReadiumSpeechUtterance } from "./utterance.js";
 import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
 import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
-import { Contextualizations } from "./utterances/types.js";
+import { Contextualizations, SubstitutionTable } from "./utterances/types.js";
 import { overriddenLanguage } from "./utterances/language.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
@@ -38,6 +38,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
   defaults?: ISpeechDefaults;
   contextualizationOverrides?: ContextualizationOverrides;
   segmentationOverrides?: SegmentationOverrides;
+  substitutions?: SubstitutionTable;
   // The content's languages, main first, e.g. a publication's: each gets a voice picked before content in it is loaded.
   languages?: string[];
 }
@@ -66,6 +67,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private preferencesEditorVoice: VoicePreference | null = null;
   private readonly contextualizationOverrides?: ContextualizationOverrides;
   private readonly segmentationOverrides?: SegmentationOverrides;
+  private readonly substitutions?: SubstitutionTable;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
@@ -107,6 +109,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.contextualizationOverrides = configuration.contextualizationOverrides;
     this.segmentationOverrides = configuration.segmentationOverrides;
+    this.substitutions = configuration.substitutions;
     this.languages = configuration.languages ?? [];
     this.voiceSelection = new VoiceSelection(engine, () => this._settings.voice, () => this.spokenLanguages());
     this.setupEngineListeners();
@@ -409,6 +412,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         suppressions: this.segmentationOverrides?.suppressions,
         segmenter: this.segmentationOverrides?.segmenter,
       },
+      substitutions: this.substitutions,
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;

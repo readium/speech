@@ -157,7 +157,9 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     segmentationSuppressions: options.segmentation?.suppressions ?? {},
     segmenter: options.segmentation?.segmenter ?? segmentSentences,
     // Per-key override, not an additive union — each key holds one whole rule.
-    substitutions: { ...builtInSubstitutions, ...options.substitutions },
+    substitutions: Object.fromEntries(
+      Object.entries({ ...builtInSubstitutions, ...options.substitutions }).filter(([, rule]) => rule !== null),
+    ),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
     ancestorChains: buildAncestorChains(nodes),

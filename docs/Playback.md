@@ -108,6 +108,18 @@ const navigator = new ReadiumSpeechNavigator(engine, {
 
 The `segmentation` and `reconstruct` preferences (`segmentation.mode`/`segmentation.reconstruct`) stay live `submitPreferences()` settings (see [Preferences](Preferences.md#prosody)) — only `suppressions` and `segmenter` are construction-time, since neither is meant to change mid-session.
 
+### `substitutions`
+
+Also set once at construction, and forwarded to [`substitutions`](UtteranceExtraction.md#substitutions) for content loaded via `loadGndContent()`, merged by key over `builtInSubstitutions`:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, {
+  substitutions: { "fig.": "figure", "(r)": null },
+});
+```
+
+`null` removes a built-in rule, like `"(r)"`'s here.
+
 ### `languages`
 
 The content's languages, main first, e.g. a publication's, also set once at construction:

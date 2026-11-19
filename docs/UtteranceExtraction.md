@@ -80,7 +80,7 @@ interface SentenceBoundary {
 }
 
 type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
-type SubstitutionTable = Record<string, SubstitutionRule>;
+type SubstitutionTable = Record<string, SubstitutionRule | null>;
 ```
 
 Quick reference:
@@ -432,7 +432,7 @@ A rule value is either a plain string, matched as a whole token (like `"fig."` a
 
 ```typescript
 type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
-type SubstitutionTable = Record<string, SubstitutionRule>;
+type SubstitutionTable = Record<string, SubstitutionRule | null>;
 ```
 
 ```typescript
@@ -442,6 +442,14 @@ await extractUtterances(gnd, {
   substitutions: { "p.": { pattern: /p\.(?=\d)/g, replace: "page " } },
 });
 // plain: "See page 5 for details."
+```
+
+`null` removes a key's rule, e.g. to leave a built-in one's text as it is:
+
+```typescript
+// <p>Copyright (c) 2026, (r) and (tm).</p>
+await extractUtterances(gnd, { format: "plain", substitutions: { "(c)": null } });
+// plain: "Copyright (c) 2026, ® and ™."
 ```
 
 Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
