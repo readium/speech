@@ -6,6 +6,7 @@ import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordAliasOffset } from "./boundaryLocate.js";
+import { recordPageText } from "./utteranceLocate.js";
 import { plainTextOf } from "./tableStructure.js";
 import type { WalkContext } from "./walkContext.js";
 
@@ -199,9 +200,10 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     if (!nodeRef) return [];
     return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, ...run })) : [{ span, nodeRef, start: span.start, end: span.end }];
   });
+  const text = pieceText(utterance, ctx);
   const only = located.length === 1 ? located[0].span : undefined;
-  const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === pieceText(utterance, ctx).length && !only.map.includes(DROPPED);
-  return located.map(({ span, nodeRef, start, end }) => {
+  const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === text.length && !only.map.includes(DROPPED);
+  const offsets = located.map(({ span, nodeRef, start, end }) => {
     if (!isText(span)) {
       const offset = { start, end, locate: span.alias };
       recordAliasOffset(offset, span.length!);
@@ -210,4 +212,28 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     const substituted = isAriaSubstituted(span.node) ? substitutedBareLocate(span.node, ctx) : undefined;
     return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
   });
+  if (offsets.length > 0) recordPageText(offsets, pageTextOf(text, spansOf(utterance, ctx)));
+  return offsets;
+}
+
+// The text of `spans` as printed: the spoken characters on the page, a run of spaces read as one.
+// Alias expansions, announcements, dropped brackets, labels and descriptions aren't on the page.
+function pageTextOf(text: string, spans: SourceSpan[]): string {
+  const onPage = new Array<boolean>(text.length).fill(false);
+  for (const span of spans) {
+    if (!isText(span) || span.quotedOnly || isAriaSubstituted(span.node)) continue;
+    span.map.forEach((position, i) => {
+      if (position >= 0) onPage[span.at + i] = true;
+    });
+  }
+  let page = "";
+  let space = "";
+  for (let i = 0; i < text.length; i++) {
+    if (onPage[i]) {
+      if (page && space) page += space;
+      page += text[i];
+      space = "";
+    } else if (!space && isSpace(text[i])) space = text[i];
+  }
+  return page;
 }

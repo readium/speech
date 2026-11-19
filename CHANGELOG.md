@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `resolveUtteranceSourceText(utterance)`: the text an extracted utterance reads as printed on the page, before substitutions and without alias expansions or announcements, to match page text such as a selection against. See [Matching page text](docs/Highlighting.md#matching-page-text).
+
 ## [0.21.1] - 2026-11-19
 
 ### Fixed

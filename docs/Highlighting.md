@@ -185,3 +185,16 @@ engine.on("boundary", (event) => {
   }], "tts-word");
 });
 ```
+
+## Matching page text
+
+`plain` and `ssml` are what gets spoken: substituted, with alias expansions and announcements. To find the utterance holding some page text, e.g. a selection, compare against `resolveUtteranceSourceText()` instead:
+
+```typescript
+import { resolveUtteranceSourceText } from "@readium/speech";
+
+// "Add 1/2 cup" is spoken "Add ½ cup"; "The WHO (World Health Organization) issued" reads "The WHO issued".
+const index = navigator.getContentQueue().findIndex((utterance) => resolveUtteranceSourceText(utterance)?.includes(selectedText));
+```
+
+It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element.

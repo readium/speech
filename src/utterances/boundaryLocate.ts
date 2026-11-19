@@ -3,6 +3,9 @@ import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { toSourcePosition, type Replacement } from "./text.js";
 import { stripSsmlTags } from "./plainText.js";
 
+// TODO: consolidate this module's lookups and utteranceLocate.ts's `pageTexts` into one per-utterance record of
+// where each spoken character sits on the page, read directly instead of quote-searching the spoken text.
+
 // Boundary events for one utterance arrive in increasing charIndex order
 // (word by word) — remembering the last matched piece lets a call resume
 // the scan instead of rescanning every earlier piece each time.
