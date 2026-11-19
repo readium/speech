@@ -221,6 +221,17 @@ test("stripSsmlTagsKeepSpacing separates words at a sentence element", (t) => {
   t.is(stripSsmlTagsKeepSpacing("<s>Hello.</s><s>World.</s>"), "Hello. World.");
 });
 
+test("substituteSsmlText positions its replacements on the text engines speak, a doubled space collapsed", (t) => {
+  const result = substituteSsmlText("A  value [sic] <emphasis>was</emphasis> wrong.", { sic: { pattern: /\[sic\]/g, replace: "" } });
+  const spoken = stripSsmlTags(result.ssml);
+  t.is(spoken, "A value was wrong.");
+  t.is(result.plain, "A value [sic] was wrong.");
+  // The space after "[sic]" is dropped from the spoken text only, so it goes with the deletion.
+  t.deepEqual(result.replacements, [{ spoken: { start: 8, end: 8 }, source: { start: 8, end: 14 } }]);
+  const was = spoken.indexOf("was");
+  t.is(result.plain.slice(toSourcePosition(result.replacements, was, "start"), toSourcePosition(result.replacements, was + 3, "end")), "was");
+});
+
 test("substituteSsmlText writes a zero-width match where it sits, at the start, middle or end", (t) => {
   const ssml = "a <emphasis>b</emphasis> c";
   t.is(substituteSsmlText(ssml, { prefix: { pattern: /^/, replace: "Note: " } }).ssml, "Note: a <emphasis>b</emphasis> c");

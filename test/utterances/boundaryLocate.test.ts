@@ -5,6 +5,7 @@ import { encodeCssSelectorFragment, parseMarkup } from "@readium/guided-navigati
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 import { stripSsmlTags } from "../../src/utterances/plainText.js";
+import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("resolveBoundaryLocate finds a word within a single-offset utterance", async (t) => {
   const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
@@ -202,6 +203,24 @@ test("a word ending inside a replacement resolves to the whole source it replace
   const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("2"), 1);
   t.is(resolved?.word, "2 x ");
   t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("4"), 1)?.word, "4");
+});
+
+test("in ssml, words after a replacement leaving a doubled space resolve to their own text", async (t) => {
+  const cases: { markup: string; substitutions: SubstitutionTable }[] = [
+    { markup: "<p>The value [sic] was <em>wrong</em> again.</p>", substitutions: { sic: { pattern: /\[sic\]/g, replace: "" } } },
+    { markup: "<p>Use a whisk, e.g. a <em>balloon</em> whisk.</p>", substitutions: { "e.g.": "for example " } },
+  ];
+  for (const { markup, substitutions } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: true });
+    for (const segmentation of ["structure", "sentence"] as const) {
+      const [utterance] = await extractUtterances(gnd, { format: "ssml", substitutions, segmentation: { mode: segmentation } });
+      const spoken = stripSsmlTags(utterance.ssml!);
+      for (const word of ["wrong", "again.", "balloon", "whisk."].filter((word) => spoken.includes(word))) {
+        const resolved = resolveBoundaryLocate(utterance, spoken.lastIndexOf(word), word.length);
+        t.is(resolved?.word, word, `${segmentation}: ${markup} "${word}"`);
+      }
+    }
+  }
 });
 
 test("adjacent replacements resolve to their own source each", async (t) => {

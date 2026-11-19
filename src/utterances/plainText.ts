@@ -67,24 +67,34 @@ export function stripSsmlTagsKeepSpacing(ssml: string): string {
   return layoutSsml(ssml).plain;
 }
 
-// Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
-export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
-  let plain = "";
-  const map: number[] = [];
-  const push = (ch: string, position: number) => {
-    if (ch === " " && plain.endsWith(" ")) return;
-    plain += ch;
-    map.push(position);
-  };
-  for (const piece of layoutSsml(ssml).pieces) {
-    if (piece.kind === "separator") push(" ", piece.position);
-    else if (piece.kind === "text") for (let i = 0; i < piece.text.length; i++) push(piece.text[i], piece.positions[i]);
+// `layoutSsml()` text as `stripSsmlTags()` gives it: a space right after a kept space dropped, then trimmed.
+// `kept[i]` is the position in `text` of the result's char i; `at()` is where a position of `text` lands in the result.
+export function collapseSpaces(text: string): { text: string; kept: number[]; at: (position: number) => number } {
+  let collapsed = "";
+  const kept: number[] = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === " " && collapsed.endsWith(" ")) continue;
+    collapsed += text[i];
+    kept.push(i);
   }
   let start = 0;
-  while (start < plain.length && /\s/.test(plain[start])) start++;
-  let end = plain.length;
-  while (end > start && /\s/.test(plain[end - 1])) end--;
-  return { plain: plain.slice(start, end), map: map.slice(start, end) };
+  while (start < collapsed.length && /\s/.test(collapsed[start])) start++;
+  let end = collapsed.length;
+  while (end > start && /\s/.test(collapsed[end - 1])) end--;
+  const trimmedKept = kept.slice(start, end);
+  return { text: collapsed.slice(start, end), kept: trimmedKept, at: (position) => ssmlIndexToPlainIndex(trimmedKept, position) };
+}
+
+// Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
+export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
+  const layout = layoutSsml(ssml);
+  const positions: number[] = [];
+  for (const piece of layout.pieces) {
+    if (piece.kind === "separator") positions.push(piece.position);
+    else if (piece.kind === "text") for (const position of piece.positions) positions.push(position);
+  }
+  const { text, kept } = collapseSpaces(layout.plain);
+  return { plain: text, map: kept.map((i) => positions[i]) };
 }
 
 // Strips every SSML tag (not just `<readium:...>` placeholders — `<lang>`,

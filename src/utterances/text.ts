@@ -17,7 +17,7 @@ import {
   type SsmlText,
 } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textReader } from "./plainText.js";
+import { collapseSpaces, layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textReader } from "./plainText.js";
 import { meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
@@ -240,8 +240,8 @@ export function toSourcePosition(replacements: Replacement[], position: number, 
 
 export interface SsmlSubstitutionResult {
   ssml: string;
-  plain: string; // the pre-substitution text `replacements` resolve into: `layoutSsml(ssml).plain`, trimmed
-  replacements: Replacement[]; // spoken in the substituted ssml's tag-stripped text, trimmed alike
+  plain: string; // the pre-substitution text `replacements` resolve into: `stripSsmlTags(ssml)`
+  replacements: Replacement[]; // spoken in `stripSsmlTags()` of the substituted ssml
 }
 
 // A run of `plain` under its enclosing elements, or a childless element (e.g. `<break/>`) at that point.
@@ -300,23 +300,24 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   for (const span of spans.slice(spanIndex)) writeReplacement(span, textPieces[textPieces.length - 1]?.chain ?? []);
   const outSsml = writer.flush();
 
-  let plainStart = 0;
-  while (plainStart < plain.length && /\s/.test(plain[plainStart])) plainStart++;
-  let plainEnd = plain.length;
-  while (plainEnd > plainStart && /\s/.test(plain[plainEnd - 1])) plainEnd--;
-  let subStart = 0;
-  while (subStart < substitutedPlain.length && /\s/.test(substitutedPlain[subStart])) subStart++;
-  let subEnd = substitutedPlain.length;
-  while (subEnd > subStart && /\s/.test(substitutedPlain[subEnd - 1])) subEnd--;
+  // Positions counted as engines report them, on the collapsed text: a doubled space would shift every later word.
+  const source = collapseSpaces(plain);
+  const spoken = collapseSpaces(substitutedPlain);
+  const keeps = (text: ReturnType<typeof collapseSpaces>, position: number) => text.at(position + 1) > text.at(position);
+  const collapsedReplacements = replacements.map((replacement, i) => {
+    let { end: spokenEnd } = replacement.spoken;
+    let { end: sourceEnd } = replacement.source;
+    // Only the space right after a replacement can be dropped on one side and kept on the other; it then belongs to the replacement.
+    const copiedNext = spokenEnd < substitutedPlain.length && replacements[i + 1]?.spoken.start !== spokenEnd;
+    if (copiedNext && keeps(source, sourceEnd) && !keeps(spoken, spokenEnd)) sourceEnd++;
+    else if (copiedNext && keeps(spoken, spokenEnd) && !keeps(source, sourceEnd)) spokenEnd++;
+    return {
+      spoken: { start: spoken.at(replacement.spoken.start), end: spoken.at(spokenEnd) },
+      source: { start: source.at(replacement.source.start), end: source.at(sourceEnd) },
+    };
+  });
 
-  const trimmedPlain = plain.slice(plainStart, plainEnd);
-  const clamp = (position: number, length: number) => Math.min(Math.max(position, 0), length);
-  const trimmedReplacements = replacements.map(({ spoken, source }) => ({
-    spoken: { start: clamp(spoken.start - subStart, subEnd - subStart), end: clamp(spoken.end - subStart, subEnd - subStart) },
-    source: { start: clamp(source.start - plainStart, trimmedPlain.length), end: clamp(source.end - plainStart, trimmedPlain.length) },
-  }));
-
-  return { ssml: outSsml, plain: trimmedPlain, replacements: trimmedReplacements };
+  return { ssml: outSsml, plain: source.text, replacements: collapsedReplacements };
 }
 
 export interface LangSegment {
