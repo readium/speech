@@ -198,47 +198,50 @@ function resolveSubstitutionSpans(text: string, table: SubstitutionTable): Subst
   return spans;
 }
 
-// Runs every rule over `text` (leftmost-match wins on overlap), returning
-// the rewritten text plus `map[i]` = the source index for output char i.
-export function substituteWithMap(text: string, table: SubstitutionTable): { text: string; map: number[] } {
-  let out = "";
-  const map: number[] = [];
-  let cursor = 0;
-  for (const span of resolveSubstitutionSpans(text, table)) {
-    while (cursor < span.start) {
-      out += text[cursor];
-      map.push(cursor);
-      cursor++;
-    }
-    // By UTF-16 code unit, not code point (no `for...of`) — a surrogate-pair
-    // replacement char must still add one map entry per code unit.
-    for (let i = 0; i < span.replacement.length; i++) {
-      out += span.replacement[i];
-      map.push(span.start);
-    }
-    cursor = span.end;
-  }
-  while (cursor < text.length) {
-    out += text[cursor];
-    map.push(cursor);
-    cursor++;
-  }
-  return { text: out, map };
+// One substitution: `spoken` in the rewritten text, replacing `source` in the original. Text between replacements is copied as is.
+export interface Replacement {
+  spoken: { start: number; end: number };
+  source: { start: number; end: number };
 }
 
-// A direct lookup, not a search, since `map` is already indexed by
-// substituted position. `substitutedIndex === map.length` lands one past the last mapped char.
-export function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number {
-  if (!map.length) return substitutedIndex;
-  if (substitutedIndex <= 0) return map[0];
-  if (substitutedIndex >= map.length) return map[map.length - 1] + 1;
-  return map[substitutedIndex];
+// Runs every rule over `text` (leftmost-match wins on overlap), returning the rewritten text and its replacements, in order.
+export function substitutePlainText(text: string, table: SubstitutionTable): { text: string; replacements: Replacement[] } {
+  let out = "";
+  const replacements: Replacement[] = [];
+  let cursor = 0;
+  for (const span of resolveSubstitutionSpans(text, table)) {
+    out += text.slice(cursor, span.start);
+    const spokenStart = out.length;
+    out += span.replacement;
+    replacements.push({ spoken: { start: spokenStart, end: out.length }, source: { start: span.start, end: span.end } });
+    cursor = span.end;
+  }
+  return { text: out + text.slice(cursor), replacements };
+}
+
+// The original position of the rewritten text's `position`, as the `start` or `end` of a word:
+// a word starting or ending inside a replacement takes in all of its source.
+export function toSourcePosition(replacements: Replacement[], position: number, edge: "start" | "end"): number {
+  // A word ending right where a deletion sits ends before it; one starting there starts after it.
+  const reached = (replacement: Replacement) => (edge === "start" ? replacement.spoken.start <= position : replacement.spoken.start < position);
+  // Replacements are in order, so the last one reached is found by binary search.
+  let low = 0;
+  let high = replacements.length;
+  while (low < high) {
+    const mid = (low + high) >> 1;
+    if (reached(replacements[mid])) low = mid + 1;
+    else high = mid;
+  }
+  if (low === 0) return position;
+  const { spoken, source } = replacements[low - 1];
+  if (edge === "start" ? position < spoken.end : position <= spoken.end) return edge === "start" ? source.start : source.end;
+  return position + source.end - spoken.end;
 }
 
 export interface SsmlSubstitutionResult {
   ssml: string;
-  plain: string; // the pre-substitution text `map` resolves into: `layoutSsml(ssml).plain`, trimmed
-  map: number[]; // map[i] = position in `plain` for substituted-plain char i
+  plain: string; // the pre-substitution text `replacements` resolve into: `layoutSsml(ssml).plain`, trimmed
+  replacements: Replacement[]; // spoken in the substituted ssml's tag-stripped text, trimmed alike
 }
 
 // A run of `plain` under its enclosing elements, or a childless element (e.g. `<break/>`) at that point.
@@ -248,7 +251,7 @@ type PlainSpan = { start: number; end: number; chain: SsmlElement[] } | { node: 
 // each replacement so a caller-supplied `replace` can't corrupt the markup.
 // A match within one text node stays in that node's elements; a match crossing
 // elements goes into the innermost element enclosing all of it.
-// `plain`/`map` describe the same rewrite over tag-stripped text.
+// `plain`/`replacements` describe the same rewrite over tag-stripped text.
 export function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult {
   const layout = layoutSsml(ssml);
   const plain = layout.plain;
@@ -262,11 +265,12 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
 
   const writer = new SsmlWriter();
   let substitutedPlain = "";
-  const map: number[] = [];
+  const replacements: Replacement[] = [];
   let spanIndex = 0;
   const writeReplacement = (span: SubstitutionSpan, chain: SsmlElement[]) => {
+    const spokenStart = substitutedPlain.length;
     substitutedPlain += span.replacement;
-    for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
+    replacements.push({ spoken: { start: spokenStart, end: substitutedPlain.length }, source: { start: span.start, end: span.end } });
     writer.text(chain, span.replacement);
   };
 
@@ -288,7 +292,6 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
       const next = span ? Math.min(span.start, piece.end) : piece.end;
       const text = plain.slice(cursor, next);
       substitutedPlain += text;
-      for (let i = 0; i < text.length; i++) map.push(cursor + i);
       writer.text(piece.chain, text);
       cursor = next;
     }
@@ -307,11 +310,13 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   while (subEnd > subStart && /\s/.test(substitutedPlain[subEnd - 1])) subEnd--;
 
   const trimmedPlain = plain.slice(plainStart, plainEnd);
-  const trimmedMap = map
-    .slice(subStart, subEnd)
-    .map((v) => Math.min(Math.max(v - plainStart, 0), Math.max(trimmedPlain.length - 1, 0)));
+  const clamp = (position: number, length: number) => Math.min(Math.max(position, 0), length);
+  const trimmedReplacements = replacements.map(({ spoken, source }) => ({
+    spoken: { start: clamp(spoken.start - subStart, subEnd - subStart), end: clamp(spoken.end - subStart, subEnd - subStart) },
+    source: { start: clamp(source.start - plainStart, trimmedPlain.length), end: clamp(source.end - plainStart, trimmedPlain.length) },
+  }));
 
-  return { ssml: outSsml, plain: trimmedPlain, map: trimmedMap };
+  return { ssml: outSsml, plain: trimmedPlain, replacements: trimmedReplacements };
 }
 
 export interface LangSegment {

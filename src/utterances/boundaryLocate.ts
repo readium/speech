@@ -1,6 +1,6 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { substitutedIndexToSourceIndex } from "./text.js";
+import { toSourcePosition, type Replacement } from "./text.js";
 import { stripSsmlTags } from "./plainText.js";
 
 // Boundary events for one utterance arrive in increasing charIndex order
@@ -10,9 +10,11 @@ const lastMatch = new WeakMap<ReadiumSpeechUtterance, { pieceIndex: number; curs
 
 // Set by applySubstitutions() for a substituted utterance; not a public
 // field, since only this module needs it.
-const substitutionSources = new WeakMap<ReadiumSpeechUtterance, { plain: string; map: number[] }>();
+type SubstitutionSource = { plain: string; replacements: Replacement[] };
 
-export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, source: { plain: string; map: number[] }): void {
+const substitutionSources = new WeakMap<ReadiumSpeechUtterance, SubstitutionSource>();
+
+export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, source: SubstitutionSource): void {
   substitutionSources.set(utterance, source);
 }
 
@@ -49,8 +51,8 @@ export function resolveBoundaryLocate(
   // A substituted utterance's charIndex arrives in substituted-text space; translate back before matching.
   const sub = substitutionSources.get(utterance);
   if (sub) {
-    const start = substitutedIndexToSourceIndex(sub.map, charIndex);
-    const end = substitutedIndexToSourceIndex(sub.map, charIndex + charLength);
+    const start = toSourcePosition(sub.replacements, charIndex, "start");
+    const end = charLength > 0 ? toSourcePosition(sub.replacements, charIndex + charLength, "end") : start;
     charIndex = start;
     charLength = Math.max(0, end - start);
   }

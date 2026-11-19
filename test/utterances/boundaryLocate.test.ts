@@ -158,10 +158,60 @@ test("resolveBoundaryLocate on a substituted utterance resolves a charIndex+char
 
   const charIndex = utterance.plain!.indexOf("Celsius.");
   // charIndex + charLength lands exactly on the substituted text's length —
-  // the end-exclusive edge case substitutedIndexToSourceIndex must handle.
+  // the end-exclusive edge case toSourcePosition must handle.
   t.is(charIndex + "Celsius.".length, utterance.plain!.length);
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Celsius.".length);
   t.is(resolved?.locate.text?.highlight, "Celsius.");
+});
+
+test("each word of a multiword replacement resolves to the whole source it replaces", async (t) => {
+  const gnd = parseMarkup("<p>Plants absorb CO2 from the <em>air</em>.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { CO2: "carbon dioxide" } });
+    const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+    t.is(spoken, "Plants absorb carbon dioxide from the air.");
+    for (const word of ["carbon", "dioxide"]) {
+      const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+      t.is(resolved?.word, "CO2", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.before, "Plants absorb ", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.after, " from the air.", `${format}: "${word}"`);
+    }
+  }
+});
+
+test("a replacement ending the utterance resolves to its whole source", async (t) => {
+  const cases = [
+    { markup: "<p>1/2</p>", word: "½", source: "1/2" },
+    { markup: "<p>Made by Acme(TM)</p>", word: "Acme™", source: "Acme(TM)" },
+    { markup: "<p>The main greenhouse gas is CO2</p>", word: "dioxide", source: "CO2" },
+  ];
+  for (const { markup, word, source } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: true });
+    const [utterance] = await extractUtterances(gnd, { format: "plain", substitutions: { CO2: "carbon dioxide" } });
+    const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf(word), word.length);
+    t.is(resolved?.word, source, markup);
+    t.is(resolved?.locate.text?.after, "", markup);
+  }
+});
+
+test("a word ending inside a replacement resolves to the whole source it replaces", async (t) => {
+  const gnd = parseMarkup("<p>Cut a 2 x 4 board.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Cut a 2×4 board.");
+
+  const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("2"), 1);
+  t.is(resolved?.word, "2 x ");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("4"), 1)?.word, "4");
+});
+
+test("adjacent replacements resolve to their own source each", async (t) => {
+  const gnd = parseMarkup("<p>Use 1/2 1/4 cups.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Use ½ ¼ cups.");
+
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("½"), 1)?.word, "1/2");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("¼"), 1)?.word, "1/4");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("cups."), 5)?.word, "cups.");
 });
 
 test("page text after substituted text resolves word by word, even when it repeats the substituted source", async (t) => {

@@ -7,12 +7,13 @@ import {
   resolveNodeText,
   splitOnPlaceholders,
   splitOnLangTags,
-  substitutedIndexToSourceIndex,
+  substitutePlainText,
   substituteSsmlText,
-  substituteWithMap,
+  toSourcePosition,
 } from "../../src/utterances/text.js";
 import { ssmlIndexToPlainIndex, stripSsmlTags, stripSsmlTagsKeepSpacing, stripSsmlTagsWithMap } from "../../src/utterances/plainText.js";
 import { closeTags, openTags } from "../../src/utterances/ssml.js";
+import { builtInSubstitutions } from "../../src/utterances/builtInSubstitutions.js";
 import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("stripSsmlTagsWithMap never spaces apart two characters of a script written without spaces", (t) => {
@@ -65,60 +66,76 @@ test("ssmlIndexToPlainIndex resolves a position inside a stripped tag to the nex
   t.is(plainIndex, "Hello ".length); // lands on "world"'s first character
 });
 
-test("substituteWithMap replaces a literal token and maps every output char back to the match's start", (t) => {
+test("substitutePlainText replaces a literal token and records where it was spoken and what it replaced", (t) => {
   const table: SubstitutionTable = { "(c)": "©" };
-  const { text, map } = substituteWithMap("Copyright (c) 2026", table);
+  const { text, replacements } = substitutePlainText("Copyright (c) 2026", table);
   t.is(text, "Copyright © 2026");
-  t.is(map.length, text.length);
-  const symbolIndex = text.indexOf("©");
-  t.is(map[symbolIndex], "Copyright (c) 2026".indexOf("(c)"));
+  t.deepEqual(replacements, [{ spoken: { start: 10, end: 11 }, source: { start: 10, end: 13 } }]);
 });
 
-test("substituteWithMap shrinks a variable-length adjacency pattern, mapping the whole replacement to the match start", (t) => {
+test("substitutePlainText records a variable-length adjacency pattern's whole match", (t) => {
   const table: SubstitutionTable = { deg: { pattern: /(\d+)\s?deg\b/g, replace: (_m: string, digits: string) => `${digits}°` } };
-  const { text, map } = substituteWithMap("Water boils at 100deg Celsius.", table);
+  const { text, replacements } = substitutePlainText("Water boils at 100deg Celsius.", table);
   t.is(text, "Water boils at 100° Celsius.");
-  const matchStart = "Water boils at ".length;
-  // Every char of "100°" maps back to the original match's start index.
-  for (let i = 0; i < "100°".length; i++) t.is(map[matchStart + i], matchStart);
-  // Text after the match resumes at the correct original-source position.
-  t.is(map[text.indexOf(" Celsius")], "Water boils at 100deg".length);
+  t.deepEqual(replacements, [{ spoken: { start: 15, end: 19 }, source: { start: 15, end: 21 } }]);
 });
 
-test("substituteWithMap keeps map/text length in sync for a surrogate-pair replacement", (t) => {
-  const { text, map } = substituteWithMap("cheer", { cheer: "🎉" });
-  t.is(map.length, text.length);
+test("substitutePlainText counts a surrogate-pair replacement by UTF-16 code unit", (t) => {
+  const { text, replacements } = substitutePlainText("cheer", { cheer: "🎉" });
+  t.is(replacements[0].spoken.end, text.length);
 });
 
-test("substituteWithMap leaves a token untouched when its adjacency requirement isn't met", (t) => {
+test("substitutePlainText leaves a token untouched when its adjacency requirement isn't met", (t) => {
   const table: SubstitutionTable = { deg: { pattern: /(\d+)\s?deg\b/g, replace: (_m: string, digits: string) => `${digits}°` } };
-  const { text } = substituteWithMap("This is a deg without digits.", table);
+  const { text } = substitutePlainText("This is a deg without digits.", table);
   t.is(text, "This is a deg without digits.");
 });
 
-test("substituteWithMap rejects a literal match embedded inside a larger word/number", (t) => {
+test("substitutePlainText rejects a literal match embedded inside a larger word/number", (t) => {
   const table: SubstitutionTable = { "1/2": "½" };
-  const { text } = substituteWithMap("31/2 is not one half", table);
+  const { text } = substitutePlainText("31/2 is not one half", table);
   t.is(text, "31/2 is not one half");
 });
 
-test("substituteWithMap resolves overlapping matches from different rules leftmost-first", (t) => {
+test("substitutePlainText resolves overlapping matches from different rules leftmost-first", (t) => {
   const table: SubstitutionTable = {
     ab: "X",
     b: { pattern: /b/g, replace: "Y" },
   };
-  const { text } = substituteWithMap("ab", table);
+  const { text } = substitutePlainText("ab", table);
   t.is(text, "X"); // "ab" (start 0) wins over the overlapping "b" (start 1)
 });
 
-test("substitutedIndexToSourceIndex translates a substituted-space index back to its original-text index", (t) => {
-  const table: SubstitutionTable = { deg: { pattern: /(\d+)\s?deg\b/g, replace: (_m: string, digits: string) => `${digits}°` } };
-  const original = "Water boils at 100deg Celsius.";
-  const { text, map } = substituteWithMap(original, table);
-  const degreeSymbolIndex = text.indexOf("°");
-  t.is(substitutedIndexToSourceIndex(map, degreeSymbolIndex), original.indexOf("100deg"));
-  // The end-exclusive bound of the whole string lands one past the last mapped char.
-  t.is(substitutedIndexToSourceIndex(map, text.length), original.length);
+test("toSourcePosition takes in a replacement's whole source at either edge, and shifts the text after it", (t) => {
+  const original = "Plants absorb CO2 from the air.";
+  const { text, replacements } = substitutePlainText(original, { CO2: "carbon dioxide" });
+  const source = (word: string) => {
+    const start = text.indexOf(word);
+    return original.slice(toSourcePosition(replacements, start, "start"), toSourcePosition(replacements, start + word.length, "end"));
+  };
+  t.is(source("carbon"), "CO2");
+  t.is(source("dioxide"), "CO2");
+  t.is(source("absorb"), "absorb");
+  t.is(source("from"), "from");
+  t.is(toSourcePosition(replacements, text.length, "end"), original.length);
+});
+
+test("toSourcePosition keeps a deletion out of the word ending or starting right next to it", (t) => {
+  const original = "value[sic] was";
+  const { text, replacements } = substitutePlainText(original, { sic: { pattern: /\[sic\]/g, replace: "" } });
+  t.is(text, "value was");
+  t.is(toSourcePosition(replacements, "value".length, "end"), "value".length);
+  t.is(toSourcePosition(replacements, "value".length, "start"), "value[sic]".length);
+});
+
+test("toSourcePosition resolves every word among many replacements, adjacent ones included", (t) => {
+  const original = "Mix 1/2 1/4 cup CO2 and (c) 3/4 water(TM) now.";
+  const { text, replacements } = substitutePlainText(original, { ...builtInSubstitutions, CO2: "carbon dioxide" });
+  t.is(text, "Mix ½ ¼ cup carbon dioxide and © ¾ water™ now.");
+  const sources = [...text.matchAll(/\S+/g)].map((m) =>
+    original.slice(toSourcePosition(replacements, m.index, "start"), toSourcePosition(replacements, m.index + m[0].length, "end")),
+  );
+  t.deepEqual(sources, ["Mix", "1/2", "1/4", "cup", "CO2", "CO2", "and", "(c)", "3/4", "water(TM)", "now."]);
 });
 
 test("substituteSsmlText rewrites text content but leaves tags/attributes untouched", (t) => {
