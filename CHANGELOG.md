@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.21.1] - 2026-11-19
+
+### Fixed
+
+- A `"word"` boundary's `locate.text` and `word` keep the page text's whitespace: a no-break space (U+00A0) stays U+00A0 instead of becoming a space (U+0020). `before + highlight + after` equals its piece's `text.highlight` again, and `word` equals `locate.text.highlight`.
+
 ## [0.21.0] - 2026-11-19
 
 ### Added
