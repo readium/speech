@@ -254,6 +254,19 @@ test("in ssml, words after a replacement leaving a doubled space resolve to thei
   }
 });
 
+test("the words of a replacement ending in a space resolve to its source, without the space after it", async (t) => {
+  const gnd = parseMarkup("<p>Use a whisk, e.g. a <em>balloon</em> whisk.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { "e.g.": "for example " } });
+    const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+    for (const word of ["for", "example"]) {
+      const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+      t.is(resolved?.locate.text?.highlight, "e.g.", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.after, " a balloon whisk.", `${format}: "${word}"`);
+    }
+  }
+});
+
 test("adjacent replacements resolve to their own source each", async (t) => {
   const gnd = parseMarkup("<p>Use 1/2 1/4 cups.</p>", undefined, { textrefs: true });
   const [utterance] = await extractUtterances(gnd, { format: "plain" });

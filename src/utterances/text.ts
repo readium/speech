@@ -307,9 +307,13 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   const collapsedReplacements = replacements.map((replacement, i) => {
     let { end: spokenEnd } = replacement.spoken;
     let { end: sourceEnd } = replacement.source;
-    // Only the space right after a replacement can be dropped on one side and kept on the other; it then belongs to the replacement.
+    // Only the space right after a replacement can be dropped on one side and kept on the other: a replacement ending
+    // in a space then leaves that space to the text after it; any other replacement takes in the kept one.
     const copiedNext = spokenEnd < substitutedPlain.length && replacements[i + 1]?.spoken.start !== spokenEnd;
-    if (copiedNext && keeps(source, sourceEnd) && !keeps(spoken, spokenEnd)) sourceEnd++;
+    if (copiedNext && keeps(source, sourceEnd) && !keeps(spoken, spokenEnd)) {
+      if (spokenEnd > replacement.spoken.start) spokenEnd--;
+      else sourceEnd++;
+    }
     else if (copiedNext && keeps(spoken, spokenEnd) && !keeps(source, sourceEnd)) spokenEnd++;
     return {
       spoken: { start: spoken.at(replacement.spoken.start), end: spoken.at(spokenEnd) },
