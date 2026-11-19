@@ -50,16 +50,27 @@ test("resolveUtteranceSourceText gives the page text an utterance reads, in ever
   const cases: { markup: string; options?: ExtractUtterancesOptions; texts: (string | undefined)[] }[] = [
     { markup: "<p>Add 1/2 cup of sugar.</p>", texts: ["Add 1/2 cup of sugar."] },
     { markup: "<p>Plants absorb CO2.</p>", options: { substitutions: { CO2: "carbon dioxide" } }, texts: ["Plants absorb CO2."] },
-    { markup: '<p>The <abbr title="World Health Organization">WHO</abbr> issued a warning.</p>', texts: ["The WHO issued a warning."] },
+    ...(["inline", "after", "never"] as const).flatMap((abbreviation) =>
+      [
+        { markup: '<p>The <abbr title="World Health Organization">WHO</abbr> issued a warning.</p>', texts: ["The WHO issued a warning."] },
+        { markup: '<p>The <abbr title="World Health Organization">WHO</abbr>.</p>', texts: ["The WHO."] },
+        { markup: '<p>Ask the <abbr title="World Health Organization">WHO</abbr>, then wait.</p>', texts: ["Ask the WHO, then wait."] },
+        { markup: '<p><abbr title="World Health Organization">WHO</abbr></p>', texts: ["WHO"] },
+        {
+          markup: '<p>The <abbr title="World Health Organization">WHO</abbr> and the <abbr title="United Nations">UN</abbr> met.</p>',
+          texts: ["The WHO and the UN met."],
+        },
+      ].map((entry) => ({ ...entry, options: { interruptions: { abbreviation } } })),
+    ),
     {
-      markup: '<p>The <abbr title="World Health Organization">WHO</abbr> issued a warning.</p>',
-      options: { interruptions: { abbreviation: "after" } },
-      texts: ["The WHO issued a warning."],
+      markup: '<p>See <a href="#a" aria-label="First">1</a> <a href="#b" aria-label="Second">2</a> now.</p>',
+      texts: ["See now."],
     },
+    { markup: '<p>See <a href="#a" aria-label="First">1</a>, then stop.</p>', texts: ["See, then stop."] },
     {
-      markup: '<p>The <abbr title="World Health Organization">WHO</abbr> issued a warning.</p>',
-      options: { interruptions: { abbreviation: "never" } },
-      texts: ["The WHO issued a warning."],
+      markup: '<p>Add a cup<span role="doc-pagebreak" aria-label="12"></span>, then stir.</p>',
+      options: { interruptions: { pagebreak: "inline" } },
+      texts: ["Add a cup, then stir."],
     },
     {
       markup: '<p>Add 1/2 cup of <span role="doc-pagebreak" aria-label="12"></span>sugar.</p>',

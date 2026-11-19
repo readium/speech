@@ -216,24 +216,41 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
   return offsets;
 }
 
-// The text of `spans` as printed: the spoken characters on the page, a run of spaces read as one.
-// Alias expansions, announcements, dropped brackets, labels and descriptions aren't on the page.
+// The text of `spans` as printed: each element's own text, from the first to the last of its characters spoken
+// (an alias's abbreviation included). Alias expansions, announcements, labels and descriptions aren't on the page.
 function pageTextOf(text: string, spans: SourceSpan[]): string {
-  const onPage = new Array<boolean>(text.length).fill(false);
-  for (const span of spans) {
-    if (!isText(span) || span.quotedOnly || isAriaSubstituted(span.node)) continue;
+  type Run = { node: GuidedNavigationObject; ownText: string; start: number; end: number; spokenStart: number; spokenEnd: number };
+  const runs: Run[] = [];
+  let interrupted = false;
+  const cover = (node: GuidedNavigationObject, ownText: string, start: number, end: number, spokenStart: number, spokenEnd: number) => {
+    const last = runs[runs.length - 1];
+    if (last?.node === node && !interrupted) {
+      last.start = Math.min(last.start, start);
+      last.end = Math.max(last.end, end);
+      last.spokenEnd = Math.max(last.spokenEnd, spokenEnd);
+    } else runs.push({ node, ownText, start, end, spokenStart, spokenEnd });
+    interrupted = false;
+  };
+  for (const span of [...spans].sort((a, b) => a.at - b.at)) {
+    if (!isText(span)) {
+      cover(span.node, plainTextOf(span.node), span.start, span.end, span.at, span.at + span.length!);
+      continue;
+    }
+    // An element's own text holds its labelled children's labels, so its run stops where one is read.
+    if (span.quotedOnly || isAriaSubstituted(span.node)) {
+      interrupted = true;
+      continue;
+    }
     span.map.forEach((position, i) => {
-      if (position >= 0) onPage[span.at + i] = true;
+      if (position >= 0) cover(span.node, span.ownText, position, position + 1, span.at + i, span.at + i + 1);
     });
   }
   let page = "";
-  let space = "";
-  for (let i = 0; i < text.length; i++) {
-    if (onPage[i]) {
-      if (page && space) page += space;
-      page += text[i];
-      space = "";
-    } else if (!space && isSpace(text[i])) space = text[i];
-  }
+  runs.forEach((run, k) => {
+    const previous = runs[k - 1];
+    // Around a dropped label, the element's own text before the next run tells the spacing; between elements, the spoken text.
+    const before = !previous ? "" : previous.node === run.node ? run.ownText.slice(previous.end, run.start).slice(-1) : text.slice(previous.spokenEnd, run.spokenStart);
+    page += ([...before].find(isSpace) ?? "") + run.ownText.slice(run.start, run.end);
+  });
   return page;
 }
