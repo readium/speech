@@ -57,7 +57,8 @@ export function resolveBoundaryLocate(
 
   const offsets = utterance.offsets;
   const isSsml = !utterance.plain && !!utterance.ssml;
-  const outputText = spaced(sub?.plain ?? utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : ""));
+  const rawOutputText = sub?.plain ?? utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : "");
+  const outputText = spaced(rawOutputText);
   if (!offsets?.length || !outputText) return undefined;
 
   // Only resumable when charIndex hasn't moved backward past the cached
@@ -66,9 +67,13 @@ export function resolveBoundaryLocate(
   const resumable = cached !== undefined && charIndex >= cached.cursor;
   let cursor = resumable ? cached.cursor : 0;
 
-  const quoteOf = (offset: UtteranceOffset): string | undefined => {
+  const rawQuoteOf = (offset: UtteranceOffset): string | undefined => {
     const raw = offset.locate.text?.highlight;
-    return raw && spaced(isSsml ? stripSsmlTags(raw) : raw);
+    return raw && (isSsml ? stripSsmlTags(raw) : raw);
+  };
+  const quoteOf = (offset: UtteranceOffset): string | undefined => {
+    const raw = rawQuoteOf(offset);
+    return raw && spaced(raw);
   };
 
   for (let i = resumable ? cached.pieceIndex : 0; i < offsets.length; i++) {
@@ -90,13 +95,14 @@ export function resolveBoundaryLocate(
         // An alias's words aren't on the page, so they highlight its whole abbreviation.
         if (spokenLength === undefined) return undefined;
         lastMatch.set(utterance, { pieceIndex: i, cursor });
-        return { locate: offset.locate, word: outputText.substring(charIndex, Math.min(charIndex + charLength, end)) };
+        return { locate: offset.locate, word: rawOutputText.substring(charIndex, Math.min(charIndex + charLength, end)) };
       }
       cursor = end;
       continue;
     }
     // No quote means this piece owns its whole node — its text is whatever remains unconsumed.
     const pieceText = quoteOf(offset) ?? outputText.slice(cursor);
+    const rawPieceText = rawQuoteOf(offset) ?? rawOutputText.slice(cursor);
     if (!pieceText) continue;
     const start = outputText.indexOf(pieceText, cursor);
     if (start === -1) continue;
@@ -104,7 +110,8 @@ export function resolveBoundaryLocate(
     if (charIndex >= start && charIndex < end) {
       lastMatch.set(utterance, { pieceIndex: i, cursor });
       const localIndex = charIndex - start;
-      const word = pieceText.substring(localIndex, Math.min(localIndex + charLength, pieceText.length));
+      // Matched spaced, but sliced from the raw text so the strings equal the page's.
+      const word = rawPieceText.substring(localIndex, Math.min(localIndex + charLength, rawPieceText.length));
       // domRange (when the piece has one) anchors the piece's whole extent, not
       // just this word — a consumer trying it before text.highlight would
       // highlight the entire piece instead of the word.
@@ -113,8 +120,8 @@ export function resolveBoundaryLocate(
         domRange: undefined,
         text: {
           highlight: word,
-          before: pieceText.substring(0, localIndex),
-          after: pieceText.substring(localIndex + word.length),
+          before: rawPieceText.substring(0, localIndex),
+          after: rawPieceText.substring(localIndex + word.length),
         },
       };
       return { locate, word };

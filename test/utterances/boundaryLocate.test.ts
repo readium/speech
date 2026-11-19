@@ -335,3 +335,19 @@ test("resolveBoundaryLocate highlights every word around a placeholder inside fo
     t.deepEqual(words, ["One", "two", "three", "four.", "Five", "six."], mode);
   }
 });
+
+test("resolveBoundaryLocate keeps a no-break space of the page text in the word's locate", async (t) => {
+  const gnd = parseMarkup("<p>First sentence. It costs 10 euros today.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    const utterance = utterances.find((u) => (u.plain ?? u.ssml)!.startsWith("It costs"))!;
+    const quote = utterance.offsets![0].locate.text!.highlight!;
+    t.true(quote.includes("10 euros"), format);
+
+    const text = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+    const locate = resolveBoundaryLocate(utterance, text.indexOf("euros"), "euros".length)!.locate.text!;
+    t.is(locate.highlight, "euros", format);
+    t.is(locate.before, "It costs 10 ", format);
+    t.is(locate.before! + locate.highlight + locate.after, quote, format);
+  }
+});
