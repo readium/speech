@@ -6,8 +6,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
-- A `"word"` boundary's `locate.text` keeps the page text's whitespace, e.g. a no-break space, instead of turning it into a plain space, so `before + highlight + after` equals its piece's `text.highlight` again: in "It costs 10 euros.", `before` is "It costs 10 ", not "It costs 10 ".
-- A `"word"` boundary's `word` keeps it too, so it equals `locate.text.highlight` again: a word spanning "10 euros" is "10 euros", not "10 euros". An abbreviation's spoken expansion keeps the whitespace of the text spoken.
+- A `"word"` boundary's `locate.text` and `word` keep the page text's whitespace: a no-break space (U+00A0) stays U+00A0 instead of becoming a space (U+0020). `before + highlight + after` equals its piece's `text.highlight` again, and `word` equals `locate.text.highlight`.
 
 ## [0.21.0] - 2026-11-19
 
