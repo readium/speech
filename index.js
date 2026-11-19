@@ -3673,7 +3673,7 @@ function Nr(n, e) {
 }
 function zr(n) {
   let e = Dn.get(n);
-  return e || (e = Object.entries(n).map(([t, s]) => Nr(t, s)), Dn.set(n, e)), e;
+  return e || (e = Object.entries(n).flatMap(([t, s]) => s === null ? [] : [Nr(t, s)]), Dn.set(n, e)), e;
 }
 function Js(n, e) {
   const t = [];
@@ -4398,7 +4398,9 @@ async function Uo(n, e) {
     segmentationSuppressions: e.segmentation?.suppressions ?? {},
     segmenter: e.segmentation?.segmenter ?? ci,
     // Per-key override, not an additive union — each key holds one whole rule.
-    substitutions: { ...no, ...e.substitutions },
+    substitutions: Object.fromEntries(
+      Object.entries({ ...no, ...e.substitutions }).filter(([, i]) => i !== null)
+    ),
     tableRowNumbers: /* @__PURE__ */ new Map(),
     tableCellHeaders: /* @__PURE__ */ new Map(),
     ancestorChains: di(n),
@@ -5659,6 +5661,7 @@ class Bl {
   preferencesEditorVoice = null;
   contextualizationOverrides;
   segmentationOverrides;
+  substitutions;
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
   // extraction-affecting fields (format, verbosity, skip, contextualize,
@@ -5686,7 +5689,7 @@ class Bl {
   // Bumped by every setContentQueue(), so a load still waiting for its voices knows it was superseded.
   loadGeneration = 0;
   constructor(e, t = {}) {
-    this.engine = e, this._defaults = new Mn(t.defaults), this._preferences = new ye(t.preferences), this._settings = new Ct(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.languages = t.languages ?? [], this.voiceSelection = new Cl(e, () => this._settings.voice, () => this.spokenLanguages()), this.setupEngineListeners(), this.applyEngineParameters(), this.notifiedVoice = this.spokenVoice(), this.initializeEngine();
+    this.engine = e, this._defaults = new Mn(t.defaults), this._preferences = new ye(t.preferences), this._settings = new Ct(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.substitutions = t.substitutions, this.languages = t.languages ?? [], this.voiceSelection = new Cl(e, () => this._settings.voice, () => this.spokenLanguages()), this.setupEngineListeners(), this.applyEngineParameters(), this.notifiedVoice = this.spokenVoice(), this.initializeEngine();
   }
   // Unlike pauseDuration/autoPause (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   applyEngineParameters() {
@@ -5848,7 +5851,8 @@ class Bl {
         reconstruct: this._settings.reconstruct,
         suppressions: this.segmentationOverrides?.suppressions,
         segmenter: this.segmentationOverrides?.segmenter
-      }
+      },
+      substitutions: this.substitutions
     });
     this.contentSources = a, this.contentBlockStarts = r;
     const o = t && e !== null ? this.resolveResumeIndex(s, e, a) : null;

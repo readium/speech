@@ -18,7 +18,7 @@ export type SubstitutionRule = string | {
     pattern: RegExp;
     replace: string | ((...match: string[]) => string);
 };
-export type SubstitutionTable = Record<string, SubstitutionRule>;
+export type SubstitutionTable = Record<string, SubstitutionRule | null>;
 export interface SegmentationOptions {
     mode?: Segmentation;
     reconstruct?: boolean;

@@ -7,7 +7,7 @@ import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor.j
 import { SpeechSettings } from './preferences/SpeechSettings.js';
 import { ContextualizationShapeOverrides } from './preferences/verbosityTables.js';
 import { ReadiumSpeechUtterance } from './utterance.js';
-import { Contextualizations } from './utterances/types.js';
+import { Contextualizations, SubstitutionTable } from './utterances/types.js';
 import { SentenceSegmenter } from './utterances/sentenceSegmenter.js';
 import { ReadiumSpeechVoice } from './voices/types.js';
 export interface ContextualizationOverrides {
@@ -24,6 +24,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
     defaults?: ISpeechDefaults;
     contextualizationOverrides?: ContextualizationOverrides;
     segmentationOverrides?: SegmentationOverrides;
+    substitutions?: SubstitutionTable;
     languages?: string[];
 }
 export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -41,6 +42,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private preferencesEditorVoice;
     private readonly contextualizationOverrides?;
     private readonly segmentationOverrides?;
+    private readonly substitutions?;
     private source;
     private contentLanguage;
     private contentSources;
