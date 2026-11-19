@@ -198,3 +198,8 @@ const index = navigator.getContentQueue().findIndex((utterance) => resolveUttera
 ```
 
 It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element, and for content extracted without textrefs, which has no page locations to match against.
+
+Known issues, to be fixed:
+
+- With `noteref`, `biblioref` or `glossref` read `"inline"` ([`interruptions`](UtteranceExtraction.md#interruptions)), it wrongly includes the note or entry text read in place, which is printed elsewhere.
+- It's lost on deep copies of an utterance: after `structuredClone()`, a JSON round trip or `postMessage()`, it's `undefined`. Spread copies (`{ ...utterance }`) keep it.
