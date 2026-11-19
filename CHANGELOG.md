@@ -8,6 +8,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `resolveUtteranceSourceText(utterance)`: the text an extracted utterance reads as printed on the page, before substitutions and without alias expansions or announcements, to match page text such as a selection against. See [Matching page text](docs/Highlighting.md#matching-page-text).
 
+### Changed
+
+- A `"word"` boundary in an aria label read in place of its element (e.g. `<a aria-label="Source: Wikipedia">[source]</a>`) resolves to the element's own `locate`, as an alias's words resolve to its abbreviation, instead of `undefined`.
+
 ## [0.21.1] - 2026-11-19
 
 ### Fixed

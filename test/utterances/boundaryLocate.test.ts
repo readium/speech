@@ -91,7 +91,10 @@ test("resolveBoundaryLocate never quote-searches an aria-substituted utterance f
   t.truthy(biblioref);
   for (const word of ["Source:", "Wikipedia,", "Speech", "synthesis"]) {
     const charIndex = biblioref.plain!.indexOf(word);
-    t.is(resolveBoundaryLocate(biblioref, charIndex, word.length), undefined, `"${word}" must not resolve a doomed per-word quote`);
+    const resolved = resolveBoundaryLocate(biblioref, charIndex, word.length);
+    // No doomed per-word quote: the labelled element's own locate, as is.
+    t.is(resolved?.locate, biblioref.offsets![0].locate, `"${word}"`);
+    t.is(resolved?.word, word);
   }
 });
 
@@ -281,7 +284,10 @@ test("page text right after substituted text resolves word by word, even when it
           } else if (abbreviation) {
             t.is(resolved?.word, match[0], label);
             t.is(resolved?.locate.text?.highlight, abbreviation, label);
-          } else t.is(resolved, undefined, label);
+          } else {
+            t.is(resolved?.word, match[0], label);
+            t.deepEqual(resolved?.locate, { cssSelector: "a" }, label);
+          }
         }
       }
     }

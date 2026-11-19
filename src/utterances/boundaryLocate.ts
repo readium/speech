@@ -97,8 +97,7 @@ export function resolveBoundaryLocate(
         ? ownStart + spokenLength
         : nextStart === -1 ? outputText.length : nextStart;
       if (charIndex >= cursor && charIndex < end) {
-        // An alias's words aren't on the page, so they highlight its whole abbreviation.
-        if (spokenLength === undefined) return undefined;
+        // An alias's or a label's words aren't on the page, so they highlight its whole abbreviation or element.
         lastMatch.set(utterance, { pieceIndex: i, cursor });
         return { locate: offset.locate, word: rawOutputText.substring(charIndex, Math.min(charIndex + charLength, end)) };
       }
