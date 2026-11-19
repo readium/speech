@@ -240,6 +240,7 @@ test("in ssml, words after a replacement leaving a doubled space resolve to thei
   const cases: { markup: string; substitutions: SubstitutionTable }[] = [
     { markup: "<p>The value [sic] was <em>wrong</em> again.</p>", substitutions: { sic: { pattern: /\[sic\]/g, replace: "" } } },
     { markup: "<p>Use a whisk, e.g. a <em>balloon</em> whisk.</p>", substitutions: { "e.g.": "for example " } },
+    { markup: "<p>Compare the A / B <em>balloon</em> whisk.</p>", substitutions: { "/": " " } },
   ];
   for (const { markup, substitutions } of cases) {
     const gnd = parseMarkup(markup, undefined, { textrefs: true });
