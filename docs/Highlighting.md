@@ -197,4 +197,4 @@ import { resolveUtteranceSourceText } from "@readium/speech";
 const index = navigator.getContentQueue().findIndex((utterance) => resolveUtteranceSourceText(utterance)?.includes(selectedText));
 ```
 
-It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element.
+It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element, and for content extracted without textrefs, which has no page locations to match against.
