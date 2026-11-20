@@ -185,3 +185,21 @@ engine.on("boundary", (event) => {
   }], "tts-word");
 });
 ```
+
+## Matching page text
+
+`plain` and `ssml` are what gets spoken: substituted, with alias expansions and announcements. To find the utterance holding some page text, e.g. a selection, compare against `resolveUtteranceSourceText()` instead:
+
+```typescript
+import { resolveUtteranceSourceText } from "@readium/speech";
+
+// "Add 1/2 cup" is spoken "Add ½ cup"; "The WHO (World Health Organization) issued" reads "The WHO issued".
+const index = navigator.getContentQueue().findIndex((utterance) => resolveUtteranceSourceText(utterance)?.includes(selectedText));
+```
+
+It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element, and for content extracted without textrefs, which has no page locations to match against.
+
+Known issues, to be fixed:
+
+- With `noteref`, `biblioref` or `glossref` read `"inline"` ([`interruptions`](UtteranceExtraction.md#interruptions)), it wrongly includes the note or entry text read in place, which is printed elsewhere.
+- It's lost on deep copies of an utterance: after `structuredClone()`, a JSON round trip or `postMessage()`, it's `undefined`. Spread copies (`{ ...utterance }`) keep it.
