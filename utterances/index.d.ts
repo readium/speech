@@ -1,6 +1,6 @@
 export { extractUtterances } from './extractUtterances.js';
 export { resolveBoundaryLocate } from './boundaryLocate.js';
-export { resolveUtteranceLocate } from './utteranceLocate.js';
+export { resolveUtteranceLocate, resolveUtteranceSourceText } from './utteranceLocate.js';
 export { blockLevelRoles, interruptionRoles, skippableRoles } from './roles.js';
 export { defaultContextualizations } from './contextualizations.js';
 export { builtInSubstitutions } from './builtInSubstitutions.js';

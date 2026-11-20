@@ -23,6 +23,11 @@ export declare function layoutSsml(ssml: string): {
 };
 export declare function textReader(pieces: PlainPiece[]): (from: number, to: number) => string;
 export declare function stripSsmlTagsKeepSpacing(ssml: string): string;
+export declare function collapseSpaces(text: string): {
+    text: string;
+    kept: number[];
+    at: (position: number) => number;
+};
 export declare function stripSsmlTagsWithMap(ssml: string): {
     plain: string;
     map: number[];

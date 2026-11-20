@@ -27,15 +27,25 @@ export interface ResolvedNodeText {
  * language would otherwise be lost.
  */
 export declare function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedNodeText | undefined;
-export declare function substituteWithMap(text: string, table: SubstitutionTable): {
+export interface Replacement {
+    spoken: {
+        start: number;
+        end: number;
+    };
+    source: {
+        start: number;
+        end: number;
+    };
+}
+export declare function substitutePlainText(text: string, table: SubstitutionTable): {
     text: string;
-    map: number[];
+    replacements: Replacement[];
 };
-export declare function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number;
+export declare function toSourcePosition(replacements: Replacement[], position: number, edge: "start" | "end"): number;
 export interface SsmlSubstitutionResult {
     ssml: string;
     plain: string;
-    map: number[];
+    replacements: Replacement[];
 }
 export declare function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult;
 export interface LangSegment {
