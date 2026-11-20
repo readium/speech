@@ -8,11 +8,11 @@ export interface PageChar {
   at: number;
 }
 
-// `[start, end)` of a node's own text, spoken at `[spokenStart, spokenEnd)` of the measured text;
-// `offPage` where something not on the page is read in place of an element's text, like a label.
+// `[start, end)` of a block's own text, the outermost element whose text holds it, spoken at `[spokenStart, spokenEnd)`
+// of the measured text. Off the page: read in place of its text, like a label (then cut out of it), or printed elsewhere.
 export type PageRun =
-  | { node: GuidedNavigationObject; ownText: string; start: number; end: number; spokenStart: number; spokenEnd: number }
-  | { offPage: true };
+  | { block: GuidedNavigationObject; blockText: string; start: number; end: number; spokenStart: number; spokenEnd: number }
+  | { offPage: true; spokenEnd: number; block?: GuidedNavigationObject; start?: number; end?: number };
 
 // Where an extracted utterance's spoken text sits on the page.
 export interface PageRecord {
@@ -44,33 +44,58 @@ export function pageRecordOf(utterance: ReadiumSpeechUtterance): PageRecord | un
 
 const isSpace = (char: string) => /\s/.test(char);
 
-// The text as printed: each element's own text, from the first to the last of its characters spoken
-// (an alias's abbreviation included). Alias expansions, announcements, labels and descriptions aren't on the page.
+type OnPage = Exclude<PageRun, { offPage: true }>;
+
+// The text as printed: each block's own text, from the first to the last of its characters spoken (an alias's abbreviation
+// included), without the labels read in place of some of it. Alias expansions, announcements and descriptions aren't on the page.
 export function pageTextOf(record: PageRecord): string {
   if (record.pageText !== undefined) return record.pageText;
-  type Run = Exclude<PageRun, { offPage: true }>;
-  const merged: Run[] = [];
-  let interrupted = false;
+  // `resumedAt`: where the text read off the page before it ends.
+  const blocks: (OnPage & { resumedAt?: number })[] = [];
+  const cuts: { block?: GuidedNavigationObject; start?: number; end?: number }[] = [];
+  let resumedAt: number | undefined;
   for (const run of record.runs) {
     if ("offPage" in run) {
-      interrupted = true;
+      resumedAt = run.spokenEnd;
+      cuts.push(run);
       continue;
     }
-    const last = merged[merged.length - 1];
-    if (last?.node === run.node && !interrupted) {
+    const last = blocks[blocks.length - 1];
+    if (last?.block === run.block) {
       last.start = Math.min(last.start, run.start);
       last.end = Math.max(last.end, run.end);
       last.spokenEnd = Math.max(last.spokenEnd, run.spokenEnd);
-    } else merged.push({ ...run });
-    interrupted = false;
+    } else blocks.push({ ...run, resumedAt });
+    resumedAt = undefined;
   }
   let page = "";
-  merged.forEach((run, k) => {
-    const previous = merged[k - 1];
-    // Around a dropped label, the element's own text before the next run tells the spacing; between elements, the spoken text.
-    const before = !previous ? "" : previous.node === run.node ? run.ownText.slice(previous.end, run.start).slice(-1) : record.measured.slice(previous.spokenEnd, run.spokenStart);
-    page += ([...before].find(isSpace) ?? "") + run.ownText.slice(run.start, run.end);
+  blocks.forEach((run, k) => {
+    const previous = blocks[k - 1];
+    // Between blocks, the spoken text after any read off the page tells the spacing.
+    const between = previous ? record.measured.slice(Math.max(previous.spokenEnd, run.resumedAt ?? 0), run.spokenStart) : "";
+    const own = cuts.filter((cut) => cut.block === run.block && cut.start! >= run.start && cut.end! <= run.end);
+    page += ([...between].find(isSpace) ?? "") + withoutCuts(run, own as { start: number; end: number }[]);
   });
   record.pageText = page;
   return page;
+}
+
+// `run`'s stretch of its block's text without `cuts`, spaced as the text resuming after one is.
+function withoutCuts(run: OnPage, cuts: { start: number; end: number }[]): string {
+  if (cuts.length === 0) return run.blockText.slice(run.start, run.end);
+  const pieces: string[] = [];
+  let from = run.start;
+  for (const cut of [...cuts].sort((a, b) => a.start - b.start)) {
+    pieces.push(run.blockText.slice(from, cut.start));
+    from = Math.max(from, cut.end);
+  }
+  pieces.push(run.blockText.slice(from, run.end));
+  let text = "";
+  for (const piece of pieces) {
+    const content = piece.trim();
+    if (!content) continue;
+    const leading = piece.slice(0, piece.length - piece.trimStart().length);
+    text += (text ? leading.slice(-1) : "") + content;
+  }
+  return text;
 }

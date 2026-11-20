@@ -25,7 +25,7 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
-import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.js";
+import { holdsMarker, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
@@ -214,6 +214,8 @@ function emitWithPlaceholders(
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
   const aligner = ownTextAligner(node);
+  // Each inline child's pieces, placed in this node's text once the aligner has placed the child.
+  const embeddedPieces: { child: GuidedNavigationObject; pieces: Piece[] }[] = [];
   // Where the last abbreviation read as its own text was placed, for its alias read after it.
   let abbreviationRange: { start: number; end: number } | undefined;
   const placeInOwnText = (segment: SsmlSegment, before: number) => {
@@ -283,8 +285,8 @@ function emitWithPlaceholders(
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
-      // A noteref's or page break's own text is a marker, not prose in the node's text, unlike a link's or text reference's words.
-      if (!nodeRoles(child).some((role) => interruptionRoleSet.has(role) && !textReferenceRoleSet.has(role))) aligner.embed(plainTextOf(child));
+      const embeddedFrom = pieces.length;
+      if (!holdsMarker(child)) aligner.embed(child);
       if (isDropped(segment.placeholderId)) {
         pending = { spaceAcross: spaced.has(segment.placeholderId) };
       } else {
@@ -338,6 +340,7 @@ function emitWithPlaceholders(
           }
         }
       }
+      if (!holdsMarker(child)) embeddedPieces.push({ child, pieces: pieces.slice(embeddedFrom) });
       continue;
     }
     if (!segment.ssml) continue;
@@ -372,6 +375,11 @@ function emitWithPlaceholders(
     meetPending(before);
     placeAlias(segment, before);
     markTouching(segment, before);
+  }
+  aligner.finish();
+  for (const { child, pieces: childPieces } of embeddedPieces) {
+    const range = aligner.rangeOf(child);
+    if (range) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start));
   }
   // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
   const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));

@@ -113,6 +113,9 @@ export const interruptionRoles: GndRole[] = ["abbreviation", "biblioref", "gloss
 // setting only moves or drops the target embedded as their children.
 export const textReferenceRoles: GndRole[] = ["biblioref", "glossref"];
 
+// Roles whose children are the targets they point to, printed elsewhere.
+export const embeddedTargetRoles: GndRole[] = ["biblioref", "glossref", "noteref"];
+
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)
 // instead of the node's description being spoken as a separate trailing

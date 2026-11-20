@@ -107,6 +107,92 @@ test("resolveUtteranceSourceText gives the page text of the voice-stamped copies
   t.is(resolveUtteranceSourceText({ ...utterance, voice: "Samantha", language: "en" }), "Add 1/2 cup of sugar.");
 });
 
+test("resolveUtteranceSourceText leaves out a reference's target read in its place, in every format and segmentation", async (t) => {
+  const cases = [
+    {
+      markup: '<p>Prices rose<a epub:type="noteref" href="#n1">*</a> sharply that year.</p><aside epub:type="footnote" id="n1"><p>Adjusted for inflation.</p></aside>',
+      role: "noteref",
+      page: "Prices rose sharply that year.",
+    },
+    {
+      markup: '<p>As shown in <a role="doc-biblioref" href="#b1">[1]</a>, speech works.</p><ol role="doc-bibliography"><li id="b1">Smith, J. Speech Synthesis. 2020.</li></ol>',
+      role: "biblioref",
+      page: "As shown in [1], speech works.",
+    },
+    {
+      markup: '<p>Whisk the <a epub:type="glossref" href="#g1">roux</a> until golden.</p><dl epub:type="glossary"><dt id="g1">roux</dt><dd>Flour cooked in fat.</dd></dl>',
+      role: "glossref",
+      page: "Whisk the roux until golden.",
+    },
+  ];
+  for (const { markup, role, page } of cases) {
+    const doc = new DOMParser().parseFromString(`<body>${markup}</body>`, "text/html");
+    const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true } });
+    for (const format of ["plain", "ssml"] as const) {
+      for (const segmentation of [{ mode: "structure" }, { mode: "sentence" }, { mode: "sentence", reconstruct: true }] as const) {
+        const [utterance] = await extractUtterances(gnd, { format, segmentation, interruptions: { [role]: "inline" } });
+        t.is(resolveUtteranceSourceText(utterance), page, `${role}, ${format}, ${JSON.stringify(segmentation)}`);
+      }
+    }
+  }
+});
+
+test("resolveUtteranceSourceText leaves out an inline footnote from a sentence reconstructed across elements", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    '<body><p>The committee met</p><p>in March<a epub:type="noteref" href="#n1">1</a> to vote.</p><aside epub:type="footnote" id="n1"><p>Minutes are archived.</p></aside></body>',
+    "text/html",
+  );
+  const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true }, interruptions: { noteref: "inline" } });
+  t.is(utterance.plain, "The committee met in March Minutes are archived. to vote.");
+  t.is(resolveUtteranceSourceText(utterance), "The committee met in March to vote.");
+});
+
+test("resolveUtteranceSourceText gives a footnote read after its sentence its own text", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    '<body><p>The plan failed<a epub:type="noteref" href="#n1">1</a>. It was revised.</p><aside epub:type="footnote" id="n1"><p>See the 1948 report.</p></aside></body>',
+    "text/html",
+  );
+  const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", interruptions: { noteref: "after" } });
+  t.deepEqual(utterances.map(resolveUtteranceSourceText), ["The plan failed. It was revised.", "See the 1948 report."]);
+});
+
+test("resolveUtteranceSourceText leaves out a label read in place of its element in a table cell, in every format and segmentation", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    '<body><table><tr><th>Step</th></tr><tr><td>See <a href="#x" aria-label="First">1</a> now.</td></tr></table></body>',
+    "text/html",
+  );
+  const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true } });
+  for (const format of ["plain", "ssml"] as const) {
+    for (const segmentation of [{ mode: "structure" }, { mode: "sentence" }, { mode: "sentence", reconstruct: true }] as const) {
+      const utterances = await extractUtterances(gnd, { format, segmentation });
+      const cell = utterances.find((u) => (u.plain ?? u.ssml)?.includes("First"))!;
+      t.is(resolveUtteranceSourceText(cell), "See now.", `${format}, ${JSON.stringify(segmentation)}`);
+    }
+  }
+});
+
+test("resolveUtteranceSourceText spaces inline elements as their block's text does, in every format and segmentation", async (t) => {
+  const cases = [
+    { markup: '<p>Open<a href="#x">AI</a> tools.</p>', page: "OpenAI tools." },
+    { markup: '<p><a href="#x">Open</a>AI tools.</p>', page: "OpenAI tools." },
+    { markup: '<p><a href="#a">Open</a><a href="#b">AI</a> labs.</p>', page: "OpenAI labs." },
+    { markup: '<p>Visit <a href="#x"><em>Open</em>AI</a> labs.</p>', page: "Visit OpenAI labs." },
+    { markup: '<p>Read <a href="#x">the guide</a> now.</p>', page: "Read the guide now." },
+    { markup: '<p>See <a href="#x">here</a>.</p>', page: "See here." },
+  ];
+  for (const { markup, page } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const format of ["plain", "ssml"] as const) {
+      for (const segmentation of [{ mode: "structure" }, { mode: "sentence" }, { mode: "sentence", reconstruct: true }] as const) {
+        const [utterance] = await extractUtterances(gnd, { format, segmentation });
+        t.is(resolveUtteranceSourceText(utterance), page, `${markup}, ${format}, ${JSON.stringify(segmentation)}`);
+      }
+    }
+  }
+});
+
 test("resolveUtteranceSourceText is undefined for text not on the page", async (t) => {
   const gnd = parseMarkup('<p>Into speech. <a href="#ref" aria-label="Source: Wikipedia, Speech synthesis">[source]</a></p>', undefined, {
     textrefs: { roles: true },

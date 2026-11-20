@@ -126,6 +126,34 @@ test("each word of consecutive labels resolves to its own labelled element", asy
   }
 });
 
+test("each word of a table cell's labels resolves to its own labelled element", async (t) => {
+  const link = (id: string, label: string) => `<a href="#${id}" id="${id}" aria-label="${label}">${id}</a>`;
+  const abbr = '<abbr title="World Health Organization">WHO</abbr>';
+  const cell = (content: string) => `<table><tr><th>Step</th></tr><tr><td>${content}</td></tr></table>`;
+  const cases = [
+    { markup: cell(`See ${link("a", "First")} now.`), words: { First: "#a" } },
+    { markup: cell(`See ${link("a", "First")} ${link("b", "Second")} now.`), words: { First: "#a", Second: "#b" } },
+    { markup: cell(`See ${link("a", "First")}${link("b", "Second")} now.`), words: { First: "#a", Second: "#b" } },
+    { markup: cell(`See ${abbr} ${link("a", "First")} now.`), words: { First: "#a" } },
+  ];
+  for (const { markup, words } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const abbreviation of ["after", "inline"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const format of ["plain", "ssml"] as const) {
+          const utterances = await extractUtterances(gnd, { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const utterance = utterances.find((u) => (u.plain ?? u.ssml)?.includes("First"))!;
+          const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+          for (const [word, selector] of Object.entries(words)) {
+            const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+            t.is(resolved?.locate.cssSelector, selector, `${abbreviation}, ${mode}, ${format}: ${markup} "${word}"`);
+          }
+        }
+      }
+    }
+  }
+});
+
 test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", async (t) => {
   const doc = new DOMParser().parseFromString("<body><h1>Speech Synthesis</h1></body>", "text/html");
   const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true, domRange: true } });

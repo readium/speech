@@ -6,9 +6,11 @@ import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordPage, type PageChar, type PageRun } from "./pageRecord.js";
-import { collapseSpaces } from "./plainText.js";
+import { collapseSpaces, stripSsmlTags } from "./plainText.js";
 import { plainTextOf } from "./tableStructure.js";
-import type { WalkContext } from "./walkContext.js";
+import { splitOnPlaceholders } from "./text.js";
+import { embeddedTargetRoleSet, interruptionRoleSet, textReferenceRoleSet, type WalkContext } from "./walkContext.js";
+import { nodeRoles, nodeText } from "./nodeFields.js";
 
 // In a span's `map`: a spoken space, and a spoken character its node's own text dropped (e.g. a bracket).
 const SPACE = -1;
@@ -17,7 +19,10 @@ const DROPPED = -2;
 // Where a stretch of an utterance's plain text, from `at`, comes from in `node`'s own text.
 export type SourceSpan = TextSpan | AliasSpan;
 
-interface TextSpan {
+// `block`: the outermost element whose own text holds `node`'s, and where `node`'s starts in it.
+type InBlock = { block?: { node: GuidedNavigationObject; at: number } };
+
+interface TextSpan extends InBlock {
   node: GuidedNavigationObject;
   ownText: string;
   at: number;
@@ -28,7 +33,7 @@ interface TextSpan {
 }
 
 // Spoken text that isn't on the page, located on `[start, end)` of the own text, and never cut.
-interface AliasSpan {
+interface AliasSpan extends InBlock {
   node: GuidedNavigationObject;
   at: number;
   start: number;
@@ -54,11 +59,65 @@ export function setAliasSpan(piece: Piece, node: GuidedNavigationObject, range: 
   setSpans(piece, [{ node, at: 0, alias, ...range }]);
 }
 
+const positions = (from: number, to: number) => Array.from({ length: to - from }, (_, k) => from + k);
+
 // `ownText` spoken whole from `at` in the utterance: e.g. a cell's value in its header's announcement.
+// In the node's own text, an aria-labelled child's label is that child's, as when read in running text.
 export function setQuotedSpan(utterance: Piece, node: GuidedNavigationObject, ownText: string, at: number): void {
-  const span: TextSpan = { node, ownText, at, map: Array.from({ length: ownText.length }, (_, k) => k) };
-  if (ownText !== plainTextOf(node)) span.quotedOnly = true;
-  setSpans(utterance, [span]);
+  if (ownText !== plainTextOf(node)) {
+    setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length), quotedOnly: true }]);
+    return;
+  }
+  const labelled = embeddedRanges(node).filter(({ child }) => isAriaSubstituted(child));
+  if (labelled.length === 0) {
+    setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length) }]);
+    return;
+  }
+  // Spaces around a label are spoken, not its element's text, as the aligner places running text.
+  const ownMap = (from: number, to: number) => positions(from, to).map((p) => (isSpace(ownText[p]) ? SPACE : p));
+  const spans: TextSpan[] = [];
+  let from = 0;
+  for (const { child, start, end } of labelled) {
+    if (start > from) spans.push({ node, ownText, at: at + from, map: ownMap(from, start) });
+    spans.push({ node: child, ownText: ownText.slice(start, end), at: at + start, map: positions(0, end - start), block: { node, at: start } });
+    from = end;
+  }
+  if (from < ownText.length) spans.push({ node, ownText, at: at + from, map: ownMap(from, ownText.length) });
+  setSpans(utterance, spans);
+}
+
+type Range = { start: number; end: number };
+
+// Where each inline child's text sits in `node`'s own text, placed as the walk places running text; none if any can't be.
+function embeddedRanges(node: GuidedNavigationObject): { child: GuidedNavigationObject; start: number; end: number }[] {
+  const ssml = nodeText(node.text)?.ssml;
+  if (!ssml) return [];
+  const children = new Map((node.children ?? []).map((child) => [child.id, child] as const));
+  const aligner = ownTextAligner(node);
+  const embedded: GuidedNavigationObject[] = [];
+  for (const segment of splitOnPlaceholders(ssml)) {
+    if (segment.abbreviation === "alias") continue;
+    const child = segment.placeholderId === undefined ? undefined : children.get(segment.placeholderId);
+    if (child) {
+      if (!holdsMarker(child)) {
+        aligner.embed(child);
+        embedded.push(child);
+      }
+      continue;
+    }
+    const text = stripSsmlTags(segment.ssml ?? "");
+    if (text && !aligner.place(text)) return [];
+  }
+  aligner.finish();
+  return embedded.flatMap((child) => {
+    const range = aligner.rangeOf(child);
+    return range ? [{ child, ...range }] : [];
+  });
+}
+
+// A noteref's or page break's own text is a marker, not prose in the node's text, unlike a link's or text reference's words.
+export function holdsMarker(child: GuidedNavigationObject): boolean {
+  return nodeRoles(child).some((role) => interruptionRoleSet.has(role) && !textReferenceRoleSet.has(role));
 }
 
 const lengthOf = (span: SourceSpan) => (isText(span) ? span.map.length : span.length!);
@@ -91,16 +150,20 @@ const isSpace = (char: string) => /\s/.test(char);
 const isDroppable = (char: string) => /[\p{Ps}\p{Pe}\p{Pi}\p{Pf}"']/u.test(char);
 
 // Places, in order, the texts read out of `node`'s own text, skipping whitespace and the brackets it drops.
-// Between them, only an embedded child's own text may be skipped, where the node's text holds it (e.g. a link's words).
+// Between them, only an embedded child's own text may be skipped, where the node's text holds it (e.g. a link's words),
+// which places that child; `finish()` places the ones left at the end.
 export interface OwnTextAligner {
   place(text: string): TextSpan | undefined;
-  embed(childText: string): void;
+  embed(child: GuidedNavigationObject): void;
+  finish(): void;
+  rangeOf(child: GuidedNavigationObject): Range | undefined;
 }
 
 export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   const ownText = plainTextOf(node);
   let cursor = 0;
-  let embedded: string[] = [];
+  let embedded: GuidedNavigationObject[] = [];
+  const ranges = new Map<GuidedNavigationObject, Range>();
   const matchFrom = (text: string, from: number): { map: number[]; end: number } | undefined => {
     const map = new Array<number>(text.length);
     let j = from;
@@ -119,27 +182,52 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
     }
     return end === -1 ? undefined : { map, end };
   };
+  // The embedded children's text the node holds, each from where the previous one found ends.
+  const skipEmbedded = () => {
+    const skipped: { child: GuidedNavigationObject; range: Range; end: number }[] = [];
+    for (const child of embedded) {
+      const match = matchFrom(plainTextOf(child), skipped.length ? skipped[skipped.length - 1].end : cursor);
+      const range = match && ownRange([{ node, ownText, at: 0, map: match.map }]);
+      if (match && range) skipped.push({ child, range, end: match.end });
+    }
+    embedded = [];
+    return skipped;
+  };
   return {
-    embed(childText) {
-      embedded.push(childText);
+    embed(child) {
+      embedded.push(child);
     },
     place(text) {
       // Right after the children's text the node holds, else before it, in case a child's text isn't there but reads the same.
-      const starts = [cursor];
-      for (const childText of embedded) {
-        const skipped = matchFrom(childText, starts[starts.length - 1]);
-        if (skipped) starts.push(skipped.end);
-      }
-      embedded = [];
+      const skipped = skipEmbedded();
+      const starts = [cursor, ...skipped.map(({ end }) => end)];
       for (let k = starts.length - 1; k >= 0; k--) {
         const match = matchFrom(text, starts[k]);
         if (!match) continue;
+        skipped.slice(0, k).forEach(({ child, range }) => ranges.set(child, range));
         cursor = match.end;
         return { node, ownText, at: 0, map: match.map };
       }
       return undefined;
     },
+    finish() {
+      for (const { child, range, end } of skipEmbedded()) {
+        ranges.set(child, range);
+        cursor = end;
+      }
+    },
+    rangeOf(child) {
+      return ranges.get(child);
+    },
   };
+}
+
+// `piece`'s spans read from `child`'s own text, placed in `block`'s, where `child`'s starts at `at`.
+export function placeInBlock(piece: Piece, child: GuidedNavigationObject, block: GuidedNavigationObject, at: number): void {
+  piece.spans = piece.spans?.map((span) => {
+    const inner = span.block ?? { node: span.node, at: 0 };
+    return inner.node === child ? { ...span, block: { node: block, at: at + inner.at } } : span;
+  });
 }
 
 // The stretch of own text that `spans` were placed on, if any.
@@ -222,24 +310,43 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     // SSML is measured with its spacing kept; engines report positions in `stripSsmlTags()` text.
     const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
     const spoken = collapsed ? collapsed.text : text;
-    const runs = pageRuns(spans, runsBySpan);
+    const runs = pageRuns(spans, runsBySpan, utterance.source, ctx);
     recordPage(offsets, { spoken, measured: text, runs, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
   }
   return offsets;
 }
 
-// Each span's runs as read from the page, in spoken order. An alias's abbreviation is on the page; a label's or
-// description's words aren't, and the element's own text around them is read as separate runs.
-function pageRuns(spans: SourceSpan[], runsBySpan: { start: number; end: number }[][]): PageRun[] {
+// A reference's children are its targets, printed elsewhere: a node under one isn't printed where `source` is,
+// unless `source` is under it too, like a footnote read after its sentence.
+function printedWith(node: GuidedNavigationObject, source: Piece["source"], ctx: WalkContext): boolean {
+  if (!source) return true;
+  const sourceNodes = Array.isArray(source) ? source : [source];
+  const own = new Set(sourceNodes.flatMap((n) => [n, ...(ctx.ancestorChains.get(n) ?? [])]));
+  for (const ancestor of ctx.ancestorChains.get(node) ?? []) {
+    if (own.has(ancestor)) return true;
+    if (nodeRoles(ancestor).some((role) => embeddedTargetRoleSet.has(role))) return false;
+  }
+  return true;
+}
+
+// Each span's runs as read from the page, in spoken order, placed in their block's text. An alias's abbreviation is on the
+// page; a label's or description's words aren't, nor a target read in place of its reference.
+function pageRuns(spans: SourceSpan[], runsBySpan: Range[][], source: Piece["source"], ctx: WalkContext): PageRun[] {
   const order = spans.map((_, s) => s).sort((a, b) => spans[a].at - spans[b].at);
   return order.flatMap((s): PageRun[] => {
     const span = spans[s];
-    if (!isText(span)) return [{ node: span.node, ownText: plainTextOf(span.node), start: span.start, end: span.end, spokenStart: span.at, spokenEnd: span.at + span.length! }];
-    if (span.quotedOnly || isAriaSubstituted(span.node)) return [{ offPage: true }];
+    const { node } = span;
+    const spokenEnd = span.at + lengthOf(span);
+    if (!printedWith(node, source, ctx) || (isText(span) && span.quotedOnly)) return [{ offPage: true, spokenEnd }];
+    const { node: block, at } = span.block ?? { node, at: 0 };
+    const blockText = block === node && isText(span) ? span.ownText : plainTextOf(block);
+    // A label is read in place of its element's text, which is cut out of its block's.
+    if (isAriaSubstituted(node)) return [{ offPage: true, spokenEnd, ...(span.block && { block, start: at, end: at + plainTextOf(node).length }) }];
+    if (!isText(span)) return [{ block, blockText, start: at + span.start, end: at + span.end, spokenStart: span.at, spokenEnd }];
     return runsBySpan[s].flatMap(({ start, end }): PageRun[] => {
       const spoken = span.map.flatMap((position, i) => (position >= start && position < end ? [span.at + i] : []));
       if (spoken.length === 0) return [];
-      return [{ node: span.node, ownText: span.ownText, start, end, spokenStart: spoken[0], spokenEnd: spoken[spoken.length - 1] + 1 }];
+      return [{ block, blockText, start: at + start, end: at + end, spokenStart: spoken[0], spokenEnd: spoken[spoken.length - 1] + 1 }];
     });
   });
 }
