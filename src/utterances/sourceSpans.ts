@@ -5,7 +5,7 @@ import type { UtteranceOffset } from "../utterance.js";
 import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
-import { recordPage, type PageChar } from "./pageRecord.js";
+import { recordPage, type PageChar, type PageRun } from "./pageRecord.js";
 import { collapseSpaces } from "./plainText.js";
 import { plainTextOf } from "./tableStructure.js";
 import type { WalkContext } from "./walkContext.js";
@@ -194,17 +194,19 @@ function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNulla
 
 // An utterance's `offsets`: one per stretch of a node's own text it speaks.
 export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffset[] {
-  type Located = { span: SourceSpan; nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>; start: number; end: number };
-  const located = spansOf(utterance, ctx).flatMap((span): Located[] => {
+  type Run = { span: SourceSpan; nodeRef: ReturnType<typeof resolveNodeLocate>; start: number; end: number };
+  type Located = Run & { nodeRef: NonNullable<Run["nodeRef"]> };
+  const spans = spansOf(utterance, ctx);
+  const runsBySpan = spans.map((span): Run[] => {
     const nodeRef = resolveNodeLocate(span.node, ctx.ancestorChains);
-    if (!nodeRef) return [];
     return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, ...run })) : [{ span, nodeRef, start: span.start, end: span.end }];
   });
+  const located = runsBySpan.flat().filter((run): run is Located => !!run.nodeRef);
   const text = pieceText(utterance, ctx);
   const only = located.length === 1 ? located[0].span : undefined;
   const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === text.length && !only.map.includes(DROPPED);
   const chars: PageChar[] = Array.from({ length: text.length }, () => ({ offset: -1, at: -1 }));
-  const offsets = located.map(({ span, nodeRef, start, end }, k) => {
+  const offsets: UtteranceOffset[] = located.map(({ span, nodeRef, start, end }, k) => {
     if (!isText(span)) {
       for (let i = span.at; i < Math.min(span.at + span.length!, text.length); i++) chars[i] = { offset: k, at: -1 };
       return { start, end, locate: span.alias };
@@ -217,50 +219,27 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
   });
   if (offsets.length > 0) {
     const texts = located.map(({ span, start, end }) => (isText(span) ? span.ownText.slice(start, end) : ""));
-    const pageText = pageTextOf(text, spansOf(utterance, ctx));
     // SSML is measured with its spacing kept; engines report positions in `stripSsmlTags()` text.
     const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
     const spoken = collapsed ? collapsed.text : text;
-    recordPage(offsets, { spoken, pageText, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
+    const runs = pageRuns(spans, runsBySpan);
+    recordPage(offsets, { spoken, measured: text, runs, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
   }
   return offsets;
 }
 
-// The text of `spans` as printed: each element's own text, from the first to the last of its characters spoken
-// (an alias's abbreviation included). Alias expansions, announcements, labels and descriptions aren't on the page.
-function pageTextOf(text: string, spans: SourceSpan[]): string {
-  type Run = { node: GuidedNavigationObject; ownText: string; start: number; end: number; spokenStart: number; spokenEnd: number };
-  const runs: Run[] = [];
-  let interrupted = false;
-  const cover = (node: GuidedNavigationObject, ownText: string, start: number, end: number, spokenStart: number, spokenEnd: number) => {
-    const last = runs[runs.length - 1];
-    if (last?.node === node && !interrupted) {
-      last.start = Math.min(last.start, start);
-      last.end = Math.max(last.end, end);
-      last.spokenEnd = Math.max(last.spokenEnd, spokenEnd);
-    } else runs.push({ node, ownText, start, end, spokenStart, spokenEnd });
-    interrupted = false;
-  };
-  for (const span of [...spans].sort((a, b) => a.at - b.at)) {
-    if (!isText(span)) {
-      cover(span.node, plainTextOf(span.node), span.start, span.end, span.at, span.at + span.length!);
-      continue;
-    }
-    // An element's own text holds its labelled children's labels, so its run stops where one is read.
-    if (span.quotedOnly || isAriaSubstituted(span.node)) {
-      interrupted = true;
-      continue;
-    }
-    span.map.forEach((position, i) => {
-      if (position >= 0) cover(span.node, span.ownText, position, position + 1, span.at + i, span.at + i + 1);
+// Each span's runs as read from the page, in spoken order. An alias's abbreviation is on the page; a label's or
+// description's words aren't, and the element's own text around them is read as separate runs.
+function pageRuns(spans: SourceSpan[], runsBySpan: { start: number; end: number }[][]): PageRun[] {
+  const order = spans.map((_, s) => s).sort((a, b) => spans[a].at - spans[b].at);
+  return order.flatMap((s): PageRun[] => {
+    const span = spans[s];
+    if (!isText(span)) return [{ node: span.node, ownText: plainTextOf(span.node), start: span.start, end: span.end, spokenStart: span.at, spokenEnd: span.at + span.length! }];
+    if (span.quotedOnly || isAriaSubstituted(span.node)) return [{ offPage: true }];
+    return runsBySpan[s].flatMap(({ start, end }): PageRun[] => {
+      const spoken = span.map.flatMap((position, i) => (position >= start && position < end ? [span.at + i] : []));
+      if (spoken.length === 0) return [];
+      return [{ node: span.node, ownText: span.ownText, start, end, spokenStart: spoken[0], spokenEnd: spoken[spoken.length - 1] + 1 }];
     });
-  }
-  let page = "";
-  runs.forEach((run, k) => {
-    const previous = runs[k - 1];
-    // Around a dropped label, the element's own text before the next run tells the spacing; between elements, the spoken text.
-    const before = !previous ? "" : previous.node === run.node ? run.ownText.slice(previous.end, run.start).slice(-1) : text.slice(previous.spokenEnd, run.spokenStart);
-    page += ([...before].find(isSpace) ?? "") + run.ownText.slice(run.start, run.end);
   });
-  return page;
 }
