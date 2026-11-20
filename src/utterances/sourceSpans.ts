@@ -5,8 +5,8 @@ import type { UtteranceOffset } from "../utterance.js";
 import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
-import { recordAliasOffset } from "./boundaryLocate.js";
-import { recordPageText } from "./utteranceLocate.js";
+import { recordPage, type PageChar } from "./pageRecord.js";
+import { collapseSpaces } from "./plainText.js";
 import { plainTextOf } from "./tableStructure.js";
 import type { WalkContext } from "./walkContext.js";
 
@@ -203,16 +203,26 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
   const text = pieceText(utterance, ctx);
   const only = located.length === 1 ? located[0].span : undefined;
   const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === text.length && !only.map.includes(DROPPED);
-  const offsets = located.map(({ span, nodeRef, start, end }) => {
+  const chars: PageChar[] = Array.from({ length: text.length }, () => ({ offset: -1, at: -1 }));
+  const offsets = located.map(({ span, nodeRef, start, end }, k) => {
     if (!isText(span)) {
-      const offset = { start, end, locate: span.alias };
-      recordAliasOffset(offset, span.length!);
-      return offset;
+      for (let i = span.at; i < Math.min(span.at + span.length!, text.length); i++) chars[i] = { offset: k, at: -1 };
+      return { start, end, locate: span.alias };
     }
     const substituted = isAriaSubstituted(span.node) ? substitutedBareLocate(span.node, ctx) : undefined;
+    span.map.forEach((position, i) => {
+      if (position >= start && position < end && span.at + i < text.length) chars[span.at + i] = { offset: k, at: substituted ? -1 : position - start };
+    });
     return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
   });
-  if (offsets.length > 0) recordPageText(offsets, pageTextOf(text, spansOf(utterance, ctx)));
+  if (offsets.length > 0) {
+    const texts = located.map(({ span, start, end }) => (isText(span) ? span.ownText.slice(start, end) : ""));
+    const pageText = pageTextOf(text, spansOf(utterance, ctx));
+    // SSML is measured with its spacing kept; engines report positions in `stripSsmlTags()` text.
+    const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
+    const spoken = collapsed ? collapsed.text : text;
+    recordPage(offsets, { spoken, pageText, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
+  }
   return offsets;
 }
 

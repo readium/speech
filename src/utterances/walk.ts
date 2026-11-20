@@ -27,7 +27,6 @@ import {
 import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
 import { ownRange, ownTextAligner, setAliasSpan, setSpans } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push, pushMergedRuns, pushPiecesOrMerged } from "./utteranceOutput.js";
@@ -183,7 +182,7 @@ function locateOnAbbreviation(
 ): void {
   const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
   if (!nodeRef) return;
-  const locate = markNonQuotable(subLocateFor(nodeRef.ref, abbreviation));
+  const locate = subLocateFor(nodeRef.ref, abbreviation);
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
     piece.locate = locate;

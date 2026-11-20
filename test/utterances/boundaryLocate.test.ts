@@ -126,25 +126,17 @@ test("each word of consecutive labels resolves to its own labelled element", asy
   }
 });
 
-test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", (t) => {
-  const utterance = {
-    plain: "Speech Synthesis",
-    offsets: [{
-      start: 0,
-      end: 17,
-      locate: {
-        cssSelector: "h1",
-        domRange: { start: { cssSelector: "h1", textNodeIndex: 0, charOffset: 0 } },
-        text: { highlight: "Speech Synthesis" },
-      },
-    }],
-  };
+test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", async (t) => {
+  const doc = new DOMParser().parseFromString("<body><h1>Speech Synthesis</h1></body>", "text/html");
+  const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true, domRange: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.truthy(utterance.offsets?.[0].locate.domRange);
 
-  const charIndex = utterance.plain.indexOf("Synthesis");
+  const charIndex = utterance.plain!.indexOf("Synthesis");
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Synthesis".length);
   t.is(resolved?.word, "Synthesis");
   t.is(resolved?.locate.domRange, undefined);
-  t.is(resolved?.locate.cssSelector, "h1");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![0].locate.cssSelector);
 });
 
 test("resolveBoundaryLocate matches a plain-text-space charIndex against SSML markup, skipping past an inline tag", async (t) => {
@@ -232,7 +224,7 @@ test("a word ending inside a replacement resolves to the whole source it replace
   t.is(utterance.plain, "Cut a 2×4 board.");
 
   const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("2"), 1);
-  t.is(resolved?.word, "2 x ");
+  t.is(resolved?.word, "2 x");
   t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("4"), 1)?.word, "4");
 });
 
