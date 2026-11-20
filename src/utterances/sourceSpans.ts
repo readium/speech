@@ -6,6 +6,7 @@ import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordAliasOffset } from "./boundaryLocate.js";
+import { recordPageText } from "./utteranceLocate.js";
 import { plainTextOf } from "./tableStructure.js";
 import type { WalkContext } from "./walkContext.js";
 
@@ -199,9 +200,10 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     if (!nodeRef) return [];
     return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, ...run })) : [{ span, nodeRef, start: span.start, end: span.end }];
   });
+  const text = pieceText(utterance, ctx);
   const only = located.length === 1 ? located[0].span : undefined;
-  const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === pieceText(utterance, ctx).length && !only.map.includes(DROPPED);
-  return located.map(({ span, nodeRef, start, end }) => {
+  const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === text.length && !only.map.includes(DROPPED);
+  const offsets = located.map(({ span, nodeRef, start, end }) => {
     if (!isText(span)) {
       const offset = { start, end, locate: span.alias };
       recordAliasOffset(offset, span.length!);
@@ -210,4 +212,45 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     const substituted = isAriaSubstituted(span.node) ? substitutedBareLocate(span.node, ctx) : undefined;
     return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
   });
+  if (offsets.length > 0) recordPageText(offsets, pageTextOf(text, spansOf(utterance, ctx)));
+  return offsets;
+}
+
+// The text of `spans` as printed: each element's own text, from the first to the last of its characters spoken
+// (an alias's abbreviation included). Alias expansions, announcements, labels and descriptions aren't on the page.
+function pageTextOf(text: string, spans: SourceSpan[]): string {
+  type Run = { node: GuidedNavigationObject; ownText: string; start: number; end: number; spokenStart: number; spokenEnd: number };
+  const runs: Run[] = [];
+  let interrupted = false;
+  const cover = (node: GuidedNavigationObject, ownText: string, start: number, end: number, spokenStart: number, spokenEnd: number) => {
+    const last = runs[runs.length - 1];
+    if (last?.node === node && !interrupted) {
+      last.start = Math.min(last.start, start);
+      last.end = Math.max(last.end, end);
+      last.spokenEnd = Math.max(last.spokenEnd, spokenEnd);
+    } else runs.push({ node, ownText, start, end, spokenStart, spokenEnd });
+    interrupted = false;
+  };
+  for (const span of [...spans].sort((a, b) => a.at - b.at)) {
+    if (!isText(span)) {
+      cover(span.node, plainTextOf(span.node), span.start, span.end, span.at, span.at + span.length!);
+      continue;
+    }
+    // An element's own text holds its labelled children's labels, so its run stops where one is read.
+    if (span.quotedOnly || isAriaSubstituted(span.node)) {
+      interrupted = true;
+      continue;
+    }
+    span.map.forEach((position, i) => {
+      if (position >= 0) cover(span.node, span.ownText, position, position + 1, span.at + i, span.at + i + 1);
+    });
+  }
+  let page = "";
+  runs.forEach((run, k) => {
+    const previous = runs[k - 1];
+    // Around a dropped label, the element's own text before the next run tells the spacing; between elements, the spoken text.
+    const before = !previous ? "" : previous.node === run.node ? run.ownText.slice(previous.end, run.start).slice(-1) : text.slice(previous.spokenEnd, run.spokenStart);
+    page += ([...before].find(isSpace) ?? "") + run.ownText.slice(run.start, run.end);
+  });
+  return page;
 }

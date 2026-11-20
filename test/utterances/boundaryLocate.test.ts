@@ -5,6 +5,7 @@ import { encodeCssSelectorFragment, parseMarkup } from "@readium/guided-navigati
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 import { stripSsmlTags } from "../../src/utterances/plainText.js";
+import type { SubstitutionTable } from "../../src/utterances/types.js";
 
 test("resolveBoundaryLocate finds a word within a single-offset utterance", async (t) => {
   const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
@@ -90,7 +91,38 @@ test("resolveBoundaryLocate never quote-searches an aria-substituted utterance f
   t.truthy(biblioref);
   for (const word of ["Source:", "Wikipedia,", "Speech", "synthesis"]) {
     const charIndex = biblioref.plain!.indexOf(word);
-    t.is(resolveBoundaryLocate(biblioref, charIndex, word.length), undefined, `"${word}" must not resolve a doomed per-word quote`);
+    const resolved = resolveBoundaryLocate(biblioref, charIndex, word.length);
+    // No doomed per-word quote: the labelled element's own locate, as is.
+    t.is(resolved?.locate, biblioref.offsets![0].locate, `"${word}"`);
+    t.is(resolved?.word, word);
+  }
+});
+
+test("each word of consecutive labels resolves to its own labelled element", async (t) => {
+  const link = (id: string, label: string) => `<a href="#${id}" id="${id}" aria-label="${label}">${id}</a>`;
+  const abbr = '<abbr title="World Health Organization">WHO</abbr>';
+  const cases = [
+    { markup: `<p>See ${link("a", "First")} ${link("b", "Second")} now.</p>`, words: { First: "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")}${link("b", "Second")} now.</p>`, words: { First: "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")} ${link("b", "Second")} ${link("c", "Third")}</p>`, words: { First: "#a", Second: "#b", Third: "#c" } },
+    { markup: `<p>See ${link("a", "Half 1/2")} ${link("b", "Second")} now.</p>`, words: { Half: "#a", "½": "#a", Second: "#b" } },
+    { markup: `<p>See ${link("a", "First")} ${abbr} now.</p>`, words: { First: "#a" } },
+    { markup: `<p>See ${abbr} ${link("a", "First")} now.</p>`, words: { First: "#a" } },
+  ];
+  for (const { markup, words } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const abbreviation of ["after", "inline"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const format of ["plain", "ssml"] as const) {
+          const [utterance] = await extractUtterances(gnd, { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+          for (const [word, selector] of Object.entries(words)) {
+            const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+            t.is(resolved?.locate.cssSelector, selector, `${abbreviation}, ${mode}, ${format}: ${markup} "${word}"`);
+          }
+        }
+      }
+    }
   }
 });
 
@@ -158,10 +190,92 @@ test("resolveBoundaryLocate on a substituted utterance resolves a charIndex+char
 
   const charIndex = utterance.plain!.indexOf("Celsius.");
   // charIndex + charLength lands exactly on the substituted text's length —
-  // the end-exclusive edge case substitutedIndexToSourceIndex must handle.
+  // the end-exclusive edge case toSourcePosition must handle.
   t.is(charIndex + "Celsius.".length, utterance.plain!.length);
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Celsius.".length);
   t.is(resolved?.locate.text?.highlight, "Celsius.");
+});
+
+test("each word of a multiword replacement resolves to the whole source it replaces", async (t) => {
+  const gnd = parseMarkup("<p>Plants absorb CO2 from the <em>air</em>.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { CO2: "carbon dioxide" } });
+    const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+    t.is(spoken, "Plants absorb carbon dioxide from the air.");
+    for (const word of ["carbon", "dioxide"]) {
+      const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+      t.is(resolved?.word, "CO2", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.before, "Plants absorb ", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.after, " from the air.", `${format}: "${word}"`);
+    }
+  }
+});
+
+test("a replacement ending the utterance resolves to its whole source", async (t) => {
+  const cases = [
+    { markup: "<p>1/2</p>", word: "½", source: "1/2" },
+    { markup: "<p>Made by Acme(TM)</p>", word: "Acme™", source: "Acme(TM)" },
+    { markup: "<p>The main greenhouse gas is CO2</p>", word: "dioxide", source: "CO2" },
+  ];
+  for (const { markup, word, source } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: true });
+    const [utterance] = await extractUtterances(gnd, { format: "plain", substitutions: { CO2: "carbon dioxide" } });
+    const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf(word), word.length);
+    t.is(resolved?.word, source, markup);
+    t.is(resolved?.locate.text?.after, "", markup);
+  }
+});
+
+test("a word ending inside a replacement resolves to the whole source it replaces", async (t) => {
+  const gnd = parseMarkup("<p>Cut a 2 x 4 board.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Cut a 2×4 board.");
+
+  const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("2"), 1);
+  t.is(resolved?.word, "2 x ");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("4"), 1)?.word, "4");
+});
+
+test("in ssml, words after a replacement leaving a doubled space resolve to their own text", async (t) => {
+  const cases: { markup: string; substitutions: SubstitutionTable }[] = [
+    { markup: "<p>The value [sic] was <em>wrong</em> again.</p>", substitutions: { sic: { pattern: /\[sic\]/g, replace: "" } } },
+    { markup: "<p>Use a whisk, e.g. a <em>balloon</em> whisk.</p>", substitutions: { "e.g.": "for example " } },
+    { markup: "<p>Compare the A / B <em>balloon</em> whisk.</p>", substitutions: { "/": " " } },
+  ];
+  for (const { markup, substitutions } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: true });
+    for (const segmentation of ["structure", "sentence"] as const) {
+      const [utterance] = await extractUtterances(gnd, { format: "ssml", substitutions, segmentation: { mode: segmentation } });
+      const spoken = stripSsmlTags(utterance.ssml!);
+      for (const word of ["wrong", "again.", "balloon", "whisk."].filter((word) => spoken.includes(word))) {
+        const resolved = resolveBoundaryLocate(utterance, spoken.lastIndexOf(word), word.length);
+        t.is(resolved?.word, word, `${segmentation}: ${markup} "${word}"`);
+      }
+    }
+  }
+});
+
+test("the words of a replacement ending in a space resolve to its source, without the space after it", async (t) => {
+  const gnd = parseMarkup("<p>Use a whisk, e.g. a <em>balloon</em> whisk.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { "e.g.": "for example " } });
+    const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+    for (const word of ["for", "example"]) {
+      const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+      t.is(resolved?.locate.text?.highlight, "e.g.", `${format}: "${word}"`);
+      t.is(resolved?.locate.text?.after, " a balloon whisk.", `${format}: "${word}"`);
+    }
+  }
+});
+
+test("adjacent replacements resolve to their own source each", async (t) => {
+  const gnd = parseMarkup("<p>Use 1/2 1/4 cups.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Use ½ ¼ cups.");
+
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("½"), 1)?.word, "1/2");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("¼"), 1)?.word, "1/4");
+  t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("cups."), 5)?.word, "cups.");
 });
 
 test("page text after substituted text resolves word by word, even when it repeats the substituted source", async (t) => {
@@ -212,7 +326,10 @@ test("page text right after substituted text resolves word by word, even when it
           } else if (abbreviation) {
             t.is(resolved?.word, match[0], label);
             t.is(resolved?.locate.text?.highlight, abbreviation, label);
-          } else t.is(resolved, undefined, label);
+          } else {
+            t.is(resolved?.word, match[0], label);
+            t.deepEqual(resolved?.locate, { cssSelector: "a" }, label);
+          }
         }
       }
     }

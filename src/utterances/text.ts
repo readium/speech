@@ -17,7 +17,7 @@ import {
   type SsmlText,
 } from "./ssml.js";
 import type { SubstitutionRule, SubstitutionTable } from "./types.js";
-import { layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textReader } from "./plainText.js";
+import { collapseSpaces, layoutSsml, stripSsmlTags, stripSsmlTagsKeepSpacing, textReader } from "./plainText.js";
 import { meetsUnspaced, OPENING_PUNCT_CLASS, startsWithOpeningPunct } from "../utils/text.js";
 
 export interface ResolvedNodeText {
@@ -198,47 +198,50 @@ function resolveSubstitutionSpans(text: string, table: SubstitutionTable): Subst
   return spans;
 }
 
-// Runs every rule over `text` (leftmost-match wins on overlap), returning
-// the rewritten text plus `map[i]` = the source index for output char i.
-export function substituteWithMap(text: string, table: SubstitutionTable): { text: string; map: number[] } {
-  let out = "";
-  const map: number[] = [];
-  let cursor = 0;
-  for (const span of resolveSubstitutionSpans(text, table)) {
-    while (cursor < span.start) {
-      out += text[cursor];
-      map.push(cursor);
-      cursor++;
-    }
-    // By UTF-16 code unit, not code point (no `for...of`) — a surrogate-pair
-    // replacement char must still add one map entry per code unit.
-    for (let i = 0; i < span.replacement.length; i++) {
-      out += span.replacement[i];
-      map.push(span.start);
-    }
-    cursor = span.end;
-  }
-  while (cursor < text.length) {
-    out += text[cursor];
-    map.push(cursor);
-    cursor++;
-  }
-  return { text: out, map };
+// One substitution: `spoken` in the rewritten text, replacing `source` in the original. Text between replacements is copied as is.
+export interface Replacement {
+  spoken: { start: number; end: number };
+  source: { start: number; end: number };
 }
 
-// A direct lookup, not a search, since `map` is already indexed by
-// substituted position. `substitutedIndex === map.length` lands one past the last mapped char.
-export function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number {
-  if (!map.length) return substitutedIndex;
-  if (substitutedIndex <= 0) return map[0];
-  if (substitutedIndex >= map.length) return map[map.length - 1] + 1;
-  return map[substitutedIndex];
+// Runs every rule over `text` (leftmost-match wins on overlap), returning the rewritten text and its replacements, in order.
+export function substitutePlainText(text: string, table: SubstitutionTable): { text: string; replacements: Replacement[] } {
+  let out = "";
+  const replacements: Replacement[] = [];
+  let cursor = 0;
+  for (const span of resolveSubstitutionSpans(text, table)) {
+    out += text.slice(cursor, span.start);
+    const spokenStart = out.length;
+    out += span.replacement;
+    replacements.push({ spoken: { start: spokenStart, end: out.length }, source: { start: span.start, end: span.end } });
+    cursor = span.end;
+  }
+  return { text: out + text.slice(cursor), replacements };
+}
+
+// The original position of the rewritten text's `position`, as the `start` or `end` of a word:
+// a word starting or ending inside a replacement takes in all of its source.
+export function toSourcePosition(replacements: Replacement[], position: number, edge: "start" | "end"): number {
+  // A word ending right where a deletion sits ends before it; one starting there starts after it.
+  const reached = (replacement: Replacement) => (edge === "start" ? replacement.spoken.start <= position : replacement.spoken.start < position);
+  // Replacements are in order, so the last one reached is found by binary search.
+  let low = 0;
+  let high = replacements.length;
+  while (low < high) {
+    const mid = (low + high) >> 1;
+    if (reached(replacements[mid])) low = mid + 1;
+    else high = mid;
+  }
+  if (low === 0) return position;
+  const { spoken, source } = replacements[low - 1];
+  if (edge === "start" ? position < spoken.end : position <= spoken.end) return edge === "start" ? source.start : source.end;
+  return position + source.end - spoken.end;
 }
 
 export interface SsmlSubstitutionResult {
   ssml: string;
-  plain: string; // the pre-substitution text `map` resolves into: `layoutSsml(ssml).plain`, trimmed
-  map: number[]; // map[i] = position in `plain` for substituted-plain char i
+  plain: string; // the pre-substitution text `replacements` resolve into: `stripSsmlTags(ssml)`
+  replacements: Replacement[]; // spoken in `stripSsmlTags()` of the substituted ssml
 }
 
 // A run of `plain` under its enclosing elements, or a childless element (e.g. `<break/>`) at that point.
@@ -248,7 +251,7 @@ type PlainSpan = { start: number; end: number; chain: SsmlElement[] } | { node: 
 // each replacement so a caller-supplied `replace` can't corrupt the markup.
 // A match within one text node stays in that node's elements; a match crossing
 // elements goes into the innermost element enclosing all of it.
-// `plain`/`map` describe the same rewrite over tag-stripped text.
+// `plain`/`replacements` describe the same rewrite over tag-stripped text.
 export function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult {
   const layout = layoutSsml(ssml);
   const plain = layout.plain;
@@ -262,11 +265,12 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
 
   const writer = new SsmlWriter();
   let substitutedPlain = "";
-  const map: number[] = [];
+  const replacements: Replacement[] = [];
   let spanIndex = 0;
   const writeReplacement = (span: SubstitutionSpan, chain: SsmlElement[]) => {
+    const spokenStart = substitutedPlain.length;
     substitutedPlain += span.replacement;
-    for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
+    replacements.push({ spoken: { start: spokenStart, end: substitutedPlain.length }, source: { start: span.start, end: span.end } });
     writer.text(chain, span.replacement);
   };
 
@@ -288,7 +292,6 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
       const next = span ? Math.min(span.start, piece.end) : piece.end;
       const text = plain.slice(cursor, next);
       substitutedPlain += text;
-      for (let i = 0; i < text.length; i++) map.push(cursor + i);
       writer.text(piece.chain, text);
       cursor = next;
     }
@@ -297,21 +300,28 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
   for (const span of spans.slice(spanIndex)) writeReplacement(span, textPieces[textPieces.length - 1]?.chain ?? []);
   const outSsml = writer.flush();
 
-  let plainStart = 0;
-  while (plainStart < plain.length && /\s/.test(plain[plainStart])) plainStart++;
-  let plainEnd = plain.length;
-  while (plainEnd > plainStart && /\s/.test(plain[plainEnd - 1])) plainEnd--;
-  let subStart = 0;
-  while (subStart < substitutedPlain.length && /\s/.test(substitutedPlain[subStart])) subStart++;
-  let subEnd = substitutedPlain.length;
-  while (subEnd > subStart && /\s/.test(substitutedPlain[subEnd - 1])) subEnd--;
+  // Positions counted as engines report them, on the collapsed text: a doubled space would shift every later word.
+  const source = collapseSpaces(plain);
+  const spoken = collapseSpaces(substitutedPlain);
+  const keeps = (text: ReturnType<typeof collapseSpaces>, position: number) => text.at(position + 1) > text.at(position);
+  const collapsedReplacements = replacements.map((replacement, i) => {
+    let { end: spokenEnd } = replacement.spoken;
+    let { end: sourceEnd } = replacement.source;
+    // Only the space right after a replacement can be dropped on one side and kept on the other: a replacement ending
+    // in spaces then leaves them to the text after it; one left empty takes in the kept space.
+    const copiedNext = spokenEnd < substitutedPlain.length && replacements[i + 1]?.spoken.start !== spokenEnd;
+    if (copiedNext && keeps(source, sourceEnd) && !keeps(spoken, spokenEnd)) {
+      while (spokenEnd > replacement.spoken.start && substitutedPlain[spokenEnd - 1] === " ") spokenEnd--;
+      if (spokenEnd === replacement.spoken.start) sourceEnd++;
+    }
+    else if (copiedNext && keeps(spoken, spokenEnd) && !keeps(source, sourceEnd)) spokenEnd++;
+    return {
+      spoken: { start: spoken.at(replacement.spoken.start), end: spoken.at(spokenEnd) },
+      source: { start: source.at(replacement.source.start), end: source.at(sourceEnd) },
+    };
+  });
 
-  const trimmedPlain = plain.slice(plainStart, plainEnd);
-  const trimmedMap = map
-    .slice(subStart, subEnd)
-    .map((v) => Math.min(Math.max(v - plainStart, 0), Math.max(trimmedPlain.length - 1, 0)));
-
-  return { ssml: outSsml, plain: trimmedPlain, map: trimmedMap };
+  return { ssml: outSsml, plain: source.text, replacements: collapsedReplacements };
 }
 
 export interface LangSegment {
@@ -461,8 +471,12 @@ export interface SsmlSegment {
   touchesPrevious?: boolean;
 }
 
-const ATTACHED_END_RE = /[\p{L}\p{M}\p{N}\p{Pd}]+$/u;
-const ATTACHED_START_RE = /^[\p{L}\p{M}\p{N}\p{Pd}]+/u;
+// Dashes joining words (hyphens, en dash), not the em dash family setting clauses apart.
+const JOINING_DASH = "(?![\\u2014\\u2015\\u2E3A\\u2E3B\\uFE31\\uFE58])\\p{Pd}";
+const ATTACHED_END_RE = new RegExp(`(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+$`, "u");
+const ATTACHED_START_RE = new RegExp(`^(?:[\\p{L}\\p{M}\\p{N}]|${JOINING_DASH})+`, "u");
+const STARTS_WITH_JOINING_DASH = new RegExp(`^${JOINING_DASH}`, "u");
+const ENDS_WITH_JOINING_DASH = new RegExp(`${JOINING_DASH}$`, "u");
 
 // Word boundaries at an abbreviation's edge come from the scripts meeting there, not the locale.
 let wordSegmenter: Intl.Segmenter | undefined;
@@ -470,7 +484,7 @@ const wordsOf = (text: string) => (wordSegmenter ??= new Intl.Segmenter("und", {
 
 // How much of `candidate`, the text right after `word`, is in the same word: all of it past a hyphen.
 function attachedAfter(word: string, candidate: string): string {
-  if (!word || !candidate || /^\p{Pd}/u.test(candidate)) return candidate;
+  if (!word || !candidate || STARTS_WITH_JOINING_DASH.test(candidate)) return candidate;
   if (meetsUnspaced(word, candidate)) return "";
   if (typeof Intl.Segmenter !== "function") return candidate;
   const { index, segment } = wordsOf(word + candidate).containing(word.length - 1)!;
@@ -479,7 +493,7 @@ function attachedAfter(word: string, candidate: string): string {
 
 // How much of `candidate`, the text right before `word`, is in the same word: all of it before a hyphen.
 function attachedBefore(candidate: string, word: string): string {
-  if (!word || !candidate || /\p{Pd}$/u.test(candidate)) return candidate;
+  if (!word || !candidate || ENDS_WITH_JOINING_DASH.test(candidate)) return candidate;
   if (meetsUnspaced(candidate, word)) return "";
   if (typeof Intl.Segmenter !== "function") return candidate;
   const { index } = wordsOf(candidate + word).containing(candidate.length)!;

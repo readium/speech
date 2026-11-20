@@ -1,7 +1,10 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { substitutedIndexToSourceIndex } from "./text.js";
+import { toSourcePosition, type Replacement } from "./text.js";
 import { stripSsmlTags } from "./plainText.js";
+
+// TODO: consolidate this module's lookups and utteranceLocate.ts's `pageTexts` into one per-utterance record of
+// where each spoken character sits on the page, read directly instead of quote-searching the spoken text.
 
 // Boundary events for one utterance arrive in increasing charIndex order
 // (word by word) — remembering the last matched piece lets a call resume
@@ -10,9 +13,11 @@ const lastMatch = new WeakMap<ReadiumSpeechUtterance, { pieceIndex: number; curs
 
 // Set by applySubstitutions() for a substituted utterance; not a public
 // field, since only this module needs it.
-const substitutionSources = new WeakMap<ReadiumSpeechUtterance, { plain: string; map: number[] }>();
+type SubstitutionSource = { plain: string; replacements: Replacement[] };
 
-export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, source: { plain: string; map: number[] }): void {
+const substitutionSources = new WeakMap<ReadiumSpeechUtterance, SubstitutionSource>();
+
+export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, source: SubstitutionSource): void {
   substitutionSources.set(utterance, source);
 }
 
@@ -49,8 +54,8 @@ export function resolveBoundaryLocate(
   // A substituted utterance's charIndex arrives in substituted-text space; translate back before matching.
   const sub = substitutionSources.get(utterance);
   if (sub) {
-    const start = substitutedIndexToSourceIndex(sub.map, charIndex);
-    const end = substitutedIndexToSourceIndex(sub.map, charIndex + charLength);
+    const start = toSourcePosition(sub.replacements, charIndex, "start");
+    const end = charLength > 0 ? toSourcePosition(sub.replacements, charIndex + charLength, "end") : start;
     charIndex = start;
     charLength = Math.max(0, end - start);
   }
@@ -80,20 +85,20 @@ export function resolveBoundaryLocate(
     const offset = offsets[i];
     // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found past its own length.
     if (nonQuotableLocates.has(offset.locate)) {
-      const spokenLength = aliasSpokenLengths.get(offset);
+      // An alias's offset spans its abbreviation, so its spoken length is recorded; a label's offset spans the label it reads.
+      const spokenLength = aliasSpokenLengths.get(offset) ?? offset.end - offset.start;
       const nextQuote = offsets.slice(i + 1).find((next) => !nonQuotableLocates.has(next.locate) && quoteOf(next));
       const quote = nextQuote && quoteOf(nextQuote)!;
-      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + (spokenLength ?? offset.end - offset.start)) : -1;
+      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + spokenLength) : -1;
       const nextStart = quote && pastOwnLength === -1 ? outputText.indexOf(quote, cursor) : pastOwnLength;
-      // An alias right before another non-quotable piece ends at its own length, as no quote separates them.
+      // Right before another non-quotable piece, it ends at its own length, as no quote separates them.
       const next = offsets[i + 1];
       const ownStart = cursor + /^\s*/.exec(outputText.slice(cursor))![0].length;
-      const end = spokenLength !== undefined && next && nonQuotableLocates.has(next.locate)
+      const end = next && nonQuotableLocates.has(next.locate)
         ? ownStart + spokenLength
         : nextStart === -1 ? outputText.length : nextStart;
       if (charIndex >= cursor && charIndex < end) {
-        // An alias's words aren't on the page, so they highlight its whole abbreviation.
-        if (spokenLength === undefined) return undefined;
+        // An alias's or a label's words aren't on the page, so they highlight its whole abbreviation or element.
         lastMatch.set(utterance, { pieceIndex: i, cursor });
         return { locate: offset.locate, word: rawOutputText.substring(charIndex, Math.min(charIndex + charLength, end)) };
       }

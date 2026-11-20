@@ -97,7 +97,8 @@ export function joinPieceTexts(parts: string[], spacing: PieceSpacing[] = []): {
   let joined = "";
   const ranges: { start: number; end: number }[] = [];
   parts.forEach((part, i) => {
-    if (isRedundant(joined, part)) {
+    // A part touching the previous one is set against it on the page, so it never repeats it.
+    if (spacing[i] !== "touching" && isRedundant(joined, part)) {
       ranges.push({ start: joined.length, end: joined.length });
       return;
     }
