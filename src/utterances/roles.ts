@@ -118,8 +118,8 @@ export const embeddedTargetRoles: GndRole[] = ["biblioref", "glossref", "noteref
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)
-// instead of the node's description being spoken as a separate trailing
-// utterance — see the `foldsDescription` check in `walkNode()`.
+// instead of the node's description being spoken as a separate utterance
+// before its content — see the `foldsDescription` check in `walkNode()`.
 export const descriptionFoldingRoles: GndRole[] = ["audio", "video", "image", "figure", "math", "table", "cover"];
 
 // cell/rowheader's own contextualization template already embeds the

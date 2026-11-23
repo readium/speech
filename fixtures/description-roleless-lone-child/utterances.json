@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         }
       ]
     },
@@ -105,10 +105,10 @@
           "language": "en"
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         },
         {
           "plain": "End of the list.",
@@ -152,10 +152,10 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         },
         {
           "plain": "End of the list."
@@ -252,10 +252,10 @@
           "language": "en"
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         }
       ]
     },
@@ -295,10 +295,10 @@
           "plain": "List item."
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         }
       ]
     },
@@ -405,10 +405,10 @@
           "language": "en"
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         },
         {
           "plain": "End of the list.",
@@ -458,10 +458,10 @@
           "plain": "List item."
         },
         {
-          "plain": "One."
+          "plain": "Sidebar"
         },
         {
-          "plain": "Sidebar"
+          "plain": "One."
         },
         {
           "plain": "End of the list."
@@ -476,10 +476,10 @@
       ],
       "utterances": [
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         }
       ]
     },
@@ -573,10 +573,10 @@
           "language": "en"
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         },
         {
           "ssml": "End of the list.",
@@ -620,10 +620,10 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         },
         {
           "ssml": "End of the list."
@@ -720,10 +720,10 @@
           "language": "en"
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         }
       ]
     },
@@ -763,10 +763,10 @@
           "ssml": "List item."
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         }
       ]
     },
@@ -873,10 +873,10 @@
           "language": "en"
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         },
         {
           "ssml": "End of the list.",
@@ -926,10 +926,10 @@
           "ssml": "List item."
         },
         {
-          "ssml": "One."
+          "ssml": "Sidebar"
         },
         {
-          "ssml": "Sidebar"
+          "ssml": "One."
         },
         {
           "ssml": "End of the list."

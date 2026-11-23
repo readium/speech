@@ -16,12 +16,12 @@
           "language": "de"
         },
         {
-          "plain": "x",
-          "language": "fr"
-        },
-        {
           "plain": "Eine Katze",
           "language": "de"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
         }
       ]
     },
@@ -57,12 +57,12 @@
           "language": "de"
         },
         {
-          "plain": "x",
-          "language": "fr"
-        },
-        {
           "plain": "Eine Katze",
           "language": "de"
+        },
+        {
+          "plain": "x",
+          "language": "fr"
         }
       ]
     },
@@ -88,10 +88,10 @@
           "plain": "Katze"
         },
         {
-          "plain": "x"
+          "plain": "Eine Katze"
         },
         {
-          "plain": "Eine Katze"
+          "plain": "x"
         }
       ]
     },
@@ -111,10 +111,10 @@
           "plain": "Eine Katze"
         },
         {
-          "plain": "x"
+          "plain": "Eine Katze"
         },
         {
-          "plain": "Eine Katze"
+          "plain": "x"
         }
       ]
     },
@@ -370,16 +370,16 @@
           "language": "de"
         },
         {
+          "plain": "Eine Katze",
+          "language": "de"
+        },
+        {
           "plain": "Image with a label:",
           "language": "en"
         },
         {
           "plain": "x",
           "language": "fr"
-        },
-        {
-          "plain": "Eine Katze",
-          "language": "de"
         }
       ]
     },
@@ -424,16 +424,16 @@
           "language": "de"
         },
         {
+          "plain": "Eine Katze",
+          "language": "de"
+        },
+        {
           "plain": "Image with a label:",
           "language": "en"
         },
         {
           "plain": "x",
           "language": "fr"
-        },
-        {
-          "plain": "Eine Katze",
-          "language": "de"
         }
       ]
     },
@@ -465,10 +465,10 @@
           "plain": "Katze"
         },
         {
-          "plain": "Image with a label: x"
+          "plain": "Eine Katze"
         },
         {
-          "plain": "Eine Katze"
+          "plain": "Image with a label: x"
         }
       ]
     },
@@ -491,10 +491,10 @@
           "plain": "Eine Katze"
         },
         {
-          "plain": "Image with a label: x"
+          "plain": "Eine Katze"
         },
         {
-          "plain": "Eine Katze"
+          "plain": "Image with a label: x"
         }
       ]
     },
@@ -2611,12 +2611,12 @@
           "language": "de"
         },
         {
-          "ssml": "x",
-          "language": "fr"
-        },
-        {
           "ssml": "Eine Katze",
           "language": "de"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
         }
       ]
     },
@@ -2652,12 +2652,12 @@
           "language": "de"
         },
         {
-          "ssml": "x",
-          "language": "fr"
-        },
-        {
           "ssml": "Eine Katze",
           "language": "de"
+        },
+        {
+          "ssml": "x",
+          "language": "fr"
         }
       ]
     },
@@ -2683,10 +2683,10 @@
           "ssml": "Katze"
         },
         {
-          "ssml": "x"
+          "ssml": "Eine Katze"
         },
         {
-          "ssml": "Eine Katze"
+          "ssml": "x"
         }
       ]
     },
@@ -2706,10 +2706,10 @@
           "ssml": "Eine Katze"
         },
         {
-          "ssml": "x"
+          "ssml": "Eine Katze"
         },
         {
-          "ssml": "Eine Katze"
+          "ssml": "x"
         }
       ]
     },
@@ -2957,12 +2957,12 @@
           "language": "de"
         },
         {
-          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
-          "language": "en"
-        },
-        {
           "ssml": "Eine Katze",
           "language": "de"
+        },
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
         }
       ]
     },
@@ -3007,12 +3007,12 @@
           "language": "de"
         },
         {
-          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
-          "language": "en"
-        },
-        {
           "ssml": "Eine Katze",
           "language": "de"
+        },
+        {
+          "ssml": "Image with a label: <lang xml:lang=\"fr\">x</lang>",
+          "language": "en"
         }
       ]
     },
@@ -3044,10 +3044,10 @@
           "ssml": "Katze"
         },
         {
-          "ssml": "Image with a label: x"
+          "ssml": "Eine Katze"
         },
         {
-          "ssml": "Eine Katze"
+          "ssml": "Image with a label: x"
         }
       ]
     },
@@ -3070,10 +3070,10 @@
           "ssml": "Eine Katze"
         },
         {
-          "ssml": "Image with a label: x"
+          "ssml": "Eine Katze"
         },
         {
-          "ssml": "Eine Katze"
+          "ssml": "Image with a label: x"
         }
       ]
     },

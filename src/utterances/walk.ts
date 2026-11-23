@@ -443,16 +443,12 @@ function walkNode(
           role !== "footnote" && role !== "pagebreak" && !textReferenceRoleSet.has(role) && !isDroppedByAnotherRole(role, roles, ctx),
       );
 
-  // A description is supplementary/elaborating content (e.g. an extended
-  // audio description) for most roles, spoken after the primary content —
-  // but a table's is its label, spoken before its rows. Either way this
-  // is suppressed when a role that's actually firing already folded it
-  // into its own announcement (e.g. "Table: Team roster. 3 lines...").
+  // Unless a firing role folded it into its own announcement (e.g. "Table: Team roster. 3 lines...").
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
-  const isTableCaption = roles.includes("table") && description !== undefined && !foldsDescription;
-  if (isTableCaption) {
-    const utterance = formatDescription(description!, node, ctx);
-    scopeToQuote(utterance, 0, description!, node, ctx);
+  if (description !== undefined && !foldsDescription) {
+    const utterance = formatDescription(description, node, ctx);
+    // Only a figure's or table's description is located, as a quote within it.
+    if (roles.includes("figure") || roles.includes("table")) scopeToQuote(utterance, 0, description, node, ctx);
     push(out, node, [utterance]);
   }
 
@@ -548,13 +544,6 @@ function walkNode(
 
   if (eligible && out.length > beforeLength) {
     out[beforeLength].blockStart = true;
-  }
-
-  if (description !== undefined && !foldsDescription && !isTableCaption) {
-    const utterance = formatDescription(description, node, ctx);
-    // Only a figure's description is located, as a quote within the figure.
-    if (roles.includes("figure")) scopeToQuote(utterance, 0, description, node, ctx);
-    push(out, node, [utterance]);
   }
 
   for (const role of contextualizedRoles) {
