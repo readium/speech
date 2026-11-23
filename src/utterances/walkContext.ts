@@ -22,6 +22,7 @@ import {
   valueFoldingRoles,
   contentlessRoles,
   textReferenceRoles,
+  embeddedTargetRoles,
 } from "./roles.js";
 
 export interface WalkContext {
@@ -68,6 +69,7 @@ export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descripti
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
 export const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
 export const textReferenceRoleSet: ReadonlySet<GndRole> = new Set(textReferenceRoles);
+export const embeddedTargetRoleSet: ReadonlySet<GndRole> = new Set(embeddedTargetRoles);
 
 // Synchronous: resources are supplied inline, no backend plugin involved.
 function makeContextualizer(locale: string, contextualizations: Contextualizations): i18n {

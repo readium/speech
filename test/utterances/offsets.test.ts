@@ -207,6 +207,30 @@ test("an offset covering part of its node's own text quotes it with the text aro
   );
 });
 
+test("an offset's quote context stops where its node's text isn't the page's: at an aria label or a left-out marker", async (t) => {
+  const markups = [
+    '<p>See it. <a href="#x" aria-label="First">1</a> now. Then.</p>',
+    '<p>Text (<a role="doc-noteref" href="#n">1</a>) after. Next.</p><aside role="doc-footnote" id="n"><p>Note.</p></aside>',
+  ];
+  for (const markup of markups) {
+    const body = new DOMParser().parseFromString(`<body>${markup}</body>`, "text/html").body;
+    const gnd = parseMarkup(body, undefined, { textrefs: { roles: true } });
+    for (const format of ["plain", "ssml"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const noteref of ["inline", "after"] as const) {
+          const utterances = await extractUtterances(gnd, { format, segmentation: { mode }, interruptions: { noteref } });
+          const quotes = utterances.flatMap((u) => u.offsets?.map(({ locate }) => locate.text) ?? []).filter((quote) => quote !== undefined);
+          t.true(quotes.length > 0);
+          for (const quote of quotes) {
+            const quoted = (quote.before ?? "") + quote.highlight + (quote.after ?? "");
+            t.true(body.textContent!.includes(quoted), `${markup}, ${format}, ${mode}, ${noteref}: ${JSON.stringify(quote)}`);
+          }
+        }
+      }
+    }
+  }
+});
+
 test("a sentence holding an inline link has the same offsets in sentence and structure modes", async (t) => {
   const html = '<p>Hi <a href="x.html">link</a> end.</p>';
   for (const format of ["plain", "ssml"] as const) {

@@ -68,6 +68,50 @@ test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t)
   t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
 });
 
+test("resolveBoundaryLocate clips a word whose reported length runs past the end of the utterance", async (t) => {
+  const gnd = parseMarkup("<p>Speech Synthesis</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Speech Synthesis");
+
+  const resolved = resolveBoundaryLocate(utterance, "Speech ".length, 12);
+  t.is(resolved?.word, "Synthesis");
+  t.is(resolved?.locate.text?.highlight, "Synthesis");
+  t.is(resolved?.locate.text?.after, "");
+});
+
+test("resolveBoundaryLocate clips a word whose reported length runs into the next label to its own", async (t) => {
+  const gnd = parseMarkup('<p>See <a href="#a" id="a" aria-label="First">1</a> <a href="#b" id="b" aria-label="Second">2</a> now.</p>', undefined, {
+    textrefs: { roles: true },
+  });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format });
+    const resolved = resolveBoundaryLocate(utterance, "See ".length, "First Second".length);
+    t.is(resolved?.word, "First", format);
+    t.is(resolved?.locate.cssSelector, "#a", format);
+  }
+});
+
+test("resolveBoundaryLocate resolves no word in text a substitution inserts", async (t) => {
+  const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { note: { pattern: /^/, replace: "Note: " } } });
+    t.is(resolveBoundaryLocate(utterance, 0, "Note:".length), undefined, format);
+    t.is(resolveBoundaryLocate(utterance, "Note: ".length, "Hello".length)?.word, "Hello", format);
+  }
+});
+
+test("resolveBoundaryLocate quotes a word with its sentence's context in the rest of the paragraph", async (t) => {
+  const gnd = parseMarkup("<p>He ran. He ran.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    const quotes = utterances.map((utterance) => resolveBoundaryLocate(utterance, 0, "He".length)?.locate.text);
+    t.deepEqual(quotes, [
+      { highlight: "He", before: "", after: " ran. He ran." },
+      { highlight: "He", before: "He ran. ", after: " ran." },
+    ], format);
+  }
+});
+
 test("resolveBoundaryLocate returns undefined for a synthesized utterance with no offsets", async (t) => {
   const utterance = { plain: "Some synthesized announcement." };
   t.is(resolveBoundaryLocate(utterance, 5, 4), undefined);
@@ -126,25 +170,45 @@ test("each word of consecutive labels resolves to its own labelled element", asy
   }
 });
 
-test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", (t) => {
-  const utterance = {
-    plain: "Speech Synthesis",
-    offsets: [{
-      start: 0,
-      end: 17,
-      locate: {
-        cssSelector: "h1",
-        domRange: { start: { cssSelector: "h1", textNodeIndex: 0, charOffset: 0 } },
-        text: { highlight: "Speech Synthesis" },
-      },
-    }],
-  };
+test("each word of a table cell's labels resolves to its own labelled element", async (t) => {
+  const link = (id: string, label: string) => `<a href="#${id}" id="${id}" aria-label="${label}">${id}</a>`;
+  const abbr = '<abbr title="World Health Organization">WHO</abbr>';
+  const cell = (content: string) => `<table><tr><th>Step</th></tr><tr><td>${content}</td></tr></table>`;
+  const cases = [
+    { markup: cell(`See ${link("a", "First")} now.`), words: { First: "#a" } },
+    { markup: cell(`See ${link("a", "First")} ${link("b", "Second")} now.`), words: { First: "#a", Second: "#b" } },
+    { markup: cell(`See ${link("a", "First")}${link("b", "Second")} now.`), words: { First: "#a", Second: "#b" } },
+    { markup: cell(`See ${abbr} ${link("a", "First")} now.`), words: { First: "#a" } },
+  ];
+  for (const { markup, words } of cases) {
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const abbreviation of ["after", "inline"] as const) {
+      for (const mode of ["structure", "sentence"] as const) {
+        for (const format of ["plain", "ssml"] as const) {
+          const utterances = await extractUtterances(gnd, { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const utterance = utterances.find((u) => (u.plain ?? u.ssml)?.includes("First"))!;
+          const spoken = utterance.plain ?? stripSsmlTags(utterance.ssml!);
+          for (const [word, selector] of Object.entries(words)) {
+            const resolved = resolveBoundaryLocate(utterance, spoken.indexOf(word), word.length);
+            t.is(resolved?.locate.cssSelector, selector, `${abbreviation}, ${mode}, ${format}: ${markup} "${word}"`);
+          }
+        }
+      }
+    }
+  }
+});
 
-  const charIndex = utterance.plain.indexOf("Synthesis");
+test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", async (t) => {
+  const doc = new DOMParser().parseFromString("<body><h1>Speech Synthesis</h1></body>", "text/html");
+  const gnd = parseMarkup(doc.querySelector("body")!, undefined, { textrefs: { roles: true, domRange: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.truthy(utterance.offsets?.[0].locate.domRange);
+
+  const charIndex = utterance.plain!.indexOf("Synthesis");
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Synthesis".length);
   t.is(resolved?.word, "Synthesis");
   t.is(resolved?.locate.domRange, undefined);
-  t.is(resolved?.locate.cssSelector, "h1");
+  t.is(resolved?.locate.cssSelector, utterance.offsets![0].locate.cssSelector);
 });
 
 test("resolveBoundaryLocate matches a plain-text-space charIndex against SSML markup, skipping past an inline tag", async (t) => {
@@ -232,7 +296,7 @@ test("a word ending inside a replacement resolves to the whole source it replace
   t.is(utterance.plain, "Cut a 2×4 board.");
 
   const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("2"), 1);
-  t.is(resolved?.word, "2 x ");
+  t.is(resolved?.word, "2 x");
   t.is(resolveBoundaryLocate(utterance, utterance.plain!.indexOf("4"), 1)?.word, "4");
 });
 
@@ -458,13 +522,13 @@ test("resolveBoundaryLocate keeps a no-break space of the page text in the word'
   for (const format of ["plain", "ssml"] as const) {
     const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
     const utterance = utterances.find((u) => (u.plain ?? u.ssml)!.startsWith("It costs"))!;
-    const quote = utterance.offsets![0].locate.text!.highlight!;
-    t.true(quote.includes("10 euros"), format);
+    const quote = utterance.offsets![0].locate.text!;
+    t.true(quote.highlight!.includes("10 euros"), format);
 
     const text = utterance.plain ?? stripSsmlTags(utterance.ssml!);
     const locate = resolveBoundaryLocate(utterance, text.indexOf("euros"), "euros".length)!.locate.text!;
     t.is(locate.highlight, "euros", format);
-    t.is(locate.before, "It costs 10 ", format);
-    t.is(locate.before! + locate.highlight + locate.after, quote, format);
+    t.is(locate.before, "First sentence. It costs 10 ", format);
+    t.is(locate.before! + locate.highlight + locate.after, (quote.before ?? "") + quote.highlight + (quote.after ?? ""), format);
   }
 });

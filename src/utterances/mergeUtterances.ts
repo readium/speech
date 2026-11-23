@@ -8,7 +8,6 @@ import { stripSsmlTags, stripSsmlTagsKeepSpacing } from "./plainText.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate } from "./locate.js";
 import { joinedSpans, placeInOwnText, setSpans } from "./sourceSpans.js";
-import { markNonQuotable } from "./boundaryLocate.js";
 import type { WalkContext } from "./walkContext.js";
 import { balancedSsml, joinPieceSsml, joinPieceTexts, type Piece } from "./piece.js";
 
@@ -28,9 +27,9 @@ export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkCon
   if (ownSelector) {
     const locate: LocatorOptions = { cssSelector: ownSelector };
     if (ref?.href !== undefined) locate.href = ref.href;
-    return markNonQuotable(locate);
+    return locate;
   }
-  return ref && markNonQuotable(ref);
+  return ref;
 }
 
 // Recurses through a piece that's itself a prior merge, since its edge locate
