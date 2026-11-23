@@ -34,7 +34,7 @@ export function isRoleContextualized(role: string, ctx: WalkContext): boolean {
 export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: WalkContext): boolean {
   return roles.some((other) => {
     const entry = roleDropOverrides[other];
-    if (!entry?.drops.includes(role)) return false;
+    if (!entry || !(entry.drops === "*" ? other !== role : entry.drops.includes(role))) return false;
     return entry.unconditional || isRoleContextualized(other, ctx);
   });
 }
