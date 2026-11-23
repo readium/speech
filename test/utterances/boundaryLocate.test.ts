@@ -79,6 +79,27 @@ test("resolveBoundaryLocate clips a word whose reported length runs past the end
   t.is(resolved?.locate.text?.after, "");
 });
 
+test("resolveBoundaryLocate clips a word whose reported length runs into the next label to its own", async (t) => {
+  const gnd = parseMarkup('<p>See <a href="#a" id="a" aria-label="First">1</a> <a href="#b" id="b" aria-label="Second">2</a> now.</p>', undefined, {
+    textrefs: { roles: true },
+  });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format });
+    const resolved = resolveBoundaryLocate(utterance, "See ".length, "First Second".length);
+    t.is(resolved?.word, "First", format);
+    t.is(resolved?.locate.cssSelector, "#a", format);
+  }
+});
+
+test("resolveBoundaryLocate resolves no word in text a substitution inserts", async (t) => {
+  const gnd = parseMarkup("<p>Hello world.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const [utterance] = await extractUtterances(gnd, { format, substitutions: { note: { pattern: /^/, replace: "Note: " } } });
+    t.is(resolveBoundaryLocate(utterance, 0, "Note:".length), undefined, format);
+    t.is(resolveBoundaryLocate(utterance, "Note: ".length, "Hello".length)?.word, "Hello", format);
+  }
+});
+
 test("resolveBoundaryLocate quotes a word with its sentence's context in the rest of the paragraph", async (t) => {
   const gnd = parseMarkup("<p>He ran. He ran.</p>", undefined, { textrefs: true });
   for (const format of ["plain", "ssml"] as const) {

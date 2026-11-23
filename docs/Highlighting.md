@@ -169,7 +169,7 @@ Text not on the page, like most announcements or an alt description, carries no 
 `charIndex`/`charLength` on a boundary are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). Call `resolveBoundaryLocate()` whenever your engine reports one:
 
 > [!WARNING]
-> Some engines/voices (observed with the native Web Speech API) occasionally report one oversized `"word"` boundary spanning several actual words, then resume reporting individual words normally afterward. The trigger isn't confirmed (parentheses-heavy text is one suspect), but it's an engine-side quirk — `charIndex`/`charLength` are trusted as reported, with no validation or recomputation — so the resulting highlight can momentarily span more than one word.
+> Some engines/voices (observed with the native Web Speech API) occasionally report one oversized `"word"` boundary spanning several actual words, then resume reporting individual words normally afterward. The trigger isn't confirmed (parentheses-heavy text is one suspect), but it's an engine-side quirk — `charIndex`/`charLength` are only clipped to the spoken text and to the `offsets` entry the word starts in — so the resulting highlight can momentarily span more than one word.
 
 ```typescript
 import { resolveBoundaryLocate } from "@readium/speech";

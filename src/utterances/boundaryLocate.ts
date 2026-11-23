@@ -24,25 +24,25 @@ export function resolveBoundaryLocate(
   if (!record) return undefined;
   const { spoken, chars, texts } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
-  if (start === chars.length) return undefined;
-
-  let first = -1;
-  for (let i = start; i < Math.max(end, start + 1); i++) {
-    if (chars[i].offset !== -1) {
-      first = i;
-      break;
-    }
-  }
-  if (first === -1) return undefined;
+  // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
+  const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
+  let first = start;
+  while (first < reach && chars[first].offset === -1) first++;
+  if (first === reach) return undefined;
   const { offset: k, at } = chars[first];
+  // The word stays within the offset it starts in.
+  let last = first;
+  for (let i = first; i < end && (chars[i].offset === k || chars[i].offset === -1); i++) {
+    if (chars[i].offset === k) last = i + 1;
+  }
   const offset = utterance.offsets![k];
   // An alias's or a label's words aren't on the page, so they highlight its whole abbreviation or element.
-  if (at === -1) return { locate: offset.locate, word: spoken.slice(start, end) };
+  if (at === -1) return { locate: offset.locate, word: spoken.slice(first, last) };
 
   const from = at;
-  let to = charLength > 0 ? at + 1 : at;
-  for (let i = first; i < end; i++) {
-    if (chars[i].offset === k && chars[i].at >= 0) to = Math.max(to, chars[i].at + 1);
+  let to = at;
+  for (let i = first; i < last; i++) {
+    if (chars[i].at >= 0) to = Math.max(to, chars[i].at + 1);
   }
   const text = texts[k];
   const word = text.slice(from, to);
