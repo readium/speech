@@ -8,6 +8,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - A `"word"` boundary's `locate.text` quotes the word with its offset's context: `before + highlight + after` equals the offset's `before + highlight + after`, not its `highlight` alone. A word in a sentence its element repeats (`He ran. He ran.`) is located where it's read, not on the first one.
 - `resolveBoundaryLocate()` returns `undefined` for deep copies of an utterance (after `structuredClone()`, a JSON round trip or `postMessage()`), as `resolveUtteranceSourceText()` does. Spread copies (`{ ...utterance }`) still resolve.
+- A `"word"` boundary in text a substitution inserts (e.g. `{ pattern: /^/, replace: "Note: " }`) resolves to `undefined`, as announcements do, instead of an empty word on the page text after it.
 
 ### Fixed
 
@@ -15,6 +16,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `resolveUtteranceSourceText()` spaces inline elements as their block's text does: `Open<a href="#x">AI</a> tools.` gives "OpenAI tools.", not "Open AI tools.".
 - In a table cell read with its header, an aria-labelled element (`<a aria-label="First">1</a>`) is read as in running text: `resolveUtteranceSourceText()` leaves its label out, a `"word"` boundary in the label resolves to the element's own `locate`, and with `segmentation: "sentence"` the cell's `offsets` locate the label on its element and quote the text around it, instead of one quote of the spoken text, which isn't on the page.
 - A `"word"` boundary ending inside a replacement no longer includes the space after it: "2 x", not "2 x ", for "2 x 4" spoken "2×4".
+- An `offsets` entry's `locate.text.before`/`after` stops at an aria-labelled element, whose label isn't on the page: in `See <a aria-label="First">1</a> now.`, "now." has `before: " "`, not `"See First "`.
 
 ## [0.22.0] - 2026-11-20
 

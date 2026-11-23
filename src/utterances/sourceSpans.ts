@@ -276,8 +276,13 @@ function ownRuns(span: TextSpan): { start: number; end: number }[] {
 function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean): LocatorOptions {
   if (speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
   const locate = subLocateFor(nodeRef.ref, span.ownText.slice(start, end));
-  if (start > 0) locate.text = { ...locate.text, before: span.ownText.slice(0, start) };
-  if (end < span.ownText.length) locate.text = { ...locate.text, after: span.ownText.slice(end) };
+  // Context stops at an aria label, whose words aren't on the page.
+  const labelled = span.node.children?.some(isAriaSubstituted) && span.ownText === plainTextOf(span.node);
+  const labels = labelled ? embeddedRanges(span.node).filter(({ child }) => isAriaSubstituted(child)) : [];
+  const from = Math.max(0, ...labels.filter((label) => label.end <= start).map((label) => label.end));
+  const to = Math.min(span.ownText.length, ...labels.filter((label) => label.start >= end).map((label) => label.start));
+  if (start > from) locate.text = { ...locate.text, before: span.ownText.slice(from, start) };
+  if (end < to) locate.text = { ...locate.text, after: span.ownText.slice(end, to) };
   return locate;
 }
 
