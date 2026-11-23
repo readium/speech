@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Contextualizations for comics roles: a `panel` reads its label, or "Panel." without one; `panelGroup` reads "Panel group.", `bubble` "Speech bubble." and `sound` "Sound:". `panel` is contextualized from the `few` verbosity preset, the others at `most`.
+- A comics role (`panelGroup`, `panel`, `bubble`, `sound`) drops every other role on its node when contextualized, e.g. the `region` of `<section role="region" epub:type="panel">` or the `image` of a panel with `role="img"`.
+
+### Changed
+
+- A node's description is read before its content, as a table's already was, instead of after it.
+
 ## [0.23.0] - 2026-11-23
 
 ### Changed
