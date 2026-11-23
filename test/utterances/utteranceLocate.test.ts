@@ -140,6 +140,21 @@ test("resolveUtteranceSourceText leaves out a reference's target read in its pla
       role: "glossref",
       page: "Whisk the roux until golden.",
     },
+    {
+      markup: '<p><a epub:type="noteref" href="#n1">*</a> Prices rose sharply.</p><aside epub:type="footnote" id="n1"><p>Adjusted for inflation.</p></aside>',
+      role: "noteref",
+      page: "Prices rose sharply.",
+    },
+    {
+      markup: '<p><a role="doc-biblioref" href="#b1">[1]</a> shows that speech works.</p><ol role="doc-bibliography"><li id="b1">Smith, J. Speech Synthesis. 2020.</li></ol>',
+      role: "biblioref",
+      page: "[1] shows that speech works.",
+    },
+    {
+      markup: '<p><a epub:type="glossref" href="#g1">Roux</a> turns golden.</p><dl epub:type="glossary"><dt id="g1">roux</dt><dd>Flour cooked in fat.</dd></dl>',
+      role: "glossref",
+      page: "Roux turns golden.",
+    },
   ];
   for (const { markup, role, page } of cases) {
     const doc = new DOMParser().parseFromString(`<body>${markup}</body>`, "text/html");

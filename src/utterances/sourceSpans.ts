@@ -311,34 +311,27 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     // SSML is measured with its spacing kept; engines report positions in `stripSsmlTags()` text.
     const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
     const spoken = collapsed ? collapsed.text : text;
-    const runs = pageRuns(spans, runsBySpan, utterance.source, ctx);
+    const runs = pageRuns(spans, runsBySpan, ctx);
     recordPage(offsets, { spoken, measured: text, runs, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
   }
   return offsets;
 }
 
-// A reference's children are its targets, printed elsewhere: a node under one isn't printed where `source` is,
-// unless `source` is under it too, like a footnote read after its sentence.
-function printedWith(node: GuidedNavigationObject, source: Piece["source"], ctx: WalkContext): boolean {
-  if (!source) return true;
-  const sourceNodes = Array.isArray(source) ? source : [source];
-  const own = new Set(sourceNodes.flatMap((n) => [n, ...(ctx.ancestorChains.get(n) ?? [])]));
-  for (const ancestor of ctx.ancestorChains.get(node) ?? []) {
-    if (own.has(ancestor)) return true;
-    if (nodeRoles(ancestor).some((role) => embeddedTargetRoleSet.has(role))) return false;
-  }
-  return true;
+// A reference's children are its targets, printed elsewhere: they're on this page text only if all of it is under the reference.
+function printedWith(node: GuidedNavigationObject, spans: SourceSpan[], ctx: WalkContext): boolean {
+  const refs = (ctx.ancestorChains.get(node) ?? []).filter((n) => nodeRoles(n).some((role) => embeddedTargetRoleSet.has(role)));
+  return refs.every((ref) => spans.every((span) => span.node === ref || ctx.ancestorChains.get(span.node)?.includes(ref)));
 }
 
 // Each span's runs as read from the page, in spoken order, placed in their block's text. An alias's abbreviation is on the
 // page; a label's or description's words aren't, nor a target read in place of its reference.
-function pageRuns(spans: SourceSpan[], runsBySpan: Range[][], source: Piece["source"], ctx: WalkContext): PageRun[] {
+function pageRuns(spans: SourceSpan[], runsBySpan: Range[][], ctx: WalkContext): PageRun[] {
   const order = spans.map((_, s) => s).sort((a, b) => spans[a].at - spans[b].at);
   return order.flatMap((s): PageRun[] => {
     const span = spans[s];
     const { node } = span;
     const spokenEnd = span.at + lengthOf(span);
-    if (!printedWith(node, source, ctx) || (isText(span) && span.quotedOnly)) return [{ offPage: true, spokenEnd }];
+    if (!printedWith(node, spans, ctx) || (isText(span) && span.quotedOnly)) return [{ offPage: true, spokenEnd }];
     const { node: block, at } = span.block ?? { node, at: 0 };
     const blockText = block === node && isText(span) ? span.ownText : plainTextOf(block);
     // A label is read in place of its element's text, which is cut out of its block's.
