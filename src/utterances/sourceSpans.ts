@@ -94,25 +94,19 @@ function embeddedRanges(node: GuidedNavigationObject): { child: GuidedNavigation
   if (!ssml) return [];
   const children = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const aligner = ownTextAligner(node);
-  const embedded: GuidedNavigationObject[] = [];
+  const embedded: Embedding[] = [];
   for (const segment of splitOnPlaceholders(ssml)) {
     if (segment.abbreviation === "alias") continue;
     const child = segment.placeholderId === undefined ? undefined : children.get(segment.placeholderId);
     if (child) {
-      if (!holdsMarker(child)) {
-        aligner.embed(child);
-        embedded.push(child);
-      }
+      if (!holdsMarker(child)) embedded.push(aligner.embed(child));
       continue;
     }
     const text = stripSsmlTags(segment.ssml ?? "");
     if (text && !aligner.place(text)) return [];
   }
   aligner.finish();
-  return embedded.flatMap((child) => {
-    const range = aligner.rangeOf(child);
-    return range ? [{ child, ...range }] : [];
-  });
+  return embedded.flatMap(({ child, range }) => (range ? [{ child, ...range }] : []));
 }
 
 // A noteref's or page break's own text is a marker, not prose in the node's text, unlike a link's or text reference's words.
@@ -154,17 +148,21 @@ const isDroppable = (char: string) => /[\p{Ps}\p{Pe}\p{Pi}\p{Pf}"']/u.test(char)
 // `finish()` places the children left at the end.
 export interface OwnTextAligner {
   place(text: string): TextSpan | undefined;
-  embed(child: GuidedNavigationObject): void;
+  embed(child: GuidedNavigationObject): Embedding;
   finish(): void;
-  // Where `child`'s own text sits in the node's, from its first character matched, its whitespace included.
-  rangeOf(child: GuidedNavigationObject): Range | undefined;
+}
+
+// One occurrence of a child in the node's text. `range`, once placed: where the child's own text sits in the node's,
+// from its first character matched, its whitespace included.
+export interface Embedding {
+  child: GuidedNavigationObject;
+  range?: Range;
 }
 
 export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   const ownText = plainTextOf(node);
   let cursor = 0;
-  let embedded: GuidedNavigationObject[] = [];
-  const ranges = new Map<GuidedNavigationObject, Range>();
+  let embedded: Embedding[] = [];
   const matchFrom = (text: string, from: number): { map: number[]; end: number } | undefined => {
     const map = new Array<number>(text.length);
     let j = from;
@@ -185,21 +183,23 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   };
   // The embedded children's text the node holds, each from where the previous one found ends.
   const skipEmbedded = () => {
-    const skipped: { child: GuidedNavigationObject; range: Range; end: number }[] = [];
-    for (const child of embedded) {
-      const text = plainTextOf(child);
+    const skipped: { embedding: Embedding; range: Range; end: number }[] = [];
+    for (const embedding of embedded) {
+      const text = plainTextOf(embedding.child);
       const match = matchFrom(text, skipped.length ? skipped[skipped.length - 1].end : cursor);
       if (!match) continue;
       const first = match.map.findIndex((position) => position >= 0);
       const start = match.map[first] - first;
-      skipped.push({ child, range: { start, end: start + text.length }, end: match.end });
+      skipped.push({ embedding, range: { start, end: start + text.length }, end: match.end });
     }
     embedded = [];
     return skipped;
   };
   return {
     embed(child) {
-      embedded.push(child);
+      const embedding: Embedding = { child };
+      embedded.push(embedding);
+      return embedding;
     },
     place(text) {
       // Right after the children's text the node holds, else before it, in case a child's text isn't there but reads the same.
@@ -208,20 +208,17 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
       for (let k = starts.length - 1; k >= 0; k--) {
         const match = matchFrom(text, starts[k]);
         if (!match) continue;
-        skipped.slice(0, k).forEach(({ child, range }) => ranges.set(child, range));
+        skipped.slice(0, k).forEach(({ embedding, range }) => (embedding.range = range));
         cursor = match.end;
         return { node, ownText, at: 0, map: match.map };
       }
       return undefined;
     },
     finish() {
-      for (const { child, range, end } of skipEmbedded()) {
-        ranges.set(child, range);
+      for (const { embedding, range, end } of skipEmbedded()) {
+        embedding.range = range;
         cursor = end;
       }
-    },
-    rangeOf(child) {
-      return ranges.get(child);
     },
   };
 }

@@ -221,6 +221,19 @@ test("resolveUtteranceSourceText gives a sentence starting in an inline element 
   }
 });
 
+// parseMarkup() never repeats a placeholder ID, but GND from another producer may, hence hand-written GND.
+test("resolveUtteranceSourceText places each occurrence of a repeated placeholder where it's read", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([{
+    textref: "#css(p)",
+    text: { plain: "Read here. Then here.", ssml: 'Read <readium:link id="l1" />. Then <readium:link id="l1" />.' },
+    children: [{ id: "l1", textref: "#css(a)", text: { plain: "here" } }],
+  }])!;
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    t.deepEqual(utterances.map(resolveUtteranceSourceText), ["Read here.", "Then here."], format);
+  }
+});
+
 test("resolveUtteranceSourceText is undefined for text not on the page", async (t) => {
   const gnd = parseMarkup('<p>Into speech. <a href="#ref" aria-label="Source: Wikipedia, Speech synthesis">[source]</a></p>', undefined, {
     textrefs: { roles: true },
