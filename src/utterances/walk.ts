@@ -25,7 +25,7 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
-import { holdsMarker, markLabelled, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
+import { holdsMarker, markOffPage, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
@@ -286,7 +286,7 @@ function emitWithPlaceholders(
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
       const embeddedFrom = pieces.length;
-      const embedding = holdsMarker(child) ? undefined : aligner.embed(child);
+      const embedding = aligner.embed(child);
       if (isDropped(segment.placeholderId)) {
         pending = { spaceAcross: spaced.has(segment.placeholderId) };
       } else {
@@ -340,7 +340,7 @@ function emitWithPlaceholders(
           }
         }
       }
-      if (embedding) embeddedPieces.push({ embedding, pieces: pieces.slice(embeddedFrom) });
+      embeddedPieces.push({ embedding, pieces: pieces.slice(embeddedFrom) });
       continue;
     }
     if (!segment.ssml) continue;
@@ -378,9 +378,10 @@ function emitWithPlaceholders(
   }
   aligner.finish();
   for (const { embedding: { child, range }, pieces: childPieces } of embeddedPieces) {
-    if (range) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start));
+    // A marker's text isn't in this node's, so nothing read from it is placed there.
+    if (range && !holdsMarker(child)) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start));
   }
-  markLabelled(pieces, node, embeddedPieces.map(({ embedding }) => embedding));
+  markOffPage(pieces, node, embeddedPieces.map(({ embedding }) => embedding));
   // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
   const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));
   if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {

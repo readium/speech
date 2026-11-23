@@ -30,8 +30,8 @@ interface TextSpan extends InBlock {
   map: number[];
   // Taken from text other than the node's own (a figure's or table's description), so never located bare.
   quotedOnly?: boolean;
-  // Stretches of `ownText` its aria-labelled children read as their label, so not on the page.
-  labelled?: Range[];
+  // Where `ownText` isn't the page's: a label read in place of its element's text, or the point a marker's text is left out at.
+  offPage?: Range[];
 }
 
 // Spoken text that isn't on the page, located on `[start, end)` of the own text, and never cut.
@@ -70,22 +70,23 @@ export function setQuotedSpan(utterance: Piece, node: GuidedNavigationObject, ow
     setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length), quotedOnly: true }]);
     return;
   }
-  const labelled = embeddedRanges(node).filter(({ child }) => isAriaSubstituted(child));
+  const embedded = embeddedRanges(node);
+  const offPage = embedded.filter(({ child }) => readsOffPage(child)).map(({ start, end }) => ({ start, end }));
+  const labelled = embedded.filter(({ child }) => isAriaSubstituted(child));
   if (labelled.length === 0) {
-    setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length) }]);
+    setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length), offPage }]);
     return;
   }
   // Spaces around a label are spoken, not its element's text, as the aligner places running text.
   const ownMap = (from: number, to: number) => positions(from, to).map((p) => (isSpace(ownText[p]) ? SPACE : p));
-  const stretches = labelled.map(({ start, end }) => ({ start, end }));
   const spans: TextSpan[] = [];
   let from = 0;
   for (const { child, start, end } of labelled) {
-    if (start > from) spans.push({ node, ownText, at: at + from, map: ownMap(from, start), labelled: stretches });
+    if (start > from) spans.push({ node, ownText, at: at + from, map: ownMap(from, start), offPage });
     spans.push({ node: child, ownText: ownText.slice(start, end), at: at + start, map: positions(0, end - start), block: { node, at: start } });
     from = end;
   }
-  if (from < ownText.length) spans.push({ node, ownText, at: at + from, map: ownMap(from, ownText.length), labelled: stretches });
+  if (from < ownText.length) spans.push({ node, ownText, at: at + from, map: ownMap(from, ownText.length), offPage });
   setSpans(utterance, spans);
 }
 
@@ -102,7 +103,7 @@ function embeddedRanges(node: GuidedNavigationObject): { child: GuidedNavigation
     if (segment.abbreviation === "alias") continue;
     const child = segment.placeholderId === undefined ? undefined : children.get(segment.placeholderId);
     if (child) {
-      if (!holdsMarker(child)) embedded.push(aligner.embed(child));
+      embedded.push(aligner.embed(child));
       continue;
     }
     const text = stripSsmlTags(segment.ssml ?? "");
@@ -116,6 +117,9 @@ function embeddedRanges(node: GuidedNavigationObject): { child: GuidedNavigation
 export function holdsMarker(child: GuidedNavigationObject): boolean {
   return nodeRoles(child).some((role) => interruptionRoleSet.has(role) && !textReferenceRoleSet.has(role));
 }
+
+// A label is read in place of its element's text; a marker's is left out of the node's.
+const readsOffPage = (child: GuidedNavigationObject) => isAriaSubstituted(child) || holdsMarker(child);
 
 const lengthOf = (span: SourceSpan) => (isText(span) ? span.map.length : span.length!);
 
@@ -156,7 +160,7 @@ export interface OwnTextAligner {
 }
 
 // One occurrence of a child in the node's text. `range`, once placed: where the child's own text sits in the node's,
-// from its first character matched, its whitespace included.
+// from its first character matched, its whitespace included; for a marker, the empty point its text is left out at.
 export interface Embedding {
   child: GuidedNavigationObject;
   range?: Range;
@@ -188,8 +192,13 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   const skipEmbedded = () => {
     const skipped: { embedding: Embedding; range?: Range; end: number }[] = [];
     for (const embedding of embedded) {
+      const from = skipped.length ? skipped[skipped.length - 1].end : cursor;
+      if (holdsMarker(embedding.child)) {
+        skipped.push({ embedding, range: { start: from, end: from }, end: from });
+        continue;
+      }
       const text = plainTextOf(embedding.child);
-      const match = matchFrom(text, skipped.length ? skipped[skipped.length - 1].end : cursor);
+      const match = matchFrom(text, from);
       if (!match) continue;
       const first = match.map.findIndex((position) => position >= 0);
       const start = match.map[first] - first;
@@ -236,11 +245,11 @@ export function placeInBlock(piece: Piece, child: GuidedNavigationObject, block:
   });
 }
 
-// Gives the spans read from `node`'s own text the stretches its aria-labelled `embedded` children read as their label.
-export function markLabelled(pieces: Piece[], node: GuidedNavigationObject, embedded: Embedding[]): void {
-  const labelled = embedded.flatMap(({ child, range }) => (range && isAriaSubstituted(child) ? [range] : []));
-  if (labelled.length === 0) return;
-  for (const piece of pieces) piece.spans = piece.spans?.map((span) => (span.node === node && isText(span) ? { ...span, labelled } : span));
+// Gives the spans read from `node`'s own text where its `embedded` children make it differ from the page.
+export function markOffPage(pieces: Piece[], node: GuidedNavigationObject, embedded: Embedding[]): void {
+  const offPage = embedded.flatMap(({ child, range }) => (range && readsOffPage(child) ? [range] : []));
+  if (offPage.length === 0) return;
+  for (const piece of pieces) piece.spans = piece.spans?.map((span) => (span.node === node && isText(span) ? { ...span, offPage } : span));
 }
 
 // The stretch of own text that `spans` were placed on, if any.
@@ -288,10 +297,10 @@ function ownRuns(span: TextSpan): { start: number; end: number }[] {
 function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean): LocatorOptions {
   if (speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
   const locate = subLocateFor(nodeRef.ref, span.ownText.slice(start, end));
-  // Context stops at an aria label, whose words aren't on the page.
-  const labels = span.labelled ?? [];
-  const from = Math.max(0, ...labels.filter((label) => label.end <= start).map((label) => label.end));
-  const to = Math.min(span.ownText.length, ...labels.filter((label) => label.start >= end).map((label) => label.start));
+  // Context stops where the own text isn't the page's.
+  const stops = span.offPage ?? [];
+  const from = Math.max(0, ...stops.filter((stop) => stop.end <= start).map((stop) => stop.end));
+  const to = Math.min(span.ownText.length, ...stops.filter((stop) => stop.start >= end).map((stop) => stop.start));
   if (start > from) locate.text = { ...locate.text, before: span.ownText.slice(from, start) };
   if (end < to) locate.text = { ...locate.text, after: span.ownText.slice(end, to) };
   return locate;
