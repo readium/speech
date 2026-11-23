@@ -201,4 +201,9 @@ const index = navigator.getContentQueue().findIndex((utterance) => resolveUttera
 
 It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element, and for content extracted without textrefs, which has no page locations to match against.
 
+A footnote, bibliography entry or glossary entry read from its reference:
+
+- as its own utterance, gives the entry's text, as printed where the entry is;
+- inside a sentence, is left out of that sentence's text.
+
 It's also `undefined` for deep copies of an utterance, after `structuredClone()`, a JSON round trip or `postMessage()`. Spread copies (`{ ...utterance }`) work.
