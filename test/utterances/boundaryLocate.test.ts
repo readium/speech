@@ -68,6 +68,17 @@ test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t)
   t.is(resolved?.locate.cssSelector, utterance.offsets![1].locate.cssSelector);
 });
 
+test("resolveBoundaryLocate clips a word whose reported length runs past the end of the utterance", async (t) => {
+  const gnd = parseMarkup("<p>Speech Synthesis</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Speech Synthesis");
+
+  const resolved = resolveBoundaryLocate(utterance, "Speech ".length, 12);
+  t.is(resolved?.word, "Synthesis");
+  t.is(resolved?.locate.text?.highlight, "Synthesis");
+  t.is(resolved?.locate.text?.after, "");
+});
+
 test("resolveBoundaryLocate returns undefined for a synthesized utterance with no offsets", async (t) => {
   const utterance = { plain: "Some synthesized announcement." };
   t.is(resolveBoundaryLocate(utterance, 5, 4), undefined);
