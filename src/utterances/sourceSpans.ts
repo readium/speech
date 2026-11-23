@@ -150,8 +150,8 @@ const isSpace = (char: string) => /\s/.test(char);
 const isDroppable = (char: string) => /[\p{Ps}\p{Pe}\p{Pi}\p{Pf}"']/u.test(char);
 
 // Places, in order, the texts read out of `node`'s own text, skipping whitespace and the brackets it drops.
-// Between them, only an embedded child's own text may be skipped, where the node's text holds it (e.g. a link's words),
-// which places that child; `finish()` places the ones left at the end.
+// Between two texts, only an embedded child's text can be skipped (e.g. a link's words): that places the child.
+// `finish()` places the children left at the end.
 export interface OwnTextAligner {
   place(text: string): TextSpan | undefined;
   embed(child: GuidedNavigationObject): void;
