@@ -237,14 +237,20 @@ test("resolveUtteranceSourceText gives a sentence starting in an inline element 
 });
 
 test("resolveUtteranceSourceText reads an inline element's own text where its block's text differs from it", async (t) => {
-  const gnd = GuidedNavigationObject.deserializeArray([{
-    textref: "#css(p)",
-    text: { plain: "End. First guide. Next guide now.", ssml: 'End.<readium:link id="l1" /> now.' },
-    children: [{ id: "l1", textref: "#css(a)", text: { plain: " First  guide. Next guide" } }],
-  }])!;
-  for (const format of ["plain", "ssml"] as const) {
-    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
-    t.deepEqual(utterances.map(resolveUtteranceSourceText), ["End.", "First  guide.", "Next guide now."], format);
+  const cases = [
+    { block: "End. First guide. Next guide now.", before: "End.", child: " First  guide. Next guide", page: ["End.", "First  guide.", "Next guide now."] },
+    { block: "Read here now.", before: "Read ", child: "(here)", page: ["Read (here) now."] },
+  ];
+  for (const { block, before, child, page } of cases) {
+    const gnd = GuidedNavigationObject.deserializeArray([{
+      textref: "#css(p)",
+      text: { plain: block, ssml: `${before}<readium:link id="l1" /> now.` },
+      children: [{ id: "l1", textref: "#css(a)", text: { plain: child } }],
+    }])!;
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+      t.deepEqual(utterances.map(resolveUtteranceSourceText), page, `${child}, ${format}`);
+    }
   }
 });
 

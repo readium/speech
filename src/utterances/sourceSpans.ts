@@ -192,11 +192,9 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
       const match = matchFrom(text, skipped.length ? skipped[skipped.length - 1].end : cursor);
       if (!match) continue;
       const first = match.map.findIndex((position) => position >= 0);
-      let last = match.map.length - 1;
-      while (match.map[last] < 0) last--;
       const start = match.map[first] - first;
       // Placed only where the node holds its text as is: skipped over, but not placed, where it differs.
-      const verbatim = ownText.slice(match.map[first], match.map[last] + 1) === text.slice(first, last + 1);
+      const verbatim = ownText.slice(start, start + text.length) === text;
       skipped.push({ embedding, range: verbatim ? { start, end: start + text.length } : undefined, end: match.end });
     }
     embedded = [];
