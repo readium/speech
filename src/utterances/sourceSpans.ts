@@ -156,6 +156,7 @@ export interface OwnTextAligner {
   place(text: string): TextSpan | undefined;
   embed(child: GuidedNavigationObject): void;
   finish(): void;
+  // Where `child`'s own text sits in the node's, from its first character matched, its whitespace included.
   rangeOf(child: GuidedNavigationObject): Range | undefined;
 }
 
@@ -186,9 +187,12 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   const skipEmbedded = () => {
     const skipped: { child: GuidedNavigationObject; range: Range; end: number }[] = [];
     for (const child of embedded) {
-      const match = matchFrom(plainTextOf(child), skipped.length ? skipped[skipped.length - 1].end : cursor);
-      const range = match && ownRange([{ node, ownText, at: 0, map: match.map }]);
-      if (match && range) skipped.push({ child, range, end: match.end });
+      const text = plainTextOf(child);
+      const match = matchFrom(text, skipped.length ? skipped[skipped.length - 1].end : cursor);
+      if (!match) continue;
+      const first = match.map.findIndex((position) => position >= 0);
+      const start = match.map[first] - first;
+      skipped.push({ child, range: { start, end: start + text.length }, end: match.end });
     }
     embedded = [];
     return skipped;

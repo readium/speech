@@ -1,5 +1,6 @@
 import "../domSetup.js";
 import test from "ava";
+import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveUtteranceLocate, resolveUtteranceSourceText } from "../../src/utterances/utteranceLocate.js";
@@ -205,6 +206,18 @@ test("resolveUtteranceSourceText spaces inline elements as their block's text do
         t.is(resolveUtteranceSourceText(utterance), page, `${markup}, ${format}, ${JSON.stringify(segmentation)}`);
       }
     }
+  }
+});
+
+test("resolveUtteranceSourceText gives a sentence starting in an inline element whose text starts with whitespace its first character", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([{
+    textref: "#css(p)",
+    text: { plain: "End. Next guide now.", ssml: 'End.<readium:link id="l1" /> now.' },
+    children: [{ id: "l1", textref: "#css(a)", text: { plain: " Next guide" } }],
+  }])!;
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    t.deepEqual(utterances.map(resolveUtteranceSourceText), ["End.", "Next guide now."], format);
   }
 });
 
