@@ -169,7 +169,7 @@ Text not on the page, like most announcements or an alt description, carries no 
 `charIndex`/`charLength` on a boundary are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). Call `resolveBoundaryLocate()` whenever your engine reports one:
 
 > [!WARNING]
-> Some engines/voices (observed with the native Web Speech API) occasionally report one oversized `"word"` boundary spanning several actual words, then resume reporting individual words normally afterward. The trigger isn't confirmed (parentheses-heavy text is one suspect), but it's an engine-side quirk — `charIndex`/`charLength` are trusted as reported, with no validation or recomputation — so the resulting highlight can momentarily span more than one word.
+> Some engines/voices (observed with the native Web Speech API) occasionally report one oversized `"word"` boundary spanning several actual words, then resume reporting individual words normally afterward. The trigger isn't confirmed (parentheses-heavy text is one suspect), but it's an engine-side quirk — `charIndex`/`charLength` are only clipped to the spoken text and to the `offsets` entry the word starts in — so the resulting highlight can momentarily span more than one word.
 
 ```typescript
 import { resolveBoundaryLocate } from "@readium/speech";
@@ -186,6 +186,8 @@ engine.on("boundary", (event) => {
 });
 ```
 
+It returns `undefined` for deep copies of an utterance, after `structuredClone()`, a JSON round trip or `postMessage()`. Spread copies (`{ ...utterance }`) work.
+
 ## Matching page text
 
 `plain` and `ssml` are what gets spoken: substituted, with alias expansions and announcements. To find the utterance holding some page text, e.g. a selection, compare against `resolveUtteranceSourceText()` instead:
@@ -199,7 +201,9 @@ const index = navigator.getContentQueue().findIndex((utterance) => resolveUttera
 
 It's `undefined` for an utterance with no text on the page, like an announcement or an aria label read in place of its element, and for content extracted without textrefs, which has no page locations to match against.
 
-Known issues, to be fixed:
+A footnote, bibliography entry or glossary entry read from its reference:
 
-- With `noteref`, `biblioref` or `glossref` read `"inline"` ([`interruptions`](UtteranceExtraction.md#interruptions)), it wrongly includes the note or entry text read in place, which is printed elsewhere.
-- It's lost on deep copies of an utterance: after `structuredClone()`, a JSON round trip or `postMessage()`, it's `undefined`. Spread copies (`{ ...utterance }`) keep it.
+- as its own utterance, gives the entry's text, as printed where the entry is;
+- inside a sentence, is left out of that sentence's text.
+
+It's also `undefined` for deep copies of an utterance, after `structuredClone()`, a JSON round trip or `postMessage()`. Spread copies (`{ ...utterance }`) work.
