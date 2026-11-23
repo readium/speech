@@ -26,6 +26,21 @@ test("resolveUtteranceLocate returns a single locate in sentence mode when there
   t.is(locates[0], utterance.offsets![0].locate);
 });
 
+test("resolveUtteranceLocate in sentence mode locates a label in a table cell on its element, as in running text", async (t) => {
+  const content = 'See <a href="#x" id="a" aria-label="First">1</a> now.';
+  const markups = { paragraph: `<p>${content}</p>`, cell: `<table><tr><th>Step</th></tr><tr><td>${content}</td></tr></table>` };
+  for (const [kind, markup] of Object.entries(markups)) {
+    const block = kind === "paragraph" ? "p" : "td";
+    const gnd = parseMarkup(markup, undefined, { textrefs: { roles: true } });
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+      const utterance = utterances.find((u) => (u.plain ?? u.ssml)?.includes("First"))!;
+      const locates = resolveUtteranceLocate(utterance, "sentence").map((locate) => [locate.cssSelector, locate.text?.highlight]);
+      t.deepEqual(locates, [[block, "See"], ["#a", undefined], [block, "now."]], `${kind}, ${format}`);
+    }
+  }
+});
+
 test("resolveUtteranceLocate returns the utterance's own locate in structure mode, even with multiple offset pieces", (t) => {
   const utterance = {
     plain: "See note 1.",
