@@ -183,14 +183,18 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
   };
   // The embedded children's text the node holds, each from where the previous one found ends.
   const skipEmbedded = () => {
-    const skipped: { embedding: Embedding; range: Range; end: number }[] = [];
+    const skipped: { embedding: Embedding; range?: Range; end: number }[] = [];
     for (const embedding of embedded) {
       const text = plainTextOf(embedding.child);
       const match = matchFrom(text, skipped.length ? skipped[skipped.length - 1].end : cursor);
       if (!match) continue;
       const first = match.map.findIndex((position) => position >= 0);
+      let last = match.map.length - 1;
+      while (match.map[last] < 0) last--;
       const start = match.map[first] - first;
-      skipped.push({ embedding, range: { start, end: start + text.length }, end: match.end });
+      // Placed only where the node holds its text as is: skipped over, but not placed, where it differs.
+      const verbatim = ownText.slice(match.map[first], match.map[last] + 1) === text.slice(first, last + 1);
+      skipped.push({ embedding, range: verbatim ? { start, end: start + text.length } : undefined, end: match.end });
     }
     embedded = [];
     return skipped;

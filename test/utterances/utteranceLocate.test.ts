@@ -236,6 +236,18 @@ test("resolveUtteranceSourceText gives a sentence starting in an inline element 
   }
 });
 
+test("resolveUtteranceSourceText reads an inline element's own text where its block's text differs from it", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([{
+    textref: "#css(p)",
+    text: { plain: "End. First guide. Next guide now.", ssml: 'End.<readium:link id="l1" /> now.' },
+    children: [{ id: "l1", textref: "#css(a)", text: { plain: " First  guide. Next guide" } }],
+  }])!;
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    t.deepEqual(utterances.map(resolveUtteranceSourceText), ["End.", "First  guide.", "Next guide now."], format);
+  }
+});
+
 // parseMarkup() never repeats a placeholder ID, but GND from another producer may, hence hand-written GND.
 test("resolveUtteranceSourceText places each occurrence of a repeated placeholder where it's read", async (t) => {
   const gnd = GuidedNavigationObject.deserializeArray([{
