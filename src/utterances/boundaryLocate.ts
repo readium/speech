@@ -46,11 +46,12 @@ export function resolveBoundaryLocate(
   }
   const text = texts[k];
   const word = text.slice(from, to);
+  const around = offset.locate.text;
   // domRange anchors the offset's whole extent, which a consumer trying it first would highlight instead of the word.
   const locate: LocatorOptions = {
     ...offset.locate,
     domRange: undefined,
-    text: { highlight: word, before: text.slice(0, from), after: text.slice(to) },
+    text: { highlight: word, before: (around?.before ?? "") + text.slice(0, from), after: text.slice(to) + (around?.after ?? "") },
   };
   return { locate, word };
 }

@@ -79,6 +79,18 @@ test("resolveBoundaryLocate clips a word whose reported length runs past the end
   t.is(resolved?.locate.text?.after, "");
 });
 
+test("resolveBoundaryLocate quotes a word with its sentence's context in the rest of the paragraph", async (t) => {
+  const gnd = parseMarkup("<p>He ran. He ran.</p>", undefined, { textrefs: true });
+  for (const format of ["plain", "ssml"] as const) {
+    const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
+    const quotes = utterances.map((utterance) => resolveBoundaryLocate(utterance, 0, "He".length)?.locate.text);
+    t.deepEqual(quotes, [
+      { highlight: "He", before: "", after: " ran. He ran." },
+      { highlight: "He", before: "He ran. ", after: " ran." },
+    ], format);
+  }
+});
+
 test("resolveBoundaryLocate returns undefined for a synthesized utterance with no offsets", async (t) => {
   const utterance = { plain: "Some synthesized announcement." };
   t.is(resolveBoundaryLocate(utterance, 5, 4), undefined);
@@ -489,13 +501,13 @@ test("resolveBoundaryLocate keeps a no-break space of the page text in the word'
   for (const format of ["plain", "ssml"] as const) {
     const utterances = await extractUtterances(gnd, { format, segmentation: { mode: "sentence" } });
     const utterance = utterances.find((u) => (u.plain ?? u.ssml)!.startsWith("It costs"))!;
-    const quote = utterance.offsets![0].locate.text!.highlight!;
-    t.true(quote.includes("10 euros"), format);
+    const quote = utterance.offsets![0].locate.text!;
+    t.true(quote.highlight!.includes("10 euros"), format);
 
     const text = utterance.plain ?? stripSsmlTags(utterance.ssml!);
     const locate = resolveBoundaryLocate(utterance, text.indexOf("euros"), "euros".length)!.locate.text!;
     t.is(locate.highlight, "euros", format);
-    t.is(locate.before, "It costs 10 ", format);
-    t.is(locate.before! + locate.highlight + locate.after, quote, format);
+    t.is(locate.before, "First sentence. It costs 10 ", format);
+    t.is(locate.before! + locate.highlight + locate.after, (quote.before ?? "") + quote.highlight + (quote.after ?? ""), format);
   }
 });
