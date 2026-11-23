@@ -25,7 +25,7 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
-import { holdsMarker, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
+import { holdsMarker, markLabelled, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
@@ -380,6 +380,7 @@ function emitWithPlaceholders(
   for (const { embedding: { child, range }, pieces: childPieces } of embeddedPieces) {
     if (range) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start));
   }
+  markLabelled(pieces, node, embeddedPieces.map(({ embedding }) => embedding));
   // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
   const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));
   if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {
