@@ -7,6 +7,7 @@ export declare const roleDropOverrides: Partial<Record<GndRole, {
 }>>;
 export declare const interruptionRoles: GndRole[];
 export declare const textReferenceRoles: GndRole[];
+export declare const embeddedTargetRoles: GndRole[];
 export declare const descriptionFoldingRoles: GndRole[];
 export declare const valueFoldingRoles: GndRole[];
 export declare const contentlessRoles: GndRole[];

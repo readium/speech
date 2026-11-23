@@ -33,4 +33,5 @@ export declare const descriptionFoldingRoleSet: ReadonlySet<GndRole>;
 export declare const valueFoldingRoleSet: ReadonlySet<GndRole>;
 export declare const contentlessRoleSet: ReadonlySet<GndRole>;
 export declare const textReferenceRoleSet: ReadonlySet<GndRole>;
+export declare const embeddedTargetRoleSet: ReadonlySet<GndRole>;
 export declare function makeWalkContext(nodes: GuidedNavigationObject[], options: ExtractUtterancesOptions): Promise<WalkContext>;
