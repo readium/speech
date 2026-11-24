@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { GndRole } from "@readium/guided-navigation";
 
@@ -23,6 +24,14 @@ for (const contextualize of [[], ["figure", "table"]] as GndRole[][]) {
       t.true(fromSsml.some((u) => (u.plain ?? u.ssml)!.includes("A cat on a mat")));
     });
   }
+}
+
+for (const [epubType, announcement] of [["sound-area", "Sound:"], ["balloon", "Speech bubble."], ["panel-group", "Panel group."]]) {
+  test(`an image's alt is read after its ${epubType}'s announcement, which drops the image's`, async (t) => {
+    const nodes = parseMarkup(`<p><img src="a.png" epub:type="${epubType}" alt="Crash!"/></p>`);
+    const utterances = await extractUtterances(nodes, { contextualize: ["image", "sound", "bubble", "panelGroup"] });
+    t.deepEqual(utterances.map((u) => u.plain), [announcement, "Crash!"]);
+  });
 }
 
 function gndWithLanguage(language: string): GuidedNavigationObject[] {

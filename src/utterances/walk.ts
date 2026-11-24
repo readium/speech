@@ -436,21 +436,10 @@ function walkNode(
 
   // Footnote and pagebreak are handled specially below (merged with their
   // own content/label), text references with their deferred target, so they're excluded from the generic loop here.
+  const keptRoles = roles.filter((role) => !isDroppedByAnotherRole(role, roles, ctx));
   const contextualizedRoles = announcedTargets.has(node)
     ? []
-    : roles.filter(
-        (role) =>
-          role !== "footnote" && role !== "pagebreak" && !textReferenceRoleSet.has(role) && !isDroppedByAnotherRole(role, roles, ctx),
-      );
-
-  // Unless a firing role folded it into its own announcement (e.g. "Table: Team roster. 3 lines...").
-  const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
-  if (description !== undefined && !foldsDescription) {
-    const utterance = formatDescription(description, node, ctx);
-    // Only a figure's or table's description is located, as a quote within it.
-    if (roles.includes("figure") || roles.includes("table")) scopeToQuote(utterance, 0, description, node, ctx);
-    push(out, node, [utterance]);
-  }
+    : keptRoles.filter((role) => role !== "footnote" && role !== "pagebreak" && !textReferenceRoleSet.has(role));
 
   // Every role this node carries gets looked up in the contextualization
   // catalog and its "before" half spoken now, whatever shape that entry
@@ -459,6 +448,15 @@ function walkNode(
   for (const role of contextualizedRoles) {
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, node, ctx, role, "before", variantKey, params);
+  }
+
+  // Unless a firing role folded it into its own announcement (e.g. "Table: Team roster. 3 lines...").
+  const foldsDescription = keptRoles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
+  if (description !== undefined && !foldsDescription) {
+    const utterance = formatDescription(description, node, ctx);
+    // Only a figure's or table's description is located, as a quote within it.
+    if (roles.includes("figure") || roles.includes("table")) scopeToQuote(utterance, 0, description, node, ctx);
+    push(out, node, [utterance]);
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
