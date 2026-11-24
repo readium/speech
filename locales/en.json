@@ -27,6 +27,7 @@
             },
             "biblioref": { "inline": "Bibliographic reference." },
             "blockquote": { "inline": "Blockquote." },
+            "bubble": { "inline": "Speech bubble." },
             "caption": { "inline": "Caption." },
             "cell": {
                 "inline": {
@@ -121,6 +122,13 @@
             "pagelist": {
                 "block": { "start": "Start of the page list.", "end": "End of the page list." }
             },
+            "panel": {
+                "inline": {
+                    "labelled": "{{ description }}",
+                    "unlabelled": "Panel."
+                }
+            },
+            "panelGroup": { "inline": "Panel group." },
             "part": { "inline": "Part." },
             "preface": {
                 "block": { "start": "Start of the preface.", "end": "End of the preface." }
@@ -140,6 +148,7 @@
                 }
             },
             "separator": { "inline": "Separator." },
+            "sound": { "inline": "Sound:" },
             "subtitle": { "inline": "Subtitle." },
             "summary": { "inline": "Summary." },
             "table": {

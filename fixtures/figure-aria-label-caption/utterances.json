@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "A cat"
+          "plain": "A cat face"
         },
         {
-          "plain": "A cat face"
+          "plain": "A cat"
         }
       ]
     },
@@ -235,11 +235,11 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: A cat",
-          "language": "en"
+          "plain": "A cat face"
         },
         {
-          "plain": "A cat face"
+          "plain": "Image with a label: A cat",
+          "language": "en"
         }
       ]
     },
@@ -276,10 +276,10 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: A cat"
+          "plain": "A cat face"
         },
         {
-          "plain": "A cat face"
+          "plain": "Image with a label: A cat"
         }
       ]
     },
@@ -2187,10 +2187,10 @@
       ],
       "utterances": [
         {
-          "ssml": "A cat"
+          "ssml": "A cat face"
         },
         {
-          "ssml": "A cat face"
+          "ssml": "A cat"
         }
       ]
     },
@@ -2414,11 +2414,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: A cat",
-          "language": "en"
+          "ssml": "A cat face"
         },
         {
-          "ssml": "A cat face"
+          "ssml": "Image with a label: A cat",
+          "language": "en"
         }
       ]
     },
@@ -2455,10 +2455,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: A cat"
+          "ssml": "A cat face"
         },
         {
-          "ssml": "A cat face"
+          "ssml": "Image with a label: A cat"
         }
       ]
     },

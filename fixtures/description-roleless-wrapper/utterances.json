@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
+          "plain": "Sidebar"
+        },
+        {
           "plain": "One."
         },
         {
           "plain": "Two."
-        },
-        {
-          "plain": "Sidebar"
         }
       ]
     },
@@ -26,13 +26,13 @@
       ],
       "utterances": [
         {
+          "ssml": "Sidebar"
+        },
+        {
           "ssml": "One."
         },
         {
           "ssml": "Two."
-        },
-        {
-          "ssml": "Sidebar"
         }
       ]
     }

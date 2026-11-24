@@ -51,6 +51,7 @@ A contextualized role gets an announcement from the [contextualization catalog](
 | `bibliography` | block |  |  | ✓ |
 | `biblioref` | inline |  |  | ✓ |
 | `blockquote` | inline |  | ✓ | ✓ |
+| `bubble` | inline |  |  | ✓ |
 | `caption` | inline | ✓ | ✓ | ✓ |
 | `chapter` | block |  | ✓ | ✓ |
 | `colophon` | inline |  |  | ✓ |
@@ -88,6 +89,8 @@ A contextualized role gets an announcement from the [contextualization catalog](
 | `notice` | inline |  | ✓ | ✓ |
 | `pagebreak` | inline |  |  | ✓ |
 | `pagelist` | block |  |  | ✓ |
+| `panel` | inline | ✓ | ✓ | ✓ |
+| `panelGroup` | inline |  |  | ✓ |
 | `part` | inline |  | ✓ | ✓ |
 | `preface` | block |  |  | ✓ |
 | `preformatted` | — |  | ✓ | ✓ |
@@ -97,6 +100,7 @@ A contextualized role gets an announcement from the [contextualization catalog](
 | `row` | inline |  | ✓ | ✓ |
 | `rowheader` | inline |  | ✓ | ✓ |
 | `separator` | inline |  |  | ✓ |
+| `sound` | inline |  |  | ✓ |
 | `subtitle` | inline |  | ✓ | ✓ |
 | `summary` | inline |  |  | ✓ |
 | `table` | inline/block | inline | block | block |
