@@ -26,13 +26,17 @@ for (const contextualize of [[], ["figure", "table"]] as GndRole[][]) {
   }
 }
 
-for (const [epubType, announcement] of [["sound-area", "Sound:"], ["balloon", "Speech bubble."], ["panel-group", "Panel group."]]) {
-  test(`an image's alt is read after its ${epubType}'s announcement, which drops the image's`, async (t) => {
-    const nodes = parseMarkup(`<p><img src="a.png" epub:type="${epubType}" alt="Crash!"/></p>`);
-    const utterances = await extractUtterances(nodes, { contextualize: ["image", "sound", "bubble", "panelGroup"] });
-    t.deepEqual(utterances.map((u) => u.plain), [announcement, "Crash!"]);
-  });
-}
+test("a description is read after its node's announcement, before its content", async (t) => {
+  const nodes = parseMarkup('<aside epub:type="sidebar" aria-label="Lighthouse facts"><p>The tallest stands 106 m.</p></aside>');
+  const utterances = await extractUtterances(nodes, { contextualize: ["aside"] });
+  t.deepEqual(utterances.map((u) => u.plain), ["Start of the aside.", "Lighthouse facts", "The tallest stands 106 m.", "End of the aside."]);
+});
+
+test("a panel group labelled as an image reads its label after its announcement, which drops the image's", async (t) => {
+  const nodes = parseMarkup('<div epub:type="panel-group" role="img" aria-label="The lamp flickers, then goes dark."><p epub:type="balloon">Oh no!</p></div>');
+  const utterances = await extractUtterances(nodes, { contextualize: ["panelGroup", "image"] });
+  t.deepEqual(utterances.map((u) => u.plain), ["Panel group.", "The lamp flickers, then goes dark.", "Oh no!"]);
+});
 
 function gndWithLanguage(language: string): GuidedNavigationObject[] {
   return GuidedNavigationObject.deserializeArray([

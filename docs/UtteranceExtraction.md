@@ -458,9 +458,8 @@ Unlike `segmentation.suppressions`, this table is flat, not per-language — the
 
 A node's `description` (alt text, an ARIA name, a caption) is spoken as its own utterance, in the language it's declared in, like content: the content's when undeclared, `languageOverrides` applied.
 
-- **After the content**, before a block role's `end` announcement, for every role but `table`.
-- **Before the rows** for `table`, since its description is its caption.
-- **Folded into the announcement** instead, through `{{ description }}`, when the node is contextualized as `audio`, `video`, `image`, `figure`, `math`, `table` or `cover`: "Table: Team roster. 3 lines. 2 columns." It's then not spoken separately.
+- **After the node's announcements, before its content**: "Start of the aside.", "Lighthouse facts", then the sidebar's text for `<aside epub:type="sidebar" aria-label="Lighthouse facts">`.
+- **Folded into the announcement** instead, through `{{ description }}`, when the node is contextualized as `audio`, `video`, `image`, `figure`, `math`, `table`, `cover` or `panel`, and that role isn't [dropped](#skip) by another on the node: "Table: Team roster. 3 lines. 2 columns." It's then not spoken separately.
 
 `math` never speaks its own text, since math markup can't be voiced reliably: only its description, or "Math formula with no label." when contextualized without one. A `figure` without a description is never announced, even when contextualized; its content still plays.
 

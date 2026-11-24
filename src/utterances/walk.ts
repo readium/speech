@@ -497,7 +497,7 @@ function walkNode(
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = spokenText(node)?.ssml;
-    const foldsValue = ownTextInValue || roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
+    const foldsValue = ownTextInValue || keptRoles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
     if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, ctx, suppress, isBlockRole);
       if (hoisted) {
