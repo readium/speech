@@ -114,7 +114,7 @@ A node's `<p>` and `<s>` are not kept in `ssml`: paragraphs come from GND roles,
 
 Drops a role and its whole subtree — content and announcement both — from the output. The exported [`skippableRoles`](#role-sets) lists the roles meant to be skipped. `skip` ignores the roles [`interruptions`](#interruptions) controls.
 
-A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized, and a comics role (`panelGroup`, `panel`, `bubble`, `sound`) every other role on its node.
+A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized, and a comics role (`panelGroup`, `panel`, `bubble`, `sound`) every other role on its node. Roles that drop every other role don't drop each other.
 
 ### `contextualize`
 

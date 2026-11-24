@@ -101,7 +101,7 @@ export const blockLevelRoles: GndRole[] = [
   "tip",
 ];
 
-// role -> role(s) it drops from the loop when both are on one node, `"*"` for every other one —
+// role -> role(s) it drops from the loop when both are on one node, `"*"` for every other one but another `"*"` one —
 // `unconditional` drops them regardless of reachability, else only once reachable.
 export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[] | "*"; unconditional?: boolean }>> = {
   footnote: { drops: ["aside"], unconditional: true },
