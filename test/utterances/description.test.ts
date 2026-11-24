@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { GndRole } from "@readium/guided-navigation";
 
@@ -24,6 +25,18 @@ for (const contextualize of [[], ["figure", "table"]] as GndRole[][]) {
     });
   }
 }
+
+test("a description is read after its node's announcement, before its content", async (t) => {
+  const nodes = parseMarkup('<aside epub:type="sidebar" aria-label="Lighthouse facts"><p>The tallest stands 106 m.</p></aside>');
+  const utterances = await extractUtterances(nodes, { contextualize: ["aside"] });
+  t.deepEqual(utterances.map((u) => u.plain), ["Start of the aside.", "Lighthouse facts", "The tallest stands 106 m.", "End of the aside."]);
+});
+
+test("a panel group labelled as an image reads its label after its announcement, which drops the image's", async (t) => {
+  const nodes = parseMarkup('<div epub:type="panel-group" role="img" aria-label="The lamp flickers, then goes dark."><p epub:type="balloon">Oh no!</p></div>');
+  const utterances = await extractUtterances(nodes, { contextualize: ["panelGroup", "image"] });
+  t.deepEqual(utterances.map((u) => u.plain), ["Panel group.", "The lamp flickers, then goes dark.", "Oh no!"]);
+});
 
 function gndWithLanguage(language: string): GuidedNavigationObject[] {
   return GuidedNavigationObject.deserializeArray([

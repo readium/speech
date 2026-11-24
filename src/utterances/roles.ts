@@ -64,6 +64,11 @@ export const blockLevelRoles: GndRole[] = [
   "figure",
   "image",
   "math",
+  // Comics
+  "panelGroup",
+  "panel",
+  "bubble",
+  "sound",
   // Sectioning / landmark containers
   "abstract",
   "acknowledgments",
@@ -96,13 +101,17 @@ export const blockLevelRoles: GndRole[] = [
   "tip",
 ];
 
-// role -> role(s) it drops from the loop when both are on one node —
+// role -> role(s) it drops from the loop when both are on one node, `"*"` for every other one but another `"*"` one —
 // `unconditional` drops them regardless of reachability, else only once reachable.
-export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unconditional?: boolean }>> = {
+export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[] | "*"; unconditional?: boolean }>> = {
   footnote: { drops: ["aside"], unconditional: true },
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
   epigraph: { drops: ["blockquote"] },
+  panelGroup: { drops: "*" },
+  panel: { drops: "*" },
+  bubble: { drops: "*" },
+  sound: { drops: "*" },
 };
 
 // Placeholder roles `interruptions` can speak mid-sentence, after, or not at all;
@@ -118,9 +127,9 @@ export const embeddedTargetRoles: GndRole[] = ["biblioref", "glossref", "noteref
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)
-// instead of the node's description being spoken as a separate trailing
-// utterance — see the `foldsDescription` check in `walkNode()`.
-export const descriptionFoldingRoles: GndRole[] = ["audio", "video", "image", "figure", "math", "table", "cover"];
+// instead of the node's description being spoken as a separate utterance
+// before its content — see the `foldsDescription` check in `walkNode()`.
+export const descriptionFoldingRoles: GndRole[] = ["audio", "video", "image", "figure", "math", "table", "cover", "panel"];
 
 // cell/rowheader's own contextualization template already embeds the
 // cell's text (`{{ value }}`, with or without a `{{ header }}` prefix) —
