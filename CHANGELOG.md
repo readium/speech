@@ -11,6 +11,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Changed
 
+- `@readium/guided-navigation` is `^1.5.0`, which produces the comics roles, and `@readium/decorator` `^1.4.4`.
 - A node's description is read before its content, as a table's already was, instead of after it.
 
 ## [0.23.0] - 2026-11-23
