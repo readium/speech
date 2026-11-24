@@ -2,7 +2,7 @@ import { GndRole } from '@readium/guided-navigation';
 export declare const skippableRoles: GndRole[];
 export declare const blockLevelRoles: GndRole[];
 export declare const roleDropOverrides: Partial<Record<GndRole, {
-    drops: GndRole[];
+    drops: GndRole[] | "*";
     unconditional?: boolean;
 }>>;
 export declare const interruptionRoles: GndRole[];
