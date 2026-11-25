@@ -69,7 +69,7 @@ const speechStopEl = document.getElementById("speech-stop");
 let converter = null;
 let utteranceExtractor = null;
 let NavigatorClass = null;
-let EngineClass = null;
+let createEngine = null;
 let VoiceManagerClass = null;
 let setupDecorations = null;
 let DecorationStyleType = null;
@@ -95,8 +95,9 @@ try {
   if (typeof mod.ReadiumSpeechNavigator === "function") {
     NavigatorClass = mod.ReadiumSpeechNavigator;
   }
-  if (typeof mod.WebSpeechEngine === "function") {
-    EngineClass = mod.WebSpeechEngine;
+  if (typeof mod.RoutingEngineProvider === "function") {
+    const { engineProvider } = await import("../speechEngine.js");
+    createEngine = () => engineProvider.createEngine();
   }
   if (typeof mod.WebSpeechVoiceManager === "function") {
     VoiceManagerClass = mod.WebSpeechVoiceManager;
@@ -561,15 +562,15 @@ let voiceReadyPromise = null;
 const PLAYGROUND_LANGUAGES = ["en", "es", "fr"];
 
 // Constructs the Navigator eagerly (unlike the old lazy-on-first-Play
-// pattern), guarded: `new WebSpeechEngine()` throws synchronously when the
+// pattern), guarded: creating the engine fails when the
 // Web Speech API isn't available, so a failure here degrades to the same
 // "not implemented yet" state the rest of the UI already falls back to when
 // a library export is missing, rather than crashing the page at load time.
-function initPlaybackNavigator() {
-  if (!NavigatorClass || !EngineClass) return null;
+async function initPlaybackNavigator() {
+  if (!NavigatorClass || !createEngine) return null;
   try {
     void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
-    const engine = new EngineClass();
+    const engine = await createEngine();
     const nav = new NavigatorClass(engine);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       nav.on(type, syncSpeechUi);
@@ -716,7 +717,7 @@ async function selectFixture(id) {
   await renderUtterancesPanel();
 }
 
-playbackNavigator = initPlaybackNavigator();
+playbackNavigator = await initPlaybackNavigator();
 configurable =
   playbackNavigator ??
   (SpeechPreferencesClass && SpeechDefaultsClass && SpeechSettingsClass && SpeechPreferencesEditorClass

@@ -1,4 +1,5 @@
-import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, SpeechPreferences, getVoiceId, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
+import { WebSpeechVoiceManager, ReadiumSpeechNavigator, SpeechPreferences, getVoiceId, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
+import { engineProvider, serverProvider } from "../speechEngine.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -29,6 +30,8 @@ let jumpInputUserChanged = false;
 // State
 let voiceManager;
 let filteredVoices = [];
+// Every voice, the browser's and the speech-server's
+let allVoices = [];
 let languages = [];
 let currentVoice = null;
 let testUtterance = "";
@@ -74,14 +77,15 @@ async function init() {
     voiceManager = await WebSpeechVoiceManager.initialize();
 
     // Created once voices are loaded, as in the main demo
-    speechNavigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    speechNavigator = new ReadiumSpeechNavigator(await engineProvider.createEngine());
     setupNavigatorListeners();
     
     // Sort those voices by browser preference using sortVoicesByRegions
-    const voices = await voiceManager.sortVoicesByRegions(window.navigator.languages);
+    const serverVoices = await serverProvider.getVoices().catch(() => []);
+    allVoices = await voiceManager.sortVoicesByRegions(window.navigator.languages, [...voiceManager.getVoices({ excludeNovelty: false, excludeVeryLowQuality: false, removeDuplicates: false }), ...serverVoices]);
     
     // Get languages
-    languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, voices);
+    languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, allVoices);
     
     // Populate language dropdown
     populateLanguageDropdown();
@@ -210,7 +214,7 @@ function displayVoiceProperties(voice) {
 
 // Replace current voice with a new default voice if it gets filtered out
 async function replaceCurrentVoiceIfFilteredOut(language) {
-  const currentVoiceFilteredOut = currentVoice && !filteredVoices.some(voice => voice.voiceURI === currentVoice.voiceURI);
+  const currentVoiceFilteredOut = currentVoice && !filteredVoices.some(voice => getVoiceId(voice) === getVoiceId(currentVoice));
   const needNewVoice = !currentVoice && filteredVoices.length > 0;
   
   if (currentVoiceFilteredOut || needNewVoice) {
@@ -225,10 +229,7 @@ async function replaceCurrentVoiceIfFilteredOut(language) {
           updateTestUtterance(currentVoice, language);
           
           // Update dropdown to select the new voice
-          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
-          if (voiceOption) {
-            voiceOption.selected = true;
-          }
+          voiceSelect.value = getVoiceId(currentVoice);
         } catch (error) {
           console.error("Error setting new default voice:", error);
         }
@@ -264,7 +265,7 @@ async function filterVoices() {
   }
   
   // Filter voices once with all filters except language
-  let voicesFilteredExceptLanguage = voiceManager.filterVoices(filterOptions);
+  let voicesFilteredExceptLanguage = voiceManager.filterVoices(filterOptions, allVoices);
   
   // Update language counts using the filtered voices
   updateLanguageCounts(voicesFilteredExceptLanguage);
@@ -308,20 +309,21 @@ async function populateVoiceDropdown() {
     for (const [region, voices] of Object.entries(voiceGroups)) {
       if (!voices.length) continue;
       
-      const countryCode = region.split("-").pop() || region;
-      const regionName = new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(countryCode) || region;
+      // Voices whose language has no region, e.g. a server voice tagged "en", are grouped as "unknown"
+      const countryCode = region === "unknown" ? null : region.split("-").pop() || region;
+      const regionName = countryCode ? new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(countryCode) || region : "Other";
       const optgroup = document.createElement("optgroup");
       optgroup.label = `${getCountryFlag(countryCode)} ${regionName}`;
       
       for (const voice of voices) {
         const option = document.createElement("option");
-        option.value = voice.name;
+        option.value = getVoiceId(voice);
         option.textContent = [
           voice.label || voice.name,
           voice.gender ? `• ${voice.gender}` : "",
-          voice.offlineAvailability ? "• offline" : "• online"
+          voice.offlineAvailability ? "• offline" : "• online",
+          voice.source === "server" ? "• server" : ""
         ].filter(Boolean).join(" ");
-        option.dataset.voiceUri = voice.voiceURI;
         optgroup.appendChild(option);
       }
       
@@ -330,10 +332,7 @@ async function populateVoiceDropdown() {
     
     // If we have a current voice, try to select it
     if (currentVoice) {
-      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-      if (option) {
-        option.selected = true;
-      }
+      voiceSelect.value = getVoiceId(currentVoice);
     }
     
     // Only show error message if we don't have any valid voice options
@@ -576,10 +575,7 @@ function setupEventListeners() {
           await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
           
           // Update the voice dropdown to reflect the selected voice
-          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
-          if (voiceOption) {
-            voiceOption.selected = true;
-          }
+          voiceSelect.value = getVoiceId(currentVoice);
           
           // Display voice properties
           displayVoiceProperties(currentVoice);
@@ -602,8 +598,7 @@ function setupEventListeners() {
   
   // Voice selection
   voiceSelect.addEventListener("change", async () => {
-    const selectedVoiceName = voiceSelect.value;
-    currentVoice = filteredVoices.find(v => v.name === selectedVoiceName) || null;
+    currentVoice = filteredVoices.find(v => getVoiceId(v) === voiceSelect.value) || null;
     
     if (currentVoice) {
       try {
@@ -723,6 +718,11 @@ async function playTestUtterance() {
       testText = testUtteranceInput.value.trim();
     }
     
+    if (currentVoice.source === "server") {
+      await playServerTestUtterance(testText);
+      return;
+    }
+
     // Create a new SpeechSynthesisUtterance
     const utterance = new SpeechSynthesisUtterance(testText);
     
@@ -758,6 +758,28 @@ async function playTestUtterance() {
     testUtteranceBtn.textContent = "Play Test Utterance";
     testUtteranceBtn.disabled = false;
   }
+}
+
+// A server voice has no SpeechSynthesisVoice: the test utterance gets an engine of its own.
+async function playServerTestUtterance(text) {
+  const engine = await serverProvider.createEngine(currentVoice);
+  const done = () => {
+    testUtteranceBtn.disabled = false;
+    testUtteranceBtn.textContent = "Play Test Utterance";
+    void engine.destroy();
+  };
+  const offReady = engine.on("ready", () => {
+    offReady();
+    engine.speak(0);
+  });
+  engine.on("end", done);
+  engine.on("error", (event) => {
+    console.error("Speech server error:", event.detail);
+    done();
+  });
+  testUtteranceBtn.disabled = true;
+  testUtteranceBtn.textContent = "Playing...";
+  engine.loadUtterances([{ plain: text, language: currentVoice.language }]);
 }
 
 // Toggle sample text playback
