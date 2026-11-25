@@ -47,7 +47,7 @@ export function scopeToQuote(utterance: Piece, at: number | undefined, quoteText
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
   setQuotedSpan(utterance, node, quoteText, at);
-  utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);
+  utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, { highlight: quoteText });
 }
 
 // `value` is always real DOM text, scoped to the node's own content. `description` is scoped as a quote within the node only for figure/table.

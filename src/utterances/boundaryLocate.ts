@@ -22,7 +22,7 @@ export function resolveBoundaryLocate(
 ): { locate: LocatorOptions; word: string } | undefined {
   const record = pageRecordOf(utterance);
   if (!record) return undefined;
-  const { spoken, chars, texts } = record;
+  const { spoken, chars, quotes } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
   // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
   const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
@@ -44,14 +44,9 @@ export function resolveBoundaryLocate(
   for (let i = first; i < last; i++) {
     if (chars[i].at >= 0) to = Math.max(to, chars[i].at + 1);
   }
-  const text = texts[k];
+  const quote = quotes[k];
+  const { highlight: text = "", before = "", after = "" } = quote.text!;
   const word = text.slice(from, to);
-  const around = offset.locate.text;
-  // domRange anchors the offset's whole extent, which a consumer trying it first would highlight instead of the word.
-  const locate: LocatorOptions = {
-    ...offset.locate,
-    domRange: undefined,
-    text: { highlight: word, before: (around?.before ?? "") + text.slice(0, from), after: text.slice(to) + (around?.after ?? "") },
-  };
+  const locate: LocatorOptions = { ...quote, text: { highlight: word, before: before + text.slice(0, from), after: text.slice(to) + after } };
   return { locate, word };
 }

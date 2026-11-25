@@ -532,3 +532,35 @@ test("resolveBoundaryLocate keeps a no-break space of the page text in the word'
     t.is(locate.before! + locate.highlight + locate.after, (quote.before ?? "") + quote.highlight + (quote.after ?? ""), format);
   }
 });
+
+test("resolveBoundaryLocate locates a word under a text-fragment range textref on the word, not the range", async (t) => {
+  for (const [selector, scope] of [[encodeCssSelectorFragment("body > p"), { cssSelector: "body > p" }], ["#", {}]] as const) {
+    const gnd = [
+      GuidedNavigationObject.deserialize({
+        role: ["paragraph"],
+        textref: `c.xhtml${selector}:~:text=Call%20me,world.`,
+        text: { plain: "Call me Ishmael, said the sailor to the world." },
+      })!,
+    ];
+    const [utterance] = await extractUtterances(gnd, { format: "plain" });
+    t.is(utterance.offsets![0].locate.fragment, ":~:text=Call%20me,world.", selector);
+
+    const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("sailor"), "sailor".length);
+    t.deepEqual(
+      resolved?.locate,
+      { ...scope, href: "c.xhtml", text: { highlight: "sailor", before: "Call me Ishmael, said the ", after: " to the world." } },
+      selector,
+    );
+  }
+});
+
+test("resolveBoundaryLocate keeps the text directive's prefix and suffix around a word of an element read whole", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], textref: "c.xhtml#:~:text=sea.-,Hello%20world,-Bye", text: { plain: "Hello world" } })!,
+  ];
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  const quote = utterance.offsets![0].locate.text!;
+  const locate = resolveBoundaryLocate(utterance, "Hello ".length, "world".length)!.locate.text!;
+  t.deepEqual(locate, { highlight: "world", before: "sea.Hello ", after: "Bye" });
+  t.is(locate.before! + locate.highlight + locate.after, quote.before! + quote.highlight + quote.after);
+});
