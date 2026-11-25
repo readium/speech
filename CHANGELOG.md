@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `contextLength` extraction option and `ReadiumSpeechNavigator` setting: the most characters a locate's `text.before`/`text.after` quotes on each side of its highlight, `"word"` boundaries included.
+
+### Changed
+
+- A locate's `text.before`/`text.after` is at most 50 characters by default, instead of the rest of its node's text: one long paragraph no longer repeats nearly its whole text in every sentence's `offsets` and every `"word"` boundary.
+
 ## [0.24.0] - 2026-11-24
 
 ### Added

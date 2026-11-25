@@ -186,6 +186,8 @@ engine.on("boundary", (event) => {
 });
 ```
 
+Its word's `locate.text.before`/`after` hold up to the utterance's extraction [`contextLength`](UtteranceExtraction.md#contextlength) characters each.
+
 It returns `undefined` for deep copies of an utterance, after `structuredClone()`, a JSON round trip or `postMessage()`. Spread copies (`{ ...utterance }`) work.
 
 ## Matching page text

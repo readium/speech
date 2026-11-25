@@ -120,6 +120,14 @@ const navigator = new ReadiumSpeechNavigator(engine, {
 
 `null` removes a built-in rule, like `"(r)"`'s here.
 
+### `contextLength`
+
+Also set once at construction, and forwarded to [`contextLength`](UtteranceExtraction.md#contextlength) for content loaded via `loadGndContent()`:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, { contextLength: 100 });
+```
+
 ### `languages`
 
 The content's languages, main first, e.g. a publication's, also set once at construction:
@@ -236,6 +244,6 @@ Represents a single piece of content to be spoken, as plain text and/or SSML.
 
 `offsets` covers the text that came verbatim from the document, one entry per stretch of a source node's own text, each with that node's `locate`. `start`/`end` are positions in that node's own text, the same with `format: "plain"` or `"ssml"`, not in `plain`/`ssml`: with `segmentation: { mode: "sentence" }`, "Bye now." from `<p>Hello world. Bye now.</p>` has `start: 13, end: 21`, and a cell read with its header, "Name: Ada", has `start: 0, end: 3`. A figure or table caption has them in the caption's text.
 
-An entry covering part of its node's text quotes it with the rest of that text as `text.before`/`text.after`, up to any aria label read in place of an element's text, or any noteref or page break marker the node's text leaves out, neither of which is on the page as quoted. Spoken text that isn't in the node's own text has no entry: in `Text (<a role="doc-noteref">1</a>) after.` read with `interruptions: { noteref: "inline" }`, the brackets around the note have none.
+An entry covering part of its node's text quotes it with up to [`contextLength`](UtteranceExtraction.md#contextlength) characters of the rest of that text on each side as `text.before`/`text.after`, stopping at any aria label read in place of an element's text, or any noteref or page break marker the node's text leaves out, neither of which is on the page as quoted. Spoken text that isn't in the node's own text has no entry: in `Text (<a role="doc-noteref">1</a>) after.` read with `interruptions: { noteref: "inline" }`, the brackets around the note have none.
 
 Text not on the page (most announcements, e.g. a table's "Table. 3 lines. 2 columns.", or an alt-derived description) has no `offsets`: `locate` is still safe for element-scoped highlighting, but there's no real text to search for. Content without a textref has none either, so a missing `offsets` doesn't identify an announcement. A single utterance carries several entries when its text comes from several stretches or elements: around a link, a footnote or a language change, or one sentence split across two `<div>`s.

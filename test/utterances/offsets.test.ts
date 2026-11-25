@@ -320,3 +320,42 @@ test("each word of page text spaced otherwise than the speech resolves", async (
   const utterance = (await extractUtterances(gnd, { format: "plain", language: "always" })).find((u) => u.plain === "un chat")!;
   t.deepEqual([resolveBoundaryLocate(utterance, 0, 2)?.word, resolveBoundaryLocate(utterance, 3, 4)?.word], ["un", "chat"]);
 });
+
+const ishmael =
+  "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation.";
+
+test("an offset's text context defaults to the 50 characters next to its highlight", async (t) => {
+  const gnd = parseMarkup(`<p>${ishmael}</p>`, undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(utterances.map((u) => u.offsets![0].locate.text), [
+    { highlight: "Call me Ishmael.", after: " Some years ago—never mind how long precisely—havi" },
+    {
+      highlight: "Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+      before: "Call me Ishmael. ",
+      after: " It is a way I have of driving off the spleen and ",
+    },
+    { highlight: "It is a way I have of driving off the spleen and regulating the circulation.", before: "ut a little and see the watery part of the world. " },
+  ]);
+});
+
+test("contextLength sets an offset's text context length, Infinity keeping all of it", async (t) => {
+  const gnd = parseMarkup(`<p>${ishmael}</p>`, undefined, { textrefs: true });
+  const short = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, contextLength: 10 });
+  t.deepEqual(short[1].offsets![0].locate.text?.before, " Ishmael. ");
+  t.deepEqual(short[1].offsets![0].locate.text?.after, " It is a w");
+  const all = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, contextLength: Infinity });
+  t.is(all[2].offsets![0].locate.text?.before, ishmael.slice(0, ishmael.indexOf("It is")));
+});
+
+test("contextLength 0 leaves an offset without text context", async (t) => {
+  const gnd = parseMarkup(`<p>${ishmael}</p>`, undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, contextLength: 0 });
+  t.deepEqual(utterances[1].offsets![0].locate.text, { highlight: utterances[1].plain });
+});
+
+test("an offset's text context never ends in half an emoji", async (t) => {
+  const gnd = parseMarkup("<p>Great news 🎉 for everyone. The library opens on Monday.</p>", undefined, { textrefs: true });
+  // 16 characters back from "The" cut between the emoji's two UTF-16 halves.
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, contextLength: 16 });
+  t.is(utterances[1].offsets![0].locate.text?.before, " for everyone. ");
+});

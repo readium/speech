@@ -139,4 +139,8 @@ export interface ExtractUtterancesOptions {
   // the engine speaks the symbol, not the literal imitation. Merged by key
   // on top of `builtInSubstitutions`, `null` removing a key; flat, unlike `segmentation.suppressions`.
   substitutions?: SubstitutionTable;
+
+  // The most characters of `text.before`/`text.after` a locate quotes on each side of its highlight:
+  // a non-negative integer, or `Infinity` for no limit. Default 50.
+  contextLength?: number;
 }

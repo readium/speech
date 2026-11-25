@@ -51,6 +51,7 @@ interface ExtractUtterancesOptions {
   interruptions?: Partial<Record<GndRole, "never" | "inline" | "after">>;
   segmentation?: SegmentationOptions;
   substitutions?: SubstitutionTable;
+  contextLength?: number;
 }
 
 interface ContextualizationOptions {
@@ -103,6 +104,7 @@ Quick reference:
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
 | `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
+| `contextLength` | `50` | most characters of `locate.text.before`/`after` on each side of a highlight |
 
 ### `format`
 
@@ -453,6 +455,18 @@ await extractUtterances(gnd, { format: "plain", substitutions: { "(c)": null } }
 ```
 
 Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
+
+### `contextLength`
+
+The most characters an `offsets` entry's `locate.text.before`/`after` quotes on each side of its highlight, nearest it first. Default `50`; `Infinity` for no limit, `0` for none.
+
+```typescript
+// <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money…</p>
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, contextLength: 10 });
+// first utterance's offsets[0].locate.text: { highlight: "Call me Ishmael.", after: " Some year" }
+```
+
+A `"word"` boundary's locate from `resolveBoundaryLocate()` is capped at the same length (see [Highlighting](Highlighting.md#word-level)).
 
 ## Descriptions
 

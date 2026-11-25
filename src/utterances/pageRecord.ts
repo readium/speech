@@ -29,6 +29,8 @@ export interface PageRecord {
   // Set by substitutions, from the spoken text back to `spoken`.
   replacements?: Replacement[];
   pageText?: string;
+  // See `ExtractUtterancesOptions.contextLength`.
+  contextLength: number;
 }
 
 // Keyed by `offsets`, which spread copies of an utterance share and which only text on the page has.

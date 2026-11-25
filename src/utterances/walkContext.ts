@@ -3,6 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
+import { contextLengthOf } from "./locateContext.js";
 import { nodeRoles } from "./nodeFields.js";
 import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
@@ -48,6 +49,8 @@ export interface WalkContext {
   segmenter: SentenceSegmenter;
   // See `ExtractUtterancesOptions.substitutions`.
   substitutions: SubstitutionTable;
+  // See `ExtractUtterancesOptions.contextLength`.
+  contextLength: number;
   // Populated from a table node the moment it's reached, then read back as
   // its rows/cells are walked.
   tableRowNumbers: Map<GuidedNavigationObject, number>;
@@ -162,6 +165,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     substitutions: Object.fromEntries(
       Object.entries({ ...builtInSubstitutions, ...options.substitutions }).filter(([, rule]) => rule !== null),
     ),
+    contextLength: contextLengthOf(options.contextLength),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
     ancestorChains: buildAncestorChains(nodes),

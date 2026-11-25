@@ -532,3 +532,24 @@ test("resolveBoundaryLocate keeps a no-break space of the page text in the word'
     t.is(locate.before! + locate.highlight + locate.after, (quote.before ?? "") + quote.highlight + (quote.after ?? ""), format);
   }
 });
+
+test("resolveBoundaryLocate caps a word's text context at extraction's contextLength, 50 by default", async (t) => {
+  const paragraph =
+    "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.";
+  const gnd = parseMarkup(`<p>${paragraph}</p>`, undefined, { textrefs: true });
+  const extract = async (contextLength?: number) =>
+    (await extractUtterances(gnd, { format: "plain", contextLength }))[0];
+  const utterance = await extract();
+  const charIndex = utterance.plain!.indexOf("purse");
+
+  const byDefault = resolveBoundaryLocate(utterance, charIndex, "purse".length);
+  t.deepEqual(byDefault?.locate.text, {
+    highlight: "purse",
+    before: "ow long precisely—having little or no money in my ",
+    after: ", and nothing particular to interest me on shore, ",
+  });
+  const short = resolveBoundaryLocate(await extract(10), charIndex, "purse".length);
+  t.deepEqual(short?.locate.text, { highlight: "purse", before: "ney in my ", after: ", and noth" });
+  const none = resolveBoundaryLocate(await extract(0), charIndex, "purse".length);
+  t.deepEqual(none?.locate.text, { highlight: "purse", before: "", after: "" });
+});

@@ -1,5 +1,6 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { contextAfter, contextBefore } from "./locateContext.js";
 import { pageRecordOf, type PageRecord } from "./pageRecord.js";
 import { toSourcePosition } from "./text.js";
 
@@ -22,7 +23,7 @@ export function resolveBoundaryLocate(
 ): { locate: LocatorOptions; word: string } | undefined {
   const record = pageRecordOf(utterance);
   if (!record) return undefined;
-  const { spoken, chars, texts } = record;
+  const { spoken, chars, texts, contextLength } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
   // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
   const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
@@ -51,7 +52,11 @@ export function resolveBoundaryLocate(
   const locate: LocatorOptions = {
     ...offset.locate,
     domRange: undefined,
-    text: { highlight: word, before: (around?.before ?? "") + text.slice(0, from), after: text.slice(to) + (around?.after ?? "") },
+    text: {
+      highlight: word,
+      before: contextBefore((around?.before ?? "") + text.slice(0, from), contextLength),
+      after: contextAfter(text.slice(to) + (around?.after ?? ""), contextLength),
+    },
   };
   return { locate, word };
 }

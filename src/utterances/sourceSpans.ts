@@ -4,6 +4,7 @@ import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { UtteranceOffset } from "../utterance.js";
 import type { Piece } from "./piece.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
+import { contextAfter, contextBefore } from "./locateContext.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordPage, type PageChar, type PageRun } from "./pageRecord.js";
 import { collapseSpaces, stripSsmlTags } from "./plainText.js";
@@ -294,15 +295,17 @@ function ownRuns(span: TextSpan): { start: number; end: number }[] {
 }
 
 // Bare only when the run is all the utterance speaks: next to other text, its quote is what places it in the spoken text.
-function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean): LocatorOptions {
+function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean, contextLength: number): LocatorOptions {
   if (speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
   const locate = subLocateFor(nodeRef.ref, span.ownText.slice(start, end));
   // Context stops where the own text isn't the page's.
   const stops = span.offPage ?? [];
   const from = Math.max(0, ...stops.filter((stop) => stop.end <= start).map((stop) => stop.end));
   const to = Math.min(span.ownText.length, ...stops.filter((stop) => stop.start >= end).map((stop) => stop.start));
-  if (start > from) locate.text = { ...locate.text, before: span.ownText.slice(from, start) };
-  if (end < to) locate.text = { ...locate.text, after: span.ownText.slice(end, to) };
+  const before = contextBefore(span.ownText.slice(from, start), contextLength);
+  const after = contextAfter(span.ownText.slice(end, to), contextLength);
+  if (before) locate.text = { ...locate.text, before };
+  if (after) locate.text = { ...locate.text, after };
   return locate;
 }
 
@@ -329,7 +332,7 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     span.map.forEach((position, i) => {
       if (position >= start && position < end && span.at + i < text.length) chars[span.at + i] = { offset: k, at: substituted ? -1 : position - start };
     });
-    return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
+    return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll, ctx.contextLength) };
   });
   if (offsets.length > 0) {
     const texts = located.map(({ span, start, end }) => (isText(span) ? span.ownText.slice(start, end) : ""));
@@ -337,7 +340,14 @@ export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffse
     const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
     const spoken = collapsed ? collapsed.text : text;
     const runs = pageRuns(spans, runsBySpan, ctx);
-    recordPage(offsets, { spoken, measured: text, runs, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
+    recordPage(offsets, {
+      spoken,
+      measured: text,
+      runs,
+      texts,
+      chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars,
+      contextLength: ctx.contextLength,
+    });
   }
   return offsets;
 }

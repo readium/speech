@@ -39,6 +39,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
   contextualizationOverrides?: ContextualizationOverrides;
   segmentationOverrides?: SegmentationOverrides;
   substitutions?: SubstitutionTable;
+  contextLength?: number;
   // The content's languages, main first, e.g. a publication's: each gets a voice picked before content in it is loaded.
   languages?: string[];
 }
@@ -68,6 +69,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private readonly contextualizationOverrides?: ContextualizationOverrides;
   private readonly segmentationOverrides?: SegmentationOverrides;
   private readonly substitutions?: SubstitutionTable;
+  private readonly contextLength?: number;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
@@ -110,6 +112,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.contextualizationOverrides = configuration.contextualizationOverrides;
     this.segmentationOverrides = configuration.segmentationOverrides;
     this.substitutions = configuration.substitutions;
+    this.contextLength = configuration.contextLength;
     this.languages = configuration.languages ?? [];
     this.voiceSelection = new VoiceSelection(engine, () => this._settings.voice, () => this.spokenLanguages());
     this.setupEngineListeners();
@@ -413,6 +416,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         segmenter: this.segmentationOverrides?.segmenter,
       },
       substitutions: this.substitutions,
+      contextLength: this.contextLength,
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
