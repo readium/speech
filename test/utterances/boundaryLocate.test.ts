@@ -533,31 +533,38 @@ test("resolveBoundaryLocate keeps a no-break space of the page text in the word'
   }
 });
 
-test("resolveBoundaryLocate quotes a word with its element's own text, not a text-fragment textref's prefix", async (t) => {
-  const gnd = parseMarkup(
-    "<p>Before one context</p><p>Repeated text</p><p>Middle marker</p><p>Repeated text</p><p>After two context</p>",
-    undefined,
-    { textrefs: { roles: true, textFragment: true } },
-  );
-  const utterance = (await extractUtterances(gnd, { format: "plain" }))[1];
-  t.is(utterance.offsets![0].locate.text?.before, "Before one context");
+test("resolveBoundaryLocate locates a word under a text-fragment range textref on the word, not the range", async (t) => {
+  for (const [selector, scope] of [[encodeCssSelectorFragment("body > p"), { cssSelector: "body > p" }], ["#", {}]] as const) {
+    const gnd = [
+      GuidedNavigationObject.deserialize({
+        role: ["paragraph"],
+        textref: `c.xhtml${selector}:~:text=Call%20me,world.`,
+        text: { plain: "Call me Ishmael, said the sailor to the world." },
+      })!,
+    ];
+    const [utterance] = await extractUtterances(gnd, { format: "plain" });
+    t.is(utterance.offsets![0].locate.fragment, ":~:text=Call%20me,world.", selector);
 
-  const resolved = resolveBoundaryLocate(utterance, "Repeated ".length, "text".length);
-  t.deepEqual(resolved?.locate.text, { highlight: "text", before: "Repeated ", after: "" });
+    const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("sailor"), "sailor".length);
+    t.deepEqual(
+      resolved?.locate,
+      { ...scope, href: "c.xhtml", text: { highlight: "sailor", before: "Call me Ishmael, said the ", after: " to the world." } },
+      selector,
+    );
+  }
 });
 
-test("resolveBoundaryLocate drops a text-fragment range textref, which would highlight the whole element", async (t) => {
+test("a sentence under a text-fragment range textref without a CSS selector is quoted, not located on the range", async (t) => {
   const gnd = [
     GuidedNavigationObject.deserialize({
       role: ["paragraph"],
-      textref: `c.xhtml${encodeCssSelectorFragment("body > p")}:~:text=Call%20me,world.`,
-      text: { plain: "Call me Ishmael, said the sailor to the world." },
+      textref: "c.xhtml#:~:text=Call%20me,the%20world.",
+      text: { plain: "Call me Ishmael. Some years ago, I thought I would sail about and see the world." },
     })!,
   ];
-  const [utterance] = await extractUtterances(gnd, { format: "plain" });
-  t.is(utterance.offsets![0].locate.fragment, ":~:text=Call%20me,world.");
-
-  const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("sailor"), "sailor".length);
-  t.is(resolved?.locate.fragment, undefined);
-  t.deepEqual(resolved?.locate.text, { highlight: "sailor", before: "Call me Ishmael, said the ", after: " to the world." });
+  const [first] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(first.offsets![0].locate, {
+    href: "c.xhtml",
+    text: { highlight: "Call me Ishmael.", after: " Some years ago, I thought I would sail about and see the world." },
+  });
 });

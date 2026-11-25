@@ -6,8 +6,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
-- Word highlighting could fail when the Guided Navigation Document points to text with text fragments (`#:~:text=`): the text quoted around the word included text from the neighbouring paragraph, so the word wasn't found on the page.
-- Word highlighting highlighted the whole paragraph instead of the word when the Guided Navigation Document points to a range of text (`#:~:text=start,end`).
+- With a textref pointing to a range of text (`:~:text=start,end`), a `"word"` boundary's `locate` highlighted the whole range instead of the word. Without a CSS selector in the textref, so did any other `locate` covering only part of the node, e.g. a sentence's `offsets` entry or an abbreviation's expansion.
 
 ## [0.24.0] - 2026-11-24
 

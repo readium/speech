@@ -2,6 +2,7 @@ import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { pageRecordOf, type PageRecord } from "./pageRecord.js";
 import { toSourcePosition } from "./text.js";
+import { subLocateFor } from "./locate.js";
 
 // Engine positions, possibly past the text (Web Speech over-reports word lengths), as a range of `spoken`.
 function spokenRange({ chars, replacements }: PageRecord, charIndex: number, charLength: number): [number, number] {
@@ -22,7 +23,7 @@ export function resolveBoundaryLocate(
 ): { locate: LocatorOptions; word: string } | undefined {
   const record = pageRecordOf(utterance);
   if (!record) return undefined;
-  const { spoken, chars, texts, contexts } = record;
+  const { spoken, chars, texts } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
   // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
   const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
@@ -46,13 +47,10 @@ export function resolveBoundaryLocate(
   }
   const text = texts[k];
   const word = text.slice(from, to);
-  const around = contexts[k];
-  // domRange and a text-fragment `fragment` anchor the offset's whole extent, which a consumer trying them first would highlight instead of the word.
+  const around = offset.locate.text;
   const locate: LocatorOptions = {
-    ...offset.locate,
-    domRange: undefined,
-    fragment: undefined,
-    text: { highlight: word, before: around.before + text.slice(0, from), after: text.slice(to) + around.after },
+    ...subLocateFor(offset.locate, word),
+    text: { highlight: word, before: (around?.before ?? "") + text.slice(0, from), after: text.slice(to) + (around?.after ?? "") },
   };
   return { locate, word };
 }

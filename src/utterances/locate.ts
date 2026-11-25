@@ -7,12 +7,11 @@ import { toUtterance, type Piece } from "./piece.js";
 import { plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { buildOffsets } from "./sourceSpans.js";
 
-// Anchors just `quoteText` within the node via a text-quote, since a
-// character-offset domRange would need its internal text-node layout.
+// Anchors just `quoteText` within the node via a text-quote: the node's domRange or text-fragment range
+// anchors its whole extent, which a consumer trying it first would highlight instead.
 export function subLocateFor(nodeRef: DecodedTextref, quoteText: string): LocatorOptions {
   const cssSelector = nodeRef.cssSelector ?? nodeRef.domRange?.start.cssSelector;
-  if (!cssSelector) return { ...nodeRef, text: { highlight: quoteText } };
-  const locate: LocatorOptions = { cssSelector, text: { highlight: quoteText } };
+  const locate: LocatorOptions = cssSelector ? { cssSelector, text: { highlight: quoteText } } : { text: { highlight: quoteText } };
   if (nodeRef.href !== undefined) locate.href = nodeRef.href;
   return locate;
 }
