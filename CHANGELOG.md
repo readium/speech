@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.24.1] - 2026-11-25
+
+### Fixed
+
+- Word highlighting could fail when the Guided Navigation Document points to text with text fragments (`#:~:text=`): the text quoted around the word included text from the neighbouring paragraph, so the word wasn't found on the page.
+- Word highlighting highlighted the whole paragraph instead of the word when the Guided Navigation Document points to a range of text (`#:~:text=start,end`).
+
 ## [0.24.0] - 2026-11-24
 
 ### Added
