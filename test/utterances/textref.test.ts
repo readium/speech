@@ -1,7 +1,9 @@
 import "../domSetup.js";
 import test from "ava";
+import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
+import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 
 test("extractUtterances attaches cssSelector from the source node's textref", async (t) => {
   const gnd = parseMarkup("<p>Hello.</p>", undefined, { textrefs: true });
@@ -109,5 +111,142 @@ test("extractUtterances disambiguates recurring text with prefix/suffix context"
   t.not(
     JSON.stringify([first.locate?.text?.before, first.locate?.text?.after]),
     JSON.stringify([second.locate?.text?.before, second.locate?.text?.after]),
+  );
+});
+
+test("a sentence under a text-fragment range textref without a CSS selector is quoted, not located on the range", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      textref: "c.xhtml#:~:text=Call%20me,the%20world.",
+      text: { plain: "Call me Ishmael. Some years ago, I thought I would sail about and see the world." },
+    })!,
+  ];
+  const [first] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(first.offsets![0].locate, {
+    href: "c.xhtml",
+    text: { highlight: "Call me Ishmael.", after: " Some years ago, I thought I would sail about and see the world." },
+  });
+});
+
+test("a sentence and its words under a prefixed range textref without a CSS selector are quoted in the paragraph's text alone", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      textref: "c.xhtml#:~:text=the%20sea.-,Call%20me,the%20world.",
+      text: { plain: "Call me Ishmael. Some years ago, I thought I would sail about and see the world." },
+    })!,
+  ];
+  const [first] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(first.offsets![0].locate, {
+    href: "c.xhtml",
+    text: { highlight: "Call me Ishmael.", after: " Some years ago, I thought I would sail about and see the world." },
+  });
+  t.is(resolveBoundaryLocate(first, 0, "Call".length)?.locate.text?.before, "");
+});
+
+test("an abbreviation's expansion is quoted with its node's text around it", async (t) => {
+  for (const [textref, scope] of [
+    ["c.xhtml#:~:text=Call,world.", {}],
+    ["c.xhtml#b", { cssSelector: "#b" }],
+  ] as const) {
+    const gnd = [
+      GuidedNavigationObject.deserialize({
+        role: ["paragraph"],
+        textref,
+        text: { plain: "Call Dr. Smith to the world.", ssml: 'Call <sub alias="Doctor">Dr.</sub> Smith to the world.' },
+      })!,
+    ];
+    const [utterance] = await extractUtterances(gnd, { format: "plain", interruptions: { abbreviation: "inline" } });
+    const alias = utterance.offsets!.find((offset) => offset.locate.text?.highlight === "Dr.");
+    t.deepEqual(alias?.locate, { ...scope, href: "c.xhtml", text: { highlight: "Dr.", before: "Call ", after: " Smith to the world." } }, textref);
+  }
+});
+
+test("a paragraph under a section's text-fragment range textref without a CSS selector is quoted, not located on the section's range", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["section"],
+      textref: "c.xhtml#:~:text=Call%20me,the%20end.",
+      children: [{ role: ["paragraph"], text: { plain: "Call me Ishmael. Some years ago, I went to the end." } }],
+    })!,
+  ];
+  const [structure] = await extractUtterances(gnd, { format: "plain" });
+  t.deepEqual(structure.locate, { href: "c.xhtml", text: { highlight: "Call me Ishmael. Some years ago, I went to the end." } });
+
+  const [first] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(first.offsets![0].locate, { href: "c.xhtml", text: { highlight: "Call me Ishmael.", after: " Some years ago, I went to the end." } });
+  t.deepEqual(resolveBoundaryLocate(first, "Call ".length, "me".length)?.locate, {
+    href: "c.xhtml",
+    text: { highlight: "me", before: "Call ", after: " Ishmael. Some years ago, I went to the end." },
+  });
+});
+
+test("a link without a textref is quoted in its paragraph's text alone, under a prefixed range textref", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      textref: "c.xhtml#:~:text=the%20sea.-,Call%20me,the%20world.",
+      text: { plain: "Call me Ishmael, said the sailor to the world.", ssml: 'Call me Ishmael, said the sailor to <readium:link id="l1" />.' },
+      children: [{ id: "l1", role: ["link"], text: { plain: "the world" } }],
+    })!,
+  ];
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  const link = utterance.offsets!.find((offset) => offset.locate.text?.highlight === "the world");
+  t.deepEqual(link?.locate, { href: "c.xhtml", text: { highlight: "the world", before: "Call me Ishmael, said the sailor to ", after: "." } });
+});
+
+test("a link whose text its paragraph repeats is quoted with the paragraph's text around it", async (t) => {
+  const gnd = parseMarkup('<p>Go <a href="x">here</a> and <a href="y">here</a> now.</p>', undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  const links = utterance.offsets!.filter((offset) => offset.locate.text?.highlight === "here");
+  t.deepEqual(
+    links.map((offset) => offset.locate.text),
+    [
+      { highlight: "here", before: "Go ", after: " and here now." },
+      { highlight: "here", before: "Go here and ", after: " now." },
+    ],
+  );
+});
+
+test("a link's offsets and its paragraph's stop at a page break inside the link", async (t) => {
+  const gnd = parseMarkup('<p>He said <a href="x">go <span role="doc-pagebreak" id="p12" aria-label="12"></span>now</a> please.</p>', undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.deepEqual(
+    utterance.offsets!.map((offset) => offset.locate.text),
+    [
+      { highlight: "He said", after: " go" },
+      { highlight: "go", before: "He said " },
+      { highlight: "now", before: " ", after: " please." },
+      { highlight: "please.", before: " now " },
+    ],
+  );
+});
+
+test("an abbreviation's locate in a link is quoted with its paragraph's text around it", async (t) => {
+  const gnd = parseMarkup(
+    '<p>Call <a href="x" lang="fr"><abbr title="Organisation">OMS</abbr></a> and <a href="y" lang="fr"><abbr title="Organisation">OMS</abbr></a> now.</p>',
+    undefined,
+    { textrefs: true },
+  );
+  const utterances = await extractUtterances(gnd, { format: "plain", language: "always" });
+  t.deepEqual(
+    utterances.filter((utterance) => utterance.plain!.includes("Organisation")).map((utterance) => utterance.locate?.text),
+    [
+      { highlight: "OMS", before: "Call ", after: " and OMS now." },
+      { highlight: "OMS", before: "Call OMS and ", after: " now." },
+    ],
+  );
+});
+
+test("a sentence's locate quotes the page's text it reads, with the text around it", async (t) => {
+  const gnd = parseMarkup('<p>Go <a href="x">home</a>. Go <a href="y">home</a>.</p>', undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((utterance) => utterance.locate?.text),
+    [
+      { highlight: "Go home.", after: " Go home." },
+      { highlight: "Go home.", before: "Go home. " },
+    ],
   );
 });

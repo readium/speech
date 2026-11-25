@@ -1,5 +1,6 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { Replacement } from "./text.js";
 
 // A spoken character's offset (-1: none, e.g. an announcement or a space), and its position in that offset's text (-1: read whole).
@@ -20,8 +21,8 @@ export interface PageRecord {
   spoken: string;
   // One per character of `spoken`.
   chars: PageChar[];
-  // Each offset's own text, as its locate quotes it.
-  texts: string[];
+  // Each offset as a quote of its own text, which its words narrow.
+  quotes: LocatorOptions[];
   // The text spans were measured in: `spoken`, or the SSML's text with its spacing kept.
   measured: string;
   // In spoken order.

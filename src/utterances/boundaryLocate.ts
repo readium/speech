@@ -2,7 +2,6 @@ import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { pageRecordOf, type PageRecord } from "./pageRecord.js";
 import { toSourcePosition } from "./text.js";
-import { subLocateFor } from "./locate.js";
 
 // Engine positions, possibly past the text (Web Speech over-reports word lengths), as a range of `spoken`.
 function spokenRange({ chars, replacements }: PageRecord, charIndex: number, charLength: number): [number, number] {
@@ -23,7 +22,7 @@ export function resolveBoundaryLocate(
 ): { locate: LocatorOptions; word: string } | undefined {
   const record = pageRecordOf(utterance);
   if (!record) return undefined;
-  const { spoken, chars, texts } = record;
+  const { spoken, chars, quotes } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
   // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
   const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
@@ -45,12 +44,9 @@ export function resolveBoundaryLocate(
   for (let i = first; i < last; i++) {
     if (chars[i].at >= 0) to = Math.max(to, chars[i].at + 1);
   }
-  const text = texts[k];
+  const quote = quotes[k];
+  const { highlight: text = "", before = "", after = "" } = quote.text!;
   const word = text.slice(from, to);
-  const around = offset.locate.text;
-  const locate: LocatorOptions = {
-    ...subLocateFor(offset.locate, word),
-    text: { highlight: word, before: (around?.before ?? "") + text.slice(0, from), after: text.slice(to) + (around?.after ?? "") },
-  };
+  const locate: LocatorOptions = { ...quote, text: { highlight: word, before: before + text.slice(0, from), after: text.slice(to) + after } };
   return { locate, word };
 }

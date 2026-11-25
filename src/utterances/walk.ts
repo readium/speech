@@ -25,7 +25,7 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances, pieceText } from "./mergeUtterances.js";
-import { holdsMarker, markOffPage, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
+import { holdsMarker, markOffPage, offPageOf, ownRange, ownTextAligner, placeInBlock, setAliasSpan, setSpans, type Embedding } from "./sourceSpans.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { plainTextOf, redundantCaptionOf, spokenDescriptionOf } from "./tableStructure.js";
@@ -182,7 +182,7 @@ function locateOnAbbreviation(
 ): void {
   const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
   if (!nodeRef) return;
-  const locate = subLocateFor(nodeRef.ref, abbreviation);
+  const locate = subLocateFor(nodeRef.ref, { highlight: abbreviation });
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
     piece.locate = locate;
@@ -377,11 +377,12 @@ function emitWithPlaceholders(
     markTouching(segment, before);
   }
   aligner.finish();
+  const offPage = offPageOf(embeddedPieces);
   for (const { embedding: { child, range }, pieces: childPieces } of embeddedPieces) {
     // A marker's text isn't in this node's, so nothing read from it is placed there.
-    if (range && !holdsMarker(child)) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start));
+    if (range && !holdsMarker(child)) childPieces.forEach((piece) => placeInBlock(piece, child, node, range.start, offPage));
   }
-  markOffPage(pieces, node, embeddedPieces.map(({ embedding }) => embedding));
+  markOffPage(pieces, node, offPage);
   // Without sentence segmentation, a node whose inline alias may end a sentence is merged once segmented (see `mergeAliasPieces()`).
   const awaitsSegmentation = !isSentence && (nested.size > 0 || pieces.some((piece) => endsWithSentenceTerminator(aliases.get(piece) ?? "")));
   if ((isSentence && deferred.length + inserted.size + aliases.size + nested.size > 0) || awaitsSegmentation) {

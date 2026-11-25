@@ -6,7 +6,13 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
-- With a textref pointing to a range of text (`:~:text=start,end`), a `"word"` boundary's `locate` highlighted the whole range instead of the word. Without a CSS selector in the textref, so did any other `locate` covering only part of the node, e.g. a sentence's `offsets` entry or an abbreviation's expansion.
+- With an element's own textref pointing to a range of text (`:~:text=start,end`), a `"word"` boundary's `locate` highlighted the whole range instead of the word.
+- When an element's own textref has only a text directive with a range (no id, `css()` or `domrange()`), an `offsets` entry for part of the element, and the `locate` of an utterance reading part of it, like a sentence, highlighted the whole range. They're now quoted.
+- Under an ancestor's textref with a range of text and no id, `css()` or `domrange()`, an element without a textref of its own had its `locate`, `offsets` and words highlight the ancestor's whole range. They're now quoted.
+- An `offsets` entry for an element without a textref of its own, like a link, quoted its text alone, so of two links reading the same text in a paragraph (`Go <a>here</a> and <a>here</a> now.`), both highlighted the first. It's now quoted with the text around it in its paragraph, or other block holding it, when that block takes the same textref, as are its words.
+- An abbreviation's `locate` quoted it with no text around it, so a consumer highlighted the first matching text: an earlier abbreviation in the same element, or, when the element's own textref has only a text directive, the whole range or anywhere on the page. It's now quoted as its `offsets` entry is.
+- An utterance's `locate` quoting part of an element, like a sentence, or a paragraph without a textref of its own under its section's, quoted the text spoken with no text around it, or only its text before a link. With an abbreviation's expansion read in it, nothing on the page matched, and of two sentences reading the same text (`Go <a>home</a>. Go <a>home</a>.`), both highlighted the first. It now quotes the page's text the utterance reads, with the text around it, unless an aria-labelled element, noteref or page break sits within it.
+- An `offsets` entry for part of an element whose own textref quotes the element's text with a prefix or suffix (`:~:text=sea.-,Call%20me%20Ishmael.,-Bye`), and its words, left that prefix or suffix out of `before`/`after` where they reach the element's start or end.
 
 ## [0.24.0] - 2026-11-24
 

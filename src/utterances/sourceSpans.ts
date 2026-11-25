@@ -3,7 +3,7 @@ import { isAriaSubstituted } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { UtteranceOffset } from "../utterance.js";
 import type { Piece } from "./piece.js";
-import { resolveNodeLocate, subLocateFor } from "./locate.js";
+import { quoteLocate, resolveNodeLocate, type QuotePlace } from "./locate.js";
 import { pieceText, substitutedBareLocate } from "./mergeUtterances.js";
 import { recordPage, type PageChar, type PageRun } from "./pageRecord.js";
 import { collapseSpaces, stripSsmlTags } from "./plainText.js";
@@ -19,8 +19,9 @@ const DROPPED = -2;
 // Where a stretch of an utterance's plain text, from `at`, comes from in `node`'s own text.
 export type SourceSpan = TextSpan | AliasSpan;
 
-// `block`: the outermost element whose own text holds `node`'s, and where `node`'s starts in it.
-type InBlock = { block?: { node: GuidedNavigationObject; at: number } };
+// `block`: the outermost element whose own text holds `node`'s, where `node`'s starts in it, and where that text isn't the page's.
+// `offPage`: where the node's own text isn't the page's: a label read in place of its element's text, or the point a marker's text is left out at.
+type InBlock = { block?: { node: GuidedNavigationObject; at: number; offPage: Range[] }; offPage?: Range[] };
 
 interface TextSpan extends InBlock {
   node: GuidedNavigationObject;
@@ -30,8 +31,6 @@ interface TextSpan extends InBlock {
   map: number[];
   // Taken from text other than the node's own (a figure's or table's description), so never located bare.
   quotedOnly?: boolean;
-  // Where `ownText` isn't the page's: a label read in place of its element's text, or the point a marker's text is left out at.
-  offPage?: Range[];
 }
 
 // Spoken text that isn't on the page, located on `[start, end)` of the own text, and never cut.
@@ -71,7 +70,7 @@ export function setQuotedSpan(utterance: Piece, node: GuidedNavigationObject, ow
     return;
   }
   const embedded = embeddedRanges(node);
-  const offPage = embedded.filter(({ child }) => readsOffPage(child)).map(({ start, end }) => ({ start, end }));
+  const offPage = ownOffPage(embedded);
   const labelled = embedded.filter(({ child }) => isAriaSubstituted(child));
   if (labelled.length === 0) {
     setSpans(utterance, [{ node, ownText, at, map: positions(0, ownText.length), offPage }]);
@@ -83,7 +82,7 @@ export function setQuotedSpan(utterance: Piece, node: GuidedNavigationObject, ow
   let from = 0;
   for (const { child, start, end } of labelled) {
     if (start > from) spans.push({ node, ownText, at: at + from, map: ownMap(from, start), offPage });
-    spans.push({ node: child, ownText: ownText.slice(start, end), at: at + start, map: positions(0, end - start), block: { node, at: start } });
+    spans.push({ node: child, ownText: ownText.slice(start, end), at: at + start, map: positions(0, end - start), block: { node, at: start, offPage } });
     from = end;
   }
   if (from < ownText.length) spans.push({ node, ownText, at: at + from, map: ownMap(from, ownText.length), offPage });
@@ -120,6 +119,9 @@ export function holdsMarker(child: GuidedNavigationObject): boolean {
 
 // A label is read in place of its element's text; a marker's is left out of the node's.
 const readsOffPage = (child: GuidedNavigationObject) => isAriaSubstituted(child) || holdsMarker(child);
+
+const ownOffPage = (embedded: ReturnType<typeof embeddedRanges>): Range[] =>
+  embedded.filter(({ child }) => readsOffPage(child)).map(({ start, end }) => ({ start, end }));
 
 const lengthOf = (span: SourceSpan) => (isText(span) ? span.map.length : span.length!);
 
@@ -238,18 +240,35 @@ export function ownTextAligner(node: GuidedNavigationObject): OwnTextAligner {
 }
 
 // `piece`'s spans read from `child`'s own text, placed in `block`'s, where `child`'s starts at `at`.
-export function placeInBlock(piece: Piece, child: GuidedNavigationObject, block: GuidedNavigationObject, at: number): void {
+export function placeInBlock(piece: Piece, child: GuidedNavigationObject, block: GuidedNavigationObject, at: number, offPage: Range[]): void {
   piece.spans = piece.spans?.map((span) => {
     const inner = span.block ?? { node: span.node, at: 0 };
-    return inner.node === child ? { ...span, block: { node: block, at: at + inner.at } } : span;
+    return inner.node === child ? { ...span, block: { node: block, at: at + inner.at, offPage } } : span;
   });
 }
 
-// Gives the spans read from `node`'s own text where its `embedded` children make it differ from the page.
-export function markOffPage(pieces: Piece[], node: GuidedNavigationObject, embedded: Embedding[]): void {
-  const offPage = embedded.flatMap(({ child, range }) => (range && readsOffPage(child) ? [range] : []));
+// Where a node's own text isn't the page's, from its `embedded` children: a label or marker, or such a stretch in the text of one placed in it.
+export function offPageOf(embedded: { embedding: Embedding; pieces: Piece[] }[]): Range[] {
+  return embedded.flatMap(({ embedding: { child, range }, pieces }) => {
+    if (!range) return [];
+    if (readsOffPage(child)) return [range];
+    return ownOffPageIn(pieces, child).map((stop) => ({ start: range.start + stop.start, end: range.start + stop.end }));
+  });
+}
+
+// `node`'s stretches that aren't the page's, as the spans of its pieces carry them.
+function ownOffPageIn(pieces: Piece[], node: GuidedNavigationObject): Range[] {
+  for (const span of pieces.flatMap((piece) => piece.spans ?? [])) {
+    if (span.node === node && !span.block) return span.offPage ?? [];
+    if (span.block?.node === node) return span.block.offPage;
+  }
+  return [];
+}
+
+// Gives the spans read from `node`'s own text where it isn't the page's.
+export function markOffPage(pieces: Piece[], node: GuidedNavigationObject, offPage: Range[]): void {
   if (offPage.length === 0) return;
-  for (const piece of pieces) piece.spans = piece.spans?.map((span) => (span.node === node && isText(span) ? { ...span, offPage } : span));
+  for (const piece of pieces) piece.spans = piece.spans?.map((span) => (span.node === node ? { ...span, offPage } : span));
 }
 
 // The stretch of own text that `spans` were placed on, if any.
@@ -293,53 +312,75 @@ function ownRuns(span: TextSpan): { start: number; end: number }[] {
   return runs;
 }
 
-// Bare only when the run is all the utterance speaks: next to other text, its quote is what places it in the spoken text.
-function runLocate(span: TextSpan, start: number, end: number, nodeRef: NonNullable<ReturnType<typeof resolveNodeLocate>>, speaksAll: boolean): LocatorOptions {
-  if (speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly) return nodeRef.ref;
-  const locate = subLocateFor(nodeRef.ref, span.ownText.slice(start, end));
-  // Context stops where the own text isn't the page's.
-  const stops = span.offPage ?? [];
-  const from = Math.max(0, ...stops.filter((stop) => stop.end <= start).map((stop) => stop.end));
-  const to = Math.min(span.ownText.length, ...stops.filter((stop) => stop.start >= end).map((stop) => stop.start));
-  if (start > from) locate.text = { ...locate.text, before: span.ownText.slice(from, start) };
-  if (end < to) locate.text = { ...locate.text, after: span.ownText.slice(end, to) };
-  return locate;
+// Where a span's own text is quoted: in its block's text when the block takes the same textref, else in its own.
+function quotePlace(span: SourceSpan, nodeRef: ResolvedRef, ctx: WalkContext): QuotePlace {
+  const { block } = span;
+  const quoted = isText(span) && span.quotedOnly;
+  if (block && !nodeRef.own && !quoted && resolveNodeLocate(block.node, ctx.ancestorChains)?.owner === nodeRef.owner) {
+    return { node: block.node, text: plainTextOf(block.node), at: block.at, offPage: block.offPage };
+  }
+  return { node: span.node, text: isText(span) ? span.ownText : plainTextOf(span.node), at: 0, offPage: span.offPage ?? [] };
+}
+
+type ResolvedRef = NonNullable<ReturnType<typeof resolveNodeLocate>>;
+
+// The page's text from the first run to the last, when all are in one place: bare when that's all of the textref's
+// element's text, else quoted, unless a label or marker within makes it differ from the page.
+function spannedLocate(located: { span: SourceSpan; place: QuotePlace; nodeRef: ResolvedRef; start: number; end: number }[]): LocatorOptions | undefined {
+  const [{ place, nodeRef }] = located;
+  if (located.some((run) => run.place.node !== place.node || isAriaSubstituted(run.span.node))) return undefined;
+  const start = Math.min(...located.map((run) => run.place.at + run.start));
+  const end = Math.max(...located.map((run) => run.place.at + run.end));
+  const ownText = located.every((run) => !isText(run.span) || !run.span.quotedOnly);
+  if (ownText && place.node === nodeRef.owner && start === 0 && end === place.text.length) return nodeRef.ref;
+  if (place.offPage.some((stop) => stop.start < end && stop.end > start)) return undefined;
+  return quoteLocate(nodeRef.ref, place, start, end);
+}
+
+export interface Offsets {
+  offsets: UtteranceOffset[];
+  // The locate of all the text the offsets read, when it's one stretch on the page.
+  spanned?: LocatorOptions;
 }
 
 // An utterance's `offsets`: one per stretch of a node's own text it speaks.
-export function buildOffsets(utterance: Piece, ctx: WalkContext): UtteranceOffset[] {
-  type Run = { span: SourceSpan; nodeRef: ReturnType<typeof resolveNodeLocate>; start: number; end: number };
-  type Located = Run & { nodeRef: NonNullable<Run["nodeRef"]> };
+export function buildOffsets(utterance: Piece, ctx: WalkContext): Offsets {
+  type Run = { span: SourceSpan; nodeRef?: ResolvedRef; place?: QuotePlace; start: number; end: number };
+  type Located = Run & { nodeRef: ResolvedRef; place: QuotePlace };
   const spans = spansOf(utterance, ctx);
   const runsBySpan = spans.map((span): Run[] => {
     const nodeRef = resolveNodeLocate(span.node, ctx.ancestorChains);
-    return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, ...run })) : [{ span, nodeRef, start: span.start, end: span.end }];
+    const place = nodeRef && quotePlace(span, nodeRef, ctx);
+    return isText(span) ? ownRuns(span).map((run) => ({ span, nodeRef, place, ...run })) : [{ span, nodeRef, place, start: span.start, end: span.end }];
   });
   const located = runsBySpan.flat().filter((run): run is Located => !!run.nodeRef);
   const text = pieceText(utterance, ctx);
   const only = located.length === 1 ? located[0].span : undefined;
   const speaksAll = !!only && isText(only) && only.at === 0 && only.map.length === text.length && !only.map.includes(DROPPED);
   const chars: PageChar[] = Array.from({ length: text.length }, () => ({ offset: -1, at: -1 }));
+  const quotes = located.map(({ place, nodeRef, start, end }) => quoteLocate(nodeRef.ref, place, place.at + start, place.at + end));
   const offsets: UtteranceOffset[] = located.map(({ span, nodeRef, start, end }, k) => {
+    const quote = quotes[k];
     if (!isText(span)) {
       for (let i = span.at; i < Math.min(span.at + span.length!, text.length); i++) chars[i] = { offset: k, at: -1 };
-      return { start, end, locate: span.alias };
+      return { start, end, locate: quote };
     }
     const substituted = isAriaSubstituted(span.node) ? substitutedBareLocate(span.node, ctx) : undefined;
     span.map.forEach((position, i) => {
       if (position >= start && position < end && span.at + i < text.length) chars[span.at + i] = { offset: k, at: substituted ? -1 : position - start };
     });
-    return { start, end, locate: substituted ?? runLocate(span, start, end, nodeRef, speaksAll) };
+    // Bare only when the run is all the utterance speaks: next to other text, its quote is what places it in the spoken text.
+    const bare = speaksAll && start === 0 && end === span.ownText.length && nodeRef.own && !span.quotedOnly;
+    return { start, end, locate: substituted ?? (bare ? nodeRef.ref : quote) };
   });
   if (offsets.length > 0) {
-    const texts = located.map(({ span, start, end }) => (isText(span) ? span.ownText.slice(start, end) : ""));
     // SSML is measured with its spacing kept; engines report positions in `stripSsmlTags()` text.
     const collapsed = ctx.format === "ssml" ? collapseSpaces(text) : undefined;
     const spoken = collapsed ? collapsed.text : text;
     const runs = pageRuns(spans, runsBySpan, ctx);
-    recordPage(offsets, { spoken, measured: text, runs, texts, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
+    recordPage(offsets, { spoken, measured: text, runs, quotes, chars: collapsed ? collapsed.kept.map((i) => chars[i]) : chars });
   }
-  return offsets;
+  return { offsets, spanned: located.length > 0 ? spannedLocate(located) : undefined };
 }
 
 // A reference's children are its targets, printed elsewhere: they're on this page text only if all of it is under the reference.

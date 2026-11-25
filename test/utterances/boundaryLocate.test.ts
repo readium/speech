@@ -554,17 +554,13 @@ test("resolveBoundaryLocate locates a word under a text-fragment range textref o
   }
 });
 
-test("a sentence under a text-fragment range textref without a CSS selector is quoted, not located on the range", async (t) => {
+test("resolveBoundaryLocate keeps the text directive's prefix and suffix around a word of an element read whole", async (t) => {
   const gnd = [
-    GuidedNavigationObject.deserialize({
-      role: ["paragraph"],
-      textref: "c.xhtml#:~:text=Call%20me,the%20world.",
-      text: { plain: "Call me Ishmael. Some years ago, I thought I would sail about and see the world." },
-    })!,
+    GuidedNavigationObject.deserialize({ role: ["paragraph"], textref: "c.xhtml#:~:text=sea.-,Hello%20world,-Bye", text: { plain: "Hello world" } })!,
   ];
-  const [first] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
-  t.deepEqual(first.offsets![0].locate, {
-    href: "c.xhtml",
-    text: { highlight: "Call me Ishmael.", after: " Some years ago, I thought I would sail about and see the world." },
-  });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  const quote = utterance.offsets![0].locate.text!;
+  const locate = resolveBoundaryLocate(utterance, "Hello ".length, "world".length)!.locate.text!;
+  t.deepEqual(locate, { highlight: "world", before: "sea.Hello ", after: "Bye" });
+  t.is(locate.before! + locate.highlight + locate.after, quote.before! + quote.highlight + quote.after);
 });
