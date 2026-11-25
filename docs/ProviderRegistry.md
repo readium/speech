@@ -15,6 +15,8 @@ It's tempting to want `registry.getAllVoices()` to return one flat `ReadiumSpeec
 
 So the registry keeps voices grouped by provider id, and leaves flattening (if a single UI list is wanted) to the caller, who is then also responsible for remembering which provider a picked voice came from.
 
+To speak one publication with voices of several providers, see [`RoutingEngineProvider`](RoutingEngine.md).
+
 ## API
 
 ```ts

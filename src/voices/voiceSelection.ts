@@ -5,6 +5,7 @@ import { pickLanguageVoice } from "./defaultVoice.js";
 import { normalizeLanguageCode, voiceBaseLanguage } from "./languageCode.js";
 import type { ReadiumSpeechVoice } from "./types.js";
 import { getVoiceId } from "./voiceId.js";
+import { findVoice } from "./voiceLookup.js";
 
 // Keys are matched as voice languages are, e.g. a `zh-HK` key for `yue-HK` content.
 const voiceUnder = (voices: Record<string, string>, tag: string): string | undefined =>
@@ -165,10 +166,9 @@ export class VoiceSelection {
     return typeof voice === "string" ? [voice] : voice ? Object.values(voice) : [];
   }
 
-  // Matched by id, else by name, as engines match a voice.
   private listedVoiceId(id: string): string | undefined {
     if (this.voices.length === 0) return id;
-    const voice = this.voices.find(voice => getVoiceId(voice) === id) ?? this.voices.find(voice => voice.name === id);
+    const voice = findVoice(this.voices, id);
     return voice && getVoiceId(voice);
   }
 

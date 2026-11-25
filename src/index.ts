@@ -2,6 +2,7 @@
 export * from "./WebSpeech/index.js";
 export * from "./SpeechServer/index.js";
 export * from "./Fallback/index.js";
+export * from "./Routing/index.js";
 
 // Decorator re-exports
 export * from "@readium/decorator";

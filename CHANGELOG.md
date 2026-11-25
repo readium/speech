@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `RoutingEngineProvider` and `RoutingSpeechEngine`: one engine over several providers, speaking each utterance with the provider whose voice it is, so a navigator mixes e.g. Web Speech and speech-server voices across a publication's languages without restarting. See [RoutingEngine](docs/RoutingEngine.md).
+
 ## [0.24.0] - 2026-11-24
 
 ### Added

@@ -9,6 +9,8 @@ import { EventEmitter } from "../utils/eventEmitter.js";
 import { isRecoverableFailure } from "./recoverableFailure.js";
 import { isVoiceReachable } from "../voices/reachability.js";
 import { getVoiceId } from "../voices/voiceId.js";
+import { findVoice } from "../voices/voiceLookup.js";
+import { playbackEventTypes } from "../playbackEvents.js";
 
 export interface FallbackSpeechEngineOptions {
   primaryEngine: ReadiumSpeechPlaybackEngine;
@@ -27,10 +29,7 @@ const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 
 // Every event a wrapped engine can emit except "error", which is intercepted (see handleError)
 // to decide whether it's worth swapping engines over before being forwarded or not.
-const FORWARDED_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = [
-  "start", "pause", "resume", "end", "stop", "skip", "boundary", "mark",
-  "idle", "loading", "ready", "voiceschanged"
-];
+const FORWARDED_EVENTS = playbackEventTypes("error", "languagefallback", "enginefallback", "enginerecovered");
 
 // Wraps a primary engine and swaps to a fallback provider's engine the first time the primary
 // reports a recoverable failure, resuming at the same utterance with the best matching voice.
@@ -403,10 +402,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.listedVoices.set(engine, listed);
   }
 
-  // Matched by id, else by name, as engines match an utterance's voice.
   private listedVoice(engine: ReadiumSpeechPlaybackEngine, id: string): ReadiumSpeechVoice | undefined {
-    const listed = this.listedVoices.get(engine);
-    return listed?.get(id) ?? [...(listed?.values() ?? [])].find(voice => voice.name === id);
+    return findVoice(this.listedVoices.get(engine)?.values() ?? [], id);
   }
 
   // Lists the utterances' own voices on the engine, so withReachableVoices() can tell which it can't reach.
