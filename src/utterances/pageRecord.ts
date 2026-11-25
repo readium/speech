@@ -8,6 +8,12 @@ export interface PageChar {
   at: number;
 }
 
+// A node's own text on either side of an offset's, capped at `contextLength`.
+export interface OwnContext {
+  before: string;
+  after: string;
+}
+
 // `[start, end)` of a block's own text, the outermost element whose text holds it, spoken at `[spokenStart, spokenEnd)`
 // of the measured text. Off the page: read in place of its text, like a label (then cut out of it), or printed elsewhere.
 export type PageRun =
@@ -22,6 +28,8 @@ export interface PageRecord {
   chars: PageChar[];
   // Each offset's own text, as its locate quotes it.
   texts: string[];
+  // One per offset: unlike its locate's quote, which can be a textref's, never text outside its node.
+  contexts: OwnContext[];
   // The text spans were measured in: `spoken`, or the SSML's text with its spacing kept.
   measured: string;
   // In spoken order.

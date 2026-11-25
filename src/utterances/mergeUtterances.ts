@@ -23,7 +23,7 @@ export function pieceIndexAt(ranges: { start: number; end: number }[], pos: numb
 // ancestor's — never a quote search, since the substituted text isn't on the page.
 export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkContext): LocatorOptions | undefined {
   const ownSelector = substitutedOwnSelector(node);
-  const ref = resolveNodeLocate(node, ctx.ancestorChains)?.ref;
+  const ref = resolveNodeLocate(node, ctx)?.ref;
   if (ownSelector) {
     const locate: LocatorOptions = { cssSelector: ownSelector };
     if (ref?.href !== undefined) locate.href = ref.href;
@@ -50,8 +50,8 @@ function buildMergeLocate(pieces: Piece[], ctx: WalkContext): LocatorOptions | u
     if (!source || Array.isArray(source)) return undefined;
     const text = pieceText(piece, ctx);
     if (!text) return undefined;
-    if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx.ancestorChains) && substitutedBareLocate(source, ctx);
-    return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
+    if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx) && substitutedBareLocate(source, ctx);
+    return preciseLocateFor(resolveNodeLocate(source, ctx), text);
   });
   const firstIndex = locates.findIndex((locate) => locate !== undefined);
   if (firstIndex === -1) return undefined;
@@ -61,8 +61,8 @@ function buildMergeLocate(pieces: Piece[], ctx: WalkContext): LocatorOptions | u
   const firstSource = pieces[firstIndex].source;
   const lastSource = pieces[lastIndex].source;
   if (firstSource && lastSource && !Array.isArray(firstSource) && !Array.isArray(lastSource)) {
-    const firstRef = resolveNodeLocate(firstSource, ctx.ancestorChains);
-    const lastRef = resolveNodeLocate(lastSource, ctx.ancestorChains);
+    const firstRef = resolveNodeLocate(firstSource, ctx);
+    const lastRef = resolveNodeLocate(lastSource, ctx);
     return spanLocate(firstRef, lastRef, locates[firstIndex]);
   }
   return locates[firstIndex];

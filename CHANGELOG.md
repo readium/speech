@@ -10,7 +10,11 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Changed
 
-- A locate's `text.before`/`text.after` is at most 50 characters by default, instead of the rest of its node's text: one long paragraph no longer repeats nearly its whole text in every sentence's `offsets` and every `"word"` boundary.
+- A locate's `text.before`/`text.after` is at most 50 characters by default, instead of the rest of its node's text: one long paragraph no longer repeats nearly its whole text in every sentence's `offsets` and every `"word"` boundary. A text-fragment textref's prefix and suffix are capped the same way.
+### Fixed
+
+- Word highlighting could fail when the Guided Navigation Document points to text with text fragments (`#:~:text=`): the text quoted around the word included text from the neighbouring paragraph, so the word wasn't found on the page.
+- Word highlighting highlighted the whole paragraph instead of the word when the Guided Navigation Document points to a range of text (`#:~:text=start,end`).
 
 ## [0.24.0] - 2026-11-24
 

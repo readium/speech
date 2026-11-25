@@ -553,3 +553,47 @@ test("resolveBoundaryLocate caps a word's text context at extraction's contextLe
   const none = resolveBoundaryLocate(await extract(0), charIndex, "purse".length);
   t.deepEqual(none?.locate.text, { highlight: "purse", before: "", after: "" });
 });
+
+test("resolveBoundaryLocate quotes a word with its element's own text, not a text-fragment textref's prefix", async (t) => {
+  const gnd = parseMarkup(
+    "<p>Before one context</p><p>Repeated text</p><p>Middle marker</p><p>Repeated text</p><p>After two context</p>",
+    undefined,
+    { textrefs: { roles: true, textFragment: true } },
+  );
+  const utterance = (await extractUtterances(gnd, { format: "plain" }))[1];
+  t.is(utterance.offsets![0].locate.text?.before, "Before one context");
+
+  const resolved = resolveBoundaryLocate(utterance, "Repeated ".length, "text".length);
+  t.deepEqual(resolved?.locate.text, { highlight: "text", before: "Repeated ", after: "" });
+});
+
+test("resolveBoundaryLocate drops a text-fragment range textref, which would highlight the whole element", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      textref: `c.xhtml${encodeCssSelectorFragment("body > p")}:~:text=Call%20me,world.`,
+      text: { plain: "Call me Ishmael, said the sailor to the world." },
+    })!,
+  ];
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.offsets![0].locate.fragment, ":~:text=Call%20me,world.");
+
+  const resolved = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("sailor"), "sailor".length);
+  t.is(resolved?.locate.fragment, undefined);
+  t.deepEqual(resolved?.locate.text, { highlight: "sailor", before: "Call me Ishmael, said the ", after: " to the world." });
+});
+
+test("resolveBoundaryLocate continues a word's context into its offset's, within contextLength", async (t) => {
+  const paragraph =
+    "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen.";
+  const gnd = parseMarkup(`<p>${paragraph}</p>`, undefined, { textrefs: true });
+  const utterance = (await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } }))[2];
+  t.is(utterance.plain, "It is a way I have of driving off the spleen.");
+
+  const resolved = resolveBoundaryLocate(utterance, "It is a ".length, "way".length);
+  t.deepEqual(resolved?.locate.text, {
+    highlight: "way",
+    before: "tle and see the watery part of the world. It is a ",
+    after: " I have of driving off the spleen.",
+  });
+});

@@ -458,7 +458,7 @@ Unlike `segmentation.suppressions`, this table is flat, not per-language — the
 
 ### `contextLength`
 
-The most characters an `offsets` entry's `locate.text.before`/`after` quotes on each side of its highlight, nearest it first. Default `50`; `Infinity` for no limit, `0` for none.
+The most characters a `locate.text.before`/`after` quotes on each side of its highlight, nearest it first, in an utterance's `locate` and its `offsets`, a text-fragment textref's prefix and suffix included. Default `50`; `Infinity` for no limit, `0` for none. Any other value than a non-negative integer or `Infinity` is `50`.
 
 ```typescript
 // <p>Call me Ishmael. Some years ago—never mind how long precisely—having little or no money…</p>

@@ -141,7 +141,7 @@ async function pushSplitSingle(utterance: Piece, ctx: WalkContext, newOut: Piece
   }
   const { source } = utterance;
   const node = Array.isArray(source) ? undefined : source;
-  const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
+  const nodeRef = node ? resolveNodeLocate(node, ctx) : undefined;
   const nodeOwnSubstitutedLocate = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
   const edges = utterance.edgeLocates;
   const spans = spansOf(utterance, ctx);
@@ -350,12 +350,12 @@ async function pushJoinedGroup(pieces: Piece[], ctx: WalkContext, newOut: Piece[
     const ownIndices = [...Array(endIdx - startIdx + 1).keys()].map((i) => startIdx + i).filter((i) => !isInserted(pieces[i]));
     const firstIdx = ownIndices[0] ?? startIdx;
     const lastIdx = ownIndices[ownIndices.length - 1] ?? endIdx;
-    const firstRef = resolveNodeLocate(pieceSources[firstIdx], ctx.ancestorChains);
+    const firstRef = resolveNodeLocate(pieceSources[firstIdx], ctx);
     const firstSource = pieceSources[firstIdx];
     const fallback =
       (isAriaSubstituted(firstSource) ? substitutedBareLocate(firstSource, ctx) : undefined) ?? preciseLocateFor(firstRef, plainOf(text, ctx.format));
     const locate =
-      firstIdx !== lastIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[lastIdx], ctx.ancestorChains), fallback) : fallback;
+      firstIdx !== lastIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[lastIdx], ctx), fallback) : fallback;
     if (locate) merged.locate = locate;
 
     merged.source = firstIdx === lastIdx ? pieceSources[firstIdx] : [pieceSources[firstIdx], pieceSources[lastIdx]];

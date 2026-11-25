@@ -23,7 +23,7 @@ export function resolveBoundaryLocate(
 ): { locate: LocatorOptions; word: string } | undefined {
   const record = pageRecordOf(utterance);
   if (!record) return undefined;
-  const { spoken, chars, texts, contextLength } = record;
+  const { spoken, chars, texts, contexts, contextLength } = record;
   const [start, end] = spokenRange(record, charIndex, charLength);
   // A zero-length boundary names the character it starts on; text inserted by a substitution maps to no characters.
   const reach = charLength > 0 ? end : Math.min(start + 1, chars.length);
@@ -47,16 +47,18 @@ export function resolveBoundaryLocate(
   }
   const text = texts[k];
   const word = text.slice(from, to);
-  const around = offset.locate.text;
-  // domRange anchors the offset's whole extent, which a consumer trying it first would highlight instead of the word.
+  const around = contexts[k];
+  // Cut from the offset's text first: the offset's own context only extends a word near its edges.
+  const inBefore = contextBefore(text, from, contextLength);
+  const before = inBefore.length < from ? inBefore : contextBefore(around.before, around.before.length, contextLength - inBefore.length) + inBefore;
+  const inAfter = contextAfter(text, to, contextLength);
+  const after = inAfter.length < text.length - to ? inAfter : inAfter + contextAfter(around.after, 0, contextLength - inAfter.length);
+  // domRange and a text-fragment `fragment` anchor the offset's whole extent, which a consumer trying them first would highlight instead of the word.
   const locate: LocatorOptions = {
     ...offset.locate,
     domRange: undefined,
-    text: {
-      highlight: word,
-      before: contextBefore((around?.before ?? "") + text.slice(0, from), contextLength),
-      after: contextAfter(text.slice(to) + (around?.after ?? ""), contextLength),
-    },
+    fragment: undefined,
+    text: { highlight: word, before, after },
   };
   return { locate, word };
 }

@@ -8,16 +8,16 @@ export function contextLengthOf(value: number | undefined): number {
 const isLowSurrogate = (code: number) => code >= 0xdc00 && code <= 0xdfff;
 const isHighSurrogate = (code: number) => code >= 0xd800 && code <= 0xdbff;
 
-// The end of `text` nearest what follows it, at most `length` characters, never half a surrogate pair.
-export function contextBefore(text: string, length: number): string {
-  let start = Math.max(0, text.length - length);
-  if (start > 0 && isLowSurrogate(text.charCodeAt(start))) start++;
-  return text.slice(start);
+// At most `length` characters of `text` ending at `end`, not before `start`, never half a surrogate pair.
+export function contextBefore(text: string, end: number, length: number, start = 0): string {
+  let from = Math.max(start, end - length);
+  if (from > start && isLowSurrogate(text.charCodeAt(from))) from++;
+  return text.slice(from, end);
 }
 
-// The start of `text` nearest what precedes it, at most `length` characters, never half a surrogate pair.
-export function contextAfter(text: string, length: number): string {
-  let end = Math.min(text.length, length);
-  if (end < text.length && isHighSurrogate(text.charCodeAt(end - 1))) end--;
-  return text.slice(0, end);
+// At most `length` characters of `text` starting at `start`, not past `end`, never half a surrogate pair.
+export function contextAfter(text: string, start: number, length: number, end = text.length): string {
+  let to = Math.min(end, start + length);
+  if (to > start && to < end && isHighSurrogate(text.charCodeAt(to - 1))) to--;
+  return text.slice(start, to);
 }

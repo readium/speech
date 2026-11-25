@@ -180,7 +180,7 @@ function locateOnAbbreviation(
   node: GuidedNavigationObject,
   ctx: WalkContext,
 ): void {
-  const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
+  const nodeRef = resolveNodeLocate(node, ctx);
   if (!nodeRef) return;
   const locate = subLocateFor(nodeRef.ref, abbreviation);
   ctx.aliasLocates.add(locate);

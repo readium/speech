@@ -111,3 +111,21 @@ test("extractUtterances disambiguates recurring text with prefix/suffix context"
     JSON.stringify([second.locate?.text?.before, second.locate?.text?.after]),
   );
 });
+
+test("contextLength caps a text-fragment textref's prefix and suffix", async (t) => {
+  const gnd = parseMarkup(
+    "<p>Before one context</p><p>Repeated text</p><p>Middle marker</p><p>Repeated text</p><p>After two context</p>",
+    undefined,
+    { textrefs: { roles: true, textFragment: true } },
+  );
+  // The first "Repeated text", as its locate and its offset quote it.
+  const quotes = async (contextLength?: number) => {
+    const repeated = (await extractUtterances(gnd, { format: "plain", contextLength }))[1];
+    return [repeated.locate?.text, repeated.offsets?.[0].locate.text];
+  };
+  const full = { highlight: "repeated text", before: "Before one context", after: "Middle marker" };
+  t.deepEqual(await quotes(), [full, full]);
+  const short = { highlight: "repeated text", before: "ext", after: "Mid" };
+  t.deepEqual(await quotes(3), [short, short]);
+  t.deepEqual(await quotes(0), [{ highlight: "repeated text" }, { highlight: "repeated text" }]);
+});

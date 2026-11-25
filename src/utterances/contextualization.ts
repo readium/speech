@@ -44,7 +44,7 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
 // Leaves `synthetic` alone — that also gates sentence-splitting/merging.
 export function scopeToQuote(utterance: Piece, at: number | undefined, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
   if (at === undefined || at < 0) return;
-  const resolved = resolveNodeLocate(node, ctx.ancestorChains);
+  const resolved = resolveNodeLocate(node, ctx);
   if (!resolved) return;
   setQuotedSpan(utterance, node, quoteText, at);
   utterance.locate = resolved.own ? resolved.ref : subLocateFor(resolved.ref, quoteText);

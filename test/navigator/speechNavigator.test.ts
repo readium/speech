@@ -1,5 +1,6 @@
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
+import { encodeCssSelectorFragment } from "@readium/guided-navigation";
 import { FallbackSpeechEngine, ReadiumSpeechNavigator, ReadiumSpeechVoice, SpeechPreferences } from "../../build/index.js";
 import { MockEngine, settled } from "./mockEngine.js";
 import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, stubOnLine } from "../Fallback/testUtils.js";
@@ -79,6 +80,18 @@ test("substitutions from the configuration apply to content loaded via loadGndCo
   const navigator = new ReadiumSpeechNavigator(engine, { substitutions: { "fig.": "figure", "(r)": null } });
   await navigator.loadGndContent(gnd([{ role: ["paragraph"], text: { plain: "See fig. 2 (r) at 1/2 size." } }]));
   t.deepEqual(navigator.getContentQueue().map((u) => u.plain), ["See figure 2 (r) at ½ size."]);
+});
+
+test("contextLength from the configuration caps the locates of content loaded via loadGndContent", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { contextLength: 5, preferences: { segmentation: "sentence" } });
+  await navigator.loadGndContent(
+    gnd([{ role: ["paragraph"], textref: `c.xhtml${encodeCssSelectorFragment("body > p")}`, text: { plain: "Call me Ishmael. Some years ago." } }]),
+  );
+  t.deepEqual(navigator.getContentQueue().map((u) => u.locate?.text), [
+    { highlight: "Call me Ishmael.", after: " Some" },
+    { highlight: "Some years ago.", before: "ael. " },
+  ]);
 });
 
 test("submitPreferences re-extracts when reconstruct changes, joining a sentence split across blocks", async (t) => {

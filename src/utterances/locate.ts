@@ -6,6 +6,7 @@ import type { WalkContext } from "./walkContext.js";
 import { toUtterance, type Piece } from "./piece.js";
 import { plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { buildOffsets } from "./sourceSpans.js";
+import { contextAfter, contextBefore } from "./locateContext.js";
 
 // Anchors just `quoteText` within the node via a text-quote, since a
 // character-offset domRange would need its internal text-node layout.
@@ -25,14 +26,27 @@ export function subLocateFor(nodeRef: DecodedTextref, quoteText: string): Locato
 // Resolves one node's own locator, falling back through its ancestors
 // (nearest first) when it has no textref of its own — `own: false` then,
 // since the result describes that ancestor's whole extent, not just this node.
-export function resolveNodeLocate(node: GuidedNavigationObject, ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>): { own: boolean; ref: DecodedTextref } | undefined {
-  const ref = decodeTextref(node);
+export function resolveNodeLocate(node: GuidedNavigationObject, ctx: WalkContext): { own: boolean; ref: DecodedTextref } | undefined {
+  const ref = decodeNodeTextref(node, ctx.contextLength);
   if (ref) return { own: true, ref };
-  for (const ancestor of ancestorChains.get(node) ?? []) {
-    const ancestorRef = decodeTextref(ancestor);
+  for (const ancestor of ctx.ancestorChains.get(node) ?? []) {
+    const ancestorRef = decodeNodeTextref(ancestor, ctx.contextLength);
     if (ancestorRef) return { own: false, ref: ancestorRef };
   }
   return undefined;
+}
+
+// A text-fragment textref's prefix and suffix decode to `text.before`/`after`, capped like the context speech quotes.
+function decodeNodeTextref(node: GuidedNavigationObject, contextLength: number): DecodedTextref | undefined {
+  const ref = decodeTextref(node);
+  if (!ref?.text) return ref;
+  const { before, after, ...rest } = ref.text;
+  const text: NonNullable<DecodedTextref["text"]> = rest;
+  const cappedBefore = before && contextBefore(before, before.length, contextLength);
+  const cappedAfter = after && contextAfter(after, 0, contextLength);
+  if (cappedBefore) text.before = cappedBefore;
+  if (cappedAfter) text.after = cappedAfter;
+  return { ...ref, text };
 }
 
 // A resolved locate is only safe to use bare when it's the node's own
@@ -58,7 +72,6 @@ export function spanLocate(
 // Builds each utterance's `offsets` from its spans, and resolves `locate` for those not given one:
 // a single offset's own, else the source node's, quoted to the utterance's text when it covers only part of it.
 export function attachLocate(pieces: Piece[], ctx: WalkContext): ReadiumSpeechUtterance[] {
-  const { ancestorChains } = ctx;
   return pieces.map((u) => {
     const offsets = buildOffsets(u, ctx);
     const result = toUtterance(u);
@@ -68,12 +81,12 @@ export function attachLocate(pieces: Piece[], ctx: WalkContext): ReadiumSpeechUt
     const text = u.plain ?? plainOf(u.ssml ?? "", "ssml");
     if (Array.isArray(source)) {
       const [first, last] = source;
-      const firstRef = resolveNodeLocate(first, ancestorChains);
-      const lastRef = resolveNodeLocate(last, ancestorChains);
+      const firstRef = resolveNodeLocate(first, ctx);
+      const lastRef = resolveNodeLocate(last, ctx);
       const ref = spanLocate(firstRef, lastRef, preciseLocateFor(firstRef, text));
       return ref ? { ...result, locate: ref } : result;
     }
-    const resolved = source ? resolveNodeLocate(source, ancestorChains) : undefined;
+    const resolved = source ? resolveNodeLocate(source, ctx) : undefined;
     if (!resolved) return result;
     if (u.synthetic) return { ...result, locate: resolved.ref };
     if (offsets.length === 1) return { ...result, locate: offsets[0].locate };

@@ -186,7 +186,7 @@ engine.on("boundary", (event) => {
 });
 ```
 
-Its word's `locate.text.before`/`after` hold up to the utterance's extraction [`contextLength`](UtteranceExtraction.md#contextlength) characters each.
+Its word's `locate.text.before`/`after` quote its element's own text around it, up to the utterance's extraction [`contextLength`](UtteranceExtraction.md#contextlength) characters each.
 
 It returns `undefined` for deep copies of an utterance, after `structuredClone()`, a JSON round trip or `postMessage()`. Spread copies (`{ ...utterance }`) work.
 
