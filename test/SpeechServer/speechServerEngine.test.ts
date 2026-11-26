@@ -243,7 +243,7 @@ test.serial("setVoice(string) uses a cached voice when found, else keeps the raw
   t.is(engine.getCurrentVoice()?.source, "server");
 });
 
-test.serial("speak() plays audio and fires loading/start/end events", async (t) => {
+test.serial("speak() plays buffered audio without loading, firing start/end events", async (t) => {
   const { fetchImpl } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
   });
@@ -262,11 +262,11 @@ test.serial("speak() plays audio and fires loading/start/end events", async (t) 
   engine.speak();
   await flush();
 
-  t.deepEqual(events, ["loading", "start"]);
+  t.deepEqual(events, ["start"]);
   t.is(engine.getState(), "playing");
 
   MockAudioBufferSourceNode.instances[0].onended?.();
-  t.deepEqual(events, ["loading", "start", "end"]);
+  t.deepEqual(events, ["start", "end"]);
   t.is(engine.getState(), "idle", "state is idle after the last (only) utterance ends");
 });
 

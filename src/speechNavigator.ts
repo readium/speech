@@ -103,6 +103,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private notifiedVoice: VoicePreference | null = null;
   // Bumped by every setContentQueue(), so a load still waiting for its voices knows it was superseded.
   private loadGeneration = 0;
+  // "waiting" was told and nothing has ended it yet.
+  private waiting = false;
 
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
     this.engine = engine;
@@ -596,7 +598,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this.events.on(event, listener as (event: ReadiumSpeechNavigatorEvent) => void);
   }
 
+  // A wait is told once, until what ends it.
   private emitEvent(event: ReadiumSpeechNavigatorEvent): void {
+    if (event.type === "waiting") {
+      if (this.waiting) return;
+      this.waiting = true;
+    } else if (event.type === "start" || event.type === "pause" || event.type === "stop" || event.type === "error") {
+      this.waiting = false;
+    }
     this.events.emit(event.type, event);
   }
 

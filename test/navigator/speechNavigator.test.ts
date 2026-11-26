@@ -1599,6 +1599,25 @@ test("\"waiting\" tells a play() while content loads, and a reload while playing
   t.deepEqual(waiting, ["loading", "loading"], "a reload while playing waits for the new content");
 });
 
+test("\"waiting\" isn't told again when a reload while playing then waits for the utterance's audio", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const events: string[] = [];
+  for (const type of ["waiting", "start"] as const) navigator.on(type, () => events.push(type));
+
+  await navigator.loadGndContent(twoParagraphTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  engine.emit({ type: "start", detail: { voice: null } });
+  events.length = 0;
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  engine.emit({ type: "ready" });
+  engine.emit({ type: "loading" });
+  engine.emit({ type: "start", detail: { voice: null } });
+  t.deepEqual(events, ["waiting", "start"]);
+});
+
 test("pause() while waiting for content to load tells \"pause\"", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

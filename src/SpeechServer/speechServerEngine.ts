@@ -77,6 +77,12 @@ interface ChunkRequest {
 }
 type ChunkStream = ChunkRequest[];
 
+interface PrefetchedStream {
+  stream: Promise<ChunkStream>;
+  // Its first chunk's audio is there, so it can start without waiting.
+  arrived: boolean;
+}
+
 // One chunk's node on the AudioContext timeline, in schedule order.
 interface ScheduledChunk {
   chunk: SynthesizedChunk;
@@ -154,7 +160,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private readonly formatOptions: SpeechServerFormatOptions;
   private readonly voiceProviders: string[] | undefined;
   private readonly canPlayType: CanPlayType;
-  private prefetchCache: Map<number, Promise<ChunkStream>> = new Map();
+  private prefetchCache: Map<number, PrefetchedStream> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
   // Bumped by clearPrefetchCache(), so a prefetch still queued in the chain isn't requested once cleared.
   private prefetchGeneration: number = 0;
@@ -250,7 +256,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       const cached = this.prefetchCache.get(index);
       if (cached) {
         // Only the first chunk needs to be ready for playback to start.
-        pending.push(cached.then(chunkStream => chunkStream[0].promise));
+        pending.push(cached.stream.then(chunkStream => chunkStream[0].promise));
       }
     }
 
@@ -403,7 +409,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     // Set synchronously (not deferred until the first chunk is actually scheduled) so a
     // rate/pitch change landing during the network round-trip still sees "speaking" and restarts.
     this.isSpeakingInternal = true;
-    this.setState("loading"); // emits "loading" itself, via the state-change switch below
+    // "loading" only while its audio is on its way; prefetched audio starts right away.
+    this.setState(this.prefetchCache.get(this.currentUtteranceIndex)?.arrived ? "playing" : "loading");
 
     void this.synthesizeAndPlay(generation);
   }
@@ -444,7 +451,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (cached) {
       this.prefetchCache.delete(index);
       try {
-        const stream = await cached;
+        const stream = await cached.stream;
         // This stream is becoming the live utterance, not a background prefetch anymore —
         // move its controllers so a later clearPrefetchCache() can't cancel it out from under us.
         for (const { controller } of stream) {
@@ -476,7 +483,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       if (generation !== this.prefetchGeneration) throw new Error("Prefetch cleared before it was requested");
       return this.synthesizeStream(index, true);
     });
-    this.prefetchCache.set(index, streamPromise);
+    const prefetched: PrefetchedStream = { stream: streamPromise, arrived: false };
+    this.prefetchCache.set(index, prefetched);
+    streamPromise.then(chunkStream => chunkStream[0].promise).then(() => (prefetched.arrived = true), () => {});
     // The next queued utterance's own first request shouldn't jump ahead of this one's last
     // chunk — so the chain only advances once every chunk of this stream has settled.
     this.prefetchChainTail = streamPromise.then(chunkStream => Promise.all(chunkStream.map(c => c.promise))).then(
