@@ -28,8 +28,10 @@ export interface FallbackSpeechEngineOptions {
 
 const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 
-// Every event a wrapped engine can emit except "error", which is intercepted (see handleError)
-// to decide whether it's worth swapping engines over before being forwarded or not.
+// Every event a wrapped engine can emit, except:
+// - "error", intercepted (see handleError) to decide whether to swap engines before forwarding it;
+// - "enginefallback" and "enginerecovered": this wrapper sends its own;
+// - "languagefallback", which only the navigator sends.
 const FORWARDED_EVENTS = playbackEventTypes("error", "languagefallback", "enginefallback", "enginerecovered");
 
 // Wraps a primary engine and swaps to a fallback provider's engine the first time the primary
