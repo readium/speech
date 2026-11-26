@@ -556,7 +556,7 @@ function updateWordHighlightAvailability() {
 async function initializeContent() {
   gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
   renderGndOutput();
-  await navigator.loadGndContent(gnd);
+  await navigator.loadGndContent(gnd, { language: content.closest("[lang]")?.lang || undefined });
 }
 
 // Lays out a flat run of `.token` spans (one per word or per letter — see
