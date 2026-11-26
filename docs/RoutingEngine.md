@@ -55,6 +55,7 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - An engine is stopped only when playback moves to another engine's utterance in the middle of its own. Its `"stop"` isn't forwarded. A move by `setCurrentUtteranceIndex()` while playing sends one `"stop"`, as a single engine does; a move by `speak()` sends none.
 - `rate`, `pitch` and `volume` are set on every engine.
 - If a provider's `createEngine()` fails, it is left out. `createEngine()` fails only when every provider fails.
+- `isAvailable()` on the provider is `true` when at least one provider's `isAvailable()` is, e.g. Web Speech's while the speech-server is down: the engine can still speak with its voices. A provider without `isAvailable()`, or whose `isAvailable()` fails, doesn't count.
 
 ## With FallbackEngine
 
