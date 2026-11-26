@@ -115,6 +115,42 @@ test("moving to another engine's utterance while paused stays paused, and resume
   t.deepEqual(events, ["ready", "start", "pause", "start"]);
 });
 
+test("once the queue has ended, moving back to its first utterance, another engine's, reports idle", async (t) => {
+  const { web, server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed.slice(0, 2)); // "One." for Web Speech, then "Un." for the speech-server, the last
+  router.speak(0);
+  web.emit("end");
+  router.speak(1);
+  server.setStateForTest("idle"); // a real engine goes idle at the end of the queue
+  server.emit("end");
+  router.setCurrentUtteranceIndex(0); // what the navigator does once the queue has ended
+
+  t.is(web.getState(), "playing", "Web Speech itself still says playing: it never spoke the end of the queue");
+  t.is(router.getState(), "idle");
+});
+
+test("moving to another engine's utterance after one ended, before the next plays, still reports playing", async (t) => {
+  const { web, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0);
+  web.emit("end"); // "One." ended, nothing plays yet
+  router.setCurrentUtteranceIndex(1); // to "Un.", the speech-server's
+
+  t.is(router.getState(), "playing");
+});
+
+test("moving to another engine's utterance before anything played reports that engine's state", async (t) => {
+  const { server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.setCurrentUtteranceIndex(1); // to "Un.", the speech-server's
+
+  server.setStateForTest("loading"); // e.g. still fetching its first audio
+  t.is(router.getState(), "loading");
+});
+
 test("utterances without a voice, or with one no engine lists, go to the engine of the current voice", async (t) => {
   const { web, server, router } = setup();
   await router.getAvailableVoices();

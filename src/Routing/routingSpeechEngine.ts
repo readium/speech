@@ -36,8 +36,8 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private started = true;
   // Whether the active engine is mid-utterance: engines stay "playing" between utterances.
   private speaking = false;
-  // Moved to another engine's utterance while paused: paused, though that engine was never spoken.
-  private pausedOnSwitch = false;
+  // Playback's state when it moved to another engine's utterance, until that engine is spoken: its own state says nothing of playback.
+  private stateOnSwitch: ReadiumSpeechPlaybackState | null = null;
   // speak() called before the queue was split.
   private pendingSpeak = false;
   private readyEmitted = false;
@@ -145,7 +145,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.currentIndex = index;
     this.started = true;
     this.speaking = true;
-    this.pausedOnSwitch = false;
+    this.stateOnSwitch = null;
     this.engines[this.activeEngine].speak(index);
   }
 
@@ -189,7 +189,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private resetPlayback(): void {
     this.started = true;
     this.speaking = false;
-    this.pausedOnSwitch = false;
+    this.stateOnSwitch = null;
   }
 
   setRate(rate: number): void {
@@ -218,7 +218,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   getState(): ReadiumSpeechPlaybackState {
     if (!this.owners) return "loading";
-    if (!this.started && this.pausedOnSwitch) return "paused";
+    if (!this.started && this.stateOnSwitch) return this.stateOnSwitch;
     return this.engines[this.activeEngine].getState();
   }
 
@@ -238,10 +238,15 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
     const owner = this.owners[index];
     if (owner !== this.activeEngine) {
-      const paused = this.pausedOnSwitch || (this.started && this.speaking && this.engines[this.activeEngine].getState() === "paused");
+      const previous = this.engines[this.activeEngine];
+      const paused = this.started && this.speaking && previous.getState() === "paused";
       this.activate(owner);
+      if (this.started) {
+        const state = paused ? "paused" : previous.getState();
+        // Before playback, the state is the new engine's own loading or ready.
+        this.stateOnSwitch = state === "loading" || state === "ready" ? null : state;
+      }
       this.started = false;
-      this.pausedOnSwitch = paused;
     }
     this.currentIndex = index;
     this.engines[owner].setCurrentUtteranceIndex(index, onComplete);

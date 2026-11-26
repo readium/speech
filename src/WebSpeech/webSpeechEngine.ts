@@ -418,8 +418,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.isPausedInternal = false;
       this.stopResumeInfinity();
       
-      // Set idle state if we've reached the end: none of its own left
-      if (!this.currentUtterances.some((_, i) => i > this.currentUtteranceIndex && !this.isContextual?.(i))) {
+      // Set idle state if we've reached the end
+      if (this.currentUtteranceIndex >= this.currentUtterances.length - 1) {
         this.setState("idle");
       }
       

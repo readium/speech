@@ -777,8 +777,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     // Cleared here regardless of whether more utterances remain — the actual advance to the
     // next one is a navigator-scheduled speak() call, not anything tracked by this engine.
     this.isSpeakingInternal = false;
-    // None of its own left
-    if (this.nextOwnIndex(this.currentUtteranceIndex) === -1) {
+    if (this.currentUtteranceIndex >= this.currentUtterances.length - 1) {
       this.setState("idle");
     }
     this.emitEvent({ type: "end" });

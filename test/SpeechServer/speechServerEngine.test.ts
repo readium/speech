@@ -264,17 +264,27 @@ test.serial("with no other engine, while one plays, audio is fetched ahead for t
   t.deepEqual(fetchedTexts(), ["Two.", "Three.", "Four."], "\"Two.\", playing, then the next 2");
 });
 
-test.serial("with `isContextual`, it's idle after the last utterance it speaks, before another engine's", async (t) => {
+test.serial("after its own last utterance, it still reports playing while another engine has one to speak after it", async (t) => {
   const { engine } = createTurnTakingEngine();
   await flush();
-  engine.speak(0);
-  await flush();
-  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
-  t.is(engine.getState(), "playing", "it speaks \"Three.\" later");
-
   engine.speak(2);
   await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.(); // "Three.", its last, ended
+
+  t.is(engine.getState(), "playing", "\"Four.\", another engine's, is still to come");
+});
+
+test.serial("after the last utterance of the queue, its own, it reports idle", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }], 0, index => index === 0); // "One." is another engine's
+  await flush();
+  engine.speak(1);
+  await flush();
   MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+
   t.is(engine.getState(), "idle");
 });
 
