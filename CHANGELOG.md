@@ -18,6 +18,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `SpeechServerEngine.resume()` after moving to another utterance while paused (`setCurrentUtteranceIndex()`, a navigator skip while paused) plays that utterance, instead of nothing.
 - `SpeechServerEngine.setCurrentUtteranceIndex()` while an utterance loads or plays drops it and tells `"stop"`, as `WebSpeechEngine` does, instead of playing it once its audio arrives or staying `"playing"` in silence.
 - `SpeechServerEngine` no longer requests prefetches queued before the queue, voice, rate or pitch changed, and a skip past the prefetched window fetches the utterance skipped to first, instead of after the old window.
+- `ReadiumSpeechNavigator` no longer waits `pauseDuration`, nor auto-pauses with `autoPause: "utterance"`, in the middle of a sentence cut at a change of language (`language: "always"` with `format: "plain"`).
 
 ## [0.24.0] - 2026-11-24
 

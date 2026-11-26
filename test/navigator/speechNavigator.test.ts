@@ -264,6 +264,61 @@ test("pauseDuration delays the next speak() call", async (t) => {
   t.true(engine.speakCalls[0] - before >= 50);
 });
 
+const paragraphWithLanguages = (ssml: string, plain: string) =>
+  gnd([{ role: ["paragraph"], text: { language: "en", plain, ssml } }]);
+
+test("pauseDuration doesn't apply in the middle of a sentence cut on a change of language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "always", pauseDuration: 60 } });
+  await navigator.loadGndContent(
+    paragraphWithLanguages('He said <lang xml:lang="fr">bonjour</lang> to me.', "He said bonjour to me."),
+  );
+  t.deepEqual(navigator.getContentQueue()?.map((utterance) => utterance.plain), ["He said", "bonjour", "to me."]);
+
+  engine.emit({ type: "end" });
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  t.is(engine.speakCalls.length, 1);
+});
+
+test("autoPause \"utterance\" doesn't pause in the middle of a sentence cut on a change of language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "always", autoPause: "utterance", segmentation: "sentence" } });
+  await navigator.loadGndContent(
+    paragraphWithLanguages('He said <lang xml:lang="fr">bonjour</lang> to me. Then he left.', "He said bonjour to me. Then he left."),
+  );
+  t.deepEqual(navigator.getContentQueue()?.map((utterance) => utterance.plain), ["He said", "bonjour", "to me.", "Then he left."]);
+  const pauses: number[] = [];
+  navigator.on("pause", () => pauses.push(engine.getCurrentUtteranceIndex()));
+
+  for (let i = 0; i < 3; i++) {
+    engine.emit({ type: "end" });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  }
+  t.deepEqual(pauses, [2], "pauses only after \"to me.\", the end of the sentence");
+});
+
+test("pauseDuration still applies where a change of language ends a sentence", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "always", pauseDuration: 60 } });
+  await navigator.loadGndContent(
+    paragraphWithLanguages(
+      'It is stored. <lang xml:lang="fr">Les systèmes diffèrent.</lang> For some domains.',
+      "It is stored. Les systèmes diffèrent. For some domains.",
+    ),
+  );
+  t.deepEqual(navigator.getContentQueue()?.map((utterance) => utterance.plain), [
+    "It is stored.",
+    "Les systèmes diffèrent.",
+    "For some domains.",
+  ]);
+
+  engine.emit({ type: "end" });
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  t.is(engine.speakCalls.length, 0);
+  await new Promise((resolve) => setTimeout(resolve, 120));
+  t.is(engine.speakCalls.length, 1);
+});
+
 test("a zero pauseDuration still yields to the event loop, but resolves on the next tick", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

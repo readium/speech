@@ -86,6 +86,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Parallel to `contentQueue`: whether each utterance begins a new
   // block-level element. loadContent() content has no boundaries of its own.
   private contentBlockStarts: boolean[] = [];
+  // Whether each utterance continues the sentence of the one before it.
+  private contentContinuations: boolean[] = [];
 
   // Set by setContentQueue() when a reload should resume mid-queue rather
   // than at the start; consumed once by the engine's "ready" handler.
@@ -192,17 +194,20 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       const totalCount = this.engine.getUtteranceCount();
 
       if (currentIndex < totalCount - 1) {
+        // Ended inside a sentence cut at changes of language: each of its pieces plays straight into the next, as one utterance would.
+        const endsInsideSentence = this.contentContinuations[currentIndex + 1] === true;
         const inAutoPauseScope =
           this._settings.autoPause === "utterance" || this.contentBlockStarts[currentIndex + 1] === true;
-        if (this._settings.autoPause !== "none" && inAutoPauseScope) {
+        if (this._settings.autoPause !== "none" && inAutoPauseScope && !endsInsideSentence) {
           this.pendingAutoPauseIndex = currentIndex + 1;
           this.setNavigatorState("paused");
           this.emitEvent({ type: "pause" });
         } else {
+          const pause = endsInsideSentence ? 0 : this._settings.pauseDuration;
           this.pendingAdvanceTimeout = setTimeout(() => {
             this.pendingAdvanceTimeout = null;
             this.engine.speak(currentIndex + 1);
-          }, this._settings.pauseDuration);
+          }, pause);
         }
       } else {
         // Reached end - reset to the start so a later play() restarts rather than replaying
@@ -399,7 +404,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const { index: oldIndex, state: resumeState } = this.resumeTarget();
     const oldSources = this.contentSources;
 
-    const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
+    const { utterances, sources, blockStarts, continuations } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       interruptions: this._settings.interruptions,
       skip: this._settings.skip,
@@ -422,6 +427,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
+    this.contentContinuations = continuations;
 
     const resumeIndex = resumeState && oldIndex !== null ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
     await this.setContentQueue(utterances, resumeIndex, resumeState);

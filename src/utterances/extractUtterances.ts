@@ -7,6 +7,7 @@ import { splitIntoSentenceUtterances } from "./sentenceReconstruction.js";
 import { mergeAliasPieces } from "./abbreviationAlias.js";
 import { attachLocate } from "./locate.js";
 import { applySubstitutions } from "./applySubstitutions.js";
+import { sentenceContinuations } from "./sentenceContinuations.js";
 import type { Piece } from "./piece.js";
 
 export type { SourceTrace } from "./walkContext.js";
@@ -28,20 +29,23 @@ export async function extractUtterances(
 
 /**
  * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
- * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
+ * `blockStarts[i]`: whether `utterances[i]` begins a new block-level element,
+ * and `continuations[i]`: whether `utterances[i]` continues the sentence of `utterances[i - 1]`.
  */
 export async function extractUtterancesWithSources(
   nodes: GuidedNavigationObject[],
   options: ExtractUtterancesOptions = {},
-): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
+): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[]; continuations: boolean[] }> {
   const pieces: Piece[] = [];
   const ctx = await makeWalkContext(nodes, options);
   walk(nodes, pieces, ctx, false);
   const walked = ctx.segmentation === "sentence" ? pieces : await mergeAliasPieces(pieces, ctx);
   const split = await splitIntoSentenceUtterances(walked, ctx);
+  const continuations = await sentenceContinuations(split, ctx);
   return {
     utterances: applySubstitutions(attachLocate(split, ctx), ctx),
     sources: split.map((piece) => piece.source),
     blockStarts: split.map((piece) => !!piece.blockStart),
+    continuations,
   };
 }
