@@ -605,9 +605,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       this.masterGain.gain.value = this.volume;
       this.masterGain.connect(this.audioContext.destination);
     }
-    if (this.audioContext.state === "suspended") {
-      this.audioContext.resume().catch(() => {});
-    }
     return this.audioContext;
   }
 
@@ -646,6 +643,10 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     const ctx = this.ensureAudioContext();
+    // Only playback resumes it: decoding a prefetch while paused mustn't.
+    if (ctx.state === "suspended") {
+      ctx.resume().catch(() => {});
+    }
     const gain = this.masterGain!;
     // Only fake the rate locally when the server won't honor output.speed itself, else it'd double up.
     const speedHonoredByServer = voice?.controls?.speed === true;

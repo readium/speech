@@ -1823,3 +1823,43 @@ test.serial("setRate during the inter-utterance gap does not replay the utteranc
 
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "no restart during the inter-utterance gap");
 });
+
+test.serial("a prefetch decoded while paused doesn't resume the audio", async (t) => {
+  let releasePrefetch!: () => void;
+  const prefetched = new Promise<void>(resolve => { releasePrefetch = resolve; });
+  const { fetchImpl } = createMockFetch({
+    synthesize: async (body: any) => {
+      if (body.text === "Second.") await prefetched;
+      return { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+    }
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 1, readyBufferChars: 1 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  t.is(engine.getState(), "playing");
+
+  engine.pause();
+  releasePrefetch();
+  await flush();
+
+  t.is(MockAudioContext.instances[0].state, "suspended");
+  t.is(engine.getState(), "paused");
+});
+
+test.serial("speaking after a pause resumes the audio", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  engine.speak(0);
+  await flush();
+  engine.pause();
+
+  engine.speak(1);
+  await flush();
+  t.is(MockAudioContext.instances[0].state, "running");
+  t.is(engine.getState(), "playing");
+});

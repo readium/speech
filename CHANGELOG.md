@@ -8,6 +8,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `RoutingEngineProvider` and `RoutingSpeechEngine`: one engine over several providers, speaking each utterance with the provider whose voice it is, so a navigator mixes e.g. Web Speech and speech-server voices across a publication's languages without restarting. See [RoutingEngine](docs/RoutingEngine.md).
 
+### Fixed
+
+- A paused `SpeechServerEngine` stays paused when an upcoming utterance it prefetches arrives, instead of playing on.
+
 ## [0.24.0] - 2026-11-24
 
 ### Added
