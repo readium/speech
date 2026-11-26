@@ -219,6 +219,51 @@ test.serial("with `isContextual`, speaking its next utterance past another engin
   t.deepEqual(synthesized().map(body => body.text), ["One.", "Three."], "\"Three.\" isn't fetched again");
 });
 
+// prefetchWindow is how many of its next utterances the engine fetches audio for ahead of time.
+// Under a routing engine, `isContextual` marks the utterances another engine speaks: they don't count, however many there are.
+function createPrefetchingEngine(options: { readyBufferChars?: number } = {}) {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 2, ...options });
+  const fetchedTexts = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, fetchedTexts };
+}
+
+const eight = ["One.", "Two.", "Three.", "Four.", "Five.", "Six.", "Seven.", "Eight."].map(plain => ({ plain }));
+
+test.serial("at load, audio is fetched ahead for its first 2 own utterances, past 5 that another engine speaks", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine();
+
+  engine.loadUtterances(eight, 0, index => index < 5); // "One." to "Five." are another engine's
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["Six.", "Seven."]);
+});
+
+test.serial("while one plays, audio is fetched ahead for its next 2 own utterances, past 4 that another engine speaks", async (t) => {
+  // readyBufferChars 1: before playing, only "One." is fetched
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, index => index > 0 && index < 5); // "Two." to "Five." are another engine's
+  await flush();
+  engine.speak(0);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven."], "\"One.\", playing, then its next 2");
+});
+
+test.serial("with no other engine, while one plays, audio is fetched ahead for the next 2 utterances", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 1);
+  await flush();
+  engine.speak(1);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["Two.", "Three.", "Four."], "\"Two.\", playing, then the next 2");
+});
+
 test.serial("with `isContextual`, it's idle after the last utterance it speaks, before another engine's", async (t) => {
   const { engine } = createTurnTakingEngine();
   await flush();

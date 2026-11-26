@@ -251,7 +251,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const startIndex = clampIndex(this.currentUtteranceIndex, this.currentUtterances.length);
     // Bounded by prefetchWindow too — the initial buffer is just the front of that same
     // lookahead, not a second, larger one.
-    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), startIndex + this.prefetchWindow);
+    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), this.ownIndexAfter(startIndex, this.prefetchWindow));
     const pending: Promise<SynthesizedChunk>[] = [];
     for (let index = startIndex; index <= targetIndex; index++) {
       if (this.isContextual?.(index)) continue;
@@ -296,6 +296,16 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // The next utterance it speaks after `index`, -1 if none.
   private nextOwnIndex(index: number): number {
     return this.currentUtterances.findIndex((_, i) => i > index && !this.isContextual?.(i));
+  }
+
+  // The `count`-th utterance it speaks after `index`, else the last index.
+  private ownIndexAfter(index: number, count: number): number {
+    if (count <= 0) return index;
+    let remaining = count;
+    for (let i = index + 1; i < this.currentUtterances.length; i++) {
+      if (!this.isContextual?.(i) && --remaining === 0) return i;
+    }
+    return this.currentUtterances.length - 1;
   }
 
   // The utterance's own voice when this server has it, else the current voice.
@@ -477,7 +487,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   // Chains up to `prefetchWindow` upcoming indices onto prefetchChainTail, one at a time.
   private fillPrefetchWindow(afterIndex: number): void {
-    const end = Math.min(afterIndex + this.prefetchWindow, this.currentUtterances.length - 1);
+    const end = this.ownIndexAfter(afterIndex, this.prefetchWindow);
     for (let index = afterIndex + 1; index <= end; index++) {
       if (this.isContextual?.(index)) continue;
       this.queuePrefetch(index);
