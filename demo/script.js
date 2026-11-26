@@ -966,7 +966,8 @@ function togglePlayback() {
     const state = navigator.getState();
     if (state === "playing" || isWaiting) {
       navigator.pause();
-    } else if (state === "paused") {
+    } else if (state === "paused" || state === "loading") {
+      // While loading, play() plays from the position the reload restores
       navigator.play();
     } else {
       navigator.jumpTo(0);
