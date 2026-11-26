@@ -945,15 +945,15 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
+    // The utterance left is dropped, as speak() would, also when paused while its audio is still on its way.
     this.stopAudio();
+    this.speakGeneration++;
+    this.abortLiveControllers();
     this.moveTo(index);
     if (this.playbackState === "paused") {
-      // Its audio was never requested: resume() speaks it
+      // resume() speaks the new one
       this.restartOnResume = true;
     } else if (this.isSpeakingInternal) {
-      // The utterance being loaded or played is dropped, as speak() would.
-      this.speakGeneration++;
-      this.abortLiveControllers();
       this.isSpeakingInternal = false;
       this.setState("idle");
       this.emitEvent({ type: "stop" });

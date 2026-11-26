@@ -1921,7 +1921,7 @@ test.serial("speaking after a pause resumes the audio", async (t) => {
 function createSlowSynthesisEngine() {
   let release!: () => void;
   const synthesized = new Promise<void>(resolve => { release = resolve; });
-  const { fetchImpl } = createMockFetch({
+  const { fetchImpl, calls } = createMockFetch({
     synthesize: async () => {
       await synthesized;
       return { json: { audio: wavBase64(), format: "wav", boundaries: null } };
@@ -1931,7 +1931,7 @@ function createSlowSynthesisEngine() {
   engine.loadUtterances([{ plain: "First." }]);
   const events: string[] = [];
   for (const type of ["pause", "resume", "start", "stop"]) engine.on(type as any, () => events.push(type));
-  return { engine, release, events };
+  return { engine, release, events, calls };
 }
 
 test.serial("pause while the utterance is synthesized holds its audio until resume", async (t) => {
@@ -2034,6 +2034,19 @@ test.serial("moving to another utterance while one is loading drops it and stops
   t.deepEqual(events, ["stop"], "the dropped utterance doesn't start");
   t.is(engine.getState(), "idle");
   t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test.serial("moving to another utterance while paused before its audio arrived aborts its request", async (t) => {
+  const { engine, calls } = createSlowSynthesisEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.setCurrentUtteranceIndex(1);
+
+  const request = calls.find(c => c.url.endsWith("/synthesize") && JSON.parse(c.init.body).text === "First.")!;
+  t.true(request.init.signal.aborted);
 });
 
 test.serial("moving to another utterance while one plays stops it", async (t) => {
