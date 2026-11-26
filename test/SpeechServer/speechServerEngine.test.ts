@@ -1265,7 +1265,7 @@ test.serial("format.adaptBitrateToNetwork sends a reduced bitrate when navigator
   }
 
   const body = JSON.parse(calls.find(c => c.url.endsWith("/synthesize"))!.init.body);
-  t.is(body.output.bitrate, 48000);
+  t.is(body.output.bitrate, 48);
 });
 
 // =============================================

@@ -32,7 +32,7 @@ export interface SpeechServerSynthesizeRequest {
   boundary?: boolean;
   output?: {
     format?: SpeechServerAudioFormat;
-    bitrate?: number | null;
+    bitrate?: number | null; // kbps
     sample_rate?: number | null;
     speed?: number;
     pitch?: number | null;
