@@ -27,7 +27,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `SpeechServerEngine` no longer requests prefetches queued before the queue, voice, rate or pitch changed, and a skip past the prefetched window fetches the utterance skipped to first, instead of after the old window.
 - Without `languages` or a content language, `ReadiumSpeechNavigator` picks voices with the boundary support of the `voice` preference's voices when they agree, e.g. one without boundary events for French when the one preferred for English has none, instead of always preferring boundary events.
 - `ReadiumSpeechNavigator` no longer waits `pauseDuration`, nor auto-pauses with `autoPause: "utterance"`, in the middle of a sentence cut at a change of language (`language: "always"` with `format: "plain"`).
-- `FallbackEngineProvider.createEngine(voice)` with a primary that fails to create its engine gives the fallback its closest voice, as a mid-playback fallback does, instead of the primary's voice.
+- `FallbackEngineProvider.createEngine(voice)` with a primary that fails to create its engine gives the fallback its closest voice, as a mid-playback fallback does, instead of the primary's voice. A fallback that can't list its voices gets none, so it uses its default one.
 
 ## [0.24.0] - 2026-11-24
 

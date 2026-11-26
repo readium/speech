@@ -59,7 +59,8 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
       }
       // An id alone gives no language to match
       if (typeof voice !== "object") return this.fallback.createEngine(voice);
-      const fallbackVoice = await pickFallbackVoice(this.fallback, voice.language, voice.gender, hasBoundaryEvents(voice));
+      // A fallback that can't list its voices may still create an engine, with its default voice
+      const fallbackVoice = await pickFallbackVoice(this.fallback, voice.language, voice.gender, hasBoundaryEvents(voice)).catch(() => null);
       return this.fallback.createEngine(fallbackVoice ?? undefined);
     }
 
