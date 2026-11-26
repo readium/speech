@@ -16,7 +16,7 @@ Read `AGENTS.md` first. Check whether an existing engine or wrapper already cove
   - The engine never advances on its own: it emits `"end"` when an utterance finishes, and the navigator calls `speak(i + 1)`, after a pause it chooses.
   - `speak(index)` plays that utterance from its start. `speak()` without an index keeps the current one.
   - `stop()` silences, resets the index to 0 and emits `"stop"`.
-  - `setCurrentUtteranceIndex()` moves without playing, and calls `onComplete(false)` when out of range.
+  - `setCurrentUtteranceIndex()` moves without playing, and calls `onComplete(false)` when out of range. If it interrupts an utterance being spoken (not paused), it moves first, then emits `"idle"` and `"stop"`, then calls `onComplete`, all synchronously, so a `"stop"` listener can `speak()`.
 - **State and events**
   - `getState()` stays `"playing"` between utterances, after `"end"`. Code needing "mid-utterance" tracks it from `start`/`end`/`stop`/`error`.
   - While an utterance asked to play has no audio yet (fetching, generating, decoding), the state is `"loading"` and `"loading"` is emitted: the navigator turns it into `"waiting"`. `"start"` comes when the audio does.
@@ -79,7 +79,7 @@ Voices are never flattened across providers by `ReadiumSpeechProviderRegistry`. 
 - **Cover:**
   - alternating owners or engines;
   - a start index mid-queue;
-  - a seek while paused and while playing (no stray `"stop"`);
+  - a seek while paused (no `"stop"`), and while playing (one `"stop"`, in the order above);
   - pause/resume at each point (before the audio arrives, while playing, between utterances);
   - a reload during an async step;
   - a child failing to list voices or create an engine;

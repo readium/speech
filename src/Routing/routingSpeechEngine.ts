@@ -240,9 +240,11 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
     const owner = this.owners[index];
+    let interrupted = false;
     if (owner !== this.activeEngine) {
       const previous = this.engines[this.activeEngine];
       const paused = this.started && this.speaking && previous.getState() === "paused";
+      interrupted = this.started && this.speaking && !paused;
       this.activate(owner);
       if (this.started) {
         const state = paused ? "paused" : previous.getState();
@@ -252,7 +254,19 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.started = false;
     }
     this.currentIndex = index;
-    this.engines[owner].setCurrentUtteranceIndex(index, onComplete);
+    // The stopped engine's own "idle" and "stop" aren't forwarded: told here, as a single engine does, once moved and before onComplete
+    const tellStopped = () => {
+      if (!interrupted) return;
+      interrupted = false;
+      this.emitEvent({ type: "idle" });
+      this.emitEvent({ type: "stop" });
+    };
+    this.engines[owner].setCurrentUtteranceIndex(index, (success) => {
+      tellStopped();
+      onComplete?.(success);
+    });
+    // An engine may not call onComplete
+    tellStopped();
   }
 
   getUtteranceCount(): number {

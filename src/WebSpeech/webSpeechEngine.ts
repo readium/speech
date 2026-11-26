@@ -594,7 +594,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.cancelCurrentSpeech();
     this.speakGeneration++;
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
-    
+    this.isSpeakingInternal = false;
+    this.isPausedInternal = false;
+    this.stopResumeInfinity();
+
     // Nothing to restart once stopped
     if (this.restartOnResume) {
       this.restartOnResume = false;
@@ -677,13 +680,20 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
-    // First, handle any ongoing speech
-    if (!this.isPausedInternal && this.isSpeakingInternal) {
+    const interrupted = !this.isPausedInternal && this.isSpeakingInternal;
+    if (interrupted) {
+      // Its "interrupted" error is stale, whenever the browser fires it: within cancel() in Safari, later elsewhere
+      this.speakGeneration++;
       this.cancelCurrentSpeech();
     }
 
-    // Update the index
     this.currentUtteranceIndex = index;
+    if (interrupted) {
+      this.isSpeakingInternal = false;
+      this.stopResumeInfinity();
+      this.setState("idle");
+      this.emitEvent({ type: "stop" });
+    }
     onComplete?.(true);
   }
 

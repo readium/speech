@@ -102,6 +102,46 @@ test("moving to another engine's utterance mid-utterance stops the previous engi
   t.deepEqual(events, ["ready", "start", "start"], "its \"stop\" isn't told");
 });
 
+// setCurrentUtteranceIndex() while an utterance plays stops it. Like every engine, the router then sends "idle" and
+// "stop", after the move and before onComplete, so a "stop" listener sees the new index and can speak().
+
+test("setCurrentUtteranceIndex() to another engine's utterance while one plays: \"idle\", \"stop\", then onComplete", async (t) => {
+  const { web, router, events } = setup();
+  router.on("idle", () => events.push("idle"));
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0); // Web Speech plays "One."
+  router.setCurrentUtteranceIndex(1, () => events.push("complete")); // to "Un.", the speech-server's
+
+  t.is(web.getState(), "idle", "\"One.\" is stopped");
+  t.is(router.getState(), "idle");
+  t.deepEqual(events, ["ready", "start", "idle", "stop", "complete"]);
+});
+
+test("a \"stop\" listener can speak() another utterance: the move that sent the \"stop\" doesn't undo it", async (t) => {
+  const { server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0); // Web Speech plays "One."
+  router.on("stop", () => router.speak(3)); // "Deux."
+  router.setCurrentUtteranceIndex(1); // to "Un.": stops "One."
+
+  t.is(router.getCurrentUtteranceIndex(), 3);
+  t.is(server.getCurrentUtteranceIndex(), 3, "the speech-server is on \"Deux.\", not moved back to \"Un.\"");
+  t.is(router.getState(), "playing");
+});
+
+test("setCurrentUtteranceIndex() to another engine's utterance after one ended, before the next plays: no \"stop\"", async (t) => {
+  const { web, router, events } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0);
+  web.emit("end"); // "One." ended, nothing plays
+  router.setCurrentUtteranceIndex(1);
+
+  t.deepEqual(events, ["ready", "start", "end"]);
+});
+
 test("an engine that ended its utterance isn't stopped when the next is another engine's", async (t) => {
   const { web, router } = setup();
   await router.getAvailableVoices();

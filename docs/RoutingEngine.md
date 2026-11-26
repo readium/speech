@@ -42,7 +42,7 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - Content goes to the engine of the current voice if it has no voice of its own, or if its voice isn't listed by any provider. That is the voice passed to `createEngine()` or the last `setVoice()`, else the first provider's. A change to it applies from the next `loadUtterances()`.
 - `"ready"` is sent when the engine of the start utterance is ready.
 - Playback events (`start`, `end`, `boundary`, `pause`, …) come only from the engine reading the current utterance. `voiceschanged`, `enginefallback` and `enginerecovered` come from any engine.
-- An engine is stopped only when playback moves to another engine's utterance in the middle of its own. Its `"stop"` isn't forwarded.
+- An engine is stopped only when playback moves to another engine's utterance in the middle of its own. Its `"stop"` isn't forwarded. A move by `setCurrentUtteranceIndex()` while playing sends one `"stop"`, as a single engine does; a move by `speak()` sends none.
 - `rate`, `pitch` and `volume` are set on every engine.
 - If a provider's `createEngine()` fails, it is left out. `createEngine()` fails only when every provider fails.
 
