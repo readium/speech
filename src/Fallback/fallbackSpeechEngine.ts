@@ -53,6 +53,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // State the ReadiumSpeechPlaybackEngine interface doesn't expose getters for, kept here so it
   // can be replayed into a freshly created fallback (or recovered primary) engine.
   private currentUtterances: ReadiumSpeechUtterance[] = [];
+  private currentIsContextual: ((index: number) => boolean) | undefined;
   private lastVoiceRequest: ReadiumSpeechVoice | string | undefined;
 
   // Live, not a snapshot — a swap in progress reads these at "ready" time, not when it started.
@@ -93,14 +94,15 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Mid-swap, only records the new queue live — activeEngine is dying/about to be replaced.
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.loadToken++;
     this.currentUtterances = contents;
+    this.currentIsContextual = isContextual;
     this.desiredIndex = startIndex ?? 0;
     this.desiredPlaying = false;
     if (this.swapInFlight) return;
     this.engineStarted = true;
-    this.activeEngine.loadUtterances(this.withReachableVoices(contents, this.activeEngine), startIndex);
+    this.activeEngine.loadUtterances(this.withReachableVoices(contents, this.activeEngine), startIndex, isContextual);
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
@@ -386,7 +388,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.emitEvent(onSwapped(newEngine));
 
     this.startEngineWhenReady(newEngine);
-    newEngine.loadUtterances(this.withReachableVoices(this.currentUtterances, newEngine), this.desiredIndex); // live read — picks up any reload that raced the swap
+    newEngine.loadUtterances(this.withReachableVoices(this.currentUtterances, newEngine), this.desiredIndex, this.currentIsContextual); // live read — picks up any reload that raced the swap
 
     // Outside the try: a teardown failure here must not be mistaken for the swap itself failing.
     await oldEngine.destroy();

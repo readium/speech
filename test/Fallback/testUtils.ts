@@ -15,6 +15,8 @@ export interface FakeEngineOptions {
 export class FakeEngine {
   loadUtterancesCalls: any[][] = [];
   loadUtterancesStartIndexCalls: (number | undefined)[] = [];
+  // Whether each utterance was context, per load
+  loadUtterancesContextualCalls: boolean[][] = [];
   speakCalls: (number | undefined)[] = [];
   destroyCalls = 0;
 
@@ -47,9 +49,10 @@ export class FakeEngine {
     return undefined;
   }
 
-  loadUtterances(contents: any[], startIndex?: number): void {
+  loadUtterances(contents: any[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.loadUtterancesCalls.push(contents);
     this.loadUtterancesStartIndexCalls.push(startIndex);
+    this.loadUtterancesContextualCalls.push(contents.map((_, index) => isContextual?.(index) ?? false));
     this.currentUtteranceIndex = startIndex ?? 0;
     if (this.synchronous) {
       this.state = "ready";

@@ -186,6 +186,53 @@ test.serial("prev_utterance/next_utterance are omitted at the start/end of the q
   t.is(body.next_utterance, undefined);
 });
 
+// Two engines taking turns, e.g. under RoutingSpeechEngine: this one speaks "One." and "Three.".
+function createTurnTakingEngine() {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 3 });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }, { plain: "Three." }, { plain: "Four." }], 0, index => index % 2 === 1);
+  const synthesized = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body));
+  return { engine, synthesized };
+}
+
+test.serial("with `isContextual`, only the utterances it speaks are fetched, with the real neighbors around them", async (t) => {
+  const { synthesized } = createTurnTakingEngine();
+  await flush();
+
+  t.deepEqual(synthesized().map(body => [body.prev_utterance, body.text, body.next_utterance]), [
+    [undefined, "One.", "Two."],
+    ["Two.", "Three.", "Four."]
+  ]);
+});
+
+test.serial("with `isContextual`, speaking its next utterance past another engine's plays it from the prefetched window", async (t) => {
+  const { engine, synthesized } = createTurnTakingEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.speak(2);
+  await flush();
+
+  t.deepEqual(synthesized().map(body => body.text), ["One.", "Three."], "\"Three.\" isn't fetched again");
+});
+
+test.serial("with `isContextual`, it's idle after the last utterance it speaks, before another engine's", async (t) => {
+  const { engine } = createTurnTakingEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  t.is(engine.getState(), "playing", "it speaks \"Three.\" later");
+
+  engine.speak(2);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  t.is(engine.getState(), "idle");
+});
+
 test.serial("ssml-only content (no plain) is sent as text with ssml:true", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })

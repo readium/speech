@@ -20,12 +20,6 @@ const ENGINE_SWAP_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = ["enginefallbac
 // Forwarded only from the engine speaking the current utterance.
 const PLAYBACK_EVENTS = playbackEventTypes("ready", "voiceschanged", "languagefallback", ...ENGINE_SWAP_EVENTS);
 
-interface Routes {
-  // The engine speaking each utterance, and the utterance's index in that engine's queue.
-  owners: number[];
-  engineIndices: number[];
-}
-
 // Speaks each utterance with the engine listing its voice, so one queue mixes voices of several providers.
 export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private readonly engines: ReadiumSpeechPlaybackEngine[];
@@ -34,8 +28,8 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private readonly listedVoices: Map<string, ReadiumSpeechVoice>[];
 
   private utterances: ReadiumSpeechUtterance[] = [];
-  // null while the utterances' voices are being listed, before the queue is split across engines.
-  private routes: Routes | null = null;
+  // The engine speaking each utterance; null while the utterances' voices are being listed.
+  private owners: number[] | null = null;
   private activeEngine: number;
   private currentIndex = 0;
   // Whether the active engine has been told to speak since it became active.
@@ -71,7 +65,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     const loadToken = ++this.loadToken;
     this.utterances = contents;
     this.currentIndex = clampIndex(startIndex ?? 0, contents.length);
-    this.routes = null;
+    this.owners = null;
     this.pendingSpeak = false;
     this.readyEmitted = false;
     this.resetPlayback();
@@ -87,20 +81,16 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     });
   }
 
-  // Splits the queue across engines; the engine of the start utterance is loaded last, as its "ready" is the queue's.
+  // Loads every engine with the whole queue, the utterances of other engines as context; the engine of the start utterance
+  // is loaded last, as its "ready" is the queue's.
   private route(): void {
-    const counts = this.engines.map(() => 0);
     const owners = this.utterances.map(utterance => (utterance.voice ? this.ownerOf(utterance.voice) : undefined) ?? this.currentEngine);
-    const engineIndices = owners.map(owner => counts[owner]++);
-    this.routes = { owners, engineIndices };
+    this.owners = owners;
     this.activeEngine = owners[this.currentIndex] ?? this.currentEngine;
 
     const order = [...this.engines.keys()].filter(index => index !== this.activeEngine).concat(this.activeEngine);
     for (const index of order) {
-      const queue = this.utterances.filter((_, position) => owners[position] === index);
-      // Its first utterance from the start one on
-      const start = owners.slice(0, this.currentIndex).filter(owner => owner === index).length;
-      this.engines[index].loadUtterances(queue, start);
+      this.engines[index].loadUtterances(this.utterances, this.currentIndex, position => owners[position] !== index);
     }
 
     if (this.pendingSpeak) {
@@ -139,7 +129,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   speak(utteranceIndex?: number): void {
     const index = utteranceIndex ?? this.currentIndex;
-    if (!this.routes) {
+    if (!this.owners) {
       this.currentIndex = index;
       this.pendingSpeak = true;
       return;
@@ -151,12 +141,12 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     if (index < 0 || index >= this.utterances.length) {
       throw new Error("Invalid utterance index");
     }
-    this.activate(this.routes.owners[index]);
+    this.activate(this.owners[index]);
     this.currentIndex = index;
     this.started = true;
     this.speaking = true;
     this.pausedOnSwitch = false;
-    this.engines[this.activeEngine].speak(this.routes.engineIndices[index]);
+    this.engines[this.activeEngine].speak(index);
   }
 
   // Stops the previous engine only mid-utterance, unheard: two Web Speech engines share one speechSynthesis.
@@ -170,7 +160,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   pause(): void {
-    if (!this.routes) {
+    if (!this.owners) {
       this.pendingSpeak = false;
       return;
     }
@@ -178,7 +168,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   resume(): void {
-    if (!this.routes) {
+    if (!this.owners) {
       this.pendingSpeak = true;
       return;
     }
@@ -193,7 +183,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.pendingSpeak = false;
     this.currentIndex = 0;
     this.resetPlayback();
-    if (this.routes) this.engines[this.activeEngine].stop();
+    if (this.owners) this.engines[this.activeEngine].stop();
   }
 
   private resetPlayback(): void {
@@ -227,7 +217,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   getState(): ReadiumSpeechPlaybackState {
-    if (!this.routes) return "loading";
+    if (!this.owners) return "loading";
     if (!this.started && this.pausedOnSwitch) return "paused";
     return this.engines[this.activeEngine].getState();
   }
@@ -241,12 +231,12 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       onComplete?.(false);
       return;
     }
-    if (!this.routes) {
+    if (!this.owners) {
       this.currentIndex = index;
       onComplete?.(true);
       return;
     }
-    const owner = this.routes.owners[index];
+    const owner = this.owners[index];
     if (owner !== this.activeEngine) {
       const paused = this.pausedOnSwitch || (this.started && this.speaking && this.engines[this.activeEngine].getState() === "paused");
       this.activate(owner);
@@ -254,7 +244,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.pausedOnSwitch = paused;
     }
     this.currentIndex = index;
-    this.engines[owner].setCurrentUtteranceIndex(this.routes.engineIndices[index], onComplete);
+    this.engines[owner].setCurrentUtteranceIndex(index, onComplete);
   }
 
   getUtteranceCount(): number {
@@ -270,12 +260,12 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private bindEngine(engine: ReadiumSpeechPlaybackEngine, index: number): void {
-    const isActive = () => this.routes !== null && index === this.activeEngine;
+    const isActive = () => this.owners !== null && index === this.activeEngine;
     for (const type of PLAYBACK_EVENTS) {
       this.unsubscribers.push(engine.on(type, (event) => {
         if (!isActive()) return;
         if (event.type === "end" || event.type === "stop" || event.type === "error") this.speaking = false;
-        this.emitEvent(event.type === "skip" ? { type: "skip", detail: { position: this.currentIndex } } : event);
+        this.emitEvent(event);
       }));
     }
     this.unsubscribers.push(engine.on("ready", (event) => {

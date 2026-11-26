@@ -512,6 +512,19 @@ test.serial("the current utterance being interrupted still emits stop", async (t
   t.deepEqual(events, ["stop"]);
 });
 
+test.serial("with `isContextual`, it's idle after the last utterance it speaks, before another engine's", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "Mine." }, { plain: "Another engine's." }], 0, index => index === 1);
+  engine.speak();
+  await flush();
+  const current = synth.spoken[synth.spoken.length - 1];
+  current.onstart?.();
+  current.onend?.();
+
+  t.is(engine.getState(), "idle");
+});
+
 async function pausedWithNativeVoice(nativeVoice: { name: string; localService: boolean }) {
   (WebSpeechVoiceManager as any).instance = undefined;
   (WebSpeechVoiceManager as any).initializationPromise = null;

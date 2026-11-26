@@ -25,18 +25,20 @@ const mixed = [
   { plain: "Deux.", voice: "urn:voice:lea" }
 ];
 
-test("each engine is loaded with the utterances of its voices, from the start utterance on", async (t) => {
+test("each engine is loaded with the whole queue from the start utterance, other engines' utterances as context", async (t) => {
   const { web, server, router } = setup();
   await router.getAvailableVoices();
   router.loadUtterances(mixed, 1);
 
-  t.deepEqual(web.loadUtterancesCalls.at(-1)!.map((u: any) => u.plain), ["One.", "Two."]);
-  t.deepEqual(server.loadUtterancesCalls.at(-1)!.map((u: any) => u.plain), ["Un.", "Deux."]);
-  t.deepEqual(web.loadUtterancesStartIndexCalls.at(-1), 1, "its first utterance from the start one on");
-  t.deepEqual(server.loadUtterancesStartIndexCalls.at(-1), 0);
+  for (const engine of [web, server]) {
+    t.deepEqual(engine.loadUtterancesCalls.at(-1)!.map((u: any) => u.plain), ["One.", "Un.", "Two.", "Deux."]);
+    t.is(engine.loadUtterancesStartIndexCalls.at(-1), 1);
+  }
+  t.deepEqual(web.loadUtterancesContextualCalls.at(-1), [false, true, false, true]);
+  t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [true, false, true, false]);
 });
 
-test("speak() goes to the engine of the utterance's voice, at its index in that engine's queue", async (t) => {
+test("speak() goes to the engine of the utterance's voice, at the utterance's index", async (t) => {
   const { web, server, router } = setup();
   await router.getAvailableVoices();
   router.loadUtterances(mixed);
@@ -47,8 +49,8 @@ test("speak() goes to the engine of the utterance's voice, at its index in that 
   server.emit("end");
   router.speak(2);
 
-  t.deepEqual(web.speakCalls, [0, 1]);
-  t.deepEqual(server.speakCalls, [0]);
+  t.deepEqual(web.speakCalls, [0, 2]);
+  t.deepEqual(server.speakCalls, [1]);
   t.is(router.getCurrentUtteranceIndex(), 2);
 });
 
@@ -79,7 +81,7 @@ test("moving to another engine's utterance mid-utterance stops the previous engi
   router.speak(1);
 
   t.is(web.getState(), "idle", "stopped");
-  t.deepEqual(server.speakCalls, [0]);
+  t.deepEqual(server.speakCalls, [1]);
   t.deepEqual(events, ["ready", "start", "start"], "its \"stop\" isn't told");
 });
 
@@ -109,7 +111,7 @@ test("moving to another engine's utterance while paused stays paused, and resume
   t.is(web.getState(), "idle", "the paused utterance is stopped");
 
   router.resume();
-  t.deepEqual(server.speakCalls, [1]);
+  t.deepEqual(server.speakCalls, [3]);
   t.deepEqual(events, ["ready", "start", "pause", "start"]);
 });
 
@@ -118,11 +120,11 @@ test("utterances without a voice, or with one no engine lists, go to the engine 
   await router.getAvailableVoices();
   router.loadUtterances([{ plain: "A." }, { plain: "B.", voice: "unknown" }]);
   await tick();
-  t.is(web.loadUtterancesCalls.at(-1)!.length, 2);
+  t.deepEqual(web.loadUtterancesContextualCalls.at(-1), [false, false]);
 
   router.setVoice("urn:voice:lea");
   router.loadUtterances([{ plain: "A." }]);
-  t.is(server.loadUtterancesCalls.at(-1)!.length, 1, "after setVoice() to another engine's voice");
+  t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [false], "after setVoice() to another engine's voice");
 });
 
 test("a voice listed by several engines is spoken by the first", async (t) => {
@@ -132,8 +134,8 @@ test("a voice listed by several engines is spoken by the first", async (t) => {
   router.loadUtterances([{ plain: "One.", voice: "com.apple.voice.Samantha" }]);
 
   t.is(voices.filter((voice: any) => voice.name === "Samantha").length, 1, "listed once");
-  t.is(web.loadUtterancesCalls.at(-1)!.length, 1);
-  t.is(server.loadUtterancesCalls.at(-1)!.length, 0);
+  t.deepEqual(web.loadUtterancesContextualCalls.at(-1), [false]);
+  t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [true]);
 });
 
 test("utterance voices not listed yet are listed before the queue is split, speak() meanwhile kept", async (t) => {
@@ -143,7 +145,7 @@ test("utterance voices not listed yet are listed before the queue is split, spea
   router.speak(1);
   await tick();
 
-  t.deepEqual(server.speakCalls, [0]);
+  t.deepEqual(server.speakCalls, [1]);
   t.is(web.speakCalls.length, 0);
 });
 
@@ -185,7 +187,7 @@ test("an engine's fallback is told, and its voices listed again", async (t) => {
   t.is(told.length, 1);
   router.loadUtterances([{ plain: "Un.", voice: "urn:voice:lea" }]);
   await tick();
-  t.is(server.loadUtterancesCalls.at(-1)!.length, 0, "its old voices aren't routed to it any more");
+  t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [true], "its old voices aren't routed to it any more");
 });
 
 test("the provider gives createEngine()'s voice to the provider listing it, failed providers left out", async (t) => {
@@ -218,7 +220,7 @@ test("one navigator speaks each language with its provider's voice, without relo
   await new Promise(resolve => setTimeout(resolve, navigator.settings.pauseDuration + 10));
 
   t.deepEqual(web.speakCalls, [0]);
-  t.deepEqual(server.speakCalls, [0]);
+  t.deepEqual(server.speakCalls, [1]);
   t.is(navigator.getCurrentContent()?.plain, "Bonjour.");
   t.is(web.loadUtterancesCalls.length + server.loadUtterancesCalls.length, loads, "no reload at the switch");
   t.deepEqual(structuredClone(navigator.settings.voice), { en: "com.apple.voice.Samantha", fr: "urn:voice:lea" });

@@ -145,6 +145,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private serviceInfo: SpeechServerServiceInfo | null = null;
   private serviceInfoPromise: Promise<SpeechServerServiceInfo> | null = null;
   private currentUtterances: ReadiumSpeechUtterance[] = [];
+  private isContextual: ((index: number) => boolean) | undefined;
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
@@ -233,10 +234,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.abortLiveControllers();
     this.clearPrefetchCache();
     this.currentUtterances = contents;
+    this.isContextual = isContextual;
     this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     this.setState("loading");
     void this.bufferUntilReady(++this.loadGeneration);
@@ -252,6 +254,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), startIndex + this.prefetchWindow);
     const pending: Promise<SynthesizedChunk>[] = [];
     for (let index = startIndex; index <= targetIndex; index++) {
+      if (this.isContextual?.(index)) continue;
       this.queuePrefetch(index);
       const cached = this.prefetchCache.get(index);
       if (cached) {
@@ -281,12 +284,18 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const start = clampIndex(fromIndex, this.currentUtterances.length);
     let total = 0;
     for (let index = start; index < this.currentUtterances.length; index++) {
+      if (this.isContextual?.(index)) continue;
       total += (utteranceText(this.currentUtterances[index]) ?? "").length;
       if (total >= targetChars) {
         return index;
       }
     }
     return this.currentUtterances.length - 1;
+  }
+
+  // The next utterance it speaks after `index`, -1 if none.
+  private nextOwnIndex(index: number): number {
+    return this.currentUtterances.findIndex((_, i) => i > index && !this.isContextual?.(i));
   }
 
   // The utterance's own voice when this server has it, else the current voice.
@@ -470,6 +479,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private fillPrefetchWindow(afterIndex: number): void {
     const end = Math.min(afterIndex + this.prefetchWindow, this.currentUtterances.length - 1);
     for (let index = afterIndex + 1; index <= end; index++) {
+      if (this.isContextual?.(index)) continue;
       this.queuePrefetch(index);
     }
   }
@@ -757,7 +767,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     // Cleared here regardless of whether more utterances remain — the actual advance to the
     // next one is a navigator-scheduled speak() call, not anything tracked by this engine.
     this.isSpeakingInternal = false;
-    if (this.currentUtteranceIndex >= this.currentUtterances.length - 1) {
+    // None of its own left
+    if (this.nextOwnIndex(this.currentUtteranceIndex) === -1) {
       this.setState("idle");
     }
     this.emitEvent({ type: "end" });
@@ -970,9 +981,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     onComplete?.(true);
   }
 
-  // Moving anywhere but the current or next utterance leaves the prefetched window behind.
+  // Moving anywhere but the current or next utterance it speaks leaves the prefetched window behind.
   private moveTo(index: number): void {
-    if (index !== this.currentUtteranceIndex && index !== this.currentUtteranceIndex + 1) {
+    if (index !== this.currentUtteranceIndex && index !== this.nextOwnIndex(this.currentUtteranceIndex)) {
       this.clearPrefetchCache();
     }
     this.currentUtteranceIndex = index;
