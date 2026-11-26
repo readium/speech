@@ -8,6 +8,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `RoutingEngineProvider` and `RoutingSpeechEngine`: one engine over several providers, speaking each utterance with the provider whose voice it is, so a navigator mixes e.g. Web Speech and speech-server voices across a publication's languages without restarting. See [RoutingEngine](docs/RoutingEngine.md).
 - A `"waiting"` navigator event: playback is asked for, but the utterance's audio isn't there yet, e.g. while `SpeechServerEngine` synthesizes it or content loads. Its `"start"` ends the wait. See [`"waiting"` events](docs/Playback.md#waiting-events).
+- `voiceProviders` option on `SpeechServerEngine` and `SpeechServerEngineProvider`: only voices of these server providers, e.g. `["pocket"]`, are listed and spoken with. See [SpeechServerEngine](docs/SpeechServerEngine.md#options).
 
 ### Fixed
 

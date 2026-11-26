@@ -8,7 +8,8 @@ export const serverProvider = new SpeechServerEngineProvider({
     voices: `${SPEECH_SERVER}/voices`,
     synthesize: `${SPEECH_SERVER}/synthesize`,
     service: `${SPEECH_SERVER}/service`
-  }
+  },
+  voiceProviders: ["pocket"]
 });
 
 // Web Speech first, so content without a voice of its own is read with a browser voice.

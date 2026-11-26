@@ -2,7 +2,7 @@ import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEngine } from "../engine.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine.js";
-import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { mapServerVoices } from "./speechServerVoiceMapping.js";
 import { toSpeechServerError } from "./errors.js";
 import { SpeechServerServiceInfo, SpeechServerVoice } from "./types.js";
 
@@ -40,8 +40,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
     }
     const serverVoices: SpeechServerVoice[] = await response.json();
     const serviceInfo: SpeechServerServiceInfo = await serviceResponse.json();
-    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
-    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
+    this.voices = mapServerVoices(serverVoices, serviceInfo, this.options.voiceProviders);
     return this.voices;
   }
 

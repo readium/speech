@@ -46,6 +46,7 @@ interface SpeechServerEngineOptions {
   overLengthText?: "split" | "error"; // default "split"
   format?: SpeechServerFormatOptions;
   timeoutMs?: number; // default: undefined (never declares a stall)
+  voiceProviders?: string[]; // e.g. ["pocket"], default: every provider
 }
 ```
 
@@ -54,6 +55,9 @@ interface SpeechServerEngineOptions {
 - `overLengthText`: an utterance longer than the server's advertised `maxTextLength` (from `/service`) is split into multiple `/synthesize` requests and played back-to-back as one logical utterance by default (`"split"`). Set `"error"` to instead fail fast with a `SpeechServerError` (413, `payload_too_large`) — e.g. if you'd rather pre-chunk text yourself upstream. Text is split at sentence ends (`.`, `!`, `?`, closing punctuation, and their CJK and Arabic forms), a sentence still too long at spaces, and a word still too long between characters. SSML is split the same way between tags, never inside a `<tag>...</tag>` span: a span longer than `maxTextLength` is sent alone. In plain text, `<` and `>` are sent as zero-width spaces, since some engines take them for markup.
 - `format`: see below.
 - `timeoutMs`: see [Stall detection](#stall-detection).
+- `voiceProviders`: only voices whose `provider` is listed:
+  - `getVoices()` and `getAvailableVoices()` list only them, so the navigator only picks them.
+  - A request is never sent with another provider's voice, e.g. one set with `setVoice()` or an utterance's `voice`: the utterance fails with a non-recoverable `"error"` instead. Without a voice, the server picks one.
 
 ## Voices
 

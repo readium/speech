@@ -708,6 +708,39 @@ test.serial("an engine without its voices yet fetches them once to send an utter
   t.is(calls.filter(c => c.url.endsWith("/voices")).length, 1, "concurrent prefetches share one /voices request");
 });
 
+test.serial("with voiceProviders, a voice of another provider is never sent", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    voices: () => [
+      makeServerVoice(),
+      makeServerVoice({ name: "Rachel", identifier: "urn:readium:tts:elevenlabs:rachel", provider: "elevenlabs" })
+    ],
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl, voiceProviders: ["pocket"] });
+  const errors: any[] = [];
+  engine.on("error", (event: any) => errors.push(event.detail));
+  t.deepEqual((await engine.getAvailableVoices()).map(voice => voice.identifier), ["urn:readium:tts:pocket:alba"]);
+
+  engine.loadUtterances([{ plain: "Hello", voice: "urn:readium:tts:elevenlabs:rachel" }]);
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined], "sent without a voice, for the server to pick, rather than with the utterance's");
+
+  engine.setVoice("urn:readium:tts:elevenlabs:rachel");
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined]);
+  t.true(errors.length > 0 && errors.every(detail => detail.recoverable === false));
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined, "urn:readium:tts:pocket:alba"]);
+});
+
 test.serial("initialize() picks a default voice with boundary events over a better one without", async (t) => {
   const originalNavigator = Object.getOwnPropertyDescriptor(globalThis, "navigator");
   Object.defineProperty(globalThis, "navigator", { value: { languages: ["fr-FR"], onLine: true }, configurable: true, writable: true });

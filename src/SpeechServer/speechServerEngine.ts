@@ -3,7 +3,7 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { pickDefaultVoice } from "../voices/defaultVoice.js";
-import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { isOfVoiceProviders, mapServerVoices, withVoiceProviders } from "./speechServerVoiceMapping.js";
 import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors.js";
 import { ErrorEventDetail } from "../Fallback/recoverableFailure.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
@@ -49,6 +49,8 @@ export interface SpeechServerEngineOptions {
   // Grace period (ms) tolerated after the playback buffer is projected to run dry before a
   // still-pending /synthesize chunk is treated as stalled — not a per-request cap. Omit to never declare a stall.
   timeoutMs?: number;
+  // Only voices of these server providers (a voice's `provider`, e.g. "pocket") are listed and spoken with.
+  voiceProviders?: string[];
 }
 
 const DEFAULT_PREFETCH_WINDOW = 3;
@@ -150,6 +152,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private readonly overLengthText: "split" | "error";
   private readonly timeoutMs: number | undefined;
   private readonly formatOptions: SpeechServerFormatOptions;
+  private readonly voiceProviders: string[] | undefined;
   private readonly canPlayType: CanPlayType;
   private prefetchCache: Map<number, Promise<ChunkStream>> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
@@ -187,12 +190,13 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.overLengthText = options.overLengthText ?? "split";
     this.timeoutMs = options.timeoutMs;
     this.formatOptions = options.format ?? {};
+    this.voiceProviders = options.voiceProviders;
     this.canPlayType = typeof Audio !== "undefined" ? (mime: string) => new Audio().canPlayType(mime) : () => "";
   }
 
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
-    this.voices = voices;
+    this.voices = withVoiceProviders(voices, this.voiceProviders);
     this.voicesRequest = null;
   }
 
@@ -350,8 +354,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       throw await toSpeechServerError(response);
     }
     const serverVoices: SpeechServerVoice[] = await response.json();
-    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
-    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
+    this.voices = mapServerVoices(serverVoices, serviceInfo, this.voiceProviders);
     return this.voices;
   }
 
@@ -571,6 +574,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const { content, text, textOffset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller } = params;
     try {
       const voice = await this.voiceFor(content);
+      if (voice && !isOfVoiceProviders(voice, this.voiceProviders)) throw new Error(`${voice.identifier ?? voice.name} isn't a voice of ${this.voiceProviders!.join(", ")}`);
       const response = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
