@@ -509,6 +509,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     } else if (this.navigatorState === "loading" && this.pendingResumeState === "playing") {
       // Paused once the engine is ready, at the position it was to play from
       this.pendingResumeState = "paused";
+      this.emitEvent({ type: "pause" });
     }
   }
 

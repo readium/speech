@@ -1263,6 +1263,26 @@ test.serial("a /synthesize request that never resolves stalls after timeoutMs wi
   t.is(engine.getState(), "idle");
 });
 
+test.serial("time paused doesn't count toward a stall", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {}) // never resolves
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, timeoutMs: 40 });
+  engine.loadUtterances([{ plain: "Hello" }]);
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  engine.pause();
+  await wait(120);
+  t.is(errors.length, 0, "no stall while paused");
+
+  engine.resume();
+  await wait(120);
+  t.is(errors.length, 1, "still stalls once playing again");
+  t.is(errors[0].type, "https://readium.org/speech-server/error#stall");
+});
+
 test.serial("loadUtterances() waits for the full readyBufferChars window to actually finish buffering before declaring \"ready\"", async (t) => {
   const { fetchImpl } = createMockFetch({
     synthesize: () => new Promise(resolve => setTimeout(() => resolve({ json: { audio: wavBase64(), format: "wav", boundaries: null } }), 60))
@@ -1862,4 +1882,68 @@ test.serial("speaking after a pause resumes the audio", async (t) => {
   await flush();
   t.is(MockAudioContext.instances[0].state, "running");
   t.is(engine.getState(), "playing");
+});
+
+// The utterance's synthesis is held until release(), as a slow server would.
+function createSlowSynthesisEngine() {
+  let release!: () => void;
+  const synthesized = new Promise<void>(resolve => { release = resolve; });
+  const { fetchImpl } = createMockFetch({
+    synthesize: async () => {
+      await synthesized;
+      return { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+    }
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+  const events: string[] = [];
+  for (const type of ["pause", "resume", "start", "stop"]) engine.on(type as any, () => events.push(type));
+  return { engine, release, events };
+}
+
+test.serial("pause while the utterance is synthesized holds its audio until resume", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  t.is(engine.getState(), "paused");
+
+  release();
+  await flush();
+  t.deepEqual(events, ["pause"], "doesn't start while paused");
+  t.is(MockAudioContext.instances[0].state, "suspended");
+
+  engine.resume();
+  t.deepEqual(events, ["pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(MockAudioContext.instances[0].state, "running");
+});
+
+test.serial("resume before the paused utterance's audio arrives plays it once it does", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.resume();
+  t.is(engine.getState(), "loading");
+
+  release();
+  await flush();
+  t.deepEqual(events, ["pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(MockAudioContext.instances[0].state, "running");
+});
+
+test.serial("stop while paused before the utterance started drops it", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  release();
+  await flush();
+  engine.stop();
+  engine.speak(0);
+  await flush();
+
+  t.deepEqual(events, ["pause", "stop", "start"], "the held start isn't told on top of the new one");
 });

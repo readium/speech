@@ -183,11 +183,11 @@ navigator.on("error", (event) => event.detail.recoverable);
 
 ### `"waiting"` events
 
-Fired when playback is asked for and the utterance's audio isn't there yet: while `SpeechServerEngine` synthesizes it (`getState()` stays `"playing"`), or while content loads, on a `play()` before it's ready or a reload while playing (`getState()` is `"loading"`). The utterance's `"start"` ends the wait, as does `"stop"` or `"error"`:
+Fired when playback is asked for and the utterance's audio isn't there yet: while `SpeechServerEngine` synthesizes it (`getState()` stays `"playing"`), or while content loads, on a `play()` before it's ready or a reload while playing (`getState()` is `"loading"`). The utterance's `"start"` ends the wait, as does `"pause"`, `"stop"` or `"error"`:
 
 ```typescript
 navigator.on("waiting", () => playButton.classList.add("busy"));
-for (const type of ["start", "stop", "error"] as const) {
+for (const type of ["start", "pause", "stop", "error"] as const) {
   navigator.on(type, () => playButton.classList.remove("busy"));
 }
 ```
