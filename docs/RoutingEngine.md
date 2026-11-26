@@ -32,6 +32,16 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - Voice ids stay as [`getVoiceId()`](VoiceManagement.md) returns them. They don't name the provider.
 - When several providers list a voice with the same id, or with the same name when no id matches, the first of `providers` speaks it and it is listed once.
 - If a provider fails to list its voices, it is left out of the list. The call fails only when every provider fails.
+- `engine.setVoice(id)` sets the voice on the provider that lists it, even if its voices haven't been listed yet. In that case it asks every provider for that voice first:
+  - `getCurrentVoice()` returns the previous voice until they answer.
+  - A queue loaded before they answer waits for them (`getState()` is `"loading"`), then goes to that provider.
+  - The last `setVoice()` wins, even over one still waiting.
+  - A voice no provider lists is set on the provider of the current voice.
+
+  ```ts
+  engine.setVoice("urn:voice:lea");               // a speech-server voice, not listed yet
+  engine.loadUtterances([{ plain: "Bonjour." }]); // spoken by the speech-server
+  ```
 
 ## Playback
 

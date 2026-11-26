@@ -220,6 +220,82 @@ test("utterances without a voice, or with one no engine lists, go to the engine 
   t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [false], "after setVoice() to another engine's voice");
 });
 
+// Each engine's setVoice() calls, as "<engine> ← <voice>".
+function recordSetVoice(engines: Record<string, FakeEngine>): string[] {
+  const calls: string[] = [];
+  for (const [name, engine] of Object.entries(engines)) engine.setVoice = (voice: any) => { calls.push(`${name} ← ${voice}`); };
+  return calls;
+}
+
+// In the setVoice() tests below, the router hasn't asked the engines for their voices yet (no getAvailableVoices() call),
+// so it doesn't know which engine has the voice: it has to ask them first.
+// Web Speech has Samantha and is the default engine; the speech-server has Lea.
+
+test("setVoice() asks the engines which one has the voice, and sets it on that engine", async (t) => {
+  const { web, server, router } = setup();
+  const setVoiceCalls = recordSetVoice({ web, server });
+
+  router.setVoice("urn:voice:lea");
+  await tick();
+
+  t.deepEqual(setVoiceCalls, ["server ← urn:voice:lea"], "set on the speech-server, not on Web Speech, the default engine");
+});
+
+test("content loaded right after setVoice() waits for that answer, then is spoken by the engine that has the voice", async (t) => {
+  const { web, server, router } = setup();
+
+  router.setVoice("urn:voice:lea");
+  router.loadUtterances([{ plain: "Bonjour." }]); // no voice of its own, so it's spoken with Lea
+  t.is(router.getState(), "loading", "waiting to know which engine has Lea");
+  await tick();
+
+  t.deepEqual(spokenBy(server), ["Bonjour."]);
+  t.deepEqual(spokenBy(web), []);
+});
+
+test("setVoice() while content is loading: that content is spoken by the engine that has the new voice", async (t) => {
+  const { web, server, router } = setup();
+
+  router.loadUtterances([{ plain: "Bonjour." }, { plain: "Hello.", voice: "com.apple.voice.Samantha" }]); // loading: asks who has Samantha
+  router.setVoice("urn:voice:lea");
+  await tick();
+
+  t.deepEqual(spokenBy(server), ["Bonjour."], "no voice of its own, so it's spoken with Lea");
+  t.deepEqual(spokenBy(web), ["Hello."], "its own voice, Samantha");
+});
+
+test("two setVoice() calls in a row: only the second voice is set", async (t) => {
+  const { web, server, router } = setup();
+  const setVoiceCalls = recordSetVoice({ web, server });
+
+  router.setVoice("urn:voice:lea");
+  router.setVoice("com.apple.voice.Samantha");
+  await tick();
+
+  t.deepEqual(setVoiceCalls, ["web ← com.apple.voice.Samantha"], "Lea is never set, even once the speech-server says it has her");
+});
+
+test("setVoice() with a voice no engine has: it is set on Web Speech, the default engine", async (t) => {
+  const { web, server, router } = setup();
+  const setVoiceCalls = recordSetVoice({ web, server });
+
+  router.setVoice("unknown");
+  await tick();
+
+  t.deepEqual(setVoiceCalls, ["web ← unknown"]);
+});
+
+test("destroy() right after setVoice(): no engine gets the voice", async (t) => {
+  const { web, server, router } = setup();
+  const setVoiceCalls = recordSetVoice({ web, server });
+
+  router.setVoice("urn:voice:lea");
+  await router.destroy();
+  await tick();
+
+  t.deepEqual(setVoiceCalls, []);
+});
+
 test("a voice listed by several engines is spoken by the first", async (t) => {
   const { web, server, router } = setup();
   server.availableVoices = [french, english];

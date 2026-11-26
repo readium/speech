@@ -44,6 +44,10 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private readyEmitted = false;
   // Bumped by every loadUtterances() and by destroy(), so a listing can tell its queue is stale.
   private loadToken = 0;
+  // Bumped by every setVoice() and by destroy(), so a listing can tell its voice is stale.
+  private voiceToken = 0;
+  // Set while a setVoice() voice is being listed: routing waits for it.
+  private voiceListing: Promise<void> | null = null;
 
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
   private readonly unsubscribers: (() => void)[] = [];
@@ -73,20 +77,29 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.resetPlayback();
 
     const unlisted = [...new Set(contents.flatMap(utterance => utterance.voice ?? []))].filter(id => this.ownerOf(id) === undefined);
-    if (unlisted.length === 0) {
-      this.route();
+    if (unlisted.length === 0 && !this.voiceListing) {
+      this.route(loadToken);
       return;
     }
     this.emitEvent({ type: "loading" });
-    void this.listVoices(undefined, unlisted).catch(() => {}).then(() => {
-      if (loadToken === this.loadToken) this.route();
+    const listing = unlisted.length > 0 ? this.listVoices(undefined, unlisted).catch(() => {}) : undefined;
+    void Promise.resolve(listing).then(() => {
+      if (loadToken === this.loadToken) this.route(loadToken);
     });
   }
 
   // Loads every engine with the whole queue, the utterances of other engines as context; the engine of the start utterance
-  // is loaded last, as its "ready" is the queue's.
-  private route(): void {
-    const owners = this.utterances.map(utterance => (utterance.voice ? this.ownerOf(utterance.voice) : undefined) ?? this.currentEngine);
+  // is loaded last, as its "ready" is the queue's. Waits for a setVoice() still listing its voice, as it picks the current engine.
+  private route(loadToken: number): void {
+    if (this.voiceListing) {
+      void this.voiceListing.then(() => {
+        if (loadToken === this.loadToken) this.route(loadToken);
+      });
+      return;
+    }
+    const voiceIds = new Set(this.utterances.flatMap(utterance => utterance.voice ?? []));
+    const ownerById = new Map([...voiceIds].map(id => [id, this.ownerOf(id)]));
+    const owners = this.utterances.map(utterance => (utterance.voice ? ownerById.get(utterance.voice) : undefined) ?? this.currentEngine);
     this.owners = owners;
     this.activeEngine = owners[this.currentIndex] ?? this.currentEngine;
 
@@ -102,8 +115,24 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
+  // A voice not listed yet is listed first, as an utterance's is.
   setVoice(voice: ReadiumSpeechVoice | string): void {
-    this.currentEngine = this.ownerOf(typeof voice === "string" ? voice : getVoiceId(voice)) ?? this.currentEngine;
+    const voiceToken = ++this.voiceToken;
+    const id = typeof voice === "string" ? voice : getVoiceId(voice);
+    if (this.ownerOf(id) !== undefined) {
+      this.voiceListing = null;
+      this.applyVoice(voice, id);
+      return;
+    }
+    this.voiceListing = this.listVoices(undefined, [id]).catch(() => {}).then(() => {
+      if (voiceToken !== this.voiceToken) return;
+      this.voiceListing = null;
+      this.applyVoice(voice, id);
+    });
+  }
+
+  private applyVoice(voice: ReadiumSpeechVoice | string, id: string): void {
+    this.currentEngine = this.ownerOf(id) ?? this.currentEngine;
     this.engines[this.currentEngine].setVoice(voice);
   }
 
@@ -307,6 +336,8 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   async destroy(): Promise<void> {
     this.loadToken++;
+    this.voiceToken++;
+    this.voiceListing = null;
     this.unsubscribers.forEach(unsubscribe => unsubscribe());
     this.events.clear();
     await Promise.allSettled(this.engines.map(engine => engine.destroy()));
