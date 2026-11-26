@@ -13,6 +13,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- `SpeechServerEngine` with `adaptBitrateToNetwork` requests its reduced bitrates in kbps, as `output.bitrate` is, instead of 1000 times them.
 - A paused `SpeechServerEngine` stays paused when an upcoming utterance it prefetches arrives, instead of playing on.
 - `SpeechServerEngine.pause()` pauses an utterance still being synthesized, instead of being ignored: its audio waits for `resume()`, and its `"start"` comes then.
 - `ReadiumSpeechNavigator.pause()` while content loads for a `play()` tells `"pause"`, as a pause between utterances does.
