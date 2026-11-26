@@ -3,14 +3,13 @@ import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
-import { processLanguages } from "../voices/languages.js";
-import { groupVoicesByLanguage, pickBestVoiceByRegion, filterByBoundarySupport } from "../voices/sorting.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
 import { isRecoverableFailure } from "./recoverableFailure.js";
 import { isVoiceReachable } from "../voices/reachability.js";
 import { getVoiceId } from "../voices/voiceId.js";
 import { findVoice } from "../voices/voiceLookup.js";
-import { hasBoundaryEvents, preferMatching } from "../voices/voiceMatching.js";
+import { hasBoundaryEvents } from "../voices/voiceMatching.js";
+import { pickFallbackVoice } from "./fallbackVoice.js";
 import { playbackEventTypes } from "../playbackEvents.js";
 
 export interface FallbackSpeechEngineOptions {
@@ -302,8 +301,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
         const failedVoice = await this.utteranceVoice(primaryEngine, this.currentUtterances[this.desiredIndex])
           ?? primaryEngine.getCurrentVoice()
           ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
-        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator !== "undefined" ? navigator.language : "en");
-        bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender, failedVoice ? hasBoundaryEvents(failedVoice) : true);
+        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language;
+        bestVoice = await pickFallbackVoice(this.fallbackProvider, language, failedVoice?.gender, failedVoice ? hasBoundaryEvents(failedVoice) : true);
         if (!bestVoice) throw new Error("no offline-available fallback voice found");
         return this.fallbackProvider.createEngine(bestVoice);
       },
@@ -422,33 +421,6 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       const { voice: _unreachable, ...rest } = utterance;
       return rest;
     });
-  }
-
-  // Language narrows first, gender second, boundary-support third: a same-language wrong-gender
-  // voice beats a different-language right-gender one, and a same-gender voice that drops
-  // boundary events beats one that also mismatches on boundary support. Falls back to any
-  // language if none matches, then to any gender within that if none matches, then to any
-  // boundary support within that if none matches. Region/quality ranking within the final
-  // candidate set is delegated to pickBestVoiceByRegion, the same ranking logic
-  // sortVoicesByRegions uses.
-  private async pickBestFallbackVoice(
-    language: string,
-    gender: ReadiumSpeechVoice["gender"],
-    needsBoundary: boolean
-  ): Promise<ReadiumSpeechVoice | null> {
-    const voices = this.reachableVoices(await this.fallbackProvider.getVoices());
-    if (voices.length === 0) return null;
-
-    const [processedLang] = processLanguages([language]);
-    const { voicesByLang } = groupVoicesByLanguage(voices, [processedLang]);
-    const byLanguage = voicesByLang.get(processedLang.baseLang) ?? [];
-    const languageMatches = byLanguage.length > 0 ? byLanguage : voices;
-
-    const genderMatches = gender ? preferMatching(languageMatches, voice => voice.gender === gender) : languageMatches;
-
-    const candidates = filterByBoundarySupport(genderMatches, needsBoundary);
-
-    return pickBestVoiceByRegion(language, candidates);
   }
 
   async destroy(): Promise<void> {

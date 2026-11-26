@@ -126,6 +126,24 @@ test.serial("createEngine() falls back directly when the primary fails to even c
   t.false(engine instanceof FallbackSpeechEngine, "nothing left to fall back to, so it's the plain fallback engine");
 });
 
+test.serial("createEngine() gives the fallback the voice closest to the one asked for when the primary fails to create an engine", async (t) => {
+  const fakePrimary = {
+    id: "fake-primary",
+    name: "Fake Primary",
+    getVoices: async () => [],
+    createEngine: async () => {
+      throw new Error("primary construction failed");
+    },
+    destroy: async () => {}
+  };
+  const fallback = new FakeFallbackProvider();
+  const provider = new FallbackEngineProvider({ primary: fakePrimary as any, fallback: fallback as any });
+
+  await provider.createEngine({ source: "server", label: "Lea", name: "Lea", originalName: "lea", identifier: "urn:voice:lea", language: "fr-FR", gender: "female" });
+
+  t.is(fallback.receivedVoice?.name, "French Female");
+});
+
 test.serial("createEngine() with onFailure: \"error\" rethrows a primary construction failure instead of falling back", async (t) => {
   const fakePrimary = {
     id: "fake-primary",

@@ -1,4 +1,4 @@
-import { RoutingEngineProvider, SpeechServerEngineProvider, WebSpeechEngineProvider } from "../src/index.ts";
+import { FallbackEngineProvider, RoutingEngineProvider, SpeechServerEngineProvider, WebSpeechEngineProvider } from "../src/index.ts";
 
 // The deployed server only accepts the deployed demos' origin, so development uses a local one.
 const SPEECH_SERVER = import.meta.env.DEV ? "http://localhost:8000" : "https://speech-server.readium.org";
@@ -13,9 +13,11 @@ export const serverProvider = new SpeechServerEngineProvider({
   format: { strategy: "bandwidth", adaptBitrateToNetwork: true }
 });
 
+const webSpeechProvider = new WebSpeechEngineProvider();
+
 // Web Speech first, so content without a voice of its own is read with a browser voice.
 export const engineProvider = new RoutingEngineProvider({
-  providers: [new WebSpeechEngineProvider(), serverProvider]
+  providers: [webSpeechProvider, new FallbackEngineProvider({ primary: serverProvider, fallback: webSpeechProvider })]
 });
 
 // The server's voices speaking `language`, none when it can't be reached.
