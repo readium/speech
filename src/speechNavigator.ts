@@ -275,6 +275,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       this.emitEvent(event);
     });
 
+    // While loading content, play() and reloads tell it instead.
+    this.engine.on("loading", () => {
+      if (this.navigatorState === "playing") this.emitEvent({ type: "waiting" });
+    });
+
     this.engine.on("voiceschanged", () => {
       void this.refreshVoices();
     });
@@ -338,6 +343,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // they're confident playback won't immediately stall.
     this.setNavigatorState("loading");
     this.emitEvent({ type: "loading" });
+    if (resumeState === "playing") this.emitEvent({ type: "waiting" });
 
     // Content in a language without a picked voice waits for it rather than starting with another language's
     const generation = ++this.loadGeneration;
@@ -480,9 +486,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     } else if (this.navigatorState === "playing") {
       // Already playing, do nothing or restart
       return;
-    } else if (this.navigatorState === "loading") {
+    } else if (this.navigatorState === "loading" && this.pendingResumeState !== "playing") {
       // Played once the engine is ready, e.g. while the content's voices are picked
       this.pendingResumeState = "playing";
+      this.emitEvent({ type: "waiting" });
     }
   }
 

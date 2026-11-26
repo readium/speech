@@ -1436,3 +1436,38 @@ test("destroy() drops a reload by voices listed after it", async (t) => {
 
   t.deepEqual(engine.loadedUtterances, []);
 });
+
+test("\"waiting\" tells an utterance asked to play is still loading its audio, not content loading", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const waiting: string[] = [];
+  navigator.on("waiting", () => waiting.push(navigator.getState()));
+
+  navigator.loadContent([{ plain: "First." }, { plain: "Second." }]);
+  await settled();
+  engine.emit({ type: "loading" });
+  t.deepEqual(waiting, [], "content loading isn't waiting");
+
+  engine.emit({ type: "ready" });
+  navigator.play();
+  engine.emit({ type: "loading" });
+  t.deepEqual(waiting, ["playing"], "the navigator stays playing");
+});
+
+test("\"waiting\" tells a play() while content loads, and a reload while playing, once", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const waiting: string[] = [];
+  navigator.on("waiting", () => waiting.push(navigator.getState()));
+
+  await navigator.loadGndContent(twoParagraphTree);
+  t.is(navigator.getState(), "loading", "until the engine is ready");
+  navigator.play();
+  navigator.play();
+  t.deepEqual(waiting, ["loading"], "the first play() waits for the content");
+
+  engine.emit({ type: "ready" });
+  engine.emit({ type: "start", detail: { voice: null } });
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  t.deepEqual(waiting, ["loading", "loading"], "a reload while playing waits for the new content");
+});

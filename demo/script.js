@@ -77,6 +77,7 @@ let enVoices = [];
 let enServerVoices = [];
 let currentVoice = null;
 let isPlaying = false;
+let isWaiting = false;
 let utterances = [];
 let readAlongEnabled = true;
 let autoScrollEnabled = true;
@@ -169,6 +170,14 @@ function setReadAlongDependentsDisabled(disabled) {
 }
 
 function setupEventListeners() {
+  navigator.on("waiting", () => {
+    isWaiting = true;
+    updateUI();
+  });
+  for (const type of ["start", "pause", "stop", "error"]) {
+    navigator.on(type, () => { isWaiting = false; });
+  }
+
   navigator.on("start", () => {
     isPlaying = true;
     if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
@@ -955,7 +964,7 @@ function togglePlayback() {
 
   try {
     const state = navigator.getState();
-    if (state === "playing") {
+    if (state === "playing" || isWaiting) {
       navigator.pause();
     } else if (state === "paused") {
       navigator.play();
@@ -1145,7 +1154,7 @@ function updateUI() {
 
   if (playPauseBtn) {
     playPauseBtn.disabled = !currentVoice || !hasContent;
-    if (state === "playing") {
+    if (state === "playing" || isWaiting) {
       playPauseBtn.innerHTML = PAUSE_ICON;
       playPauseBtn.setAttribute("aria-label", "Pause");
       playPauseBtn.classList.remove("paused");
@@ -1154,6 +1163,8 @@ function updateUI() {
       playPauseBtn.setAttribute("aria-label", "Play");
       playPauseBtn.classList.add("paused");
     }
+    playPauseBtn.classList.toggle("waiting", isWaiting);
+    playPauseBtn.setAttribute("aria-busy", String(isWaiting));
   }
 
   if (stopBtn) stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");

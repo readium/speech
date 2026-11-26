@@ -351,6 +351,33 @@ button:hover:not(:disabled) {
   height: 48px;
 }
 
+/* Playing, but waiting for the utterance's audio */
+#playPauseBtn.waiting {
+  position: relative;
+}
+
+#playPauseBtn.waiting::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 3px solid transparent;
+  border-top-color: #ff9800;
+  border-radius: 50%;
+  animation: play-waiting 0.8s linear infinite;
+}
+
+@keyframes play-waiting {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #playPauseBtn.waiting::after {
+    animation: none;
+    border-color: #ff9800;
+    opacity: 0.5;
+  }
+}
+
 .player-status {
   padding-left: 6px;
   font-size: 13px;

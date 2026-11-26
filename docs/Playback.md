@@ -156,9 +156,10 @@ interface ReadiumSpeechPlaybackEventDetails {
   enginerecovered: { voice: ReadiumSpeechVoice | null }; // Swapped back to the primary engine
 }
 
-// The navigator's events: the engine's, plus contentchange.
+// The navigator's events: the engine's, plus contentchange and waiting.
 interface ReadiumSpeechNavigatorEventDetails extends ReadiumSpeechPlaybackEventDetails {
   contentchange: { content: ReadiumSpeechUtterance[] };
+  waiting: undefined; // Playing, but the utterance's audio isn't there yet
 }
 
 interface ReadiumSpeechBoundaryDetail {
@@ -179,6 +180,19 @@ interface ReadiumSpeechBoundaryDetail {
 navigator.on("start", (event) => event.detail.voice?.name);
 navigator.on("error", (event) => event.detail.recoverable);
 ```
+
+### `"waiting"` events
+
+Fired when playback is asked for and the utterance's audio isn't there yet: while `SpeechServerEngine` synthesizes it (`getState()` stays `"playing"`), or while content loads, on a `play()` before it's ready or a reload while playing (`getState()` is `"loading"`). The utterance's `"start"` ends the wait, as does `"stop"` or `"error"`:
+
+```typescript
+navigator.on("waiting", () => playButton.classList.add("busy"));
+for (const type of ["start", "stop", "error"] as const) {
+  navigator.on(type, () => playButton.classList.remove("busy"));
+}
+```
+
+`"loading"` tells content loading, whether playback waits for it or not.
 
 ### `"boundary"` events
 
