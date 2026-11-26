@@ -1947,3 +1947,113 @@ test.serial("stop while paused before the utterance started drops it", async (t)
 
   t.deepEqual(events, ["pause", "stop", "start"], "the held start isn't told on top of the new one");
 });
+
+function createQueueEngine() {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 1, readyBufferChars: 1 });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }, { plain: "Three." }, { plain: "Four." }]);
+  const events: string[] = [];
+  for (const type of ["pause", "resume", "start", "stop"]) engine.on(type as any, () => events.push(type));
+  const synthesized = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, events, synthesized };
+}
+
+test.serial("moving to another utterance while paused plays it on resume", async (t) => {
+  const { engine, events, synthesized } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.setCurrentUtteranceIndex(3);
+  engine.resume();
+  await flush();
+
+  t.deepEqual(events, ["start", "pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(engine.getCurrentUtteranceIndex(), 3);
+  t.true(synthesized().includes("Four."));
+});
+
+test.serial("speaking another utterance while playing plays it", async (t) => {
+  const { engine, events } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.speak(3);
+  await flush();
+
+  t.deepEqual(events, ["start", "start"]);
+  t.is(engine.getState(), "playing");
+});
+
+test.serial("moving to another utterance while one is loading drops it and stops", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.setCurrentUtteranceIndex(1);
+  release();
+  await flush();
+
+  t.deepEqual(events, ["stop"], "the dropped utterance doesn't start");
+  t.is(engine.getState(), "idle");
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test.serial("moving to another utterance while one plays stops it", async (t) => {
+  const { engine, events } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.setCurrentUtteranceIndex(2);
+
+  t.deepEqual(events, ["start", "stop"]);
+  t.is(engine.getState(), "idle");
+  t.is(engine.getCurrentUtteranceIndex(), 2);
+});
+
+// Each /synthesize request answers only when answer() is called, oldest first.
+function createQueuedAnswersEngine(utterances: string[]) {
+  const pending: (() => void)[] = [];
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => new Promise(resolve => pending.push(() => resolve({ json: { audio: wavBase64(), format: "wav", boundaries: null } })))
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 3, readyBufferChars: 1 });
+  engine.loadUtterances(utterances.map(plain => ({ plain })));
+  const answer = async () => { pending.shift()?.(); await flush(); };
+  const requested = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, answer, requested };
+}
+
+test.serial("prefetches queued before new content loads aren't requested for it", async (t) => {
+  const { engine, answer, requested } = createQueuedAnswersEngine(["A0.", "A1.", "A2.", "A3.", "A4."]);
+  await flush();
+  await answer(); // A0, buffered for "ready"
+  engine.speak(0);
+  await flush(); // A1 requested, A2 and A3 queued behind it
+
+  engine.loadUtterances(["B0.", "B1.", "B2.", "B3.", "B4."].map(plain => ({ plain })));
+  for (let i = 0; i < 4; i++) await answer();
+
+  t.false(requested().includes("B2."), "the queue's own prefetch reaches B2 only after B1 is spoken");
+  t.false(requested().includes("B3."));
+});
+
+test.serial("speaking an utterance outside the prefetched window drops the window and fetches it first", async (t) => {
+  const { engine, answer, requested } = createQueuedAnswersEngine(["U0.", "U1.", "U2.", "U3.", "U4.", "U5."]);
+  await flush();
+  await answer(); // U0
+  engine.speak(0);
+  await flush(); // U1 requested, U2 and U3 queued behind it
+
+  engine.speak(5);
+  await flush();
+  t.is(requested().at(-1), "U5.", "requested right away, not behind the old window");
+
+  for (let i = 0; i < 3; i++) await answer();
+  t.false(requested().includes("U2."), "the old window isn't requested");
+  t.false(requested().includes("U3."));
+});

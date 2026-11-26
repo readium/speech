@@ -15,6 +15,9 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `SpeechServerEngine.pause()` pauses an utterance still being synthesized, instead of being ignored: its audio waits for `resume()`, and its `"start"` comes then.
 - `ReadiumSpeechNavigator.pause()` while content loads for a `play()` tells `"pause"`, as a pause between utterances does.
 - With `timeoutMs`, time `SpeechServerEngine` spends paused no longer counts toward a stall, so a long pause doesn't end in a `SpeechServerStallError`.
+- `SpeechServerEngine.resume()` after moving to another utterance while paused (`setCurrentUtteranceIndex()`, a navigator skip while paused) plays that utterance, instead of nothing.
+- `SpeechServerEngine.setCurrentUtteranceIndex()` while an utterance loads or plays drops it and tells `"stop"`, as `WebSpeechEngine` does, instead of playing it once its audio arrives or staying `"playing"` in silence.
+- `SpeechServerEngine` no longer requests prefetches queued before the queue, voice, rate or pitch changed, and a skip past the prefetched window fetches the utterance skipped to first, instead of after the old window.
 
 ## [0.24.0] - 2026-11-24
 
