@@ -214,11 +214,31 @@ Every engine's `"start"` event, and so `ReadiumSpeechNavigator`'s, reports the v
 
 ### Speaking in an utterance's own content language
 
-`ReadiumSpeechNavigator` gives every utterance without a voice of its own one for its `language`: the [`voice` preference](Preferences.md#voice)'s for it, when the engine has that voice, else the one it picks for the language with `pickLanguageVoice()`, ranked as `WebSpeechVoiceManager` ranks regions: the content's region, then the language's default region from the JSON, then the others (`fr-CA` content without an `fr-CA` voice gets an `fr-FR` one). An utterance in a language without a region, e.g. `en`, gets the voice of the content in that language's region, e.g. `en-GB`, so it doesn't switch voices mid-text, unless there's a voice for `en` itself: the `voice` preference's, or the one picked for it as one of `languages`. The main language's voice, the first of [`languages`](#languages), prefers boundary events; the other languages' voices prefer the same boundary support as the main voice, so word highlighting doesn't come and go between languages.
+`ReadiumSpeechNavigator` gives each utterance without a voice of its own a voice for its `language`:
 
-Voices are picked again when the engine's voices change, including when [`FallbackSpeechEngine`](FallbackEngine.md) swaps engines. Content in a language without a voice picked yet waits for it: the navigator stays `"loading"`, and a `play()` meanwhile plays once the engine is ready. With no voice for that language at all, the utterance is left to the engine's current voice, and a `"languagefallback"` event fires once for the language, with `detail: { language, reason: "no-matching-voice" }`. An utterance without a `language` only gets a voice for all content from the preference. Extraction's [`language`](UtteranceExtraction.md#language) option decides which languages utterances carry, so `language: "none"` keeps one voice throughout.
+1. The voice chosen for that language in the [`voice` preference](Preferences.md#voice), if the engine has it.
+2. Otherwise, a voice it picks for that language.
 
-An engine given an utterance without a voice, e.g. without the navigator, speaks it in its `language` itself: with the selected/default voice when that voice speaks the same language, else with the best voice for that language, ranked the same way, preferring one with the same boundary-event support as the selected voice.
+How it picks:
+
+- **Region**: the content's region first, then the language's default region, then any other. `fr-CA` content with no `fr-CA` voice gets an `fr-FR` one.
+- **No region**: `en` content is read with the voice of the content's `en-GB` (or other `en-*`) text, so the voice doesn't change mid-text, unless a voice is chosen or picked for `en` itself.
+- **Word highlighting**: so it doesn't come and go between languages, voices match on boundary events:
+  - The main language prefers a voice with boundary events. The other languages follow the main language's voice.
+  - The main language is the first of [`languages`](#languages), else the content's language given to `loadContent()`/`loadGndContent()`.
+  - Without a main language, all languages follow the voices chosen in the `voice` preference. With none chosen, or chosen voices that disagree, they prefer boundary events.
+
+For example, with a voice without boundary events chosen for English, French gets a voice without boundary events too.
+
+Voices are picked again when the engine's voices change, e.g. when [`FallbackSpeechEngine`](FallbackEngine.md) swaps engines.
+
+- **Waiting for a pick**: the navigator stays `"loading"`. A `play()` meanwhile plays once it's done.
+- **No voice for a language**: its utterances get the engine's current voice, and `"languagefallback"` fires once, with `detail: { language, reason: "no-matching-voice" }`.
+- **No `language`**: the utterance only gets a voice from a `voice` preference that is one voice for all content.
+
+Extraction's [`language`](UtteranceExtraction.md#language) option decides which languages utterances carry: `"none"` keeps one voice throughout.
+
+Without the navigator, an engine given an utterance without a voice picks one itself: its current voice if it speaks that language, else the best voice for it, with the same boundary events as the current voice.
 
 ### `ReadiumSpeechPlaybackState`
 

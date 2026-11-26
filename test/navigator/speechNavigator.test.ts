@@ -1092,6 +1092,28 @@ test("the main language's voice prefers boundary events, the others match its bo
   t.deepEqual(navigator.settings.voice, { en: "Nora-en-US", fr: "Amelie-fr-FR" }, "picked again for a main voice without boundary events");
 });
 
+test("without a main language, other languages match the boundary support of the preference's voices", async (t) => {
+  const engine = new VoicedMockEngine([alba, nora, lea, amelie]);
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { en: "Nora-en-US" } } });
+  navigator.loadContent([{ plain: "Hello.", language: "en" }, { plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Nora-en-US", "Amelie-fr-FR"]);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "Alba-en-US" } }));
+  await settled();
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Alba-en-US", "Lea-fr-FR"]);
+});
+
+test("without a main language, preferred voices of differing boundary support leave other languages preferring boundary events", async (t) => {
+  const engine = new VoicedMockEngine([nora, lea, amelie, listedVoice("Anna", "de-DE")]);
+  for (const voice of [{ en: "Nora-en-US", de: "Anna-de-DE" }, { de: "Anna-de-DE", en: "Nora-en-US" }]) {
+    const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice } });
+    navigator.loadContent([{ plain: "Hello.", language: "en" }, { plain: "Bonjour.", language: "fr" }]);
+    await settled();
+    t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Nora-en-US", "Lea-fr-FR"], JSON.stringify(voice));
+  }
+});
+
 test("languageOverrides changes the languages voices are picked for", async (t) => {
   const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine([alba, lea]), { languages: ["en"] });
   await settled();

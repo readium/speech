@@ -124,13 +124,25 @@ export class VoiceSelection {
   }
 
   // The main language's voice prefers boundary events; the others match its boundary support.
+  // Without a main language, all match the preference's voices when they agree.
   private needsBoundary(language: string): boolean {
     const [main] = this.mainLanguages();
-    if (!main || normalizeLanguageCode(language) === normalizeLanguageCode(main)) return true;
+    if (!main) return this.preferredBoundary() ?? true;
+    if (normalizeLanguageCode(language) === normalizeLanguageCode(main)) return true;
     const picked = this.picked.get(this.pickKey(main, true));
     const id = this.voiceFor(main, picked ? { [this.pickedVoiceKey(main, picked)]: getVoiceId(picked) } : {});
     const mainVoice = this.voices.find(voice => getVoiceId(voice) === id);
     return mainVoice?.controls?.boundary !== false;
+  }
+
+  // The boundary support of the preference's voices the engine lists, `undefined` without any or when they differ.
+  private preferredBoundary(): boolean | undefined {
+    const preference = this.availablePreference();
+    const ids = typeof preference === "string" ? [preference] : Object.values(preference ?? {});
+    const supports = new Set(
+      ids.flatMap((id) => this.voices.filter((voice) => getVoiceId(voice) === id).map((voice) => voice.controls?.boundary !== false)),
+    );
+    return supports.size === 1 ? [...supports][0] : undefined;
   }
 
   private pickKey(language: string, needsBoundary: boolean): string {
