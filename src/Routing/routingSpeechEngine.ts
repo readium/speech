@@ -28,6 +28,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private readonly listedVoices: Map<string, ReadiumSpeechVoice>[];
 
   private utterances: ReadiumSpeechUtterance[] = [];
+  private isContextual: ((index: number) => boolean) | undefined;
   // The engine speaking each utterance; null while the utterances' voices are being listed.
   private owners: number[] | null = null;
   private activeEngine: number;
@@ -61,9 +62,10 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return true;
   }
 
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     const loadToken = ++this.loadToken;
     this.utterances = contents;
+    this.isContextual = isContextual;
     this.currentIndex = clampIndex(startIndex ?? 0, contents.length);
     this.owners = null;
     this.pendingSpeak = false;
@@ -88,9 +90,10 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.owners = owners;
     this.activeEngine = owners[this.currentIndex] ?? this.currentEngine;
 
+    const isContextual = this.isContextual;
     const order = [...this.engines.keys()].filter(index => index !== this.activeEngine).concat(this.activeEngine);
     for (const index of order) {
-      this.engines[index].loadUtterances(this.utterances, this.currentIndex, position => owners[position] !== index);
+      this.engines[index].loadUtterances(this.utterances, this.currentIndex, position => isContextual?.(position) || owners[position] !== index);
     }
 
     if (this.pendingSpeak) {

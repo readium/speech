@@ -25,6 +25,12 @@ const mixed = [
   { plain: "Deux.", voice: "urn:voice:lea" }
 ];
 
+// The texts the engine was last loaded to speak itself; it gets the others only as their neighbours' text.
+function spokenBy(engine: FakeEngine): string[] {
+  const contextual = engine.loadUtterancesContextualCalls.at(-1)!;
+  return engine.loadUtterancesCalls.at(-1)!.filter((_, index) => !contextual[index]).map((utterance: any) => utterance.plain);
+}
+
 test("each engine is loaded with the whole queue from the start utterance, other engines' utterances as context", async (t) => {
   const { web, server, router } = setup();
   await router.getAvailableVoices();
@@ -36,6 +42,17 @@ test("each engine is loaded with the whole queue from the start utterance, other
   }
   t.deepEqual(web.loadUtterancesContextualCalls.at(-1), [false, true, false, true]);
   t.deepEqual(server.loadUtterancesContextualCalls.at(-1), [true, false, true, false]);
+});
+
+// The router can itself be one of the engines of another router, or of a Fallback: that one marks the utterances
+// the router doesn't speak with `isContextual`.
+test("utterances the router was told another engine speaks are spoken by none of its engines", async (t) => {
+  const { web, server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed, 0, index => index < 2); // "One." and "Un." are spoken elsewhere
+
+  t.deepEqual(spokenBy(web), ["Two."]);
+  t.deepEqual(spokenBy(server), ["Deux."]);
 });
 
 test("speak() goes to the engine of the utterance's voice, at the utterance's index", async (t) => {
