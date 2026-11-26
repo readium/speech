@@ -1,18 +1,19 @@
-import { ReadiumSpeechVoice } from "./types.js";
+import { ReadiumSpeechVoice, TSource } from "./types.js";
 import { filterOutNoveltyVoices, filterOutVeryLowQualityVoices } from "./filters.js";
-import { filterByBoundarySupport, pickBestVoiceByRegion, sortVoicesByRegions } from "./sorting.js";
+import { filterByBoundarySupport, filterBySource, pickBestVoiceByRegion, sortVoicesByRegions } from "./sorting.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { normalizeLanguageCode } from "./languageCode.js";
 
 /**
  * Picks the voice content in `language` is spoken with: among its base language's voices, whatever the region,
- * without novelty or very low quality ones, preferring those whose boundary support is `needsBoundary`,
- * ranked by pickBestVoiceByRegion. `null` when the language has no voice.
+ * without novelty or very low quality ones, preferring those of the same kind of `source` when given,
+ * then those whose boundary support is `needsBoundary`, ranked by pickBestVoiceByRegion. `null` when the language has no voice.
  */
 export const pickLanguageVoice = async (
   language: string,
   voices: ReadiumSpeechVoice[],
-  needsBoundary: boolean = true
+  needsBoundary: boolean = true,
+  source?: TSource
 ): Promise<ReadiumSpeechVoice | null> => {
   // Normalized first, as aliases differ in base language, e.g. zh-HK is yue-HK
   const baseLanguageOf = (tag: string) => extractLangRegionFromBCP47(normalizeLanguageCode(tag))[0];
@@ -20,7 +21,8 @@ export const pickLanguageVoice = async (
   const matching = filterOutVeryLowQualityVoices(filterOutNoveltyVoices(voices))
     .filter(voice => baseLanguageOf(voice.language) === baseLanguage);
   if (matching.length === 0) return null;
-  return pickBestVoiceByRegion(language, filterByBoundarySupport(matching, needsBoundary));
+  const sameSource = source ? filterBySource(matching, source) : matching;
+  return pickBestVoiceByRegion(language, filterByBoundarySupport(sameSource, needsBoundary));
 };
 
 /**

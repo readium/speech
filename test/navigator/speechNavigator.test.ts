@@ -1114,6 +1114,43 @@ test("without a main language, preferred voices of differing boundary support le
   }
 });
 
+const serverVoice = (name: string, language: string): ReadiumSpeechVoice => ({
+  source: "server", label: name, name, originalName: name, language, identifier: `urn:readium:tts:pocket:${name.toLowerCase()}`,
+  quality: "veryHigh", controls: { boundary: false },
+}) as ReadiumSpeechVoice;
+const estelle = serverVoice("Estelle", "fr-FR");
+const frVoice = (navigator: ReadiumSpeechNavigator) => (navigator.settings.voice as Record<string, string> | null)?.fr;
+
+test("other languages' voices come from the same kind of source as the main language's voice", async (t) => {
+  const engine = new VoicedMockEngine([alba, nora, amelie, estelle, serverVoice("Anna", "en-US")]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"], preferences: { voice: { en: "Nora-en-US" } } });
+  await settled();
+  t.is(frVoice(navigator), "Amelie-fr-FR", "a browser voice, as the main one, over a better server voice");
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "urn:readium:tts:pocket:anna" } }));
+  t.is(frVoice(navigator), "urn:readium:tts:pocket:estelle", "a server voice, as the main one");
+});
+
+test("without a voice of the main voice's kind of source, another language's voice comes from any", async (t) => {
+  const engine = new VoicedMockEngine([nora, estelle]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"], preferences: { voice: { en: "Nora-en-US" } } });
+  await settled();
+  t.is(frVoice(navigator), "urn:readium:tts:pocket:estelle");
+});
+
+test("without a main language, other languages' voices come from the kind of source the preference's voices share", async (t) => {
+  const engine = new VoicedMockEngine([nora, amelie, estelle, serverVoice("Anna", "en-US"), listedVoice("Hans", "de-DE", false)]);
+  for (const [voice, fr] of [
+    [{ en: "Nora-en-US" }, "Amelie-fr-FR"],
+    [{ en: "urn:readium:tts:pocket:anna" }, "urn:readium:tts:pocket:estelle"],
+  ] as const) {
+    const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice } });
+    navigator.loadContent([{ plain: "Hello.", language: "en" }, { plain: "Bonjour.", language: "fr" }]);
+    await settled();
+    t.is(engine.loadedUtterances[1].voice, fr, JSON.stringify(voice));
+  }
+});
+
 test("languageOverrides changes the languages voices are picked for", async (t) => {
   const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine([alba, lea]), { languages: ["en"] });
   await settled();

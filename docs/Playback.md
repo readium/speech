@@ -223,12 +223,13 @@ How it picks:
 
 - **Region**: the content's region first, then the language's default region, then any other. `fr-CA` content with no `fr-CA` voice gets an `fr-FR` one.
 - **No region**: `en` content is read with the voice of the content's `en-GB` (or other `en-*`) text, so the voice doesn't change mid-text, unless a voice is chosen or picked for `en` itself.
-- **Word highlighting**: so it doesn't come and go between languages, voices match on boundary events:
-  - The main language prefers a voice with boundary events. The other languages follow the main language's voice.
+- **Like the main voice**: voices match on where they come from, then on boundary events, so speech doesn't move between the browser and a server, and word highlighting doesn't come and go:
+  - The main language prefers a voice with boundary events. The other languages follow the main language's voice: a browser or server voice like it, then with boundary events if it has them.
   - The main language is the first of [`languages`](#languages), else the content's language given to `loadContent()`/`loadGndContent()`.
-  - Without a main language, all languages follow the voices chosen in the `voice` preference. With none chosen, or chosen voices that disagree, they prefer boundary events.
+  - Without a main language, all languages follow what the voices chosen in the `voice` preference share. With none chosen, or chosen voices that differ, any source, with boundary events.
+  - A language with no voice like it gets one from anywhere.
 
-For example, with a voice without boundary events chosen for English, French gets a voice without boundary events too.
+For example, with a browser voice without boundary events chosen for English, French gets a browser voice without boundary events too, even when a server has a better one.
 
 Voices are picked again when the engine's voices change, e.g. when [`FallbackSpeechEngine`](FallbackEngine.md) swaps engines.
 

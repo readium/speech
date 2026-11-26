@@ -3,13 +3,28 @@ import type { VoicePreference } from "../preferences/SpeechPreferences.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { pickLanguageVoice } from "./defaultVoice.js";
 import { normalizeLanguageCode, voiceBaseLanguage } from "./languageCode.js";
-import type { ReadiumSpeechVoice } from "./types.js";
+import { voiceSourceKind } from "./sorting.js";
+import { hasBoundaryEvents } from "./voiceMatching.js";
+import type { ReadiumSpeechVoice, TSource } from "./types.js";
 import { getVoiceId } from "./voiceId.js";
 import { findVoice } from "./voiceLookup.js";
 
 // Keys are matched as voice languages are, e.g. a `zh-HK` key for `yue-HK` content.
 const voiceUnder = (voices: Record<string, string>, tag: string): string | undefined =>
   Object.entries(voices).find(([key]) => normalizeLanguageCode(key) === tag)?.[1];
+
+// What a language's picked voice prefers: its boundary support, and its kind of source when set (see `voiceSourceKind()`).
+interface VoiceMatch {
+  boundary: boolean;
+  source?: TSource;
+}
+
+// What `voices` all share: their boundary support, else boundary events; their kind of source, else any.
+function sharedMatch(voices: ReadiumSpeechVoice[]): VoiceMatch {
+  const boundaries = new Set(voices.map(hasBoundaryEvents));
+  const sources = new Set(voices.map((voice) => voiceSourceKind(voice.source)));
+  return { boundary: boundaries.size === 1 ? [...boundaries][0] : true, source: sources.size === 1 ? [...sources][0] : undefined };
+}
 
 // The engine's voices, the one picked for each language, and which voice reads content in a language.
 export class VoiceSelection {
@@ -19,7 +34,7 @@ export class VoiceSelection {
   private contentLanguages: string[] = [];
 
   private voiceIds: Set<string> = new Set();
-  // Keyed by `${language}:${needsBoundary}`: the voice picked for content in a language, null when it has none.
+  // Keyed by `pickKey()`: the voice picked for content in a language, null when it has none.
   private picked: Map<string, ReadiumSpeechVoice | null> = new Map();
   private picking: Map<string, Promise<void>> = new Map();
   // The engine's latest voice listing: one resolving after a newer one started gives way to it.
@@ -123,45 +138,41 @@ export class VoiceSelection {
     return [...mainLanguages, ...this.contentLanguages].find((other) => voiceBaseLanguage(other) === base && normalizeLanguageCode(other) !== base);
   }
 
-  // The main language's voice prefers boundary events; the others match its boundary support.
-  // Without a main language, all match the preference's voices when they agree.
-  private needsBoundary(language: string): boolean {
+  // The main language's voice prefers boundary events, from any source; the others match its boundary support and kind of source.
+  // Without a main language, all match what the preference's voices share.
+  private voiceMatch(language: string): VoiceMatch {
     const [main] = this.mainLanguages();
-    if (!main) return this.preferredBoundary() ?? true;
-    if (normalizeLanguageCode(language) === normalizeLanguageCode(main)) return true;
-    const picked = this.picked.get(this.pickKey(main, true));
+    if (!main) return sharedMatch(this.preferredVoices());
+    if (normalizeLanguageCode(language) === normalizeLanguageCode(main)) return { boundary: true };
+    const picked = this.picked.get(this.pickKey(main, { boundary: true }));
     const id = this.voiceFor(main, picked ? { [this.pickedVoiceKey(main, picked)]: getVoiceId(picked) } : {});
-    const mainVoice = this.voices.find(voice => getVoiceId(voice) === id);
-    return mainVoice?.controls?.boundary !== false;
+    return sharedMatch(this.voices.filter(voice => getVoiceId(voice) === id));
   }
 
-  // The boundary support of the preference's voices the engine lists, `undefined` without any or when they differ.
-  private preferredBoundary(): boolean | undefined {
+  // The preference's voices the engine lists.
+  private preferredVoices(): ReadiumSpeechVoice[] {
     const preference = this.availablePreference();
     const ids = typeof preference === "string" ? [preference] : Object.values(preference ?? {});
-    const supports = new Set(
-      ids.flatMap((id) => this.voices.filter((voice) => getVoiceId(voice) === id).map((voice) => voice.controls?.boundary !== false)),
-    );
-    return supports.size === 1 ? [...supports][0] : undefined;
+    return ids.flatMap((id) => this.voices.filter((voice) => getVoiceId(voice) === id));
   }
 
-  private pickKey(language: string, needsBoundary: boolean): string {
-    return `${normalizeLanguageCode(language)}:${needsBoundary}`;
+  private pickKey(language: string, match: VoiceMatch): string {
+    return `${normalizeLanguageCode(language)}:${match.boundary}:${match.source ?? ""}`;
   }
 
   // `undefined` until picked
   private pickedVoice(language: string): ReadiumSpeechVoice | null | undefined {
-    return this.picked.get(this.pickKey(language, this.needsBoundary(language)));
+    return this.picked.get(this.pickKey(language, this.voiceMatch(language)));
   }
 
   private async pickVoice(language: string): Promise<void> {
-    const needsBoundary = this.needsBoundary(language);
-    const key = this.pickKey(language, needsBoundary);
+    const match = this.voiceMatch(language);
+    const key = this.pickKey(language, match);
     if (this.picked.has(key)) return;
     let picking = this.picking.get(key);
     if (!picking) {
       const voices = this.voices;
-      picking = pickLanguageVoice(language, voices, needsBoundary)
+      picking = pickLanguageVoice(language, voices, match.boundary, match.source)
         .then((voice) => {
           // Unless the engine's voices changed meanwhile
           if (this.voices === voices) this.picked.set(key, voice);

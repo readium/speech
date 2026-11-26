@@ -1,6 +1,7 @@
-import { ReadiumSpeechVoice } from "./types.js";
+import { ReadiumSpeechVoice, TSource } from "./types.js";
 import { getVoices, processLanguages, getDefaultRegion, getLanguageDisplayName, LanguageWithRegions } from "./languages.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import { hasBoundaryEvents, preferMatching } from "./voiceMatching.js";
 
 /**
  * Create a map of language codes to their respective voice order maps
@@ -296,12 +297,21 @@ export const pickBestVoiceByRegion = async (
   return pool.reduce((best, candidate) => (compare(candidate, best) < 0 ? candidate : best));
 };
 
+// A Web Speech voice is "json" when the voice data knows it, "browser" otherwise: both are the browser's.
+export const voiceSourceKind = (source: TSource): TSource => (source === "json" ? "browser" : source);
+
+/**
+ * Narrows to voices of the same kind of `source` (see `voiceSourceKind`), so switching voice by language
+ * doesn't silently move speech to another engine, e.g. from the browser to a server.
+ * Falls back to the full list when nothing matches, rather than returning no candidates at all.
+ */
+export const filterBySource = (voices: ReadiumSpeechVoice[], source: TSource): ReadiumSpeechVoice[] =>
+  preferMatching(voices, voice => voiceSourceKind(voice.source) === voiceSourceKind(source));
+
 /**
  * Narrows to voices whose boundary-event support matches `needsBoundary`, so switching voice
  * (by language, by fallback, ...) doesn't silently drop or gain word-boundary highlighting.
  * Falls back to the full list when nothing matches, rather than returning no candidates at all.
  */
-export const filterByBoundarySupport = (voices: ReadiumSpeechVoice[], needsBoundary: boolean): ReadiumSpeechVoice[] => {
-  const matches = voices.filter(voice => (voice.controls?.boundary !== false) === needsBoundary);
-  return matches.length > 0 ? matches : voices;
-};
+export const filterByBoundarySupport = (voices: ReadiumSpeechVoice[], needsBoundary: boolean): ReadiumSpeechVoice[] =>
+  preferMatching(voices, voice => hasBoundaryEvents(voice) === needsBoundary);

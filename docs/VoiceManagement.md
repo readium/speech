@@ -208,6 +208,8 @@ filterByLanguages(voices: ReadiumSpeechVoice[], languages: string | string[]): R
 filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[]
 filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[]
 filterByBoundarySupport(voices: ReadiumSpeechVoice[], needsBoundary: boolean): ReadiumSpeechVoice[]
+filterBySource(voices: ReadiumSpeechVoice[], source: TSource): ReadiumSpeechVoice[]
+voiceSourceKind(source: TSource): TSource
 
 isNoveltyVoice(voiceName: string, voiceId?: string): boolean
 isVeryLowQualityVoice(voiceName: string, quality?: TQuality): boolean
@@ -217,6 +219,7 @@ isVeryLowQualityVoice(voiceName: string, quality?: TQuality): boolean
 - `filterOutNoveltyVoices` / `isNoveltyVoice`: [novelty.json](../json/filters/novelty.json), plus voices flagged `isNovelty`.
 - `filterOutVeryLowQualityVoices` / `isVeryLowQualityVoice`: [veryLowQuality.json](../json/filters/veryLowQuality.json), plus voices with `quality: "veryLow"`.
 - `filterByBoundarySupport`: a voice supports boundaries unless `controls.boundary === false`. Returns the full list when nothing matches.
+- `filterBySource` / `voiceSourceKind`: voices of the same kind of `source`. `"json"` and `"browser"` are one kind, the browser's; `"server"` is another. Returns the full list when nothing matches.
 
 ### Sorting
 
@@ -250,11 +253,11 @@ getQualityValue(quality): number
 ### Picking a voice
 
 ```typescript
-async pickLanguageVoice(language: string, voices: ReadiumSpeechVoice[], needsBoundary?: boolean): Promise<ReadiumSpeechVoice | null>
+async pickLanguageVoice(language: string, voices: ReadiumSpeechVoice[], needsBoundary?: boolean, source?: TSource): Promise<ReadiumSpeechVoice | null>
 async pickDefaultVoice(languages: string[] | undefined, voices: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>
 ```
 
-`pickLanguageVoice` picks the voice for `language`: among the voices of its base language, whatever the region, without novelty or very low quality ones, preferring those whose boundary support is `needsBoundary` (default `true`), ranked by `pickBestVoiceByRegion`: `language`'s region, then the language's default region from the JSON, then the others. `null` without a voice of the language.
+`pickLanguageVoice` picks the voice for `language`: among the voices of its base language, whatever the region, without novelty or very low quality ones, preferring those of `source`'s kind when given (`filterBySource`), then those whose boundary support is `needsBoundary` (default `true`), ranked by `pickBestVoiceByRegion`: `language`'s region, then the language's default region from the JSON, then the others. `null` without a voice of the language.
 
 `pickDefaultVoice` picks one voice for several languages: the `pickLanguageVoice` of the first of `languages` with one, else the first of `sortVoicesByRegions(languages, voices)`. Without `languages`, the user's preferred languages (`navigator.languages`) are used. `voiceManager.getDefaultVoice()` differs: it ranks all `voices` by `languages`, without preferring boundary events.
 

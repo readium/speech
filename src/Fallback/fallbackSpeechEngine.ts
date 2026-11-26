@@ -10,6 +10,7 @@ import { isRecoverableFailure } from "./recoverableFailure.js";
 import { isVoiceReachable } from "../voices/reachability.js";
 import { getVoiceId } from "../voices/voiceId.js";
 import { findVoice } from "../voices/voiceLookup.js";
+import { hasBoundaryEvents, preferMatching } from "../voices/voiceMatching.js";
 import { playbackEventTypes } from "../playbackEvents.js";
 
 export interface FallbackSpeechEngineOptions {
@@ -302,7 +303,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
           ?? primaryEngine.getCurrentVoice()
           ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
         const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator !== "undefined" ? navigator.language : "en");
-        bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender, failedVoice?.controls?.boundary !== false);
+        bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender, failedVoice ? hasBoundaryEvents(failedVoice) : true);
         if (!bestVoice) throw new Error("no offline-available fallback voice found");
         return this.fallbackProvider.createEngine(bestVoice);
       },
@@ -443,8 +444,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     const byLanguage = voicesByLang.get(processedLang.baseLang) ?? [];
     const languageMatches = byLanguage.length > 0 ? byLanguage : voices;
 
-    const byGender = gender ? languageMatches.filter(voice => voice.gender === gender) : [];
-    const genderMatches = byGender.length > 0 ? byGender : languageMatches;
+    const genderMatches = gender ? preferMatching(languageMatches, voice => voice.gender === gender) : languageMatches;
 
     const candidates = filterByBoundarySupport(genderMatches, needsBoundary);
 
