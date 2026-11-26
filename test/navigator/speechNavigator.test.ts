@@ -280,6 +280,19 @@ test("pauseDuration doesn't apply in the middle of a sentence cut on a change of
   t.is(engine.speakCalls.length, 1);
 });
 
+test("pauseDuration doesn't apply where a sentence after another is cut on a change of language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "always", segmentation: "structure", pauseDuration: 60 } });
+  await navigator.loadGndContent(
+    paragraphWithLanguages('He arrived. Then he said <lang xml:lang="fr">bonjour</lang> to all.', "He arrived. Then he said bonjour to all."),
+  );
+  t.deepEqual(navigator.getContentQueue()?.map((utterance) => utterance.plain), ["He arrived. Then he said", "bonjour", "to all."]);
+
+  engine.emit({ type: "end" });
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  t.is(engine.speakCalls.length, 1);
+});
+
 test("autoPause \"utterance\" doesn't pause in the middle of a sentence cut on a change of language", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "always", autoPause: "utterance", segmentation: "sentence" } });
