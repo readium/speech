@@ -18,6 +18,7 @@ import { ReadiumSpeechVoice } from "./voices/types.js";
 import { normalizeLanguageCode } from "./voices/languageCode.js";
 import { VoiceSelection } from "./voices/voiceSelection.js";
 import { EventEmitter } from "./utils/eventEmitter.js";
+import { isIndexInRange } from "./utils/array.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.
@@ -540,7 +541,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const currentIndex = this.getCurrentUtteranceIndex();
 
     // Check if the target index is valid
-    if (targetIndex < 0 || targetIndex >= this.contentQueue.length) {
+    if (!isIndexInRange(targetIndex, this.contentQueue.length)) {
       return false;
     }
 

@@ -4,6 +4,7 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
+import { isIndexInRange } from "../utils/array.js";
 import { isRecoverableFailure } from "./recoverableFailure.js";
 import { isVoiceReachable } from "../voices/reachability.js";
 import { getVoiceId } from "../voices/voiceId.js";
@@ -125,6 +126,9 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
   // recover without an audible glitch, so intercept it if the primary is already reachable.
   speak(utteranceIndex?: number): void {
+    if (utteranceIndex !== undefined && !isIndexInRange(utteranceIndex, this.currentUtterances.length)) {
+      throw new Error("Invalid utterance index");
+    }
     this.desiredIndex = utteranceIndex ?? this.desiredIndex;
     this.desiredPlaying = true;
     if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
@@ -206,6 +210,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Keeps desiredIndex authoritative even while trusted, like speak() does — otherwise a seek
   // followed by a failure with no intervening speak() would resume at the stale pre-seek index.
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
+    if (!isIndexInRange(index, this.currentUtterances.length)) {
+      onComplete?.(false);
+      return;
+    }
     this.desiredIndex = index;
     if (!this.isEngineTrusted()) {
       onComplete?.(true);

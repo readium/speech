@@ -5,7 +5,7 @@ import { ReadiumSpeechVoice } from "../voices/types.js";
 import { getVoiceId } from "../voices/voiceId.js";
 import { findVoice, uniqueVoices } from "../voices/voiceLookup.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
-import { clampIndex } from "../utils/array.js";
+import { clampIndex, isIndexInRange } from "../utils/array.js";
 import { settleAll } from "../utils/settleAll.js";
 import { playbackEventTypes } from "../playbackEvents.js";
 
@@ -131,6 +131,9 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   speak(utteranceIndex?: number): void {
+    if (utteranceIndex !== undefined && !isIndexInRange(utteranceIndex, this.utterances.length)) {
+      throw new Error("Invalid utterance index");
+    }
     const index = utteranceIndex ?? this.currentIndex;
     if (!this.owners) {
       this.currentIndex = index;
@@ -140,9 +143,6 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     if (this.utterances.length === 0) {
       this.engines[this.activeEngine].speak();
       return;
-    }
-    if (index < 0 || index >= this.utterances.length) {
-      throw new Error("Invalid utterance index");
     }
     this.activate(this.owners[index]);
     this.currentIndex = index;
@@ -230,7 +230,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
-    if (index < 0 || index >= this.utterances.length) {
+    if (!isIndexInRange(index, this.utterances.length)) {
       onComplete?.(false);
       return;
     }

@@ -25,6 +25,7 @@ test.serial("delegates playback methods to the active engine", async (t) => {
   wrapper.setRate(1.5);
   wrapper.setPitch(0.8);
   wrapper.setVolume(0.5);
+  wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }]);
   wrapper.speak(1);
 
   t.is(primary.getRate(), 1.5);
@@ -372,6 +373,46 @@ test.serial("swapToFallback respects a pause() that races the original failure",
 
   t.deepEqual(fallbackProvider.engine!.speakCalls, [], "pause() during the swap must not be overridden by a delayed speak()");
   t.is(wrapper.getState(), "paused");
+});
+
+// The primary fails while it plays "two": the wrapper swaps to the fallback engine, held mid-creation until `releaseSwap()`.
+async function swappingWhilePlayingTwo() {
+  const primary = new FakeEngine();
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }]);
+  wrapper.speak(1);
+  const gate = deferred();
+  fallbackProvider.createEngineGate = gate.promise;
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+  const releaseSwap = async () => {
+    gate.resolve();
+    await tick();
+    fallbackProvider.engine!.emit("ready");
+    return fallbackProvider.engine!;
+  };
+  return { wrapper, releaseSwap };
+}
+
+test.serial("during a swap, speak() with an index outside the queue throws at once, and the fallback engine then speaks \"two\"", async (t) => {
+  const { wrapper, releaseSwap } = await swappingWhilePlayingTwo();
+
+  t.throws(() => wrapper.speak(2), { message: "Invalid utterance index" }, "there are 2 utterances");
+  const fallbackEngine = await releaseSwap();
+
+  t.deepEqual(fallbackEngine.speakCalls, [1]);
+});
+
+test.serial("during a swap, setCurrentUtteranceIndex() with an index outside the queue calls onComplete(false)", async (t) => {
+  const { wrapper, releaseSwap } = await swappingWhilePlayingTwo();
+
+  let moved: boolean | undefined;
+  wrapper.setCurrentUtteranceIndex(2, (success) => { moved = success; });
+  t.false(moved, "there are 2 utterances");
+  const fallbackEngine = await releaseSwap();
+
+  t.deepEqual(fallbackEngine.speakCalls, [1], "still \"two\"");
 });
 
 test.serial("loadUtterances() racing swapToFallback()'s gap lands the new content on the arriving engine, not the dying primary", async (t) => {

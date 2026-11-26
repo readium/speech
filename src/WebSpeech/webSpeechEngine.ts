@@ -9,7 +9,7 @@ import { getVoiceId } from "../voices/voiceId.js";
 import { detectFeatures, WebSpeechFeatures } from "../utils/features.js";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
-import { clampIndex } from "../utils/array.js";
+import { clampIndex, isIndexInRange } from "../utils/array.js";
 import { clamp } from "../utils/clamp.js";
 
 import { neutralizeAngleBrackets } from "../utils/text.js";
@@ -250,7 +250,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Playback Control
   speak(utteranceIndex?: number): void {
     if (utteranceIndex !== undefined) {
-      if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
+      if (!isIndexInRange(utteranceIndex, this.currentUtterances.length)) {
         throw new Error("Invalid utterance index");
       }
       this.currentUtteranceIndex = utteranceIndex;
@@ -669,7 +669,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
     // Validate the new index
-    if (index < 0 || index >= this.currentUtterances.length) {
+    if (!isIndexInRange(index, this.currentUtterances.length)) {
       onComplete?.(false);
       return;
     }

@@ -242,6 +242,17 @@ test("utterance voices not listed yet are listed before the queue is split, spea
   t.is(web.speakCalls.length, 0);
 });
 
+test("speak() with an index outside the queue throws at once, also while the router still asks which engine has each voice", async (t) => {
+  const { web, server, router } = setup();
+  router.loadUtterances(mixed); // 4 utterances; no getAvailableVoices() call before, so the router asks the engines first
+  t.throws(() => router.speak(4), { message: "Invalid utterance index" }, "while it asks");
+  await tick();
+  t.throws(() => router.speak(-1), { message: "Invalid utterance index" }, "once it knows");
+
+  t.deepEqual([...web.speakCalls, ...server.speakCalls], [], "no engine speaks");
+  t.is(router.getCurrentUtteranceIndex(), 0, "still on the first utterance");
+});
+
 test("a reload while voices are listed drops the stale queue", async (t) => {
   const { web, router } = setup();
   router.loadUtterances(mixed);
