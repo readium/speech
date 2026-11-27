@@ -18,6 +18,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - A paused `SpeechServerEngine` stays paused when an upcoming utterance it prefetches arrives, instead of playing on.
 - `SpeechServerEngine.pause()` pauses an utterance still being synthesized, instead of being ignored: its audio waits for `resume()`, and its `"start"` comes then.
 - `ReadiumSpeechNavigator.pause()` while content loads for a `play()` tells `"pause"`, as a pause between utterances does.
+- `ReadiumSpeechNavigator` goes `"idle"` once empty content is loaded, as at the end of the queue, instead of staying `"loading"`. Playback waiting for it, a `play()` or a reload while playing, ends with `"stop"`.
 - With `timeoutMs`, time `SpeechServerEngine` spends paused no longer counts toward a stall, so a long pause doesn't end in a `SpeechServerStallError`.
 - `SpeechServerEngine.resume()` after moving to another utterance while paused (`setCurrentUtteranceIndex()`, a navigator skip while paused) plays that utterance, instead of nothing.
 - `SpeechServerEngine.setCurrentUtteranceIndex()` while an utterance loads or plays drops it and tells `"stop"`, as `WebSpeechEngine` does, instead of playing it once its audio arrives or staying `"playing"` in silence.
