@@ -47,7 +47,8 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
   private readonly languages: string[];
-  private contentQueue: ReadiumSpeechUtterance[] = [];
+  // null until loaded, so the engine's "ready" for the previous content is told apart from empty content.
+  private contentQueue: ReadiumSpeechUtterance[] | null = null;
   // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
   private loadedQueue: ReadiumSpeechUtterance[] = [];
   private readonly events = new EventEmitter<ReadiumSpeechNavigatorEvent["type"], ReadiumSpeechNavigatorEvent>();
@@ -148,7 +149,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
   private async refreshVoices(): Promise<void> {
     await this.voiceSelection.pick();
-    if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
+    if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue?.[index]?.voice)) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
     }
@@ -243,13 +244,20 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
 
     this.engine.on("ready", () => {
-      if (this.contentQueue.length === 0) return;
+      if (this.contentQueue === null) return;
 
       const resumeIndex = this.pendingResumeIndex;
       const resumeState = this.pendingResumeState;
       this.pendingResumeIndex = null;
       this.pendingResumeState = null;
       if (this.navigatorState !== "loading") return; // stop()/pause()/play() already took over
+
+      // Nothing to play, as at the end of the queue
+      if (this.contentQueue.length === 0) {
+        this.setNavigatorState("idle");
+        if (resumeState === "playing") this.emitEvent({ type: "stop" });
+        return;
+      }
 
       if (resumeState === "playing") {
         this.setNavigatorState("playing");
@@ -341,8 +349,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.loadedQueue = Array.isArray(content) ? [...content] : [content];
-    // Until loaded, the engine's "ready" is the previous content's
-    this.contentQueue = [];
+    this.contentQueue = null;
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
 
@@ -452,11 +459,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   getCurrentContent(): ReadiumSpeechUtterance | null {
     const index = this.getCurrentUtteranceIndex();
-    return index < this.contentQueue.length ? this.contentQueue[index] : null;
+    return this.contentQueue?.[index] ?? null;
   }
 
   getContentQueue(): ReadiumSpeechUtterance[] {
-    return [...this.contentQueue];
+    return [...this.contentQueue ?? []];
   }
 
   private getCurrentUtteranceIndex(): number {
@@ -541,7 +548,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const currentIndex = this.getCurrentUtteranceIndex();
 
     // Check if the target index is valid
-    if (!isIndexInRange(targetIndex, this.contentQueue.length)) {
+    if (!isIndexInRange(targetIndex, this.contentQueue?.length ?? 0)) {
       return false;
     }
 
@@ -656,7 +663,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
-    if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
+    if (!this.source && (this.contentQueue?.length ?? 0) > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
         "submitPreferences(): extraction-affecting preferences (format, interruptions, verbosity, skip, contextualize, language, languageOverrides, segmentation, reconstruct) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );

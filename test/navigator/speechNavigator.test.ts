@@ -1618,6 +1618,32 @@ test("\"waiting\" isn't told again when a reload while playing then waits for th
   t.deepEqual(events, ["waiting", "start"]);
 });
 
+test("loading empty content leaves the navigator idle", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+
+  navigator.loadContent([]);
+  await settled();
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "idle");
+});
+
+test("a play() while empty content loads ends its wait with \"stop\"", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const events: string[] = [];
+  for (const type of ["waiting", "stop"] as const) navigator.on(type, () => events.push(type));
+
+  navigator.loadContent([]);
+  navigator.play();
+  await settled();
+  engine.emit({ type: "ready" });
+
+  t.deepEqual(events, ["waiting", "stop"]);
+  t.is(navigator.getState(), "idle");
+});
+
 test("pause() while waiting for content to load tells \"pause\"", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
