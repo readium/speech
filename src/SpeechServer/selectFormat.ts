@@ -72,12 +72,13 @@ export interface NetworkInfo {
 const LOSSLESS_FORMATS = new Set(["wav", "flac"]);
 
 // Unmeasured, conservative defaults; a format with no entry here just gets no adaptation.
+// In kbps, as `output.bitrate` is.
 const REDUCED_BITRATE: Record<string, number> = {
-  mp3: 48000,
-  opus: 24000,
-  aac: 48000,
-  ogg: 48000,
-  webm: 32000
+  mp3: 48,
+  opus: 24,
+  aac: 48,
+  ogg: 48,
+  webm: 32
 };
 
 export function selectBitrate(

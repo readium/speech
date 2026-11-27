@@ -28,6 +28,21 @@ test("getVoices maps server voices into ReadiumSpeechVoice shape and caches", as
   t.is(calls.filter(c => c.url.endsWith("/voices")).length, 1, "second call is served from cache, not refetched");
 });
 
+test("getVoices lists only the voices of voiceProviders, as do the engines it creates", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    voices: () => [
+      makeServerVoice(),
+      makeServerVoice({ name: "Rachel", identifier: "urn:readium:tts:elevenlabs:rachel", provider: "elevenlabs" })
+    ],
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: {} }, { id: "elevenlabs", installedLanguages: ["en"], controls: {} }] } })
+  });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, voiceProviders: ["pocket"] });
+
+  t.deepEqual((await provider.getVoices()).map(voice => voice.identifier), ["urn:readium:tts:pocket:alba"]);
+  const engine = await provider.createEngine();
+  t.deepEqual((await engine.getAvailableVoices()).map(voice => voice.identifier), ["urn:readium:tts:pocket:alba"]);
+});
+
 test("getVoices throws a SpeechServerError carrying the server's problem details on a non-ok response", async (t) => {
   const { fetchImpl } = createMockFetch({
     voices: () => ({

@@ -2,7 +2,7 @@ import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEngine } from "../engine.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine.js";
-import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { mapServerVoices } from "./speechServerVoiceMapping.js";
 import { toSpeechServerError } from "./errors.js";
 import { SpeechServerServiceInfo, SpeechServerVoice } from "./types.js";
 
@@ -16,7 +16,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
 
   private options: SpeechServerEngineProviderOptions;
   private fetchImpl: typeof fetch;
-  private voices: ReadiumSpeechVoice[] = [];
+  private voices: ReadiumSpeechVoice[] | null = null;
 
   constructor(options: SpeechServerEngineProviderOptions) {
     this.options = options;
@@ -24,7 +24,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]> {
-    if (this.voices.length > 0 && !forceRefresh) {
+    if (this.voices && !forceRefresh) {
       return this.voices;
     }
 
@@ -40,8 +40,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
     }
     const serverVoices: SpeechServerVoice[] = await response.json();
     const serviceInfo: SpeechServerServiceInfo = await serviceResponse.json();
-    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
-    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
+    this.voices = mapServerVoices(serverVoices, serviceInfo, this.options.voiceProviders);
     return this.voices;
   }
 
@@ -56,7 +55,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
 
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {
     const engine = new SpeechServerEngine(this.options);
-    if (this.voices.length > 0) {
+    if (this.voices) {
       engine.setAvailableVoices(this.voices);
     }
     if (voice) {
@@ -66,6 +65,6 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async destroy(): Promise<void> {
-    this.voices = [];
+    this.voices = null;
   }
 }

@@ -40,6 +40,7 @@ export interface ReadiumSpeechPlaybackEventDetails {
 
 export interface ReadiumSpeechNavigatorEventDetails extends ReadiumSpeechPlaybackEventDetails {
   contentchange: { content: ReadiumSpeechUtterance[] }; // The content queue changed
+  waiting: undefined; // Asked to play, but the utterance's audio isn't there yet; its "start" ends it
 }
 
 type EventOf<Details, T extends keyof Details> = {

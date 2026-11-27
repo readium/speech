@@ -224,6 +224,89 @@ async function speakingEngine(isSafari: boolean) {
   return { synth, engine };
 }
 
+// setCurrentUtteranceIndex() while an utterance plays stops it. The engine then sends "idle" and "stop", after the move and
+// before onComplete, so a "stop" listener sees the new index and can speak(). The browser reports the cancel too, with an
+// "interrupted" error: Safari within cancel(), before the move; other browsers later. That report must change nothing.
+// speakingEngine() plays "First.", followed by "Second.".
+
+for (const isSafari of [false, true]) {
+  const browser = isSafari ? "in Safari" : "in other browsers";
+  // The browser's report of the cancel, as each browser sends it
+  const reportCancelLikeTheBrowser = (synth: MockSynth) => {
+    const cancelled = synth.spoken[synth.spoken.length - 1];
+    if (isSafari) (globalThis as any).window.speechSynthesis.cancel = () => cancelled.onerror?.({ error: "interrupted" });
+    return () => {
+      if (!isSafari) cancelled.onerror?.({ error: "interrupted" });
+    };
+  };
+
+  test.serial(`${browser}: setCurrentUtteranceIndex() while one plays sends "idle" and "stop" at the new index, then onComplete`, async (t) => {
+    const { synth, engine } = await speakingEngine(isSafari);
+    const reportLater = reportCancelLikeTheBrowser(synth);
+    const events: string[] = [];
+    for (const type of ["idle", "stop", "end", "error"] as const) engine.on(type, () => events.push(`${type} at ${engine.getCurrentUtteranceIndex()}`));
+
+    engine.setCurrentUtteranceIndex(1, () => events.push("onComplete"));
+    reportLater();
+
+    t.deepEqual(events, ["idle at 1", "stop at 1", "onComplete"], "once each, the browser's report adding nothing");
+    t.is(engine.getState(), "idle");
+    const spoken = synth.spoken.length;
+    await settle();
+    t.is(synth.spoken.length, spoken, "nothing is spoken");
+  });
+
+  test.serial(`${browser}: a "stop" listener can speak() another utterance: the move that sent the "stop" doesn't undo it`, async (t) => {
+    const { synth, engine } = await speakingEngine(isSafari);
+    const reportLater = reportCancelLikeTheBrowser(synth);
+    engine.on("stop", () => engine.speak(0));
+    const spoken = synth.spoken.length;
+
+    engine.setCurrentUtteranceIndex(1); // stops "First."
+    reportLater();
+    await settle();
+
+    t.is(engine.getCurrentUtteranceIndex(), 0, "not moved back to \"Second.\"");
+    t.is(engine.getState(), "playing");
+    t.deepEqual(synth.spoken.slice(spoken).map(utterance => utterance.text), ["First."], "spoken again by the listener");
+  });
+}
+
+test.serial("in Safari: setCurrentUtteranceIndex() right after speak() keeps that utterance from being spoken", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  engine.speak(1); // Safari waits for the cancel of "First." to settle before it speaks "Second."
+  const spoken = synth.spoken.length;
+
+  engine.setCurrentUtteranceIndex(0);
+  await settle();
+
+  t.is(synth.spoken.length, spoken, "\"Second.\" is never spoken");
+  t.is(engine.getState(), "idle");
+});
+
+test.serial("setCurrentUtteranceIndex() after stop(): no second \"stop\"", async (t) => {
+  const { engine } = await speakingEngine(false);
+  engine.stop();
+  const events: string[] = [];
+  for (const type of ["idle", "stop"] as const) engine.on(type, () => events.push(type));
+
+  engine.setCurrentUtteranceIndex(1);
+
+  t.deepEqual(events, [], "nothing was playing");
+});
+
+test.serial("setCurrentUtteranceIndex() while paused: no \"stop\"", async (t) => {
+  const { engine } = await speakingEngine(false);
+  engine.pause();
+  const events: string[] = [];
+  for (const type of ["idle", "stop"] as const) engine.on(type, () => events.push(type));
+
+  engine.setCurrentUtteranceIndex(1);
+
+  t.deepEqual(events, []);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
 test.serial("in Safari, a restart speaks the utterance again once the cancel settled", async (t) => {
   const { synth, engine } = await speakingEngine(true);
   const before = synth.spoken.length;
@@ -495,6 +578,43 @@ test.serial("resume infinity doesn't run for a voice with pause events, which wo
   t.false(usesResumeInfinity(false));
 });
 
+test.serial("stop() ends resume infinity, the timer that pauses and resumes speech every 5 seconds", async (t) => {
+  const synth = setWebSpeechGlobals();
+  // Resume infinity's 5-second timers are kept here instead of running
+  const resumeTimers = new Set<unknown>();
+  const { setTimeout: realSetTimeout, clearTimeout: realClearTimeout } = globalThis;
+  (globalThis as any).setTimeout = (callback: () => void, ms?: number) => {
+    if (ms !== 5000) return realSetTimeout(callback, ms);
+    resumeTimers.add(callback);
+    return callback;
+  };
+  (globalThis as any).clearTimeout = (id: any) => (resumeTimers.has(id) ? resumeTimers.delete(id) : realClearTimeout(id));
+  try {
+    // A Google voice: it never fires pause events, so resume infinity runs for it
+    (WebSpeechVoiceManager as any).instance = undefined;
+    (WebSpeechVoiceManager as any).initializationPromise = null;
+    const google = { voiceURI: "Google US English", name: "Google US English", lang: "en-US", localService: false, default: false };
+    (globalThis as any).window.speechSynthesis.getVoices = () => [google];
+    const engine = new WebSpeechEngine();
+    (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false, isLinux: false };
+    await engine.initialize();
+    const [voice] = await engine.getAvailableVoices();
+    await engine.setVoice(voice);
+    engine.loadUtterances([{ plain: "First." }]);
+    engine.speak();
+    await flush();
+    synth.spoken[synth.spoken.length - 1].onstart?.();
+    t.is(resumeTimers.size, 1, "running while it speaks");
+
+    engine.stop();
+
+    t.is(resumeTimers.size, 0, "no longer running");
+  } finally {
+    globalThis.setTimeout = realSetTimeout;
+    globalThis.clearTimeout = realClearTimeout;
+  }
+});
+
 test.serial("the current utterance being interrupted still emits stop", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
@@ -510,6 +630,19 @@ test.serial("the current utterance being interrupted still emits stop", async (t
 
   t.is(engine.getState(), "idle");
   t.deepEqual(events, ["stop"]);
+});
+
+test.serial("after its own last utterance, it still reports playing while another engine has one to speak after it", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "Mine." }, { plain: "Another engine's." }], 0, index => index === 1);
+  engine.speak();
+  await flush();
+  const current = synth.spoken[synth.spoken.length - 1];
+  current.onstart?.();
+  current.onend?.(); // "Mine." ended
+
+  t.is(engine.getState(), "playing", "\"Another engine's.\" is still to come");
 });
 
 async function pausedWithNativeVoice(nativeVoice: { name: string; localService: boolean }) {

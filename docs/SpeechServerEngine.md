@@ -46,6 +46,7 @@ interface SpeechServerEngineOptions {
   overLengthText?: "split" | "error"; // default "split"
   format?: SpeechServerFormatOptions;
   timeoutMs?: number; // default: undefined (never declares a stall)
+  voiceProviders?: string[]; // e.g. ["pocket"], default: every provider
 }
 ```
 
@@ -54,6 +55,9 @@ interface SpeechServerEngineOptions {
 - `overLengthText`: an utterance longer than the server's advertised `maxTextLength` (from `/service`) is split into multiple `/synthesize` requests and played back-to-back as one logical utterance by default (`"split"`). Set `"error"` to instead fail fast with a `SpeechServerError` (413, `payload_too_large`) — e.g. if you'd rather pre-chunk text yourself upstream. Text is split at sentence ends (`.`, `!`, `?`, closing punctuation, and their CJK and Arabic forms), a sentence still too long at spaces, and a word still too long between characters. SSML is split the same way between tags, never inside a `<tag>...</tag>` span: a span longer than `maxTextLength` is sent alone. In plain text, `<` and `>` are sent as zero-width spaces, since some engines take them for markup.
 - `format`: see below.
 - `timeoutMs`: see [Stall detection](#stall-detection).
+- `voiceProviders`: only voices whose `provider` is listed:
+  - `getVoices()` and `getAvailableVoices()` list only them, so the navigator only picks them.
+  - A request is never sent with another provider's voice. One set with `setVoice()` makes the utterance fail with a non-recoverable `"error"` instead. A voice set by id while `/voices` fails makes it fail with that request's error. An utterance's own `voice` of another provider isn't listed, so the utterance is sent with the current voice. Without a voice, the server picks one.
 
 ## Voices
 
@@ -81,14 +85,14 @@ Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeec
 
 ## Stall detection
 
-`timeoutMs` is a **grace period**, not a per-request cap: `/synthesize` requests aren't given a flat timeout, because prefetching and gapless scheduling mean a single slow chunk is harmless as long as there's still enough already-buffered audio ahead of the playhead to cover it. Instead, the engine only starts a clock once the buffer is projected to run dry with the next chunk still not ready, and only declares a stall — throwing a `SpeechServerStallError` (408, `.../error#stall`) and aborting that specific request — if `timeoutMs` elapses past that point. Every chunk that does resolve pushes the projected buffer-empty point further out, so the deadline effectively rolls forward with playback rather than being fixed at request start.
+`timeoutMs` is a **grace period**, not a per-request cap: `/synthesize` requests aren't given a flat timeout, because prefetching and gapless scheduling mean a single slow chunk is harmless as long as there's still enough already-buffered audio ahead of the playhead to cover it. Instead, the engine only starts a clock once the buffer is projected to run dry with the next chunk still not ready, and only declares a stall — throwing a `SpeechServerStallError` (408, `.../error#stall`) and aborting that specific request — if `timeoutMs` elapses past that point. Every chunk that does resolve pushes the projected buffer-empty point further out, so the deadline effectively rolls forward with playback rather than being fixed at request start. Time spent paused doesn't count, as the buffer doesn't drain meanwhile.
 
 Left `undefined` (the default), a stalled `/synthesize` request waits forever, same as before this option existed.
 
 ## Minimizing gaps between utterances
 
 - **Gapless scheduling**: chunks/utterances are decoded into `AudioBuffer`s and scheduled back-to-back on one continuous `AudioContext` timeline (`node.start(t)`, with `t` advanced by each buffer's own duration) rather than played one at a time via sequential `<audio>` elements — there's no stop/start gap between them.
-- **Prefetching ahead**: while an utterance plays, the engine fetches up to `prefetchWindow` upcoming utterances so they're already decoded by the time playback reaches them. Requests are chained one at a time (never more than one `/synthesize` in flight), so this doesn't compete with `maxConcurrentSyntheses` on the server.
+- **Prefetching ahead**: while an utterance plays, the engine fetches up to `prefetchWindow` upcoming utterances so they're already decoded by the time playback reaches them. Requests are chained one at a time (never more than one `/synthesize` in flight), so this doesn't compete with `maxConcurrentSyntheses` on the server. Moving to any utterance but the next drops the prefetched window, so the one moved to is fetched first.
 - **Buffering before "ready"**: `readyBufferChars` holds off the `"ready"` event until enough of the front of the queue is prefetched, so playback doesn't immediately outrun an empty buffer right after the first utterance starts.
 - **Chunk-level streaming for long utterances**: when `overLengthText: "split"` breaks an utterance into multiple requests, playback starts on the first chunk as soon as it's ready — it doesn't wait for the rest — while later chunks keep fetching and get scheduled onto the same gapless timeline as they resolve. Callers still only see a single `"start"`/`"end"` pair for the whole utterance, not one per chunk.
 

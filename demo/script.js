@@ -1,6 +1,5 @@
 import {
   WebSpeechVoiceManager,
-  WebSpeechEngine,
   ReadiumSpeechNavigator,
   setupDecorations,
   DecorationStyleType,
@@ -10,6 +9,8 @@ import {
   SpeechPreferences,
   getVoiceId,
 } from "../src/index.ts";
+import { engineProvider, serverVoices } from "./speechEngine.js";
+import { showToast } from "./toast.js";
 
 // Keyed by its own language, so content in another language still gets a voice of its own.
 const voicePreferences = (voice) => new SpeechPreferences({ voice: { [voice.language.split("-")[0]]: getVoiceId(voice) } });
@@ -74,8 +75,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 let voiceManager;
 let navigator;
 let enVoices = [];
+let enServerVoices = [];
 let currentVoice = null;
 let isPlaying = false;
+let isWaiting = false;
 let utterances = [];
 let readAlongEnabled = true;
 let autoScrollEnabled = true;
@@ -108,7 +111,12 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
-    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    navigator = new ReadiumSpeechNavigator(await engineProvider.createEngine());
+    enServerVoices = await serverVoices("en").catch((error) => {
+      console.error("Error loading server voices:", error);
+      showToast("Speech server unreachable, only browser voices are listed.", { urgent: true });
+      return [];
+    });
 
     // Broadens the shared WebSpeechVoiceManager singleton so the engine's
     // own voice lookup (used for content-language switching) covers French
@@ -140,8 +148,7 @@ async function initialize() {
     currentVoice = await voiceManager.getDefaultVoice("en", enVoices);
     if (currentVoice) {
       await navigator.submitPreferences(voicePreferences(currentVoice));
-      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-      if (option) option.selected = true;
+      voiceSelect.value = getVoiceId(currentVoice);
     }
     updateWordHighlightAvailability();
 
@@ -168,6 +175,14 @@ function setReadAlongDependentsDisabled(disabled) {
 }
 
 function setupEventListeners() {
+  navigator.on("waiting", () => {
+    isWaiting = true;
+    updateUI();
+  });
+  for (const type of ["start", "pause", "stop", "error"]) {
+    navigator.on(type, () => { isWaiting = false; });
+  }
+
   navigator.on("start", () => {
     isPlaying = true;
     if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
@@ -199,6 +214,16 @@ function setupEventListeners() {
   navigator.on("error", (event) => {
     console.error("Navigator error:", event.detail);
     updateUI();
+  });
+
+  navigator.on("enginefallback", (event) => {
+    const voice = event.detail.voice;
+    showToast(`Speech server unavailable, switched to ${voice ? voice.label || voice.name : "the browser voice"}. Once the server is back, it switches back the next time you pause, stop, reach the end or load other content.`);
+  });
+
+  navigator.on("enginerecovered", (event) => {
+    const voice = event.detail.voice;
+    showToast(`Speech server available again, switched back to ${voice ? voice.label || voice.name : "the server voice"}.`);
   });
 
   navigator.on("boundary", (event) => {
@@ -546,7 +571,7 @@ function updateWordHighlightAvailability() {
 async function initializeContent() {
   gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
   renderGndOutput();
-  await navigator.loadGndContent(gnd);
+  await navigator.loadGndContent(gnd, { language: content.closest("[lang]")?.lang || undefined });
 }
 
 // Lays out a flat run of `.token` spans (one per word or per letter — see
@@ -890,40 +915,25 @@ async function populateVoiceSelect() {
     }
 
     try {
-      const sortedVoices = await voiceManager.sortVoicesByRegions(["en"], enVoices);
+      const sections = [
+        ["Browser", await voiceManager.sortVoicesByRegions(["en"], enVoices)],
+        ["Server", await voiceManager.sortVoicesByRegions(["en"], enServerVoices)]
+      ];
 
-      let currentRegion = null;
-      let optgroup = null;
-
-      for (const voice of sortedVoices) {
-        const region = voice.language.split("-")[1] || "Other";
-
-        if (region !== currentRegion) {
-          currentRegion = region;
-          optgroup = document.createElement("optgroup");
-          const flag = getCountryFlag(region === "Other" ? null : region);
-          const regionName = region === "Other" ? region :
-            new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(region) || region;
-          optgroup.label = `${flag} ${regionName}`;
-          voiceSelect.appendChild(optgroup);
+      for (const [label, voices] of sections) {
+        if (voices.length === 0) continue;
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = label;
+        for (const voice of voices) {
+          const option = document.createElement("option");
+          option.value = getVoiceId(voice);
+          option.textContent = `${getCountryFlag(voice.language.split("-")[1])} ${voice.label || voice.name}`;
+          optgroup.appendChild(option);
         }
-
-        const option = document.createElement("option");
-        option.value = voice.name;
-        option.textContent = `${voice.label || voice.name}`;
-        option.dataset.voiceUri = voice.voiceURI;
-
-        if (currentVoice && voice.name === currentVoice.name) {
-          option.selected = true;
-        }
-
-        optgroup?.appendChild(option);
+        voiceSelect.appendChild(optgroup);
       }
 
-      if (currentVoice) {
-        const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-        if (option) option.selected = true;
-      }
+      if (currentVoice) voiceSelect.value = getVoiceId(currentVoice);
 
       updateUI();
     } catch (error) {
@@ -932,15 +942,14 @@ async function populateVoiceSelect() {
     }
   } catch (error) {
     console.error("Error populating voice dropdown:", error);
-    enVoices.forEach((voice) => {
+    [...enVoices, ...enServerVoices].forEach((voice) => {
       const option = document.createElement("option");
-      option.value = voice.name;
+      option.value = getVoiceId(voice);
       option.textContent = [
         voice.label || voice.name,
         voice.gender ? `• ${voice.gender}` : "",
         voice.offlineAvailability ? "• offline" : "• online",
       ].filter(Boolean).join(" ");
-      option.dataset.voiceUri = voice.voiceURI;
       voiceSelect.appendChild(option);
     });
   }
@@ -970,9 +979,10 @@ function togglePlayback() {
 
   try {
     const state = navigator.getState();
-    if (state === "playing") {
+    if (state === "playing" || isWaiting) {
       navigator.pause();
-    } else if (state === "paused") {
+    } else if (state === "paused" || state === "loading") {
+      // While loading, play() plays from the position the reload restores
       navigator.play();
     } else {
       navigator.jumpTo(0);
@@ -1012,12 +1022,12 @@ function handleUtteranceIndexChange(e) {
 }
 
 async function handleVoiceChange(e) {
-  const voiceName = e.target.value;
-  if (!voiceName) return;
+  const voiceId = e.target.value;
+  if (!voiceId) return;
 
-  currentVoice = enVoices.find((v) => v.name === voiceName);
+  currentVoice = [...enVoices, ...enServerVoices].find((v) => getVoiceId(v) === voiceId);
   if (!currentVoice) {
-    console.error("Voice not found:", voiceName);
+    console.error("Voice not found:", voiceId);
     return;
   }
   updateWordHighlightAvailability();
@@ -1160,7 +1170,7 @@ function updateUI() {
 
   if (playPauseBtn) {
     playPauseBtn.disabled = !currentVoice || !hasContent;
-    if (state === "playing") {
+    if (state === "playing" || isWaiting) {
       playPauseBtn.innerHTML = PAUSE_ICON;
       playPauseBtn.setAttribute("aria-label", "Pause");
       playPauseBtn.classList.remove("paused");
@@ -1169,6 +1179,8 @@ function updateUI() {
       playPauseBtn.setAttribute("aria-label", "Play");
       playPauseBtn.classList.add("paused");
     }
+    playPauseBtn.classList.toggle("waiting", isWaiting);
+    playPauseBtn.setAttribute("aria-busy", String(isWaiting));
   }
 
   if (stopBtn) stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");

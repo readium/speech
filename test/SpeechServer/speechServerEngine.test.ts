@@ -186,6 +186,155 @@ test.serial("prev_utterance/next_utterance are omitted at the start/end of the q
   t.is(body.next_utterance, undefined);
 });
 
+// Two engines taking turns, e.g. under RoutingSpeechEngine: this one speaks "One." and "Three.".
+function createTurnTakingEngine() {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 3 });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }, { plain: "Three." }, { plain: "Four." }], 0, index => index % 2 === 1);
+  const synthesized = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body));
+  return { engine, synthesized };
+}
+
+test.serial("with `isContextual`, only the utterances it speaks are fetched, with the real neighbors around them", async (t) => {
+  const { synthesized } = createTurnTakingEngine();
+  await flush();
+
+  t.deepEqual(synthesized().map(body => [body.prev_utterance, body.text, body.next_utterance]), [
+    [undefined, "One.", "Two."],
+    ["Two.", "Three.", "Four."]
+  ]);
+});
+
+test.serial("with `isContextual`, speaking its next utterance past another engine's plays it from the prefetched window", async (t) => {
+  const { engine, synthesized } = createTurnTakingEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.speak(2);
+  await flush();
+
+  t.deepEqual(synthesized().map(body => body.text), ["One.", "Three."], "\"Three.\" isn't fetched again");
+});
+
+// prefetchWindow is how many of its next utterances the engine fetches audio for ahead of time.
+// Under a routing engine, `isContextual` marks the utterances another engine speaks: they don't count, however many there are.
+function createPrefetchingEngine(options: { readyBufferChars?: number } = {}) {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 2, ...options });
+  const fetchedTexts = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, fetchedTexts };
+}
+
+const eight = ["One.", "Two.", "Three.", "Four.", "Five.", "Six.", "Seven.", "Eight."].map(plain => ({ plain }));
+
+test.serial("at load, audio is fetched ahead for its first 2 own utterances, past 5 that another engine speaks", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine();
+
+  engine.loadUtterances(eight, 0, index => index < 5); // "One." to "Five." are another engine's
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["Six.", "Seven."]);
+});
+
+test.serial("while one plays, audio is fetched ahead for its next 2 own utterances, past 4 that another engine speaks", async (t) => {
+  // readyBufferChars 1: before playing, only "One." is fetched
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, index => index > 0 && index < 5); // "Two." to "Five." are another engine's
+  await flush();
+  engine.speak(0);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven."], "\"One.\", playing, then its next 2");
+});
+
+// "One." and "Six." to "Eight." are its own; "Two." to "Five." are another engine's.
+const ownFirstAndLast = (index: number) => index > 0 && index < 5;
+
+test.serial("moved to another engine's utterance, audio is fetched ahead for its next 2 own utterances from there", async (t) => {
+  // readyBufferChars 1: before playing, only "One." is fetched
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.setCurrentUtteranceIndex(2);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven."]);
+});
+
+test.serial("moved one by one through another engine's utterances, its next own one plays from the audio fetched ahead", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  for (const index of [1, 2, 3, 4]) engine.setCurrentUtteranceIndex(index);
+  engine.speak(5);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven.", "Eight."], "\"Six.\" isn't fetched again");
+});
+
+test.serial("moved back to another engine's utterance, audio is fetched again for its next 2 own utterances from there", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.speak(5);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.setCurrentUtteranceIndex(1);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven.", "Eight.", "Six.", "Seven."]);
+});
+
+test.serial("with no other engine, while one plays, audio is fetched ahead for the next 2 utterances", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 1);
+  await flush();
+  engine.speak(1);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["Two.", "Three.", "Four."], "\"Two.\", playing, then the next 2");
+});
+
+test.serial("after its own last utterance, it still reports playing while another engine has one to speak after it", async (t) => {
+  const { engine } = createTurnTakingEngine();
+  await flush();
+  engine.speak(2);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.(); // "Three.", its last, ended
+
+  t.is(engine.getState(), "playing", "\"Four.\", another engine's, is still to come");
+});
+
+test.serial("after the last utterance of the queue, its own, it reports idle", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }], 0, index => index === 0); // "One." is another engine's
+  await flush();
+  engine.speak(1);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+
+  t.is(engine.getState(), "idle");
+});
+
 test.serial("ssml-only content (no plain) is sent as text with ssml:true", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -243,7 +392,7 @@ test.serial("setVoice(string) uses a cached voice when found, else keeps the raw
   t.is(engine.getCurrentVoice()?.source, "server");
 });
 
-test.serial("speak() plays audio and fires loading/start/end events", async (t) => {
+test.serial("speak() plays buffered audio without loading, firing start/end events", async (t) => {
   const { fetchImpl } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
   });
@@ -262,11 +411,11 @@ test.serial("speak() plays audio and fires loading/start/end events", async (t) 
   engine.speak();
   await flush();
 
-  t.deepEqual(events, ["loading", "start"]);
+  t.deepEqual(events, ["start"]);
   t.is(engine.getState(), "playing");
 
   MockAudioBufferSourceNode.instances[0].onended?.();
-  t.deepEqual(events, ["loading", "start", "end"]);
+  t.deepEqual(events, ["start", "end"]);
   t.is(engine.getState(), "idle", "state is idle after the last (only) utterance ends");
 });
 
@@ -706,6 +855,65 @@ test.serial("an engine without its voices yet fetches them once to send an utter
   t.true(voices.includes("urn:readium:tts:pocket:hans"));
   t.false(voices.includes(undefined), "never sent without a voice");
   t.is(calls.filter(c => c.url.endsWith("/voices")).length, 1, "concurrent prefetches share one /voices request");
+});
+
+test.serial("with voiceProviders, a voice of another provider is never sent", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    voices: () => [
+      makeServerVoice(),
+      makeServerVoice({ name: "Rachel", identifier: "urn:readium:tts:elevenlabs:rachel", provider: "elevenlabs" })
+    ],
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl, voiceProviders: ["pocket"] });
+  const errors: any[] = [];
+  engine.on("error", (event: any) => errors.push(event.detail));
+  t.deepEqual((await engine.getAvailableVoices()).map(voice => voice.identifier), ["urn:readium:tts:pocket:alba"]);
+
+  engine.loadUtterances([{ plain: "Hello", voice: "urn:readium:tts:elevenlabs:rachel" }]);
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined], "sent without a voice, for the server to pick, rather than with the utterance's");
+
+  engine.setVoice("urn:readium:tts:elevenlabs:rachel");
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined]);
+  t.true(errors.length > 0 && errors.every(detail => detail.recoverable === false));
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [undefined, "urn:readium:tts:pocket:alba"]);
+});
+
+test.serial("with voiceProviders, a voice set by id while /voices fails fails with that error, and is spoken once /voices answers", async (t) => {
+  let voicesUp = false;
+  const { fetchImpl, calls } = createMockFetch({
+    voices: () => voicesUp ? [makeServerVoice()] : { status: 503, ok: false, json: { title: "Service Unavailable" } },
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl, voiceProviders: ["pocket"] });
+  const errors: any[] = [];
+  engine.on("error", (event: any) => errors.push(event.detail));
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  engine.loadUtterances([{ plain: "Hello" }]);
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [], "nothing sent while /voices fails");
+  t.true(errors.length > 0);
+  t.true(errors.every(detail => detail.status === 503 && !/isn't a voice/.test(detail.message)), "the /voices error");
+
+  voicesUp = true;
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), ["urn:readium:tts:pocket:alba"]);
 });
 
 test.serial("initialize() picks a default voice with boundary events over a better one without", async (t) => {
@@ -1232,7 +1440,7 @@ test.serial("format.adaptBitrateToNetwork sends a reduced bitrate when navigator
   }
 
   const body = JSON.parse(calls.find(c => c.url.endsWith("/synthesize"))!.init.body);
-  t.is(body.output.bitrate, 48000);
+  t.is(body.output.bitrate, 48);
 });
 
 // =============================================
@@ -1261,6 +1469,26 @@ test.serial("a /synthesize request that never resolves stalls after timeoutMs wi
   t.is(errors[0].status, 408);
   t.is(errors[0].recoverable, true);
   t.is(engine.getState(), "idle");
+});
+
+test.serial("time paused doesn't count toward a stall", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {}) // never resolves
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, timeoutMs: 40 });
+  engine.loadUtterances([{ plain: "Hello" }]);
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  engine.pause();
+  await wait(120);
+  t.is(errors.length, 0, "no stall while paused");
+
+  engine.resume();
+  await wait(120);
+  t.is(errors.length, 1, "still stalls once playing again");
+  t.is(errors[0].type, "https://readium.org/speech-server/error#stall");
 });
 
 test.serial("loadUtterances() waits for the full readyBufferChars window to actually finish buffering before declaring \"ready\"", async (t) => {
@@ -1822,4 +2050,231 @@ test.serial("setRate during the inter-utterance gap does not replay the utteranc
   await flush();
 
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "no restart during the inter-utterance gap");
+});
+
+test.serial("a prefetch decoded while paused doesn't resume the audio", async (t) => {
+  let releasePrefetch!: () => void;
+  const prefetched = new Promise<void>(resolve => { releasePrefetch = resolve; });
+  const { fetchImpl } = createMockFetch({
+    synthesize: async (body: any) => {
+      if (body.text === "Second.") await prefetched;
+      return { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+    }
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 1, readyBufferChars: 1 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  t.is(engine.getState(), "playing");
+
+  engine.pause();
+  releasePrefetch();
+  await flush();
+
+  t.is(MockAudioContext.instances[0].state, "suspended");
+  t.is(engine.getState(), "paused");
+});
+
+test.serial("speaking after a pause resumes the audio", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  engine.speak(0);
+  await flush();
+  engine.pause();
+
+  engine.speak(1);
+  await flush();
+  t.is(MockAudioContext.instances[0].state, "running");
+  t.is(engine.getState(), "playing");
+});
+
+// The utterance's synthesis is held until release(), as a slow server would.
+function createSlowSynthesisEngine() {
+  let release!: () => void;
+  const synthesized = new Promise<void>(resolve => { release = resolve; });
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: async () => {
+      await synthesized;
+      return { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+    }
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+  const events: string[] = [];
+  for (const type of ["pause", "resume", "start", "stop"]) engine.on(type as any, () => events.push(type));
+  return { engine, release, events, calls };
+}
+
+test.serial("pause while the utterance is synthesized holds its audio until resume", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  t.is(engine.getState(), "paused");
+
+  release();
+  await flush();
+  t.deepEqual(events, ["pause"], "doesn't start while paused");
+  t.is(MockAudioContext.instances[0].state, "suspended");
+
+  engine.resume();
+  t.deepEqual(events, ["pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(MockAudioContext.instances[0].state, "running");
+});
+
+test.serial("resume before the paused utterance's audio arrives plays it once it does", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.resume();
+  t.is(engine.getState(), "loading");
+
+  release();
+  await flush();
+  t.deepEqual(events, ["pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(MockAudioContext.instances[0].state, "running");
+});
+
+test.serial("stop while paused before the utterance started drops it", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  release();
+  await flush();
+  engine.stop();
+  engine.speak(0);
+  await flush();
+
+  t.deepEqual(events, ["pause", "stop", "start"], "the held start isn't told on top of the new one");
+});
+
+function createQueueEngine() {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 1, readyBufferChars: 1 });
+  engine.loadUtterances([{ plain: "One." }, { plain: "Two." }, { plain: "Three." }, { plain: "Four." }]);
+  const events: string[] = [];
+  for (const type of ["pause", "resume", "start", "stop"]) engine.on(type as any, () => events.push(type));
+  const synthesized = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, events, synthesized };
+}
+
+test.serial("moving to another utterance while paused plays it on resume", async (t) => {
+  const { engine, events, synthesized } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.setCurrentUtteranceIndex(3);
+  engine.resume();
+  await flush();
+
+  t.deepEqual(events, ["start", "pause", "resume", "start"]);
+  t.is(engine.getState(), "playing");
+  t.is(engine.getCurrentUtteranceIndex(), 3);
+  t.true(synthesized().includes("Four."));
+});
+
+test.serial("speaking another utterance while playing plays it", async (t) => {
+  const { engine, events } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.speak(3);
+  await flush();
+
+  t.deepEqual(events, ["start", "start"]);
+  t.is(engine.getState(), "playing");
+});
+
+test.serial("moving to another utterance while one is loading drops it and stops", async (t) => {
+  const { engine, release, events } = createSlowSynthesisEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.setCurrentUtteranceIndex(1);
+  release();
+  await flush();
+
+  t.deepEqual(events, ["stop"], "the dropped utterance doesn't start");
+  t.is(engine.getState(), "idle");
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test.serial("moving to another utterance while paused before its audio arrived aborts its request", async (t) => {
+  const { engine, calls } = createSlowSynthesisEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  engine.setCurrentUtteranceIndex(1);
+
+  const request = calls.find(c => c.url.endsWith("/synthesize") && JSON.parse(c.init.body).text === "First.")!;
+  t.true(request.init.signal.aborted);
+});
+
+test.serial("moving to another utterance while one plays stops it", async (t) => {
+  const { engine, events } = createQueueEngine();
+  await flush();
+  engine.speak(0);
+  await flush();
+  engine.setCurrentUtteranceIndex(2);
+
+  t.deepEqual(events, ["start", "stop"]);
+  t.is(engine.getState(), "idle");
+  t.is(engine.getCurrentUtteranceIndex(), 2);
+});
+
+// Each /synthesize request answers only when answer() is called, oldest first.
+function createQueuedAnswersEngine(utterances: string[]) {
+  const pending: (() => void)[] = [];
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => new Promise(resolve => pending.push(() => resolve({ json: { audio: wavBase64(), format: "wav", boundaries: null } })))
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 3, readyBufferChars: 1 });
+  engine.loadUtterances(utterances.map(plain => ({ plain })));
+  const answer = async () => { pending.shift()?.(); await flush(); };
+  const requested = () => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  return { engine, answer, requested };
+}
+
+test.serial("prefetches queued before new content loads aren't requested for it", async (t) => {
+  const { engine, answer, requested } = createQueuedAnswersEngine(["A0.", "A1.", "A2.", "A3.", "A4."]);
+  await flush();
+  await answer(); // A0, buffered for "ready"
+  engine.speak(0);
+  await flush(); // A1 requested, A2 and A3 queued behind it
+
+  engine.loadUtterances(["B0.", "B1.", "B2.", "B3.", "B4."].map(plain => ({ plain })));
+  for (let i = 0; i < 4; i++) await answer();
+
+  t.false(requested().includes("B2."), "the queue's own prefetch reaches B2 only after B1 is spoken");
+  t.false(requested().includes("B3."));
+});
+
+test.serial("speaking an utterance outside the prefetched window drops the window and fetches it first", async (t) => {
+  const { engine, answer, requested } = createQueuedAnswersEngine(["U0.", "U1.", "U2.", "U3.", "U4.", "U5."]);
+  await flush();
+  await answer(); // U0
+  engine.speak(0);
+  await flush(); // U1 requested, U2 and U3 queued behind it
+
+  engine.speak(5);
+  await flush();
+  t.is(requested().at(-1), "U5.", "requested right away, not behind the old window");
+
+  for (let i = 0; i < 3; i++) await answer();
+  t.false(requested().includes("U2."), "the old window isn't requested");
+  t.false(requested().includes("U3."));
 });

@@ -176,12 +176,9 @@ async function segmentPieces(
 // For each gap between consecutive pieces, whether a sentence boundary
 // genuinely reaches into the next piece's own text, vs. merely absorbing the
 // separator — which would otherwise make an unrelated final sentence look joined.
-async function detectGenuineJoins(
-  pieces: Piece[],
-  ctx: WalkContext,
-  language: string,
-  suppressions: string[] | undefined,
-): Promise<boolean[]> {
+export async function detectGenuineJoins(pieces: Piece[], ctx: WalkContext): Promise<boolean[]> {
+  const language = segmentationLanguage(pieces, ctx);
+  const suppressions = callerSuppressions(language, ctx);
   const plainParts = pieces.map((piece) => pieceText(piece, ctx));
   const { joined, ranges } = joinPieceTexts(plainParts, pieces.map((piece) => piece.spacing));
   const boundaries = await segmentPieces(pieces, plainParts, joined, ranges, language, suppressions, ctx);
@@ -395,8 +392,7 @@ export async function splitIntoSentenceUtterances(out: Piece[], ctx: WalkContext
       i = j + 1;
       continue;
     }
-    const language = segmentationLanguage(pieces, ctx);
-    const genuineJoins = await detectGenuineJoins(pieces, ctx, language, callerSuppressions(language, ctx));
+    const genuineJoins = await detectGenuineJoins(pieces, ctx);
     const joinedWithNext = joinInsertions(pieces, genuineJoins);
     let start = 0;
     for (let k = 0; k < pieces.length; k++) {

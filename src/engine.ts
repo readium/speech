@@ -11,7 +11,8 @@ export interface ReadiumSpeechPlaybackEngine {
   // Queue Management
   // startIndex is a hint for where playback will resume, so an engine that pre-buffers ahead of
   // playback (e.g. SpeechServerEngine) warms the right utterances instead of always index 0.
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;
+  // isContextual(i): another engine speaks contents[i], so it's only the text around this engine's own, never prepared ahead.
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void;
   
   // Voice Configuration
   setVoice(voice: ReadiumSpeechVoice | string): void;

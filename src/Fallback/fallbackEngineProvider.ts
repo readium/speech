@@ -1,7 +1,9 @@
 import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEngine } from "../engine.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
+import { hasBoundaryEvents } from "../voices/voiceMatching.js";
 import { FallbackSpeechEngine } from "./fallbackSpeechEngine.js";
+import { pickFallbackVoice } from "./fallbackVoice.js";
 
 export interface FallbackEngineProviderOptions {
   primary: ReadiumSpeechEngineProvider;
@@ -55,7 +57,11 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
       if (this.onFailure === "error") {
         throw error;
       }
-      return this.fallback.createEngine(voice);
+      // An id alone gives no language to match
+      if (typeof voice !== "object") return this.fallback.createEngine(voice);
+      // A fallback that can't list its voices may still create an engine, with its default voice
+      const fallbackVoice = await pickFallbackVoice(this.fallback, voice.language, voice.gender, hasBoundaryEvents(voice)).catch(() => null);
+      return this.fallback.createEngine(fallbackVoice ?? undefined);
     }
 
     return new FallbackSpeechEngine({

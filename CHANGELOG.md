@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `RoutingEngineProvider` and `RoutingSpeechEngine`: one engine over several providers, speaking each utterance with the provider whose voice it is, so a navigator mixes e.g. Web Speech and speech-server voices across a publication's languages without restarting. See [RoutingEngine](docs/RoutingEngine.md).
+- A `"waiting"` navigator event: playback is asked for, but the utterance's audio isn't there yet, e.g. while `SpeechServerEngine` synthesizes it or content loads. Its `"start"` ends the wait. See [`"waiting"` events](docs/Playback.md#waiting-events).
+- An optional `isContextual(index)` argument to `ReadiumSpeechPlaybackEngine.loadUtterances()`: true when another engine speaks that utterance, so it's only context, e.g. for a speech-server's `prev_utterance`/`next_utterance`. `SpeechServerEngine` doesn't fetch it ahead.
+- `voiceProviders` option on `SpeechServerEngine` and `SpeechServerEngineProvider`: only voices of these server providers, e.g. `["pocket"]`, are listed and spoken with. See [SpeechServerEngine](docs/SpeechServerEngine.md#options).
+- `ReadiumSpeechNavigator` picks other languages' voices from the same kind of source as the voice they follow, the browser or a server, before matching boundary events, e.g. a browser voice for French when a browser voice is chosen for English. `pickLanguageVoice()` takes that `source`, and `filterBySource()` and `voiceSourceKind()` are new.
+
+### Changed
+
+- `ReadiumSpeechNavigator` no longer picks voices again when `FallbackSpeechEngine` swaps engines, and `FallbackSpeechEngine` replaces each voice of the queue the primary has with its own closest fallback voice (language, gender, boundary events), not only the failed one, until it swaps back. It lists those primary voices meanwhile, so a navigator keeps them for content loaded later, and `RoutingSpeechEngine` keeps giving their utterances to it. The voice in `"enginefallback"` is the one speaking the failed voice's utterances.
+
+### Fixed
+
+- `SpeechServerEngine` with `adaptBitrateToNetwork` requests its reduced bitrates in kbps, as `output.bitrate` is, instead of 1000 times them.
+- A paused `SpeechServerEngine` stays paused when an upcoming utterance it prefetches arrives, instead of playing on.
+- `SpeechServerEngine.pause()` pauses an utterance still being synthesized, instead of being ignored: its audio waits for `resume()`, and its `"start"` comes then.
+- `ReadiumSpeechNavigator.pause()` while content loads for a `play()` tells `"pause"`, as a pause between utterances does.
+- `ReadiumSpeechNavigator` goes `"idle"` once empty content is loaded, as at the end of the queue, instead of staying `"loading"`. Playback waiting for it, a `play()` or a reload while playing, ends with `"stop"`.
+- With `timeoutMs`, time `SpeechServerEngine` spends paused no longer counts toward a stall, so a long pause doesn't end in a `SpeechServerStallError`.
+- `SpeechServerEngine.resume()` after moving to another utterance while paused (`setCurrentUtteranceIndex()`, a navigator skip while paused) plays that utterance, instead of nothing.
+- `SpeechServerEngine.setCurrentUtteranceIndex()` while an utterance loads or plays drops it and tells `"stop"`, as `WebSpeechEngine` does, instead of playing it once its audio arrives or staying `"playing"` in silence.
+- `FallbackSpeechEngine.speak(index)` with an index outside the queue throws at once, as an engine does, instead of when the engine it swaps to is ready, and no longer keeps that index to speak after a later swap. `setCurrentUtteranceIndex()` with one calls `onComplete(false)` during a swap too, instead of `onComplete(true)`.
+- `WebSpeechEngine.setCurrentUtteranceIndex()` while an utterance plays tells `"idle"` and `"stop"` at once, after moving and before `onComplete`, as `SpeechServerEngine` does, instead of when the browser reports the cancel: later in most browsers, and in Safari before moving, so that a `speak()` from a `"stop"` listener was undone by the move. An utterance Safari was about to speak after a cancel is no longer spoken.
+- `WebSpeechEngine.stop()` ends the timer that pauses and resumes speech every 5 seconds for voices without pause events, e.g. Chrome's Google voices, instead of leaving it to pause and resume `speechSynthesis` until the next utterance.
+- `SpeechServerEngine` no longer requests prefetches queued before the queue, voice, rate or pitch changed, and a skip past the prefetched window fetches the utterance skipped to first, instead of after the old window.
+- Without `languages` or a content language, `ReadiumSpeechNavigator` picks voices with the boundary support of the `voice` preference's voices when they agree, e.g. one without boundary events for French when the one preferred for English has none, instead of always preferring boundary events.
+- `ReadiumSpeechNavigator` no longer waits `pauseDuration`, nor auto-pauses with `autoPause: "utterance"`, in the middle of a sentence cut at a change of language (`language: "always"` with `format: "plain"`).
+- `FallbackEngineProvider.createEngine(voice)` with a voice object and a primary that fails to create its engine gives the fallback its closest voice, as a mid-playback fallback does, instead of the primary's voice. A fallback that can't list its voices gets none, so it uses its default one.
+
 ## [0.24.0] - 2026-11-24
 
 ### Added

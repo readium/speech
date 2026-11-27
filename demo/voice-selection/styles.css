@@ -384,6 +384,30 @@ form > div {
   background-color: #e68900 !important; /* Darker orange on hover */
 }
 
+/* Playing, but waiting for the utterance's audio */
+#play-pause-btn.waiting::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.5em;
+  vertical-align: -0.1em;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: play-waiting 0.8s linear infinite;
+}
+
+@keyframes play-waiting {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #play-pause-btn.waiting::after {
+    animation: none;
+  }
+}
+
 /* Stop button (red) */
 .stop,
 .playback-controls .stop {
@@ -587,4 +611,59 @@ form > div {
 .download-btn:hover:not(:disabled) {
   background-color: #1976D2; /* Slightly darker blue on hover */
   opacity: 1;
+}
+
+/* Notifications */
+.toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toasts > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 400px;
+  padding: 12px 16px;
+  border-left: 4px solid #2196F3;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+.toast-error {
+  border-left-color: #d32f2f;
+}
+
+.toast p {
+  margin: 0;
+  flex: 1;
+}
+
+.toast-close {
+  flex: none;
+  margin: 0;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: #333;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
 }

@@ -3,11 +3,11 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { pickDefaultVoice } from "../voices/defaultVoice.js";
-import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { isOfVoiceProviders, mapServerVoices, withVoiceProviders } from "./speechServerVoiceMapping.js";
 import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors.js";
 import { ErrorEventDetail } from "../Fallback/recoverableFailure.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
-import { clampIndex } from "../utils/array.js";
+import { clampIndex, isIndexInRange } from "../utils/array.js";
 import { clamp } from "../utils/clamp.js";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText.js";
 import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/plainText.js";
@@ -49,6 +49,8 @@ export interface SpeechServerEngineOptions {
   // Grace period (ms) tolerated after the playback buffer is projected to run dry before a
   // still-pending /synthesize chunk is treated as stalled — not a per-request cap. Omit to never declare a stall.
   timeoutMs?: number;
+  // Only voices of these server providers (a voice's `provider`, e.g. "pocket") are listed and spoken with.
+  voiceProviders?: string[];
 }
 
 const DEFAULT_PREFETCH_WINDOW = 3;
@@ -74,6 +76,12 @@ interface ChunkRequest {
   controller: AbortController;
 }
 type ChunkStream = ChunkRequest[];
+
+interface PrefetchedStream {
+  stream: Promise<ChunkStream>;
+  // Its first chunk's audio is there, so it can start without waiting.
+  arrived: boolean;
+}
 
 // One chunk's node on the AudioContext timeline, in schedule order.
 interface ScheduledChunk {
@@ -137,6 +145,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private serviceInfo: SpeechServerServiceInfo | null = null;
   private serviceInfoPromise: Promise<SpeechServerServiceInfo> | null = null;
   private currentUtterances: ReadiumSpeechUtterance[] = [];
+  private isContextual: ((index: number) => boolean) | undefined;
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
@@ -150,9 +159,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private readonly overLengthText: "split" | "error";
   private readonly timeoutMs: number | undefined;
   private readonly formatOptions: SpeechServerFormatOptions;
+  private readonly voiceProviders: string[] | undefined;
   private readonly canPlayType: CanPlayType;
-  private prefetchCache: Map<number, Promise<ChunkStream>> = new Map();
+  private prefetchCache: Map<number, PrefetchedStream> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
+  // Bumped by clearPrefetchCache(), so a prefetch still queued in the chain isn't requested once cleared.
+  private prefetchGeneration: number = 0;
   // Every AbortController for a *prefetch* chunk request still in flight, so clearPrefetchCache
   // can abort them immediately instead of waiting on their wrapping promises to settle first.
   private activeControllers: Set<AbortController> = new Set();
@@ -162,6 +174,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private isSpeakingInternal: boolean = false;
   private restartPending: boolean = false;
   private restartOnResume: boolean = false;
+  // The "start" of an utterance whose audio arrived while paused: told by resume(), as it starts then.
+  private heldStart: ReadiumSpeechPlaybackEvent<"start"> | null = null;
+  // Time spent paused, which a stall deadline doesn't count; see unpausedTime().
+  private pausedFor: number = 0;
+  private pausedSince: number = 0;
 
   private audioContext: AudioContext | null = null;
   private masterGain: GainNode | null = null;
@@ -180,13 +197,14 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.overLengthText = options.overLengthText ?? "split";
     this.timeoutMs = options.timeoutMs;
     this.formatOptions = options.format ?? {};
+    this.voiceProviders = options.voiceProviders;
     this.canPlayType = typeof Audio !== "undefined" ? (mime: string) => new Audio().canPlayType(mime) : () => "";
   }
 
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
-    this.voices = voices;
-    this.voicesRequest = null;
+    this.voices = withVoiceProviders(voices, this.voiceProviders);
+    this.voicesRequest = Promise.resolve(this.voices);
   }
 
   // Fetches the voices, and picks the default one by navigator.languages, as WebSpeechEngine does without languages
@@ -216,10 +234,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.abortLiveControllers();
     this.clearPrefetchCache();
     this.currentUtterances = contents;
+    this.isContextual = isContextual;
     this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     this.setState("loading");
     void this.bufferUntilReady(++this.loadGeneration);
@@ -232,14 +251,15 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const startIndex = clampIndex(this.currentUtteranceIndex, this.currentUtterances.length);
     // Bounded by prefetchWindow too — the initial buffer is just the front of that same
     // lookahead, not a second, larger one.
-    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), startIndex + this.prefetchWindow);
+    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), this.ownIndexAfter(startIndex, this.prefetchWindow));
     const pending: Promise<SynthesizedChunk>[] = [];
     for (let index = startIndex; index <= targetIndex; index++) {
+      if (this.isContextual?.(index)) continue;
       this.queuePrefetch(index);
       const cached = this.prefetchCache.get(index);
       if (cached) {
         // Only the first chunk needs to be ready for playback to start.
-        pending.push(cached.then(chunkStream => chunkStream[0].promise));
+        pending.push(cached.stream.then(chunkStream => chunkStream[0].promise));
       }
     }
 
@@ -264,6 +284,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const start = clampIndex(fromIndex, this.currentUtterances.length);
     let total = 0;
     for (let index = start; index < this.currentUtterances.length; index++) {
+      if (this.isContextual?.(index)) continue;
       total += (utteranceText(this.currentUtterances[index]) ?? "").length;
       if (total >= targetChars) {
         return index;
@@ -272,12 +293,33 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtterances.length - 1;
   }
 
+  // The `count`-th utterance it speaks after `index`, else the last index.
+  private ownIndexAfter(index: number, count: number): number {
+    if (count <= 0) return index;
+    let remaining = count;
+    for (let i = index + 1; i < this.currentUtterances.length; i++) {
+      if (!this.isContextual?.(i) && --remaining === 0) return i;
+    }
+    return this.currentUtterances.length - 1;
+  }
+
   // The utterance's own voice when this server has it, else the current voice.
   private async voiceFor(content: ReadiumSpeechUtterance | undefined): Promise<ReadiumSpeechVoice | null> {
     // Without them, the utterance's voice couldn't be matched; a failed load leaves the current voice.
-    if (this.voices.length === 0) await (this.initializing ?? this.getAvailableVoices()).catch(() => {});
+    let listingError: unknown;
+    if (this.voices.length === 0) {
+      await (this.initializing ?? this.getAvailableVoices()).catch((error) => {
+        listingError = error;
+      });
+    }
+    // A voice set by id before the voices were listed has no provider: it's the listed one once they are.
+    const currentId = this.currentVoice?.provider === undefined ? this.currentVoice?.identifier : undefined;
+    if (currentId) this.currentVoice = this.voices.find(v => v.identifier === currentId || v.name === currentId) ?? this.currentVoice;
     const ownVoice = content?.voice ? this.voices.find(v => v.identifier === content.voice || v.name === content.voice) : undefined;
-    return ownVoice ?? this.currentVoice ?? this.defaultVoice;
+    const voice = ownVoice ?? this.currentVoice ?? this.defaultVoice;
+    // Its provider is unknown until the voices are listed.
+    if (listingError !== undefined && voice && !isOfVoiceProviders(voice, this.voiceProviders)) throw listingError;
+    return voice;
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
@@ -343,8 +385,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       throw await toSpeechServerError(response);
     }
     const serverVoices: SpeechServerVoice[] = await response.json();
-    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
-    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
+    this.voices = mapServerVoices(serverVoices, serviceInfo, this.voiceProviders);
     return this.voices;
   }
 
@@ -374,10 +415,10 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   speak(utteranceIndex?: number): void {
     if (utteranceIndex !== undefined) {
-      if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
+      if (!isIndexInRange(utteranceIndex, this.currentUtterances.length)) {
         throw new Error("Invalid utterance index");
       }
-      this.currentUtteranceIndex = utteranceIndex;
+      this.moveTo(utteranceIndex);
     }
     this.restartPending = false; // any real speak() call supersedes a stale deferred restart
     this.restartOnResume = false;
@@ -393,7 +434,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     // Set synchronously (not deferred until the first chunk is actually scheduled) so a
     // rate/pitch change landing during the network round-trip still sees "speaking" and restarts.
     this.isSpeakingInternal = true;
-    this.setState("loading"); // emits "loading" itself, via the state-change switch below
+    // "loading" only while its audio is on its way; prefetched audio starts right away.
+    this.setState(this.prefetchCache.get(this.currentUtteranceIndex)?.arrived ? "playing" : "loading");
 
     void this.synthesizeAndPlay(generation);
   }
@@ -434,7 +476,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (cached) {
       this.prefetchCache.delete(index);
       try {
-        const stream = await cached;
+        const stream = await cached.stream;
         // This stream is becoming the live utterance, not a background prefetch anymore —
         // move its controllers so a later clearPrefetchCache() can't cancel it out from under us.
         for (const { controller } of stream) {
@@ -451,8 +493,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   // Chains up to `prefetchWindow` upcoming indices onto prefetchChainTail, one at a time.
   private fillPrefetchWindow(afterIndex: number): void {
-    const end = Math.min(afterIndex + this.prefetchWindow, this.currentUtterances.length - 1);
+    const end = this.ownIndexAfter(afterIndex, this.prefetchWindow);
     for (let index = afterIndex + 1; index <= end; index++) {
+      if (this.isContextual?.(index)) continue;
       this.queuePrefetch(index);
     }
   }
@@ -461,8 +504,14 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.prefetchCache.has(index)) {
       return;
     }
-    const streamPromise = this.prefetchChainTail.then(() => this.synthesizeStream(index, true));
-    this.prefetchCache.set(index, streamPromise);
+    const generation = this.prefetchGeneration;
+    const streamPromise = this.prefetchChainTail.then(() => {
+      if (generation !== this.prefetchGeneration) throw new Error("Prefetch cleared before it was requested");
+      return this.synthesizeStream(index, true);
+    });
+    const prefetched: PrefetchedStream = { stream: streamPromise, arrived: false };
+    this.prefetchCache.set(index, prefetched);
+    streamPromise.then(chunkStream => chunkStream[0].promise).then(() => (prefetched.arrived = true), () => {});
     // The next queued utterance's own first request shouldn't jump ahead of this one's last
     // chunk — so the chain only advances once every chunk of this stream has settled.
     this.prefetchChainTail = streamPromise.then(chunkStream => Promise.all(chunkStream.map(c => c.promise))).then(
@@ -474,6 +523,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private clearPrefetchCache(): void {
+    this.prefetchGeneration++;
     this.prefetchCache.clear();
     this.activeControllers.forEach(controller => controller.abort());
     this.activeControllers.clear();
@@ -559,6 +609,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const { content, text, textOffset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller } = params;
     try {
       const voice = await this.voiceFor(content);
+      if (voice && !isOfVoiceProviders(voice, this.voiceProviders)) throw new Error(`${voice.identifier ?? voice.name} isn't a voice of ${this.voiceProviders!.join(", ")}`);
       const response = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -605,9 +656,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       this.masterGain.gain.value = this.volume;
       this.masterGain.connect(this.audioContext.destination);
     }
-    if (this.audioContext.state === "suspended") {
-      this.audioContext.resume().catch(() => {});
-    }
     return this.audioContext;
   }
 
@@ -618,11 +666,19 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return promise;
     }
     const deadline = bufferedAheadMs + this.timeoutMs;
+    const deadlineAt = this.unpausedTime() + deadline;
     return new Promise<T>((resolve, reject) => {
-      const timer = setTimeout(() => {
+      // Waits again for the time it was paused, as the buffer didn't drain meanwhile.
+      const check = (): void => {
+        const remaining = deadlineAt - this.unpausedTime();
+        if (remaining > 0) {
+          timer = setTimeout(check, remaining);
+          return;
+        }
         controller.abort();
         reject(new SpeechServerStallError(`No audio chunk arrived within ${deadline.toFixed(0)}ms of the playback buffer running dry`));
-      }, deadline);
+      };
+      let timer = setTimeout(check, deadline);
       promise.then(
         (value) => {
           clearTimeout(timer);
@@ -636,6 +692,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     });
   }
 
+  // Milliseconds not spent paused: stands still while paused.
+  private unpausedTime(): number {
+    const now = performance.now();
+    return now - this.pausedFor - (this.playbackState === "paused" ? now - this.pausedSince : 0);
+  }
+
   // Schedules chunks onto one continuous AudioContext timeline as they resolve.
   private async scheduleChunksStreaming(chunkStream: ChunkStream, generation: number, voice: ReadiumSpeechVoice | null): Promise<void> {
     // Left uncaught: the caller's own catch handles a first-chunk failure as a playback error.
@@ -646,14 +708,25 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     const ctx = this.ensureAudioContext();
+    // Paused before its audio arrived: scheduled on the suspended clock, started by resume().
+    const held = this.playbackState === "paused";
+    // Only playback resumes it: decoding a prefetch while paused mustn't.
+    if (!held && ctx.state === "suspended") {
+      ctx.resume().catch(() => {});
+    }
     const gain = this.masterGain!;
     // Only fake the rate locally when the server won't honor output.speed itself, else it'd double up.
     const speedHonoredByServer = voice?.controls?.speed === true;
     const rate = speedHonoredByServer ? 1 : clampPlaybackRate(this.rate);
 
     this.scheduledChunks = [];
-    this.setState("playing");
-    this.emitEvent({ type: "start", detail: { voice } });
+    const start: ReadiumSpeechPlaybackEvent<"start"> = { type: "start", detail: { voice } };
+    if (held) {
+      this.heldStart = start;
+    } else {
+      this.setState("playing");
+      this.emitEvent(start);
+    }
 
     let t = ctx.currentTime;
     // Only the most recently scheduled node's onended should end the utterance.
@@ -677,7 +750,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     scheduleOne(first);
-    this.startBoundaryPolling(generation);
+    if (!held) this.startBoundaryPolling(generation);
 
     for (let i = 1; i < chunkStream.length; i++) {
       let chunk: SynthesizedChunk;
@@ -781,11 +854,14 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       entry.node.disconnect();
     }
     this.scheduledChunks = [];
+    this.heldStart = null;
   }
 
   pause(): void {
-    if (this.playbackState === "playing" && this.audioContext) {
-      this.audioContext.suspend().catch(() => {});
+    // Also before the utterance's audio arrived, which then waits on the suspended clock.
+    const beforeStart = this.playbackState === "loading" && this.isSpeakingInternal;
+    if (this.playbackState === "playing" || beforeStart) {
+      this.ensureAudioContext().suspend().catch(() => {});
       this.stopBoundaryPolling();
       this.isSpeakingInternal = false;
       this.setState("paused");
@@ -801,11 +877,21 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         this.speak(this.currentUtteranceIndex);
         return;
       }
+      // Paused before its audio arrived, which it still hasn't: back to waiting for it.
+      if (this.scheduledChunks.length === 0) {
+        this.isSpeakingInternal = true;
+        this.setState("loading");
+        this.emitEvent({ type: "resume" });
+        return;
+      }
       this.audioContext.resume().catch(() => {});
       this.startBoundaryPolling(this.speakGeneration);
       this.isSpeakingInternal = true;
       this.setState("playing");
       this.emitEvent({ type: "resume" });
+      const start = this.heldStart;
+      this.heldStart = null;
+      if (start) this.emitEvent(start);
     }
   }
 
@@ -885,7 +971,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
-    if (index < 0 || index >= this.currentUtterances.length) {
+    if (!isIndexInRange(index, this.currentUtterances.length)) {
       onComplete?.(false);
       return;
     }
@@ -894,9 +980,28 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
+    // The utterance left is dropped, as speak() would, also when paused while its audio is still on its way.
     this.stopAudio();
-    this.currentUtteranceIndex = index;
+    this.speakGeneration++;
+    this.abortLiveControllers();
+    this.moveTo(index);
+    if (this.playbackState === "paused") {
+      // resume() speaks the new one
+      this.restartOnResume = true;
+    } else if (this.isSpeakingInternal) {
+      this.isSpeakingInternal = false;
+      this.setState("idle");
+      this.emitEvent({ type: "stop" });
+    }
+    if (this.isContextual?.(index)) this.fillPrefetchWindow(index);
     onComplete?.(true);
+  }
+
+  // Prefetched audio is kept while all of it is still ahead, within the window.
+  private moveTo(index: number): void {
+    const end = this.ownIndexAfter(index, this.prefetchWindow);
+    if ([...this.prefetchCache.keys()].some(i => i < index || i > end)) this.clearPrefetchCache();
+    this.currentUtteranceIndex = index;
   }
 
   getUtteranceCount(): number {
@@ -914,6 +1019,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private setState(state: ReadiumSpeechPlaybackState): void {
     const oldState = this.playbackState;
     this.playbackState = state;
+    if (state === "paused" && oldState !== "paused") this.pausedSince = performance.now();
+    if (oldState === "paused" && state !== "paused") this.pausedFor += performance.now() - this.pausedSince;
 
     if (oldState !== state) {
       switch (state) {

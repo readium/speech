@@ -144,13 +144,13 @@ test("selectBitrate returns undefined when there's no network info", (t) => {
 });
 
 test("selectBitrate reduces bitrate when saveData is true", (t) => {
-  t.is(selectBitrate("mp3", true, { saveData: true }), 48000);
-  t.is(selectBitrate("opus", true, { saveData: true }), 24000);
+  t.is(selectBitrate("mp3", true, { saveData: true }), 48);
+  t.is(selectBitrate("opus", true, { saveData: true }), 24);
 });
 
 test("selectBitrate reduces bitrate on a 2G-class effectiveType", (t) => {
-  t.is(selectBitrate("mp3", true, { effectiveType: "slow-2g" }), 48000);
-  t.is(selectBitrate("mp3", true, { effectiveType: "2g" }), 48000);
+  t.is(selectBitrate("mp3", true, { effectiveType: "slow-2g" }), 48);
+  t.is(selectBitrate("mp3", true, { effectiveType: "2g" }), 48);
 });
 
 test("selectBitrate leaves bitrate unset on a fast connection", (t) => {

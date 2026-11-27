@@ -3,12 +3,15 @@ import { ReadiumSpeechEngineProvider } from "../provider.js";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
-import { processLanguages } from "../voices/languages.js";
-import { groupVoicesByLanguage, pickBestVoiceByRegion, filterByBoundarySupport } from "../voices/sorting.js";
 import { EventEmitter } from "../utils/eventEmitter.js";
+import { isIndexInRange } from "../utils/array.js";
 import { isRecoverableFailure } from "./recoverableFailure.js";
 import { isVoiceReachable } from "../voices/reachability.js";
 import { getVoiceId } from "../voices/voiceId.js";
+import { findVoice, uniqueVoices } from "../voices/voiceLookup.js";
+import { hasBoundaryEvents } from "../voices/voiceMatching.js";
+import { pickFallbackVoice } from "./fallbackVoice.js";
+import { playbackEventTypes } from "../playbackEvents.js";
 
 export interface FallbackSpeechEngineOptions {
   primaryEngine: ReadiumSpeechPlaybackEngine;
@@ -25,12 +28,16 @@ export interface FallbackSpeechEngineOptions {
 
 const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 
-// Every event a wrapped engine can emit except "error", which is intercepted (see handleError)
-// to decide whether it's worth swapping engines over before being forwarded or not.
-const FORWARDED_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = [
-  "start", "pause", "resume", "end", "stop", "skip", "boundary", "mark",
-  "idle", "loading", "ready", "voiceschanged"
-];
+interface ReplacedVoice {
+  voice: ReadiumSpeechVoice;
+  replacement: string;
+}
+
+// Every event a wrapped engine can emit, except:
+// - "error", intercepted (see handleError) to decide whether to swap engines before forwarding it;
+// - "enginefallback" and "enginerecovered": this wrapper sends its own;
+// - "languagefallback", which only the navigator sends.
+const FORWARDED_EVENTS = playbackEventTypes("error", "languagefallback", "enginefallback", "enginerecovered");
 
 // Wraps a primary engine and swaps to a fallback provider's engine the first time the primary
 // reports a recoverable failure, resuming at the same utterance with the best matching voice.
@@ -54,7 +61,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // State the ReadiumSpeechPlaybackEngine interface doesn't expose getters for, kept here so it
   // can be replayed into a freshly created fallback (or recovered primary) engine.
   private currentUtterances: ReadiumSpeechUtterance[] = [];
+  private currentIsContextual: ((index: number) => boolean) | undefined;
   private lastVoiceRequest: ReadiumSpeechVoice | string | undefined;
+  // While on the fallback: each primary voice the queue was given, and the id of the fallback voice speaking it.
+  private replacedVoices: ReplacedVoice[] = [];
 
   // Live, not a snapshot — a swap in progress reads these at "ready" time, not when it started.
   private desiredIndex = 0;
@@ -94,14 +104,15 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Mid-swap, only records the new queue live — activeEngine is dying/about to be replaced.
-  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.loadToken++;
     this.currentUtterances = contents;
+    this.currentIsContextual = isContextual;
     this.desiredIndex = startIndex ?? 0;
     this.desiredPlaying = false;
     if (this.swapInFlight) return;
     this.engineStarted = true;
-    this.activeEngine.loadUtterances(this.withReachableVoices(contents, this.activeEngine), startIndex);
+    this.activeEngine.loadUtterances(this.withEngineVoices(contents, this.activeEngine), startIndex, isContextual);
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
@@ -114,16 +125,21 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Reachable voices only, on either engine, so content isn't given a voice that fails for lack of network.
+  // On the fallback, also the primary voices it replaces, as it speaks them.
   async getAvailableVoices(languages?: string[], voiceIds?: string[]): Promise<ReadiumSpeechVoice[]> {
     const engine = this.activeEngine;
+    const replaced = this.replacedVoices.map(entry => entry.voice);
     const voices = await engine.getAvailableVoices(languages, voiceIds);
     this.recordListedVoices(engine, voices);
-    return this.reachableVoices(voices);
+    return uniqueVoices([this.reachableVoices(voices), replaced]);
   }
 
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
   // recover without an audible glitch, so intercept it if the primary is already reachable.
   speak(utteranceIndex?: number): void {
+    if (utteranceIndex !== undefined && !isIndexInRange(utteranceIndex, this.currentUtterances.length)) {
+      throw new Error("Invalid utterance index");
+    }
     this.desiredIndex = utteranceIndex ?? this.desiredIndex;
     this.desiredPlaying = true;
     if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
@@ -205,6 +221,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Keeps desiredIndex authoritative even while trusted, like speak() does — otherwise a seek
   // followed by a failure with no intervening speak() would resume at the stale pre-seek index.
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
+    if (!isIndexInRange(index, this.currentUtterances.length)) {
+      onComplete?.(false);
+      return;
+    }
     this.desiredIndex = index;
     if (!this.isEngineTrusted()) {
       onComplete?.(true);
@@ -295,20 +315,25 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent<"error">): Promise<void> {
     let bestVoice: ReadiumSpeechVoice | null = null;
+    let replacements: ReplacedVoice[] = [];
 
     await this.performSwap(
       async () => {
         const primaryEngine = this.activeEngine;
-        const failedVoice = await this.utteranceVoice(primaryEngine, this.currentUtterances[this.desiredIndex])
+        await this.listUtteranceVoices(primaryEngine, this.currentUtterances);
+        const failedId = this.currentUtterances[this.desiredIndex]?.voice;
+        const failedVoice = (failedId ? this.listedVoice(primaryEngine, failedId) : undefined)
           ?? primaryEngine.getCurrentVoice()
           ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
-        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator !== "undefined" ? navigator.language : "en");
-        bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender, failedVoice?.controls?.boundary !== false);
+        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language;
+        bestVoice = await pickFallbackVoice(this.fallbackProvider, language, failedVoice?.gender, failedVoice ? hasBoundaryEvents(failedVoice) : true);
         if (!bestVoice) throw new Error("no offline-available fallback voice found");
+        replacements = await this.fallbackVoicesFor(primaryEngine, failedId, bestVoice);
         return this.fallbackProvider.createEngine(bestVoice);
       },
       () => {
         this.hasFallenBack = true;
+        this.replacedVoices = replacements;
         if (this.onFailure === "fallbackAndRecover") {
           this.startHealthCheck();
         }
@@ -323,11 +348,23 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     );
   }
 
-  // The utterance's own voice, when the engine has it.
-  private async utteranceVoice(engine: ReadiumSpeechPlaybackEngine, utterance: ReadiumSpeechUtterance | undefined): Promise<ReadiumSpeechVoice | undefined> {
-    if (!utterance?.voice) return undefined;
-    await this.listUtteranceVoices(engine, [utterance]);
-    return this.listedVoice(engine, utterance.voice);
+  // The fallback voice closest to each of the queue's voices the primary lists, `bestVoice` for the failed one.
+  private async fallbackVoicesFor(primaryEngine: ReadiumSpeechPlaybackEngine, failedId: string | undefined, bestVoice: ReadiumSpeechVoice): Promise<ReplacedVoice[]> {
+    const ids = [...new Set(this.currentUtterances.flatMap(utterance => utterance.voice ?? []))];
+    const replaced = await Promise.all(ids.map(async (id): Promise<ReplacedVoice | null> => {
+      const voice = this.listedVoice(primaryEngine, id);
+      if (!voice) return null;
+      const replacement = id === failedId
+        ? bestVoice
+        : await pickFallbackVoice(this.fallbackProvider, voice.language, voice.gender, hasBoundaryEvents(voice)).catch(() => null);
+      return replacement && { voice, replacement: getVoiceId(replacement) };
+    }));
+    return replaced.filter((entry): entry is ReplacedVoice => entry !== null);
+  }
+
+  private replacementFor(id: string): string | undefined {
+    const voice = findVoice(this.replacedVoices.map(entry => entry.voice), id);
+    return voice && this.replacedVoices.find(entry => entry.voice === voice)?.replacement;
   }
 
   private async recoverToPrimary(): Promise<void> {
@@ -336,6 +373,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       (primaryEngine) => {
         this.hasFallenBack = false;
         this.primaryReachable = false;
+        this.replacedVoices = [];
         return { type: "enginerecovered", detail: { voice: primaryEngine.getCurrentVoice() } };
       },
       () => {
@@ -387,7 +425,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.emitEvent(onSwapped(newEngine));
 
     this.startEngineWhenReady(newEngine);
-    newEngine.loadUtterances(this.withReachableVoices(this.currentUtterances, newEngine), this.desiredIndex); // live read — picks up any reload that raced the swap
+    newEngine.loadUtterances(this.withEngineVoices(this.currentUtterances, newEngine), this.desiredIndex, this.currentIsContextual); // live read — picks up any reload that raced the swap
 
     // Outside the try: a teardown failure here must not be mistaken for the swap itself failing.
     await oldEngine.destroy();
@@ -403,55 +441,29 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.listedVoices.set(engine, listed);
   }
 
-  // Matched by id, else by name, as engines match an utterance's voice.
   private listedVoice(engine: ReadiumSpeechPlaybackEngine, id: string): ReadiumSpeechVoice | undefined {
-    const listed = this.listedVoices.get(engine);
-    return listed?.get(id) ?? [...(listed?.values() ?? [])].find(voice => voice.name === id);
+    return findVoice(this.listedVoices.get(engine)?.values() ?? [], id);
   }
 
-  // Lists the utterances' own voices on the engine, so withReachableVoices() can tell which it can't reach.
+  // Lists the utterances' own voices on the engine, so withEngineVoices() can tell which it can't reach.
   private async listUtteranceVoices(engine: ReadiumSpeechPlaybackEngine, utterances: ReadiumSpeechUtterance[]): Promise<void> {
     const ids = [...new Set(utterances.flatMap(utterance => utterance.voice ?? []))];
     if (ids.length === 0) return;
     this.recordListedVoices(engine, await engine.getAvailableVoices(undefined, ids).catch(() => []));
   }
 
-  // Drops an utterance's own voice the engine lists as unreachable, so the engine speaks it with its own instead.
-  private withReachableVoices(utterances: ReadiumSpeechUtterance[], engine: ReadiumSpeechPlaybackEngine): ReadiumSpeechUtterance[] {
+  // An utterance's own voice as the engine speaks it: the fallback voice replacing it, else dropped when the engine
+  // lists it as unreachable, so the engine speaks it with its own instead.
+  private withEngineVoices(utterances: ReadiumSpeechUtterance[], engine: ReadiumSpeechPlaybackEngine): ReadiumSpeechUtterance[] {
     return utterances.map(utterance => {
-      const voice = utterance.voice ? this.listedVoice(engine, utterance.voice) : undefined;
+      if (!utterance.voice) return utterance;
+      const replacement = this.replacementFor(utterance.voice);
+      if (replacement) return { ...utterance, voice: replacement };
+      const voice = this.listedVoice(engine, utterance.voice);
       if (!voice || isVoiceReachable(voice)) return utterance;
       const { voice: _unreachable, ...rest } = utterance;
       return rest;
     });
-  }
-
-  // Language narrows first, gender second, boundary-support third: a same-language wrong-gender
-  // voice beats a different-language right-gender one, and a same-gender voice that drops
-  // boundary events beats one that also mismatches on boundary support. Falls back to any
-  // language if none matches, then to any gender within that if none matches, then to any
-  // boundary support within that if none matches. Region/quality ranking within the final
-  // candidate set is delegated to pickBestVoiceByRegion, the same ranking logic
-  // sortVoicesByRegions uses.
-  private async pickBestFallbackVoice(
-    language: string,
-    gender: ReadiumSpeechVoice["gender"],
-    needsBoundary: boolean
-  ): Promise<ReadiumSpeechVoice | null> {
-    const voices = this.reachableVoices(await this.fallbackProvider.getVoices());
-    if (voices.length === 0) return null;
-
-    const [processedLang] = processLanguages([language]);
-    const { voicesByLang } = groupVoicesByLanguage(voices, [processedLang]);
-    const byLanguage = voicesByLang.get(processedLang.baseLang) ?? [];
-    const languageMatches = byLanguage.length > 0 ? byLanguage : voices;
-
-    const byGender = gender ? languageMatches.filter(voice => voice.gender === gender) : [];
-    const genderMatches = byGender.length > 0 ? byGender : languageMatches;
-
-    const candidates = filterByBoundarySupport(genderMatches, needsBoundary);
-
-    return pickBestVoiceByRegion(language, candidates);
   }
 
   async destroy(): Promise<void> {
