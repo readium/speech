@@ -221,7 +221,8 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
     if (!this.started) {
-      if (this.stateOnSwitch === "paused") this.emitEvent({ type: "resume" });
+      if (this.getState() !== "paused") return;
+      this.emitEvent({ type: "resume" });
       this.speak(this.currentIndex);
       return;
     }

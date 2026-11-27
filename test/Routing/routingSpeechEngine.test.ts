@@ -255,6 +255,29 @@ test("pause() right after moving to another engine's utterance between utterance
   t.deepEqual(events, ["ready", "start", "end", "pause", "resume", "start"]);
 });
 
+test("resume() after moving to another engine's utterance before playing plays nothing", async (t) => {
+  const { web, server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.setCurrentUtteranceIndex(1);
+  router.resume();
+
+  t.deepEqual([...web.speakCalls, ...server.speakCalls], []);
+});
+
+test("resume() after moving to another engine's utterance between utterances, while playing, plays nothing", async (t) => {
+  const { web, server, router, events } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0);
+  web.emit("end");
+  router.setCurrentUtteranceIndex(1);
+  router.resume();
+
+  t.is(server.speakCalls.length, 0);
+  t.deepEqual(events, ["ready", "start", "end"]);
+});
+
 test("before anything is loaded, the state is the current engine's", (t) => {
   const { router } = setup();
 
