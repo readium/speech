@@ -169,7 +169,7 @@ test("moving to another engine's utterance while paused stays paused, and resume
 
   router.resume();
   t.deepEqual(server.speakCalls, [3]);
-  t.deepEqual(events, ["ready", "start", "pause", "start"]);
+  t.deepEqual(events, ["ready", "start", "pause", "resume", "start"]);
 });
 
 test("once the queue has ended, moving back to its first utterance, another engine's, reports idle", async (t) => {
@@ -252,6 +252,7 @@ test("pause() right after moving to another engine's utterance between utterance
 
   router.resume();
   t.deepEqual(server.speakCalls, [1]);
+  t.deepEqual(events, ["ready", "start", "end", "pause", "resume", "start"]);
 });
 
 test("before anything is loaded, the state is the current engine's", (t) => {
@@ -390,10 +391,12 @@ test("resume() without speak() while voices are listed plays nothing", async (t)
 });
 
 test("speak() then pause() while voices are listed is paused once they are, and resume() speaks it", async (t) => {
-  const { web, server, router } = setup();
+  const { web, server, router, events } = setup();
   router.loadUtterances(mixed);
   router.speak(1);
   router.pause();
+  t.is(router.getState(), "paused", "paused while listed");
+  t.deepEqual(events, ["pause"]);
   await tick();
 
   t.is(server.speakCalls.length, 0, "nothing spoken while paused");
@@ -401,14 +404,17 @@ test("speak() then pause() while voices are listed is paused once they are, and 
   router.resume();
   t.deepEqual(server.speakCalls, [1]);
   t.is(web.speakCalls.length, 0);
+  t.deepEqual(events, ["pause", "ready", "resume", "start"]);
 });
 
 test("speak(), pause() then resume() while voices are listed speaks once they are", async (t) => {
-  const { server, router } = setup();
+  const { server, router, events } = setup();
   router.loadUtterances(mixed);
   router.speak(1);
   router.pause();
   router.resume();
+  t.is(router.getState(), "loading");
+  t.deepEqual(events, ["pause", "resume"]);
   await tick();
 
   t.deepEqual(server.speakCalls, [1]);

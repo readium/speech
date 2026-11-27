@@ -34,7 +34,7 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - If a provider fails to list its voices, it is left out of the list. The call fails only when every provider fails.
 - `engine.setVoice(id)` sets the voice on the provider that lists it, even if its voices haven't been listed yet. In that case it asks every provider for that voice first:
   - `getCurrentVoice()` returns the previous voice until they answer.
-  - A queue loaded before they answer waits for them (`getState()` is `"loading"`), then goes to that provider.
+  - A queue loaded before they answer waits for them (`getState()` is `"loading"`, or `"paused"` once paused), then goes to that provider.
   - The last `setVoice()` wins, even over one still waiting.
   - A voice no provider lists is set on the provider of the current voice.
 
@@ -52,7 +52,7 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - Content goes to the engine of the current voice if it has no voice of its own, or if its voice isn't listed by any provider. That is the voice passed to `createEngine()` or the last `setVoice()`, else the first provider's. A change to it applies from the next `loadUtterances()`.
 - `"ready"` is sent when the engine of the start utterance is ready.
 - Playback events (`start`, `end`, `boundary`, `pause`, …) come only from the engine reading the current utterance. `voiceschanged`, `enginefallback` and `enginerecovered` come from any engine.
-- An engine is stopped when playback moves to another engine's utterance in the middle of its own, when `loadUtterances()` is called in the middle of its utterance, and by `stop()` or the end of the queue. Only the `"stop"` of the engine reading the current utterance on `stop()` is forwarded. A move by `setCurrentUtteranceIndex()` while playing sends one `"stop"`, as a single engine does; a move by `speak()` sends none. `pause()` after a move between utterances, before the next is spoken, sends `"pause"`.
+- An engine is stopped when playback moves to another engine's utterance in the middle of its own, when `loadUtterances()` is called in the middle of its utterance, and by `stop()` or the end of the queue. Only the `"stop"` of the engine reading the current utterance on `stop()` is forwarded. A move by `setCurrentUtteranceIndex()` while playing sends one `"stop"`, as a single engine does; a move by `speak()` sends none. `pause()` after a move between utterances, before the next is spoken, sends `"pause"`, and `resume()` sends `"resume"`. So do `pause()` and `resume()` after `speak()` while the queue waits for its voices.
 - `rate`, `pitch` and `volume` are set on every engine.
 - If a provider's `createEngine()` fails, it is left out. `createEngine()` fails only when every provider fails.
 - `isAvailable()` on the provider is `true` when at least one provider's `isAvailable()` is, e.g. Web Speech's while the speech-server is down: the engine can still speak with its voices. A provider without `isAvailable()`, or whose `isAvailable()` fails, doesn't count.
