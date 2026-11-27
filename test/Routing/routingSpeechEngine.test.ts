@@ -183,8 +183,48 @@ test("once the queue has ended, moving back to its first utterance, another engi
   server.emit("end");
   router.setCurrentUtteranceIndex(0); // what the navigator does once the queue has ended
 
-  t.is(web.getState(), "playing", "Web Speech itself still says playing: it never spoke the end of the queue");
   t.is(router.getState(), "idle");
+});
+
+test("at the end of the queue, an engine that read an earlier utterance is stopped", async (t) => {
+  const { web, server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed.slice(0, 2)); // "One." for Web Speech, then "Un." for the speech-server, the last
+  router.speak(0);
+  web.emit("end");
+  router.speak(1);
+  server.emit("end");
+
+  t.is(web.getState(), "idle");
+});
+
+test("stop() also stops an engine that read an earlier utterance", async (t) => {
+  const { web, server, router, events } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0);
+  web.emit("end");
+  router.speak(1);
+  router.stop();
+
+  t.is(web.getState(), "idle");
+  t.is(server.getState(), "idle");
+  t.deepEqual(events, ["ready", "start", "end", "start", "stop"], "one \"stop\"");
+});
+
+test("loadUtterances() during an utterance stops it unheard, so the new queue's engine doesn't speak over it", async (t) => {
+  const { web, server, router, events } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0); // Web Speech reads "One."
+  let webStopped = false;
+  web.on("stop", () => { webStopped = true; });
+  router.loadUtterances(mixed.slice(1)); // starts with "Un.", the speech-server's
+  router.speak(0);
+
+  t.true(webStopped);
+  t.deepEqual(server.speakCalls, [0]);
+  t.deepEqual(events, ["ready", "start", "ready", "start"]);
 });
 
 test("moving to another engine's utterance after one ended, before the next plays, still reports playing", async (t) => {

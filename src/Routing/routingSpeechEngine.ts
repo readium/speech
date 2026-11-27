@@ -74,6 +74,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.owners = null;
     this.pendingSpeak = false;
     this.readyEmitted = false;
+    if (this.started && this.speaking) this.engines[this.activeEngine].stop();
     this.resetPlayback();
 
     const unlisted = [...new Set(contents.flatMap(utterance => utterance.voice ?? []))].filter(id => this.ownerOf(id) === undefined);
@@ -215,7 +216,18 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.pendingSpeak = false;
     this.currentIndex = 0;
     this.resetPlayback();
-    if (this.owners) this.engines[this.activeEngine].stop();
+    if (!this.owners) return;
+    this.stopInactive();
+    this.engines[this.activeEngine].stop();
+  }
+
+  // Engines left between utterances stay "playing", e.g. a Fallback waiting for that to end to recover.
+  // Only once nothing plays: two Web Speech engines share one speechSynthesis.
+  private stopInactive(): void {
+    this.engines.forEach((engine, index) => {
+      const state = engine.getState();
+      if (index !== this.activeEngine && (state === "playing" || state === "paused")) engine.stop();
+    });
   }
 
   private resetPlayback(): void {
@@ -316,6 +328,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.unsubscribers.push(engine.on(type, (event) => {
         if (!isActive()) return;
         if (event.type === "end" || event.type === "stop" || event.type === "error") this.speaking = false;
+        if (event.type === "end" && this.currentIndex === this.utterances.length - 1) this.stopInactive();
         this.emitEvent(event);
       }));
     }
