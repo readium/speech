@@ -30,7 +30,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private utterances: ReadiumSpeechUtterance[] = [];
   private isContextual: ((index: number) => boolean) | undefined;
   // The engine speaking each utterance; null while the utterances' voices are being listed.
-  private owners: number[] | null = null;
+  private owners: number[] | null = [];
   private activeEngine: number;
   private currentIndex = 0;
   // Whether the active engine has been told to speak since it became active.
@@ -197,7 +197,12 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.pendingSpeak = false;
       return;
     }
-    if (this.started) this.engines[this.activeEngine].pause();
+    if (this.started) {
+      this.engines[this.activeEngine].pause();
+    } else if (this.stateOnSwitch === "playing") {
+      this.stateOnSwitch = "paused";
+      this.emitEvent({ type: "pause" });
+    }
   }
 
   resume(): void {

@@ -238,6 +238,28 @@ test("moving to another engine's utterance after one ended, before the next play
   t.is(router.getState(), "playing");
 });
 
+test("pause() right after moving to another engine's utterance between utterances reports paused, and resume() speaks it", async (t) => {
+  const { web, server, router, events } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  router.speak(0);
+  web.emit("end"); // "One." ended, nothing plays yet
+  router.setCurrentUtteranceIndex(1); // to "Un.", the speech-server's
+  router.pause();
+
+  t.is(router.getState(), "paused");
+  t.deepEqual(events, ["ready", "start", "end", "pause"]);
+
+  router.resume();
+  t.deepEqual(server.speakCalls, [1]);
+});
+
+test("before anything is loaded, the state is the current engine's", (t) => {
+  const { router } = setup();
+
+  t.is(router.getState(), "idle");
+});
+
 test("moving to another engine's utterance before anything played reports that engine's state", async (t) => {
   const { server, router } = setup();
   await router.getAvailableVoices();
