@@ -204,7 +204,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
     this.voices = withVoiceProviders(voices, this.voiceProviders);
-    this.voicesRequest = null;
+    this.voicesRequest = Promise.resolve(this.voices);
   }
 
   // Fetches the voices, and picks the default one by navigator.languages, as WebSpeechEngine does without languages

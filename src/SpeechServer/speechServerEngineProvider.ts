@@ -16,7 +16,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
 
   private options: SpeechServerEngineProviderOptions;
   private fetchImpl: typeof fetch;
-  private voices: ReadiumSpeechVoice[] = [];
+  private voices: ReadiumSpeechVoice[] | null = null;
 
   constructor(options: SpeechServerEngineProviderOptions) {
     this.options = options;
@@ -24,7 +24,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]> {
-    if (this.voices.length > 0 && !forceRefresh) {
+    if (this.voices && !forceRefresh) {
       return this.voices;
     }
 
@@ -55,7 +55,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
 
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {
     const engine = new SpeechServerEngine(this.options);
-    if (this.voices.length > 0) {
+    if (this.voices) {
       engine.setAvailableVoices(this.voices);
     }
     if (voice) {
@@ -65,6 +65,6 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async destroy(): Promise<void> {
-    this.voices = [];
+    this.voices = null;
   }
 }
