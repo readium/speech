@@ -384,6 +384,30 @@ form > div {
   background-color: #e68900 !important; /* Darker orange on hover */
 }
 
+/* Playing, but waiting for the utterance's audio */
+#play-pause-btn.waiting::after {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: 0.5em;
+  vertical-align: -0.1em;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: play-waiting 0.8s linear infinite;
+}
+
+@keyframes play-waiting {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #play-pause-btn.waiting::after {
+    animation: none;
+  }
+}
+
 /* Stop button (red) */
 .stop,
 .playback-controls .stop {

@@ -37,10 +37,23 @@ let currentVoice = null;
 let testUtterance = "";
 let userCustomUtterance = "";
 let lastNavigatorPosition = 1;
+let isWaiting = false;
 
 let speechNavigator;
 
 function setupNavigatorListeners() {
+  speechNavigator.on("waiting", () => {
+    isWaiting = true;
+    updateUI();
+  });
+  for (const type of ["start", "pause", "stop", "error"]) {
+    speechNavigator.on(type, () => { isWaiting = false; });
+  }
+
+  // Content loaded with a voice still being picked is queued only later.
+  speechNavigator.on("contentchange", updateUI);
+  speechNavigator.on("ready", updateUI);
+
   // Set up event listeners for the navigator
   speechNavigator.on("boundary", (event) => {
     if (event.detail && event.detail.name === "word") {
@@ -791,10 +804,10 @@ function togglePlayback() {
 
   try {
     const state = speechNavigator.getState();
-    if (state === "playing") {
+    if (state === "playing" || isWaiting) {
       speechNavigator.pause();
-    } else if (state === "paused") {
-      // Use play() to resume from paused state
+    } else if (state === "paused" || state === "loading") {
+      // While loading, play() plays once the content is ready
       speechNavigator.play();
     } else {
       // Start from beginning if stopped or in an unknown state
@@ -913,7 +926,7 @@ function updateUI() {
     // Update playback controls
     if (playPauseBtn) {
       playPauseBtn.disabled = !currentVoice || !hasContent;
-      if (state === "playing") {
+      if (state === "playing" || isWaiting) {
         playPauseBtn.innerHTML = "⏸️ Pause";
         playPauseBtn.classList.remove("play-state");
         playPauseBtn.classList.add("pause-state");
@@ -922,8 +935,10 @@ function updateUI() {
         playPauseBtn.classList.remove("pause-state");
         playPauseBtn.classList.add("play-state");
       }
+      playPauseBtn.classList.toggle("waiting", isWaiting);
+      playPauseBtn.setAttribute("aria-busy", String(isWaiting));
     }
-    
+
     // Update stop button
     if (stopBtn) {
       stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");
