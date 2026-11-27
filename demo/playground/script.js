@@ -95,9 +95,9 @@ try {
   if (typeof mod.ReadiumSpeechNavigator === "function") {
     NavigatorClass = mod.ReadiumSpeechNavigator;
   }
-  if (typeof mod.RoutingEngineProvider === "function") {
-    const { engineProvider } = await import("../speechEngine.js");
-    createEngine = () => engineProvider.createEngine();
+  if (typeof mod.WebSpeechEngineProvider === "function") {
+    const { webSpeechProvider } = await import("../speechEngine.js");
+    createEngine = () => webSpeechProvider.createEngine();
   }
   if (typeof mod.WebSpeechVoiceManager === "function") {
     VoiceManagerClass = mod.WebSpeechVoiceManager;

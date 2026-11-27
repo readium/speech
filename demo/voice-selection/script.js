@@ -1,5 +1,6 @@
 import { WebSpeechVoiceManager, ReadiumSpeechNavigator, SpeechPreferences, getVoiceId, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
-import { engineProvider, serverProvider } from "../speechEngine.js";
+import { serverEngineProvider, serverProvider } from "../speechEngine.js";
+import { showToast } from "../toast.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -79,6 +80,7 @@ function setupNavigatorListeners() {
   });
   speechNavigator.on("error", (event) => {
     console.error("Navigator error:", event.detail);
+    showToast(`Playback failed: ${event.detail.message}`, { urgent: true });
     updateUI();
   });
 }
@@ -90,11 +92,15 @@ async function init() {
     voiceManager = await WebSpeechVoiceManager.initialize();
 
     // Created once voices are loaded, as in the main demo
-    speechNavigator = new ReadiumSpeechNavigator(await engineProvider.createEngine());
+    speechNavigator = new ReadiumSpeechNavigator(await serverEngineProvider.createEngine());
     setupNavigatorListeners();
     
     // Sort those voices by browser preference using sortVoicesByRegions
-    const serverVoices = await serverProvider.getVoices().catch(() => []);
+    const serverVoices = await serverProvider.getVoices().catch((error) => {
+      console.error("Error loading server voices:", error);
+      showToast("Speech server unreachable, only browser voices are listed.", { urgent: true });
+      return [];
+    });
     allVoices = await voiceManager.sortVoicesByRegions(window.navigator.languages, [...voiceManager.getVoices({ excludeNovelty: false, excludeVeryLowQuality: false, removeDuplicates: false }), ...serverVoices]);
     
     // Get languages
@@ -111,10 +117,7 @@ async function init() {
     
   } catch (error) {
     console.error("Error initializing application:", error);
-    const errorDiv = document.createElement("div");
-    errorDiv.style.color = "red";
-    errorDiv.textContent = "Error loading voices. Please check console for details.";
-    document.body.prepend(errorDiv);
+    showToast("Error loading voices. Please check console for details.", { urgent: true });
   }
 }
 
@@ -788,6 +791,7 @@ async function playServerTestUtterance(text) {
   engine.on("end", done);
   engine.on("error", (event) => {
     console.error("Speech server error:", event.detail);
+    showToast(`Test utterance failed: ${event.detail.message}`, { urgent: true });
     done();
   });
   testUtteranceBtn.disabled = true;

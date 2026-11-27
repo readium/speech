@@ -13,11 +13,16 @@ export const serverProvider = new SpeechServerEngineProvider({
   format: { strategy: "bandwidth", adaptBitrateToNetwork: true }
 });
 
-const webSpeechProvider = new WebSpeechEngineProvider();
+export const webSpeechProvider = new WebSpeechEngineProvider();
 
 // Web Speech first, so content without a voice of its own is read with a browser voice.
 export const engineProvider = new RoutingEngineProvider({
-  providers: [webSpeechProvider, new FallbackEngineProvider({ primary: serverProvider, fallback: webSpeechProvider })]
+  providers: [webSpeechProvider, new FallbackEngineProvider({ primary: serverProvider, fallback: webSpeechProvider, onFailure: "fallbackAndRecover" })]
+});
+
+// Server voices fail with an error instead of switching to a browser voice.
+export const serverEngineProvider = new RoutingEngineProvider({
+  providers: [webSpeechProvider, serverProvider]
 });
 
 // The server's voices speaking `language`, none when it can't be reached.

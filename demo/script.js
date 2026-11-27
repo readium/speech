@@ -10,6 +10,7 @@ import {
   getVoiceId,
 } from "../src/index.ts";
 import { engineProvider, serverVoices } from "./speechEngine.js";
+import { showToast } from "./toast.js";
 
 // Keyed by its own language, so content in another language still gets a voice of its own.
 const voicePreferences = (voice) => new SpeechPreferences({ voice: { [voice.language.split("-")[0]]: getVoiceId(voice) } });
@@ -209,6 +210,16 @@ function setupEventListeners() {
   navigator.on("error", (event) => {
     console.error("Navigator error:", event.detail);
     updateUI();
+  });
+
+  navigator.on("enginefallback", (event) => {
+    const voice = event.detail.voice;
+    showToast(`Speech server unavailable, switched to ${voice ? voice.label || voice.name : "the browser voice"}.`);
+  });
+
+  navigator.on("enginerecovered", (event) => {
+    const voice = event.detail.voice;
+    showToast(`Speech server available again, switched back to ${voice ? voice.label || voice.name : "the server voice"}.`);
   });
 
   navigator.on("boundary", (event) => {
