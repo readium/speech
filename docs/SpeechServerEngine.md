@@ -57,7 +57,7 @@ interface SpeechServerEngineOptions {
 - `timeoutMs`: see [Stall detection](#stall-detection).
 - `voiceProviders`: only voices whose `provider` is listed:
   - `getVoices()` and `getAvailableVoices()` list only them, so the navigator only picks them.
-  - A request is never sent with another provider's voice. One set with `setVoice()` makes the utterance fail with a non-recoverable `"error"` instead. An utterance's own `voice` of another provider isn't listed, so the utterance is sent with the current voice. Without a voice, the server picks one.
+  - A request is never sent with another provider's voice. One set with `setVoice()` makes the utterance fail with a non-recoverable `"error"` instead. A voice set by id while `/voices` fails makes it fail with that request's error. An utterance's own `voice` of another provider isn't listed, so the utterance is sent with the current voice. Without a voice, the server picks one.
 
 ## Voices
 

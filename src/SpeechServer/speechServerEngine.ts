@@ -311,9 +311,20 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // The utterance's own voice when this server has it, else the current voice.
   private async voiceFor(content: ReadiumSpeechUtterance | undefined): Promise<ReadiumSpeechVoice | null> {
     // Without them, the utterance's voice couldn't be matched; a failed load leaves the current voice.
-    if (this.voices.length === 0) await (this.initializing ?? this.getAvailableVoices()).catch(() => {});
+    let listingError: unknown;
+    if (this.voices.length === 0) {
+      await (this.initializing ?? this.getAvailableVoices()).catch((error) => {
+        listingError = error;
+      });
+    }
+    // A voice set by id before the voices were listed has no provider: it's the listed one once they are.
+    const currentId = this.currentVoice?.provider === undefined ? this.currentVoice?.identifier : undefined;
+    if (currentId) this.currentVoice = this.voices.find(v => v.identifier === currentId || v.name === currentId) ?? this.currentVoice;
     const ownVoice = content?.voice ? this.voices.find(v => v.identifier === content.voice || v.name === content.voice) : undefined;
-    return ownVoice ?? this.currentVoice ?? this.defaultVoice;
+    const voice = ownVoice ?? this.currentVoice ?? this.defaultVoice;
+    // Its provider is unknown until the voices are listed.
+    if (listingError !== undefined && voice && !isOfVoiceProviders(voice, this.voiceProviders)) throw listingError;
+    return voice;
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {

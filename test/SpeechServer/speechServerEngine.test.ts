@@ -843,6 +843,32 @@ test.serial("with voiceProviders, a voice of another provider is never sent", as
   t.deepEqual(sentVoices(calls), [undefined, "urn:readium:tts:pocket:alba"]);
 });
 
+test.serial("with voiceProviders, a voice set by id while /voices fails fails with that error, and is spoken once /voices answers", async (t) => {
+  let voicesUp = false;
+  const { fetchImpl, calls } = createMockFetch({
+    voices: () => voicesUp ? [makeServerVoice()] : { status: 503, ok: false, json: { title: "Service Unavailable" } },
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl, voiceProviders: ["pocket"] });
+  const errors: any[] = [];
+  engine.on("error", (event: any) => errors.push(event.detail));
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  engine.loadUtterances([{ plain: "Hello" }]);
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), [], "nothing sent while /voices fails");
+  t.true(errors.length > 0);
+  t.true(errors.every(detail => detail.status === 503 && !/isn't a voice/.test(detail.message)), "the /voices error");
+
+  voicesUp = true;
+  engine.speak(0);
+  await flush();
+  await flush();
+  t.deepEqual(sentVoices(calls), ["urn:readium:tts:pocket:alba"]);
+});
+
 test.serial("initialize() picks a default voice with boundary events over a better one without", async (t) => {
   const originalNavigator = Object.getOwnPropertyDescriptor(globalThis, "navigator");
   Object.defineProperty(globalThis, "navigator", { value: { languages: ["fr-FR"], onLine: true }, configurable: true, writable: true });
