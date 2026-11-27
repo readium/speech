@@ -380,6 +380,40 @@ test("utterance voices not listed yet are listed before the queue is split, spea
   t.is(web.speakCalls.length, 0);
 });
 
+test("resume() without speak() while voices are listed plays nothing", async (t) => {
+  const { web, server, router } = setup();
+  router.loadUtterances(mixed);
+  router.resume();
+  await tick();
+
+  t.deepEqual([...web.speakCalls, ...server.speakCalls], []);
+});
+
+test("speak() then pause() while voices are listed is paused once they are, and resume() speaks it", async (t) => {
+  const { web, server, router } = setup();
+  router.loadUtterances(mixed);
+  router.speak(1);
+  router.pause();
+  await tick();
+
+  t.is(server.speakCalls.length, 0, "nothing spoken while paused");
+  t.is(router.getState(), "paused");
+  router.resume();
+  t.deepEqual(server.speakCalls, [1]);
+  t.is(web.speakCalls.length, 0);
+});
+
+test("speak(), pause() then resume() while voices are listed speaks once they are", async (t) => {
+  const { server, router } = setup();
+  router.loadUtterances(mixed);
+  router.speak(1);
+  router.pause();
+  router.resume();
+  await tick();
+
+  t.deepEqual(server.speakCalls, [1]);
+});
+
 test("speak() with an index outside the queue throws at once, also while the router still asks which engine has each voice", async (t) => {
   const { web, server, router } = setup();
   router.loadUtterances(mixed); // 4 utterances; no getAvailableVoices() call before, so the router asks the engines first

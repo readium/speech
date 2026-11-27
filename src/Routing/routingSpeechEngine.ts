@@ -39,8 +39,8 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speaking = false;
   // Playback's state when it moved to another engine's utterance, until that engine is spoken: its own state says nothing of playback.
   private stateOnSwitch: ReadiumSpeechPlaybackState | null = null;
-  // speak() called before the queue was split.
-  private pendingSpeak = false;
+  // Playback asked for before the queue was split: speak(), then pause() or resume().
+  private pendingPlayback: "playing" | "paused" | null = null;
   private readyEmitted = false;
   // Bumped by every loadUtterances() and by destroy(), so a listing can tell its queue is stale.
   private loadToken = 0;
@@ -72,7 +72,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.isContextual = isContextual;
     this.currentIndex = clampIndex(startIndex ?? 0, contents.length);
     this.owners = null;
-    this.pendingSpeak = false;
+    this.pendingPlayback = null;
     this.readyEmitted = false;
     if (this.started && this.speaking) this.engines[this.activeEngine].stop();
     this.resetPlayback();
@@ -110,9 +110,13 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.engines[index].loadUtterances(this.utterances, this.currentIndex, position => isContextual?.(position) || owners[position] !== index);
     }
 
-    if (this.pendingSpeak) {
-      this.pendingSpeak = false;
+    const pending = this.pendingPlayback;
+    this.pendingPlayback = null;
+    if (pending === "playing") {
       this.speak(this.currentIndex);
+    } else if (pending === "paused") {
+      this.started = false;
+      this.stateOnSwitch = "paused";
     }
   }
 
@@ -167,7 +171,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     const index = utteranceIndex ?? this.currentIndex;
     if (!this.owners) {
       this.currentIndex = index;
-      this.pendingSpeak = true;
+      this.pendingPlayback = "playing";
       return;
     }
     if (this.utterances.length === 0) {
@@ -194,7 +198,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (!this.owners) {
-      this.pendingSpeak = false;
+      if (this.pendingPlayback === "playing") this.pendingPlayback = "paused";
       return;
     }
     if (this.started) {
@@ -207,7 +211,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   resume(): void {
     if (!this.owners) {
-      this.pendingSpeak = true;
+      if (this.pendingPlayback === "paused") this.pendingPlayback = "playing";
       return;
     }
     if (!this.started) {
@@ -218,7 +222,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   stop(): void {
-    this.pendingSpeak = false;
+    this.pendingPlayback = null;
     this.currentIndex = 0;
     this.resetPlayback();
     if (!this.owners) return;
