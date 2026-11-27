@@ -25,7 +25,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // The voice of the utterance being spoken, reported in its "start" event.
   private speakingVoice: ReadiumSpeechVoice | null = null;
   private currentUtterances: ReadiumSpeechUtterance[] = [];
-  private isContextual: ((index: number) => boolean) | undefined;
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
@@ -202,7 +201,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Queue Management
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number, isContextual?: (index: number) => boolean): void {
     this.currentUtterances = this.toPlainText(contents);
-    this.isContextual = isContextual;
     this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     // Not setState(): never passes through "loading" first, so back-to-back loads while already
     // "ready" must still each emit — setState's diff-based emit would swallow the second one.
