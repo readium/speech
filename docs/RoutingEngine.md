@@ -48,7 +48,7 @@ const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] }
 - Each provider's engine is loaded with the whole queue, and speaks only the utterances of its voices.
   - The other utterances are only their neighbours' text, e.g. the `prev_utterance`/`next_utterance` a speech-server is sent.
   - A speech-server engine keeps fetching audio for its own upcoming utterances while Web Speech reads the ones in between. A move to another engine's utterance in the middle of one of its own stops it, which drops that audio, as a far seek does.
-  - It starts buffering from its first utterance at or after the start index.
+  - It starts buffering from its first utterance at or after the start index. With `prefetchWindow: 0`, it buffers only the start utterance, and only when it speaks it.
 - Content goes to the engine of the current voice if it has no voice of its own, or if its voice isn't listed by any provider. That is the voice passed to `createEngine()` or the last `setVoice()`, else the first provider's. A change to it applies from the next `loadUtterances()`.
 - `"ready"` is sent when the engine of the start utterance is ready.
 - Playback events (`start`, `end`, `boundary`, `pause`, …) come only from the engine reading the current utterance. `voiceschanged`, `enginefallback` and `enginerecovered` come from any engine.
