@@ -112,7 +112,11 @@ async function initialize() {
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
     navigator = new ReadiumSpeechNavigator(await engineProvider.createEngine());
-    enServerVoices = await serverVoices("en");
+    enServerVoices = await serverVoices("en").catch((error) => {
+      console.error("Error loading server voices:", error);
+      showToast("Speech server unreachable, only browser voices are listed.", { urgent: true });
+      return [];
+    });
 
     // Broadens the shared WebSpeechVoiceManager singleton so the engine's
     // own voice lookup (used for content-language switching) covers French

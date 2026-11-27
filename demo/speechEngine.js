@@ -25,8 +25,8 @@ export const serverEngineProvider = new RoutingEngineProvider({
   providers: [webSpeechProvider, serverProvider]
 });
 
-// The server's voices speaking `language`, none when it can't be reached.
+// The server's voices speaking `language`; rejects when the server can't be reached.
 export async function serverVoices(language) {
-  const voices = await serverProvider.getVoices().catch(() => []);
+  const voices = await serverProvider.getVoices();
   return voices.filter((voice) => [voice.language, ...(voice.otherLanguages ?? [])].some((tag) => tag.split("-")[0] === language));
 }
