@@ -156,21 +156,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.notifyVoicesChanged();
   }
 
-  // A swapped-in engine starts the queue stamped with the previous one's voices: held, then reloaded with its own.
-  private async refreshVoicesForEngine(): Promise<void> {
-    // Between utterances, playback resumes at the next one, unless moved meanwhile
-    const next = this.pendingAdvanceTimeout !== null ? this.getCurrentUtteranceIndex() + 1 : null;
-    this.clearPendingAdvance();
-    this.engine.pause();
-    await this.voiceSelection.pick();
-    if (this.loadedQueue.length > 0) {
-      const { index, state } = this.resumeTarget();
-      const resumeIndex = state && next !== null && this.getCurrentUtteranceIndex() === next - 1 ? next : index;
-      await this.setContentQueue(this.loadedQueue, resumeIndex, state);
-    }
-    this.notifyVoicesChanged();
-  }
-
   private notifyVoicesChanged(): void {
     const voice = this.spokenVoice();
     if (this.sameSettingValue(this.notifiedVoice, voice)) return;
@@ -300,15 +285,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       void this.refreshVoices();
     });
 
-    this.engine.on("enginefallback", (event) => {
-      this.emitEvent(event);
-      void this.refreshVoicesForEngine();
-    });
-
-    this.engine.on("enginerecovered", (event) => {
-      this.emitEvent(event);
-      void this.refreshVoicesForEngine();
-    });
+    this.engine.on("enginefallback", (event) => this.emitEvent(event));
+    this.engine.on("enginerecovered", (event) => this.emitEvent(event));
   }
 
   private setNavigatorState(state: ReadiumSpeechPlaybackState): void {

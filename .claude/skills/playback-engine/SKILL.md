@@ -54,7 +54,7 @@ Follow `src/Fallback/` and `src/Routing/`:
 - **Swaps and reloads that await:** guard them with tokens (`loadToken`, `teardownEpoch`) and keep the desired index and playing state live, not snapshotted.
 - **What to forward from any child:**
   - `voiceschanged`;
-  - `enginefallback` / `enginerecovered`, after which the navigator re-picks voices via `refreshVoicesForEngine()`.
+  - `enginefallback` / `enginerecovered`. The navigator doesn't pick voices again: the swapping engine speaks the queue's voices with its own replacements.
 - **No `WeakMap`s, caches or side channels next to existing data.** A per-child `Map` of listed voices is the engine's own voice list.
 - **`destroy()`** unsubscribes, clears listeners and destroys every child.
 

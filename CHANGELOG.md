@@ -12,6 +12,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `voiceProviders` option on `SpeechServerEngine` and `SpeechServerEngineProvider`: only voices of these server providers, e.g. `["pocket"]`, are listed and spoken with. See [SpeechServerEngine](docs/SpeechServerEngine.md#options).
 - `ReadiumSpeechNavigator` picks other languages' voices from the same kind of source as the voice they follow, the browser or a server, before matching boundary events, e.g. a browser voice for French when a browser voice is chosen for English. `pickLanguageVoice()` takes that `source`, and `filterBySource()` and `voiceSourceKind()` are new.
 
+### Changed
+
+- `ReadiumSpeechNavigator` no longer picks voices again when `FallbackSpeechEngine` swaps engines, and `FallbackSpeechEngine` replaces each voice of the queue the primary has with its own closest fallback voice (language, gender, boundary events), not only the failed one, until it swaps back. It lists those primary voices meanwhile, so a navigator keeps them for content loaded later, and `RoutingSpeechEngine` keeps giving their utterances to it. The voice in `"enginefallback"` is the one speaking the failed voice's utterances.
+
 ### Fixed
 
 - `SpeechServerEngine` with `adaptBitrateToNetwork` requests its reduced bitrates in kbps, as `output.bitrate` is, instead of 1000 times them.

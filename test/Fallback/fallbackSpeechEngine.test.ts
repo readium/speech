@@ -977,6 +977,40 @@ test.serial("the fallback voice matches the failing utterance's own voice, not t
   t.is(fallbackProvider.receivedVoice?.name, "French Male");
 });
 
+test.serial("on a swap, each utterance's voice is replaced by its own closest fallback voice", async (t) => {
+  const primary = new FakeEngine();
+  primary.availableVoices = [
+    makeReadiumVoice({ name: "Server English Male", voiceURI: "server-en-male", language: "en-US", gender: "male" }),
+    makeReadiumVoice({ name: "Server French Female", voiceURI: "server-fr-female", language: "fr-FR", gender: "female" })
+  ];
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = [...fallbackProvider.voices, makeReadiumVoice({ name: "English Male", language: "en-US", gender: "male", offlineAvailability: true })];
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const fallbacks: any[] = [];
+  wrapper.on("enginefallback", (event: any) => fallbacks.push(event.detail.voice.name));
+  wrapper.loadUtterances([{ plain: "Hello.", voice: "server-en-male" }, { plain: "Bonjour.", voice: "server-fr-female" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.deepEqual(fallbacks, ["English Male"]);
+  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Hello.", voice: "English Male" }, { plain: "Bonjour.", voice: "French Female" }]);
+});
+
+test.serial("after a swap, content loaded with the primary's voices is spoken with their fallback voices", async (t) => {
+  const primary = new FakeEngine();
+  primary.availableVoices = [makeReadiumVoice({ name: "Server French Male", voiceURI: "server-fr-male", language: "fr-FR", gender: "male" })];
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "Bonjour.", voice: "server-fr-male" }]);
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  wrapper.loadUtterances([{ plain: "Au revoir.", voice: "server-fr-male" }]);
+
+  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Au revoir.", voice: "French Male" }]);
+});
+
 test.serial("while offline, an utterance's network voice is given neither to the fallback nor to the recovered primary", async (t) => {
   t.teardown(stubOnLine(false));
   const voices = [
@@ -1007,7 +1041,7 @@ test.serial("while offline, an utterance's network voice is given neither to the
 
   primary.emit("error", { message: "network failure", recoverable: true });
   await tick();
-  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Bonjour." }], "on the fallback");
+  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1), [{ plain: "Bonjour.", voice: fallbackProvider.receivedVoice.name }], "on the fallback");
 
   fallbackProvider.engine!.setStateForTest("idle");
   await wait(80);

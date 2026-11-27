@@ -1,6 +1,6 @@
 import test from "ava";
-import { ReadiumSpeechNavigator, RoutingEngineProvider, RoutingSpeechEngine } from "../../build/index.js";
-import { FakeEngine, makeReadiumVoice, tick } from "../Fallback/testUtils.js";
+import { FallbackSpeechEngine, ReadiumSpeechNavigator, RoutingEngineProvider, RoutingSpeechEngine } from "../../build/index.js";
+import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, makeReadiumVoice, stubOnLine, tick } from "../Fallback/testUtils.js";
 
 const english = makeReadiumVoice({ name: "Samantha", voiceURI: "com.apple.voice.Samantha", language: "en-US", offlineAvailability: true });
 const french = makeReadiumVoice({ source: "server", name: "Lea", identifier: "urn:voice:lea", language: "fr-FR" });
@@ -541,4 +541,26 @@ test("one navigator speaks each language with its provider's voice, without relo
   t.is(navigator.getCurrentContent()?.plain, "Bonjour.");
   t.is(web.loadUtterancesCalls.length + server.loadUtterancesCalls.length, loads, "no reload at the switch");
   t.deepEqual(structuredClone(navigator.settings.voice), { en: "com.apple.voice.Samantha", fr: "urn:voice:lea" });
+});
+
+test.serial("after a Fallback engine swaps, a reload still gives it the server voice's utterances, spoken with its fallback voice", async (t) => {
+  t.teardown(stubOnLine(true));
+  const web = new FakeEngine({ synchronous: true });
+  web.availableVoices = [english];
+  const primary = new FakeEngine({ synchronous: true });
+  primary.availableVoices = [{ ...french, gender: "female" }];
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.engineOptions = { synchronous: true };
+  const fallback = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const router = new RoutingSpeechEngine({ engines: [web as any, fallback as any] });
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  router.loadUtterances(mixed);
+  await tick();
+
+  t.deepEqual(spokenBy(fallbackProvider.engine!), ["Un.", "Deux."]);
+  t.deepEqual(fallbackProvider.engine!.loadUtterancesCalls.at(-1)!.map((u: any) => u.voice), ["com.apple.voice.Samantha", "French Female", "com.apple.voice.Samantha", "French Female"]);
 });

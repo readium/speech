@@ -231,7 +231,7 @@ How it picks:
 
 For example, with a browser voice without boundary events chosen for English, French gets a browser voice without boundary events too, even when a server has a better one.
 
-Voices are picked again when the engine's voices change, e.g. when [`FallbackSpeechEngine`](FallbackEngine.md) swaps engines.
+Voices are picked again when the engine's voices change. A [`FallbackSpeechEngine`](FallbackEngine.md) swap isn't one: the engine speaks the content's voices with the fallback voices it picks for them.
 
 - **Waiting for a pick**: the navigator stays `"loading"`. A `play()` meanwhile plays once it's done.
 - **No voice for a language**: its utterances get the engine's current voice, and `"languagefallback"` fires once, with `detail: { language, reason: "no-matching-voice" }`.

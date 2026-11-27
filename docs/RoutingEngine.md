@@ -70,7 +70,7 @@ new RoutingEngineProvider({
 });
 ```
 
-When it falls back or recovers, its event is forwarded, and the navigator picks its voices again from the combined list. Don't wrap a `RoutingEngineProvider` itself in a `FallbackEngineProvider`: that would pick one fallback voice for the whole queue.
+When it falls back or recovers, its event is forwarded, and it speaks its utterances with the fallback voices it picked. Don't wrap a `RoutingEngineProvider` itself in a `FallbackEngineProvider`: one provider failing would swap the whole queue to the fallback.
 
 ## Options
 

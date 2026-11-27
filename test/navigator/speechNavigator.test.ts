@@ -1172,17 +1172,18 @@ test("languageOverrides changes the languages voices are picked for", async (t) 
   t.deepEqual(navigator.settings.voice, { fr: "Lea-fr-FR" });
 });
 
-test("content's voices are picked again once a fallback engine with other voices takes over", async (t) => {
+test("a fallback engine taking over doesn't reload the content with other voices", async (t) => {
   const engine = new VoicedMockEngine([alba, lea]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] });
   navigator.loadContent([{ plain: "Hello.", language: "en" }, { plain: "Bonjour.", language: "fr" }]);
   await settled();
-  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Alba-en-US", "Lea-fr-FR"]);
+  const loads = engine.loadUtterancesStartIndexCalls.length;
 
   engine.listed = [nora, amelie];
   engine.emit({ type: "enginefallback", detail: { reason: undefined, voice: nora } } as any);
   await settled();
-  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Nora-en-US", "Amelie-fr-FR"]);
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Alba-en-US", "Lea-fr-FR"]);
 });
 
 test("languagefallback fires once for a language the engine has no voice for", async (t) => {
@@ -1424,11 +1425,12 @@ test("a voice list resolving after a newer one doesn't replace it", async (t) =>
   t.deepEqual(navigator.settings.voice, { en: "Nora-en-US" });
 });
 
-test.serial("after an engine fallback, the queue is only played once stamped with the swapped-in engine's voices", async (t) => {
+test.serial("after an engine fallback, the queue is played once, with the swapped-in engine's voice", async (t) => {
   t.teardown(stubOnLine(true));
   const primary = new FakeEngine({ synchronous: true });
   primary.availableVoices = [listedVoice("Server", "fr-FR")];
   const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = [listedVoice("Web", "fr-FR")];
   fallbackProvider.engineOptions = { synchronous: true };
   const spokenVoices: (string | undefined)[] = [];
   const createEngine = fallbackProvider.createEngine.bind(fallbackProvider);
@@ -1456,6 +1458,32 @@ test.serial("after an engine fallback, the queue is only played once stamped wit
   t.deepEqual(spokenVoices, ["Web-fr-FR"]);
 });
 
+test.serial("content in a new language loaded after an engine fallback keeps the chosen server voice, spoken with its fallback voice", async (t) => {
+  t.teardown(stubOnLine(true));
+  const primary = new FakeEngine({ synchronous: true });
+  primary.availableVoices = [{ ...listedVoice("Server", "fr-FR"), gender: "male" }];
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.engineOptions = { synchronous: true };
+  const createEngine = fallbackProvider.createEngine.bind(fallbackProvider);
+  fallbackProvider.createEngine = async (voice?: any) => {
+    const engine = await createEngine(voice);
+    engine.availableVoices = fallbackProvider.voices;
+    return engine;
+  };
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const navigator = new ReadiumSpeechNavigator(wrapper, { languages: ["fr"], preferences: { voice: { fr: "Server-fr-FR" } } });
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  navigator.play();
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await settled();
+
+  navigator.loadContent([{ plain: "Au revoir.", language: "fr" }, { plain: "Goodbye.", language: "en" }]);
+  await settled();
+
+  t.is(fallbackProvider.engine!.loadUtterancesCalls.at(-1)?.[0]?.voice, "French Male");
+});
+
 test.serial("after an engine fallback, a queue with nothing to stamp again plays on", async (t) => {
   t.teardown(stubOnLine(true));
   const primary = new FakeEngine({ synchronous: true });
@@ -1474,11 +1502,12 @@ test.serial("after an engine fallback, a queue with nothing to stamp again plays
   t.is(navigator.getState(), "playing");
 });
 
-test.serial("an engine fallback between utterances plays the next one once, with the swapped-in engine's voices", async (t) => {
+test.serial("an engine fallback between utterances plays the next one once, with the swapped-in engine's voice", async (t) => {
   t.teardown(stubOnLine(true));
   const primary = new FakeEngine({ synchronous: true });
   primary.availableVoices = [listedVoice("Server", "fr-FR")];
   const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = [listedVoice("Web", "fr-FR")];
   fallbackProvider.engineOptions = { synchronous: true };
   const spoken: [number | undefined, string | undefined][] = [];
   const createEngine = fallbackProvider.createEngine.bind(fallbackProvider);
