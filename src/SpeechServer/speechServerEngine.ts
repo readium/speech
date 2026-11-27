@@ -293,11 +293,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtterances.length - 1;
   }
 
-  // The next utterance it speaks after `index`, -1 if none.
-  private nextOwnIndex(index: number): number {
-    return this.currentUtterances.findIndex((_, i) => i > index && !this.isContextual?.(i));
-  }
-
   // The `count`-th utterance it speaks after `index`, else the last index.
   private ownIndexAfter(index: number, count: number): number {
     if (count <= 0) return index;
@@ -998,14 +993,14 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       this.setState("idle");
       this.emitEvent({ type: "stop" });
     }
+    if (this.isContextual?.(index)) this.fillPrefetchWindow(index);
     onComplete?.(true);
   }
 
-  // Moving anywhere but the current or next utterance it speaks leaves the prefetched window behind.
+  // Prefetched audio is kept while all of it is still ahead, within the window.
   private moveTo(index: number): void {
-    if (index !== this.currentUtteranceIndex && index !== this.nextOwnIndex(this.currentUtteranceIndex)) {
-      this.clearPrefetchCache();
-    }
+    const end = this.ownIndexAfter(index, this.prefetchWindow);
+    if ([...this.prefetchCache.keys()].some(i => i < index || i > end)) this.clearPrefetchCache();
     this.currentUtteranceIndex = index;
   }
 

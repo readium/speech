@@ -253,6 +253,53 @@ test.serial("while one plays, audio is fetched ahead for its next 2 own utteranc
   t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven."], "\"One.\", playing, then its next 2");
 });
 
+// "One." and "Six." to "Eight." are its own; "Two." to "Five." are another engine's.
+const ownFirstAndLast = (index: number) => index > 0 && index < 5;
+
+test.serial("moved to another engine's utterance, audio is fetched ahead for its next 2 own utterances from there", async (t) => {
+  // readyBufferChars 1: before playing, only "One." is fetched
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.setCurrentUtteranceIndex(2);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven."]);
+});
+
+test.serial("moved one by one through another engine's utterances, its next own one plays from the audio fetched ahead", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  for (const index of [1, 2, 3, 4]) engine.setCurrentUtteranceIndex(index);
+  engine.speak(5);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven.", "Eight."], "\"Six.\" isn't fetched again");
+});
+
+test.serial("moved back to another engine's utterance, audio is fetched again for its next 2 own utterances from there", async (t) => {
+  const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
+
+  engine.loadUtterances(eight, 0, ownFirstAndLast);
+  await flush();
+  engine.speak(0);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.speak(5);
+  await flush();
+  MockAudioBufferSourceNode.instances.at(-1)!.onended?.();
+  engine.setCurrentUtteranceIndex(1);
+  await flush();
+
+  t.deepEqual(fetchedTexts(), ["One.", "Six.", "Seven.", "Eight.", "Six.", "Seven."]);
+});
+
 test.serial("with no other engine, while one plays, audio is fetched ahead for the next 2 utterances", async (t) => {
   const { engine, fetchedTexts } = createPrefetchingEngine({ readyBufferChars: 1 });
 

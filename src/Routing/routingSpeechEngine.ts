@@ -180,6 +180,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
     this.activate(this.owners[index]);
     this.currentIndex = index;
+    this.moveOthers(index);
     this.started = true;
     this.speaking = true;
     this.stateOnSwitch = null;
@@ -194,6 +195,13 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.activeEngine = engine;
     this.speaking = false;
     if (interrupted) previous.stop();
+  }
+
+  // So each engine buffers its own upcoming utterances from here.
+  private moveOthers(index: number): void {
+    this.engines.forEach((engine, i) => {
+      if (i !== this.owners![index]) engine.setCurrentUtteranceIndex(index);
+    });
   }
 
   pause(): void {
@@ -312,6 +320,7 @@ export class RoutingSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.started = false;
     }
     this.currentIndex = index;
+    this.moveOthers(index);
     // The stopped engine's own "idle" and "stop" aren't forwarded: told here, as a single engine does, once moved and before onComplete
     const tellStopped = () => {
       if (!interrupted) return;

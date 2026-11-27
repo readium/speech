@@ -105,6 +105,18 @@ test("moving to another engine's utterance mid-utterance stops the previous engi
 // setCurrentUtteranceIndex() while an utterance plays stops it. Like every engine, the router then sends "idle" and
 // "stop", after the move and before onComplete, so a "stop" listener sees the new index and can speak().
 
+test("a move by speak() or setCurrentUtteranceIndex() also moves the engines that don't speak that utterance", async (t) => {
+  const { web, server, router } = setup();
+  await router.getAvailableVoices();
+  router.loadUtterances(mixed);
+
+  router.speak(2); // "Two.", Web Speech's
+  t.is(server.getCurrentUtteranceIndex(), 2);
+
+  router.setCurrentUtteranceIndex(3); // "Deux.", the server's
+  t.is(web.getCurrentUtteranceIndex(), 3);
+});
+
 test("setCurrentUtteranceIndex() to another engine's utterance while one plays: \"idle\", \"stop\", then onComplete", async (t) => {
   const { web, router, events } = setup();
   router.on("idle", () => events.push("idle"));
