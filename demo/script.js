@@ -214,7 +214,7 @@ function setupEventListeners() {
 
   navigator.on("enginefallback", (event) => {
     const voice = event.detail.voice;
-    showToast(`Speech server unavailable, switched to ${voice ? voice.label || voice.name : "the browser voice"}.`);
+    showToast(`Speech server unavailable, switched to ${voice ? voice.label || voice.name : "the browser voice"}. Once the server is back, it switches back the next time you pause, stop, reach the end or load other content.`);
   });
 
   navigator.on("enginerecovered", (event) => {
